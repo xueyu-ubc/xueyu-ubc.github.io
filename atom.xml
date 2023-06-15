@@ -3,11 +3,11 @@
   <title>Welcome to XueYu&#39;s Blog</title>
   
   
-  <link href="https://github.com/xueyu-ubc/xueyu.github.io.git/atom.xml" rel="self"/>
+  <link href="https://github.com/xueyu-ubc/xueyu.github.io/atom.xml" rel="self"/>
   
-  <link href="https://github.com/xueyu-ubc/xueyu.github.io.git/"/>
+  <link href="https://github.com/xueyu-ubc/xueyu.github.io/"/>
   <updated>2023-06-14T07:15:19.987Z</updated>
-  <id>https://github.com/xueyu-ubc/xueyu.github.io.git/</id>
+  <id>https://github.com/xueyu-ubc/xueyu.github.io/</id>
   
   <author>
     <name>Xue Yu</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Reading Group about Diffusion models</title>
-    <link href="https://github.com/xueyu-ubc/xueyu.github.io.git/2023/06/13/hello-world/"/>
-    <id>https://github.com/xueyu-ubc/xueyu.github.io.git/2023/06/13/hello-world/</id>
+    <link href="https://github.com/xueyu-ubc/xueyu.github.io/2023/06/13/hello-world/"/>
+    <id>https://github.com/xueyu-ubc/xueyu.github.io/2023/06/13/hello-world/</id>
     <published>2023-06-14T01:05:05.989Z</published>
     <updated>2023-06-14T07:15:19.987Z</updated>
     
