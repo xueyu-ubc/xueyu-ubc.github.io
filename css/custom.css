@@ -1,48 +1,30 @@
-@charset "utf-8";
-/* CSS Document */
-
-#SOHUCS #SOHU_MAIN .module-hot-topic {
-	display: none!important;
+.sidebar {
+  left: -8rem;
+  width: 8rem;
 }
-
-#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .post-wrap-main {
-	background-image: none!important;
+.sidebar.on {
+  left: 0;
 }
-
-#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a button.btn-fw {
-	background: none!important;
-	border: 1px solid #000;
-  transition: all ease .3s;
-  position: relative;
-  border-radius: 6px;
-  font-size: 14px;
-  letter-spacing: 2px;
-	line-height: 28px;
-	height: 28px!important;
+.content.on {
+  margin-left: 0 !important;
 }
-
-#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a button.btn-fw::after {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	content: '评论';
-  color: #000;
-  transition: all ease .3s;
+.navbar-toggle {
+  left: 9.5rem;
 }
-
-#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a button.btn-fw:hover {
-	background: none!important;
+.search-form-wrap {
+  right: 8rem;
 }
-
-#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .wrap-action-w .action-issue-w .issue-btn-w a button.btn-fw:hover::after {
-	color: #fff;
-	background: #000;
+@media (min-width: 768px) {
+  .outer,
+  .wrap {
+    width: 80rem !important;
+  }
 }
-
-#SOHUCS #SOHU_MAIN .module-cmt-footer .section-service-w, #SOHUCS #SOHU_MAIN .module-cmt-footer .section-service-w .service-wrap-w, #SOHUCS #SOHU_MAIN .module-cmt-footer .section-service-w .service-wrap-w a {
-  height: 0;
-  overflow: hidden;
-  opacity: 0;
+@media (max-width: 768px) {
+  .tocbot {
+    display: none !important;
+  }
+  .content.on {
+    transform: translateX(8rem);
+  }
 }
