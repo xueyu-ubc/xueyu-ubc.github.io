@@ -28,6 +28,21 @@ P_{ij}(t+1)\]</span>.</p>
 <h1 id="convergence-of-markov-chain">CONVERGENCE OF MARKOV CHAIN</h1>
 <h2 id="some-distance-matrices">Some distance matrices</h2>
 <p>1, Total</p>
+<p><span class="math display">\[
+A = \begin{bmatrix}
+        a_{11}    &amp; a_{12}    &amp; ...    &amp; a_{1n}\\
+        a_{21}    &amp; a_{22}    &amp; ...    &amp; a_{2n}\\
+        a_{31}    &amp; a_{22}    &amp; ...    &amp; a_{3n}\\
+        \vdots    &amp; \vdots    &amp; \ddots &amp; \vdots\\
+        a_{n1}    &amp; a_{n2}    &amp; ... &amp; a_{nn}\\
+    \end{bmatrix} , b = \begin{bmatrix}
+        b_{1}  \\
+        b_{2}  \\
+        b_{3}  \\
+        \vdots \\
+        b_{n}  \\
+    \end{bmatrix}
+\]</span></p>
 ]]></content>
   </entry>
 </search>
