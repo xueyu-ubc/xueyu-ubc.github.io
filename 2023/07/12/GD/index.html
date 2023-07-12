@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********  Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<!--<![endif]-->
+
+<head>
+  <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction | Welcome to XueYu&#39;s Blog</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Welcome to XueYu's Blog">
+    <meta name="author" content="Xue Yu">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="Welcome to XueYu&#39;s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+    
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+  
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml">
+  
+  
+
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">UBC</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">RUC</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/paper/" class="animsition-link">paper<small>(5)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a target="_blank" rel="noopener" href="http://go.kieran.top/" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a target="_blank" rel="noopener" href="http://domain.com/" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">Welcome to XueYu's Blog</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2023-07-12T22:35:56.249Z" itemprop="datePublished">
+          2023-07-12
+      </time>
+    
+    
+    | 
+    <a href='/tags/GD/'>GD</a>
+    
+    
+</span>
+                <h1>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<h1 id="svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction">[SVRG2013]
+Accelerating Stochastic Gradient Descent using Predictive Variance
+Reduction</h1>
+<h2 id="introduction">Introduction</h2>
+<p>考虑如下优化问题 <span class="math display">\[
+\min P(\omega) = \frac{1}{n}\psi_{i}(\omega)
+\]</span></p>
+<ul>
+<li>如果采用平方损失，最小二乘回归；</li>
+<li>考虑正则项，令 <span class="math inline">\(\psi_{i}(\omega) = \ln(1
++ \exp(-\omega^{T}x_{i}y_{i})) + 0.5\lambda\omega^{T}\omega, y_{i} \in
+\{-1,1\}\)</span>，regularized logistic regression。</li>
+</ul>
+<p>梯度下降算法更新过程： <span class="math display">\[
+\omega^{(t)} = \omega^{(t-1)} - \eta_{t}\nabla P(\omega^{(t-1)}) =
+\omega^{(t-1)} - \frac{\eta_{t}}{n}\sum_{i=1}^{n}\nabla
+\psi_{i}(\omega^{(t-1)})
+\]</span></p>
+<p>但是，在每一步，GD都需要计算 <span class="math inline">\(n\)</span>
+个一阶偏导，计算量大。所以，一个改进就是随机梯度下降SGD：在每一步迭代时，随机从
+<span class="math inline">\(\{1,...,n\}\)</span> 中抽取 <span class="math inline">\(i_{t}\)</span>，然后 <span class="math display">\[
+\omega^{(t)} = \omega^{(t-1)} - \eta_{t}\nabla
+\psi_{i_{t}}(\omega^{(t-1)})
+\]</span></p>
+<p>期望 <span class="math inline">\(E[\omega^{(t)}|\omega^{(t-1)}]\)</span>
+同梯度更新的结果一致。 SGD的更一般表达形式为 <span class="math display">\[
+\omega^{(t)} = \omega^{(t-1)} - \eta_{t}g_{t}(\omega^{(t-1)},  \xi_{t})
+\]</span></p>
+<p><span class="math inline">\(\xi_{t}\)</span> 为一个依赖于 <span class="math inline">\(\omega^{(t-1)}\)</span> 的随机变量， 并且期望
+<span class="math inline">\(E[g_{t}(\omega^{(t-1)},
+\xi_{t})|\omega^{(t-1)}] = \nabla P(\omega^{(t-1)})\)</span>。</p>
+<p>SGD的优势就是每步迭代只需要计算一个梯度，因此计算成本是GD的 <span class="math inline">\(\frac{1}{n}\)</span>。但是，SGD的一个缺点就是随机性引入了方差：虽然
+<span class="math inline">\(g_{t}(\omega^{(t-1)}, \xi_{t})\)</span>
+的期望等于梯度 <span class="math inline">\(\nabla
+P(\omega^{(t-1)})\)</span>，但是每个<span class="math inline">\(g_{t}(\omega^{(t-1)}, \xi_{t})\)</span>
+是不同的。方差的出现导致收敛速度变慢。
+对于SGD，由于随机取样带来的方差，一般都会要求其步长 <span class="math inline">\(\eta_{t} = O(1/t)\)</span>，从而得到一个
+sub-linear 收敛率 <span class="math inline">\(O(1/t)\)</span>。</p>
+<ul>
+<li>GD: 每步迭代计算慢，收敛快。</li>
+<li>SGD：每步迭代计算快，收敛慢。</li>
+</ul>
+<p>为了改进SGD，一些学者开始设计算法以减少方差，从而可以使用较大的步长
+<span class="math inline">\(\eta_{t}\)</span>。有一些算法被提出来，比如：SAG(stochastic
+average
+gradient)，SDCA。但是这两个算法需要存储所有的梯度，一些情况下不太实际。因此作者提出了一个新的算法，该算法不需要存储所有的梯度信息，并且有较快的收敛速度，可以应用于非凸优化问题。</p>
+<h2 id="stochastic-variance-reduced-gradient-svrg">Stochastic Variance
+Reduced Gradient (SVRG)</h2>
+<p>为了保证收敛，SGD的步长必须衰减到0，从而导致收敛率变慢。需要较小步长的原因就是SGD的方差。作者提出一个解决方案。每进行
+<span class="math inline">\(m\)</span> 次SGD迭代后，记录当前参数 <span class="math inline">\(\tilde{\omega}\)</span> 以及平均梯度： <span class="math display">\[
+\tilde{\mu} = \nabla P(\tilde{\omega}) = \frac{1}{n}\sum_{i=1}^{n}
+\nabla \psi_{i}(\tilde{\omega}).
+\]</span></p>
+<p>然后接下来的更新为：</p>
+<p><span class="math display">\[
+\omega^{(t)} = \omega^{(t-1)} - \eta_{t}(\nabla
+\psi_{i_{t}}(\omega^{(t-1)}) - \nabla \psi_{i_{t}}(\tilde{\omega}) +
+\tilde{\mu})
+\]</span></p>
+<p>注意到： <span class="math display">\[
+E[\omega^{(t)}|\omega^{(t-1)}] = \omega^{(t-1)} - \eta_{t}\nabla
+P(\omega^{(t-1)})
+\]</span></p>
+<p>算法如下：</p>
+<p><img src="./GD/SVRG.png"></p>
+<p>更新步骤中梯度的方差是减小的。当 <span class="math inline">\(\tilde{\omega}\)</span> 和 <span class="math inline">\(\omega^{(t)}\)</span> 收敛到最优参数 <span class="math inline">\(\omega_{*}\)</span>，<span class="math inline">\(\tilde{\mu} \to 0\)</span>， <span class="math inline">\(\nabla\psi_{i}(\tilde{\omega}) \to \nabla
+\psi_{i}(\omega_{*})\)</span>，有 <span class="math display">\[
+\nabla\psi_{i}(\omega^{(t-1)}) - \nabla\psi_{i}(\tilde{\omega
+}) + \tilde{\mu} \to \nabla\psi_{i}(\omega^{(t-1)}) -
+\nabla\psi_{i}(\omega_{*}) \to 0
+\]</span></p>
+<p>SVRG的学习率不需要衰减，因此能有较快的收敛速度。作者提到，参数 <span class="math inline">\(m\)</span> 应该 <span class="math inline">\(O(n)\)</span>， 比如对于凸问题：<span class="math inline">\(m = 2n\)</span>，非凸问题：<span class="math inline">\(m = 2n\)</span>。</p>
+<h1 id="saga2015-saga-a-fast-incremental-gradient-method-with-support-for-non-strongly-convex-composite-objectives">[SAGA2015]
+SAGA: A Fast Incremental Gradient Method With Support for Non-Strongly
+Convex Composite Objectives</h1>
+<p>考虑最小化函数： <span class="math display">\[
+f(x) = \frac{1}{n}\sum_{i=1}^{n}f_{i}(x)
+\]</span></p>
+<p>作者提出了一个叫做SAGA的算法，在目标函数为强凸函数时，SAGA的收敛速度优于SAG和SVRG。算法如下：</p>
+<p><img src="./GD/SAGA.png"></p>
+<p>本文给出了variance reduction算法的一个解释： <img src="./GD/SAGA1.png"></p>
+<p>几种算法比较： <img src="./GD/SAGA2.png"></p>
+<h1 id="variance-reduced-stochastic-gradient-descent-with-neighbors-2015">[Variance
+Reduced Stochastic Gradient Descent with Neighbors 2015]</h1>
+<h1 id="katyusha-2017-katyusha-the-first-direct-acceleration-of-stochastic-gradient-methods">[Katyusha
+2017] Katyusha: The First Direct Acceleration of Stochastic Gradient
+Methods</h1>
+<p>Nesterov's momentum
+通常用于加速梯度下降算法，但是，对于随机梯度下降，Nesterov's momentum
+可能无法对算法进行加速，即使优化目标为凸函数。因此，针对SGD，作者提出
+Katyusha 算法，借助于动量Katyusha momentum实现加速SGD。</p>
+<p>考虑如下优化问题：</p>
+<p><span class="math display">\[
+\min_{x \in \mathbb{R}^{d}} \{F(x) = f(x) + \psi(x) =
+\frac{1}{n}\sum_{i=1}^{n} f_{i}(x) + \psi(x)\}
+\]</span> 其中 <span class="math inline">\(f(x) =
+\frac{1}{n}\sum_{i=1}^{n} f_{i}(x)\)</span> 为凸函数，并且是 <span class="math inline">\(n\)</span> 个凸函数的有限平均。<span class="math inline">\(\psi(x)\)</span>
+为凸函数，可为近端函数。大多数假设 <span class="math inline">\(\psi(x)\)</span> 为 <span class="math inline">\(\sigma\)</span>-strongly，并且 <span class="math inline">\(f_{i}(x)\)</span> L-smooth。</p>
+<p>作者提出一个可以求解上述优化问题的加速随机梯度下降算法-Katyusha：</p>
+<p><img src="./GD/ka.png"></p>
+<p>其中，<span class="math inline">\(\tilde{x}\)</span> 为snapshot
+point，每经过 <span class="math inline">\(n\)</span>
+次迭代更新一次。<span class="math inline">\(\tilde{\nabla}_{k+1}\)</span> 为variance reduction
+中的梯度形式。<span class="math inline">\(\tau_{1}\)</span>，<span class="math inline">\(\tau_{2} \in[0,1]\)</span> 为两个动量参数，<span class="math inline">\(\alpha = \frac{1}{3\tau_{1}L}\)</span>。</p>
+<h2 id="our-new-technique-katyusha-momentum">Our New Technique –
+Katyusha Momentum</h2>
+<p>最novel的部分是 <span class="math inline">\(x_{k+1}\)</span>
+的更新步骤，是 <span class="math inline">\(y_{k}\)</span>, <span class="math inline">\(z_{k}\)</span> 以及 <span class="math inline">\(\tilde{x}\)</span> 的凸组合。理论建议参数 <span class="math inline">\(\tau_{2} = 0.5\)</span>，<span class="math inline">\(\tau_{1} = \min\{\sqrt{n\sigma/L},
+0.5\}\)</span>。</p>
+<p>对于传统的加速梯度下降算法，<span class="math inline">\(x_{k+1}\)</span> 仅仅是 <span class="math inline">\(y_{k}\)</span> 和 <span class="math inline">\(z_{k}\)</span> 的凸组合，<span class="math inline">\(z_{k}\)</span>
+起到了一个“动量”的作用，即将历史加权的梯度信息添加到 <span class="math inline">\(y_{k+1}\)</span> 上。比如假设 <span class="math inline">\(\tau_{2} = 0, \tau_{1} = \tau\)</span>, <span class="math inline">\(x_{0} = y_{0} = z_{0}\)</span>，我们可以得到：</p>
+<p><img src="./GD/ka1.png"></p>
+<p>由于 <span class="math inline">\(\alpha\)</span> 通常大于 <span class="math inline">\(1/3L\)</span>，上述递推过程意味着随着迭代进行，梯度
+<span class="math inline">\(\tilde{\nabla}_{t}\)</span>
+的贡献越高。比如，<span class="math inline">\(\tilde{\nabla}_{1}\)</span> 的权重不断增大 (<span class="math inline">\(\frac{1}{3L} &lt; ((1-\tau)\frac{1}{3L} +
+\tau\alpha) &lt; ((1 - \tau)^{2}\frac{1}{3L} + (1 - (1 -
+\tau)^{2})\alpha)\)</span>)。这就是一阶加速方法的核心思想。</p>
+<p>在Katyusha算法中，作者认为 <span class="math inline">\(\tilde{x}\)</span> 同等重要，它能保证 <span class="math inline">\(x_{k+1}\)</span> 不要太远离 <span class="math inline">\(\tilde{x}\)</span>。<span class="math inline">\(\tilde{x}\)</span> 的添加可以看作是一个 “negative
+momentum”，使 <span class="math inline">\(x_{k+1}\)</span> back to <span class="math inline">\(\tilde{x}\)</span>，抵消一部分前面迭代时的
+positive momentum”。</p>
+<p>当 <span class="math inline">\(\tau_{1} = \tau_{2} = 0.5\)</span>
+时，Katyusha同SVRG几乎一致。</p>
+<h1 id="l-svrg-l-katyusha-2019-dont-jump-through-hoops-and-remove-those-loops-svrg-and-katyusha-are-betterwithout-the-outer-loop">[L-SVRG,
+L-Katyusha 2019] Don’t Jump Through Hoops and Remove Those Loops: SVRG
+and Katyusha are BetterWithout the Outer Loop</h1>
+<p>SVRG和Katyusha算法的共同关键结构就是两者都包含一个外层循环 (outer
+loop)。最初先在outer
+loop上使用所有样本计算梯度，然后计算出来的结果再用于内层循环 (inner
+loop)，结合新的随机梯度信息，构造variance-reduced
+梯度估计量。作者指出，由于SVRG和Katyusha算法都包括一个outer
+loop，所以存在一些问题，比如：算法很难分析；人们需要决定内部循环的次数。对于SVRG，理论上内部循环的最优次数取决于
+<span class="math inline">\(L\)</span>和 <span class="math inline">\(\mu\)</span>，但是 <span class="math inline">\(\mu\)</span>
+通常未知。由于这些问题存在，人们只能选择次优的inner loop
+size，通常设置内部循环次数为 <span class="math inline">\(O(n)\)</span>
+或者 <span class="math inline">\(n\)</span>。</p>
+<p>在这篇论文中，作者将外层循环 (outer loop)
+丢弃，在每次迭代时采用掷硬币技巧决定是否计算梯度，从而解决了上述问题。作者证明，新提出的算法和原始两个算法具有同样的理论性质。</p>
+<p><img src="./GD/loopless1.jpg"> <img src="./GD/loopless1.jpg"></p>
+<h1 id="l-svrg-l-katyusha-2019-l-svrg-and-l-katyusha-with-arbitrary-sampling">[L-SVRG,
+L-Katyusha 2019] L-SVRG and L-Katyusha with Arbitrary Sampling</h1>
+<h1 id="参考文献">参考文献</h1>
+<ul>
+<li>Johnson, R. and Zhang, T. Accelerating stochastic gradient descent
+using predictive variance reduction. In Advances in Neural Information
+Processing Systems 26, pp. 315–323, 2013a.<br>
+</li>
+<li>Defazio, A., Bach, F., and Lacoste-Julien, S. SAGA: a fast
+incremental gradient method with support for non-strongly convex
+composite objectives. In Advances in Neural Information Processing
+Systems, pp. 1646–1654, 2014.<br>
+</li>
+<li>Hofmann, T., Lucchi, A., Lacoste-Julien, S., and McWilliams, B.
+Variance reduced stochastic gradient descent with neighbors. In Advances
+in Neural Information Processing Systems, pp.2305–2313, 2015.<br>
+</li>
+<li>Allen-Zhu, Z. Katyusha: The first direct acceleration of stochastic
+gradient methods. In Proceedings of the 49th Annual ACM SIGACT Symposium
+on Theory of Computing, pp.1200–1205. ACM,2017.</li>
+<li>Kovalev, D., Horváth, S., and Richtárik, P. Don’t jump through hoops
+and remove those loops: SVRG and Katyusha are better without the outer
+loop. In Proceedings of the 31st International Conference on Algorithmic
+Learning Theory, 2020.</li>
+<li>Qian, X., Qu, Z., and Richtárik, P. L-SVRG and L-Katyusha with
+arbitrary sampling. arXiv preprint arXiv:1906.01481, 2019a.</li>
+</ul>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
+    
+    
+    <a class="pull-right" href="/2023/06/13/hello-world/">
+        Hello World →
+    </a>
+    
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By Xue Yu. All Rights Reserved.
+                </p>
+                <p>Theme By <a target="_blank" rel="noopener" href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+
+    resizeHero();
+
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$('#intro').find('img').each(function(){
+  var alt = this.alt;
+
+  if (alt){
+    $(this).after('<span class="caption" style="display:none">' + alt + '</span>');
+  }
+
+  $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox" rel="gallery" />');
+});
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+      
+</body>
+</html>

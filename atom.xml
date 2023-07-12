@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-07-12T22:23:56.019Z</updated>
+  <updated>2021-02-03T13:56:51.338Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Reading Group about Diffusion models</title>
+    <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
+    <link href="https://xueyu-ubc.github.io/2023/07/12/GD/"/>
+    <id>https://xueyu-ubc.github.io/2023/07/12/GD/</id>
+    <published>2023-07-12T22:35:56.249Z</published>
+    <updated>2021-02-03T13:56:51.338Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
+Accelerating Stochastic Gradient</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
     <link href="https://xueyu-ubc.github.io/2023/06/13/hello-world/"/>
     <id>https://xueyu-ubc.github.io/2023/06/13/hello-world/</id>
     <published>2023-06-14T01:05:05.989Z</published>
-    <updated>2023-07-12T22:23:56.019Z</updated>
+    <updated>2021-01-22T12:49:59.736Z</updated>
     
     
       
@@ -35,6 +61,116 @@ first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&
     
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>FLreview</title>
+    <link href="https://xueyu-ubc.github.io/2021/02/21/FLreview/"/>
+    <id>https://xueyu-ubc.github.io/2021/02/21/FLreview/</id>
+    <published>2021-02-21T23:15:17.000Z</published>
+    <updated>2021-03-03T02:47:28.968Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;aaai21-personalized-cross-silo-federated-learning-on-non-iid-data&quot;&gt;[AAAI21]
+Personalized Cross-Silo Federated Learning on Non-IID</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ADMMdecentralized</title>
+    <link href="https://xueyu-ubc.github.io/2021/02/03/ADMMdecentralized/"/>
+    <id>https://xueyu-ubc.github.io/2021/02/03/ADMMdecentralized/</id>
+    <published>2021-02-04T04:49:48.000Z</published>
+    <updated>2021-02-03T13:56:19.141Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#abstract&quot;&gt;Abstract&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Lower Bounds and Optimal Algorithms for Personalized Federated Learning</title>
+    <link href="https://xueyu-ubc.github.io/2021/01/26/AL2SGD/"/>
+    <id>https://xueyu-ubc.github.io/2021/01/26/AL2SGD/</id>
+    <published>2021-01-27T06:12:22.000Z</published>
+    <updated>2021-02-03T13:56:27.690Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#contributions&quot;&gt;Contributions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Federated Learning of a Mixture of Global and Local Models</title>
+    <link href="https://xueyu-ubc.github.io/2021/01/26/L2SGD/"/>
+    <id>https://xueyu-ubc.github.io/2021/01/26/L2SGD/</id>
+    <published>2021-01-27T06:12:10.000Z</published>
+    <updated>2021-02-03T13:56:23.032Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#11-federated-learning&quot;&gt;1.1 Federated</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
     
   </entry>
   
