@@ -22,8 +22,8 @@ you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 <h1 id="mcmc">MCMC</h1>
-<p>Time-homogeneous: the transition probability matrix is same.for <span class="math inline">\(\forall t, \forall i,j \in \Omega, P_{ij}(t) =
-P_{ij}(t+1)\)</span>.</p>
+<p>Time-homogeneous: the transition probability matrix is same.for <span class="math display">\[\forall t, \forall i,j \in \Omega, P_{ij}(t)  =
+P_{ij}(t+1)\]</span>.</p>
 <p>Markov chain: we assume it is time-homogeneous.</p>
 <h1 id="convergence-of-markov-chain">CONVERGENCE OF MARKOV CHAIN</h1>
 <h2 id="some-distance-matrices">Some distance matrices</h2>
