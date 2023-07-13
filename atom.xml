@@ -44,6 +44,32 @@
   </entry>
   
   <entry>
+    <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
+    <link href="https://xueyu-ubc.github.io/2021/02/27/GD/"/>
+    <id>https://xueyu-ubc.github.io/2021/02/27/GD/</id>
+    <published>2021-02-27T17:53:22.000Z</published>
+    <updated>2023-07-13T23:03:33.691Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
+Accelerating Stochastic Gradient</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ADMMdecentralized</title>
     <link href="https://xueyu-ubc.github.io/2021/02/03/ADMMdecentralized/"/>
     <id>https://xueyu-ubc.github.io/2021/02/03/ADMMdecentralized/</id>
@@ -68,32 +94,6 @@
     
     
     <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
-    <link href="https://xueyu-ubc.github.io/2021/01/27/GD/"/>
-    <id>https://xueyu-ubc.github.io/2021/01/27/GD/</id>
-    <published>2021-01-27T17:53:22.000Z</published>
-    <updated>2023-07-13T22:45:26.780Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
-Accelerating Stochastic Gradient</summary>
-        
-      
-    
-    
-    
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
-    
-    
-    <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
     
   </entry>
   
