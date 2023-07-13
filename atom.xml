@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2021-02-03T13:56:51.338Z</updated>
+  <updated>2023-07-13T22:54:07.188Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,45 +17,20 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
-    <link href="https://xueyu-ubc.github.io/2023/07/12/GD/"/>
-    <id>https://xueyu-ubc.github.io/2023/07/12/GD/</id>
-    <published>2023-07-12T22:35:56.249Z</published>
-    <updated>2021-02-03T13:56:51.338Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
-Accelerating Stochastic Gradient</summary>
-        
-      
-    
-    
-    
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
-    
-    
-    <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
+    <title></title>
     <link href="https://xueyu-ubc.github.io/2023/06/13/hello-world/"/>
     <id>https://xueyu-ubc.github.io/2023/06/13/hello-world/</id>
     <published>2023-06-14T01:05:05.989Z</published>
-    <updated>2021-01-22T12:49:59.736Z</updated>
+    <updated>2023-07-13T22:54:07.188Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very
-first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;section&quot;&gt;&lt;!-- /vscode-markdown-toc --&gt;&lt;/h2&gt;
+&lt;p&gt;title: Reading group about Diffusion Models date: 2023-07-12 18:00:00
+tags: Reading</summary>
         
       
     
@@ -115,6 +90,32 @@ Personalized Cross-Silo Federated Learning on Non-IID</summary>
     
     
     <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
+    <link href="https://xueyu-ubc.github.io/2021/01/27/GD/"/>
+    <id>https://xueyu-ubc.github.io/2021/01/27/GD/</id>
+    <published>2021-01-27T17:53:22.000Z</published>
+    <updated>2023-07-13T22:45:26.780Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
+Accelerating Stochastic Gradient</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
     
   </entry>
   

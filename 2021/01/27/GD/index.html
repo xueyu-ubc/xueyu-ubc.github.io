@@ -67,8 +67,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/07/12/GD/" class="article-date">
-  <time datetime="2023-07-12T22:35:56.249Z" itemprop="datePublished">2023-07-12</time>
+      <a href="/2021/01/27/GD/" class="article-date">
+  <time datetime="2021-01-27T17:53:22.000Z" itemprop="datePublished">2021-01-27</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/paper/">paper</a>
@@ -161,7 +161,7 @@ E[\omega^{(t)}|\omega^{(t-1)}] = \omega^{(t-1)} - \eta_{t}\nabla
 P(\omega^{(t-1)})
 \]</span></p>
 <p>算法如下：</p>
-<p><img src="/2023/07/12/GD/SVRG.png"></p>
+<p><img src="/2021/01/27/GD/SVRG.png"></p>
 <p>更新步骤中梯度的方差是减小的。当 <span class="math inline">\(\tilde{\omega}\)</span> 和 <span class="math inline">\(\omega^{(t)}\)</span> 收敛到最优参数 <span class="math inline">\(\omega_{*}\)</span>，<span class="math inline">\(\tilde{\mu} \to 0\)</span>， <span class="math inline">\(\nabla\psi_{i}(\tilde{\omega}) \to \nabla
 \psi_{i}(\omega_{*})\)</span>，有 <span class="math display">\[
 \nabla\psi_{i}(\omega^{(t-1)}) - \nabla\psi_{i}(\tilde{\omega
@@ -176,9 +176,9 @@ Convex Composite Objectives</h1>
 f(x) = \frac{1}{n}\sum_{i=1}^{n}f_{i}(x)
 \]</span></p>
 <p>作者提出了一个叫做SAGA的算法，在目标函数为强凸函数时，SAGA的收敛速度优于SAG和SVRG。算法如下：</p>
-<p><img src="/2023/07/12/GD/SAGA.png"></p>
-<p>本文给出了variance reduction算法的一个解释： <img src="/2023/07/12/GD/SAGA1.png"></p>
-<p>几种算法比较： <img src="/2023/07/12/GD/SAGA2.png"></p>
+<p><img src="/2021/01/27/GD/SAGA.png"></p>
+<p>本文给出了variance reduction算法的一个解释： <img src="/2021/01/27/GD/SAGA1.png"></p>
+<p>几种算法比较： <img src="/2021/01/27/GD/SAGA2.png"></p>
 <h1 id="variance-reduced-stochastic-gradient-descent-with-neighbors-2015">[Variance
 Reduced Stochastic Gradient Descent with Neighbors 2015]</h1>
 <h1 id="katyusha-2017-katyusha-the-first-direct-acceleration-of-stochastic-gradient-methods">[Katyusha
@@ -196,7 +196,7 @@ Katyusha 算法，借助于动量Katyusha momentum实现加速SGD。</p>
 \frac{1}{n}\sum_{i=1}^{n} f_{i}(x)\)</span> 为凸函数，并且是 <span class="math inline">\(n\)</span> 个凸函数的有限平均。<span class="math inline">\(\psi(x)\)</span>
 为凸函数，可为近端函数。大多数假设 <span class="math inline">\(\psi(x)\)</span> 为 <span class="math inline">\(\sigma\)</span>-strongly，并且 <span class="math inline">\(f_{i}(x)\)</span> L-smooth。</p>
 <p>作者提出一个可以求解上述优化问题的加速随机梯度下降算法-Katyusha：</p>
-<p><img src="/2023/07/12/GD/ka.png"></p>
+<p><img src="/2021/01/27/GD/ka.png"></p>
 <p>其中，<span class="math inline">\(\tilde{x}\)</span> 为snapshot
 point，每经过 <span class="math inline">\(n\)</span>
 次迭代更新一次。<span class="math inline">\(\tilde{\nabla}_{k+1}\)</span> 为variance reduction
@@ -208,7 +208,7 @@ Katyusha Momentum</h2>
 0.5\}\)</span>。</p>
 <p>对于传统的加速梯度下降算法，<span class="math inline">\(x_{k+1}\)</span> 仅仅是 <span class="math inline">\(y_{k}\)</span> 和 <span class="math inline">\(z_{k}\)</span> 的凸组合，<span class="math inline">\(z_{k}\)</span>
 起到了一个“动量”的作用，即将历史加权的梯度信息添加到 <span class="math inline">\(y_{k+1}\)</span> 上。比如假设 <span class="math inline">\(\tau_{2} = 0, \tau_{1} = \tau\)</span>, <span class="math inline">\(x_{0} = y_{0} = z_{0}\)</span>，我们可以得到：</p>
-<p><img src="/2023/07/12/GD/ka1.png"></p>
+<p><img src="/2021/01/27/GD/ka1.png"></p>
 <p>由于 <span class="math inline">\(\alpha\)</span> 通常大于 <span class="math inline">\(1/3L\)</span>，上述递推过程意味着随着迭代进行，梯度
 <span class="math inline">\(\tilde{\nabla}_{t}\)</span>
 的贡献越高。比如，<span class="math inline">\(\tilde{\nabla}_{1}\)</span> 的权重不断增大 (<span class="math inline">\(\frac{1}{3L} &lt; ((1-\tau)\frac{1}{3L} +
@@ -234,7 +234,7 @@ size，通常设置内部循环次数为 <span class="math inline">\(O(n)\)</spa
 或者 <span class="math inline">\(n\)</span>。</p>
 <p>在这篇论文中，作者将外层循环 (outer loop)
 丢弃，在每次迭代时采用掷硬币技巧决定是否计算梯度，从而解决了上述问题。作者证明，新提出的算法和原始两个算法具有同样的理论性质。</p>
-<p><img src="/2023/07/12/GD/loopless1.jpg"> <img src="/2023/07/12/GD/loopless1.jpg"></p>
+<p><img src="/2021/01/27/GD/loopless1.jpg"> <img src="/2021/01/27/GD/loopless1.jpg"></p>
 <h1 id="l-svrg-l-katyusha-2019-l-svrg-and-l-katyusha-with-arbitrary-sampling">[L-SVRG,
 L-Katyusha 2019] L-SVRG and L-Katyusha with Arbitrary Sampling</h1>
 <h1 id="参考文献">参考文献</h1>
@@ -326,7 +326,7 @@ arbitrary sampling. arXiv preprint arXiv:1906.01481, 2019a.</li>
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/07/12/GD/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2021/01/27/GD/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -339,10 +339,19 @@ arbitrary sampling. arXiv preprint arXiv:1906.01481, 2019a.</li>
    
   <nav class="article-nav">
     
+      <a href="/2021/02/03/ADMMdecentralized/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            ADMMdecentralized
+          
+        </div>
+      </a>
     
-      <a href="/2023/06/13/hello-world/" class="article-nav-link">
+    
+      <a href="/2021/01/26/AL2SGD/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Hello World</div>
+        <div class="article-nav-title">Lower Bounds and Optimal Algorithms for Personalized Federated Learning</div>
       </a>
     
   </nav>
