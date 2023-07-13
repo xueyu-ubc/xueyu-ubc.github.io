@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-07-13T22:54:07.188Z</updated>
+  <updated>2023-07-13T22:56:14.782Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,42 +17,20 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="https://xueyu-ubc.github.io/2023/06/13/hello-world/"/>
-    <id>https://xueyu-ubc.github.io/2023/06/13/hello-world/</id>
-    <published>2023-06-14T01:05:05.989Z</published>
-    <updated>2023-07-13T22:54:07.188Z</updated>
+    <title>Reading group about Diffusion Models</title>
+    <link href="https://xueyu-ubc.github.io/2023/07/12/mcmc/"/>
+    <id>https://xueyu-ubc.github.io/2023/07/12/mcmc/</id>
+    <published>2023-07-13T01:00:00.000Z</published>
+    <updated>2023-07-13T22:56:14.782Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;section&quot;&gt;&lt;!-- /vscode-markdown-toc --&gt;&lt;/h2&gt;
-&lt;p&gt;title: Reading group about Diffusion Models date: 2023-07-12 18:00:00
-tags: Reading</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>FLreview</title>
-    <link href="https://xueyu-ubc.github.io/2021/02/21/FLreview/"/>
-    <id>https://xueyu-ubc.github.io/2021/02/21/FLreview/</id>
-    <published>2021-02-21T23:15:17.000Z</published>
-    <updated>2021-03-03T02:47:28.968Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;aaai21-personalized-cross-silo-federated-learning-on-non-iid-data&quot;&gt;[AAAI21]
-Personalized Cross-Silo Federated Learning on Non-IID</summary>
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#markov-chain&quot;&gt;Markov Chain&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#metropolis-hasting-algorithm&quot;&gt;Metropolis</summary>
         
       
     
@@ -61,7 +39,7 @@ Personalized Cross-Silo Federated Learning on Non-IID</summary>
     <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
     
     
-    <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
+    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/tags/Reading-Group/"/>
     
   </entry>
   
@@ -163,6 +141,32 @@ Accelerating Stochastic Gradient</summary>
 &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#11-federated-learning&quot;&gt;1.1 Federated</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FLreview</title>
+    <link href="https://xueyu-ubc.github.io/2021/01/21/FLreview/"/>
+    <id>https://xueyu-ubc.github.io/2021/01/21/FLreview/</id>
+    <published>2021-01-21T23:15:17.000Z</published>
+    <updated>2023-07-13T22:58:05.608Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;aaai21-personalized-cross-silo-federated-learning-on-non-iid-data&quot;&gt;[AAAI21]
+Personalized Cross-Silo Federated Learning on Non-IID</summary>
         
       
     
