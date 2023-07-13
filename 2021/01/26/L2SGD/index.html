@@ -128,10 +128,10 @@ Setup and further experiments</a></li>
 <h1 id="introduction">Introduction</h1>
 <h2 id="federated-learning">1.1 Federated learning</h2>
 <p>联邦学习的目标函数： <span class="math display">\[
-  \min_{\bm{x} \in \mathbb{R}^{d}}
-\frac{1}{n}\sum_{i=1}^{n}f_{i}(\bm{x})
-  \]</span> 其中 <span class="math inline">\(n\)</span>表示参与训练的节点个数，<span class="math inline">\(\bm{x} \in
-\mathbb{R}^{d}\)</span>为全模型优化变量。 <span class="math inline">\(f_{i}(\bm{x})\)</span>为节点<span class="math inline">\(i\)</span>上的损失函数。</p>
+  \min_{\mathbf{x} \in \mathbb{R}^{d}}
+\frac{1}{n}\sum_{i=1}^{n}f_{i}(\mathbf{x})
+  \]</span> 其中 <span class="math inline">\(n\)</span>表示参与训练的节点个数，<span class="math inline">\(\mathbf{x} \in
+\mathbb{R}^{d}\)</span>为全模型优化变量。 <span class="math inline">\(f_{i}(\mathbf{x})\)</span>为节点<span class="math inline">\(i\)</span>上的损失函数。</p>
 <h1 id="contributions">Contributions</h1>
 <ul>
 <li>提出了新的FL优化形式，尝试学习全局模型和局部模型的混合。</li>
@@ -156,12 +156,12 @@ reduction（variance来自三部分：非均匀抽样，部分连接，从节点
 </ul>
 <h1 id="新的优化问题">新的优化问题</h1>
 <p><span class="math display">\[
-\min_{\bm{x_{1},...,x_{n}} \in \mathbb{R}^{d}} \{ F(\bm{x}) := f(\bm{x})
-+ \lambda \psi(\bm{x})\}
+\min_{\mathbf{x_{1},...,x_{n}} \in \mathbb{R}^{d}} \{ F(\mathbf{x}) :=
+f(\mathbf{x}) + \lambda \psi(\mathbf{x})\}
 \]</span> <span class="math display">\[
-f(\bm{x}):= \frac{1}{n}\sum_{i=1}^{n}f_{i}(\bm{x_{i}}), \quad
-\psi(\bm{x}):= \frac{1}{2n}\sum_{i=1}^{n}\|\bm{x_{i}} -
-\bm{\bar{x}}\|^{2}
+f(\mathbf{x}):= \frac{1}{n}\sum_{i=1}^{n}f_{i}(\mathbf{x_{i}}), \quad
+\psi(\mathbf{x}):= \frac{1}{2n}\sum_{i=1}^{n}\|\mathbf{x_{i}} -
+\mathbf{\bar{x}}\|^{2}
 \]</span></p>
 <ul>
 <li>Local model (<span class="math inline">\(\lambda = 0\)</span>)</li>
@@ -174,12 +174,13 @@ f(\bm{x}):= \frac{1}{n}\sum_{i=1}^{n}f_{i}(\bm{x_{i}}), \quad
 <p>在这一部分中，作者给出一个算法求解上述优化问题，该算法可以看作是一个非均匀SGD，要么抽取
 <span class="math inline">\(\nabla f\)</span>，要么抽取 <span class="math inline">\(\nabla \psi\)</span> 估计 <span class="math inline">\(\nabla F\)</span>。令 <span class="math inline">\(0 &lt; p &lt; 1\)</span>，定义一个随机梯度如下：
 <span class="math display">\[
-G(\bm{x}):= \begin{cases} \frac{\nabla f(\bm{x})}{1-p}, &amp; \text
-{概率 $1-p$} \\ \frac{\lambda \nabla \psi(\bm{x})}{p}, &amp; \text{概率
-$p$ } \end{cases}
-\]</span> 显然，<span class="math inline">\(G(\bm{x})\)</span>为 <span class="math inline">\(\nabla F(\bm{x})\)</span>的无偏估计量。
+G(\mathbf{x}):= \begin{cases} \frac{\nabla f(\mathbf{x})}{1-p}, &amp;
+\text {概率 $1-p$} \\ \frac{\lambda \nabla \psi(\mathbf{x})}{p}, &amp;
+\text{概率 $p$ } \end{cases}
+\]</span> 显然，<span class="math inline">\(G(\mathbf{x})\)</span>为
+<span class="math inline">\(\nabla F(\mathbf{x})\)</span>的无偏估计量。
 每步的更新为: <span class="math display">\[
-\bm{x}^{k+1} = \bm{x}^{k} - \alpha G(\bm{x}).
+\mathbf{x}^{k+1} = \mathbf{x}^{k} - \alpha G(\mathbf{x}).
 \]</span></p>
 <figure>
 <img src="./L2SGD/l2gd.png" alt="Algorithm 1">
@@ -187,7 +188,7 @@ $p$ } \end{cases}
 </figure>
 <p><span class="math inline">\(\textbf{Lemma 4.2}\)</span> 经过 <span class="math inline">\(k\)</span> 步迭代后，期望的通信次数为 <span class="math inline">\(p(1-p)k\)</span>。</p>
 <h2 id="收敛理论">收敛理论</h2>
-<p>作者首先证明梯度估计量<span class="math inline">\(G(\bm{x})\)</span>的期望具有光滑性质，然后证明了算法L2GD的收敛性质。（<span class="math inline">\(\bm{x(\lambda)}\)</span>为最优解，定理4.4
+<p>作者首先证明梯度估计量<span class="math inline">\(G(\mathbf{x})\)</span>的期望具有光滑性质，然后证明了算法L2GD的收敛性质。（<span class="math inline">\(\mathbf{x(\lambda)}\)</span>为最优解，定理4.4
 表明，L2GD算法只能收敛到最优解邻域。） <img src="./L2SGD/4.3.png"></p>
 <h2 id="收敛率优化">收敛率优化</h2>
 <p>作者给出最优抽样概率 <span class="math inline">\(p^{*} =
@@ -201,16 +202,17 @@ with variance reduction.</p>
 <h2 id="问题设置">问题设置</h2>
 <p>假设 <span class="math inline">\(f_{i}\)</span> 具有有限和结构：
 <span class="math display">\[
-f_{i} = \frac{1}{m}\sum_{j=1}^{m}f_{i,j}(\bm{x}_{i})
+f_{i} = \frac{1}{m}\sum_{j=1}^{m}f_{i,j}(\mathbf{x}_{i})
 \]</span></p>
 <p>那么目标函数变为： <span class="math display">\[
-F(\bm{x}) =
-\frac{1}{n}\sum_{i=1}^{n}(\frac{1}{m}\sum_{i=1}^{m}f_{i,j}(\bm{x}_{i}))
-+ \lambda\frac{1}{2n}\sum_{i=1}^{n}\|\bm{x}_{i} - \bm{\bar{x}}\|^{2}
+F(\mathbf{x}) =
+\frac{1}{n}\sum_{i=1}^{n}(\frac{1}{m}\sum_{i=1}^{m}f_{i,j}(\mathbf{x}_{i}))
++ \lambda\frac{1}{2n}\sum_{i=1}^{n}\|\mathbf{x}_{i} -
+\mathbf{\bar{x}}\|^{2}
 \]</span></p>
 <p><img src="./L2SGD/l2sgd+.png"></p>
 <p>L2SGD算法仅在两次抽样不同时才会发生通信，经过 <span class="math inline">\(k\)</span> 次迭代后，需要进行 <span class="math inline">\(p(1-p)k\)</span>
-次聚合平均。但是，L2SGD算法还需要通信控制变量 <span class="math inline">\(\bm{J_{i}I,
+次聚合平均。但是，L2SGD算法还需要通信控制变量 <span class="math inline">\(\mathbf{J_{i}I,
 \Psi_{i}}\)</span>，因此通信次数变为原来的3倍。在附录中，作者给出了一个高效的L2SGD+，不需要通信控制变量。</p>
 <h2 id="理论">理论</h2>
 <p>作者给出了L2SGD算法的理论性质，并且给出最优抽样概率 <span class="math inline">\(p^{*}\)</span>。</p>
