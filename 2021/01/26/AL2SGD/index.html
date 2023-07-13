@@ -121,19 +121,18 @@ oracle: Inexact APGD (IAPGD)</a></li>
 <!-- /TOC -->
 <h1 id="introduction">Introduction</h1>
 <p>作者在前文考虑了一个新的优化问题： <span class="math display">\[
-\min_{\bm{x_{1},...,x_{n}} \in \mathbb{R}^{d}} \{ F(\bm{x}) := f(\bm{x})
-+ \lambda \psi(\bm{x})\}
+\min_{\mathbf{x_{1},...,x_{n}} \in \mathbb{R}^{d}} \{ F(\mathbf{x}) :=
+f(\mathbf{x}) + \lambda \psi(\mathbf{x})\}
 \]</span> <span class="math display">\[
-f(\bm{x}):= \frac{1}{n}\sum_{i=1}^{n}f_{i}(\bm{x_{i}}), \quad
-\psi(\bm{x}):= \frac{1}{2n}\sum_{i=1}^{n}\|\bm{x_{i}} -
-\bm{\bar{x}}\|^{2}
+f(\mathbf{x}):= \frac{1}{n}\sum_{i=1}^{n}f_{i}(\mathbf{x_{i}}), \quad
+\psi(\mathbf{x}):= \frac{1}{2n}\sum_{i=1}^{n}\|\mathbf{x_{i}} -
+\mathbf{\bar{x}}\|^{2}
 \]</span></p>
-<p>Remark：该问题的最优解 <span class="math inline">\(\bm{x}^{*} =
-[\bm{x}_{1}^{*},..., \bm{x}_{n}^{*}] \in \mathbb{R}^{nd}\)</span>
-可以被表示为 <span class="math inline">\(\bm{x}^{*}_{i} =
-\bm{\bar{x}}^{*} - \frac{1}{\lambda}\nabla
-f_{i}(\bm{x}_{i}^{*})\)</span>，其中 <span class="math inline">\(\bm{\bar{x}}^{*} = \frac{1}{n}\sum_{i=1}^{n}
-\bm{x}_{i}^{*}\)</span>，该形式与MAML相似。</p>
+<p>Remark：该问题的最优解 <span class="math inline">\(\mathbf{x}^{*} =
+[\mathbf{x}_{1}^{*},..., \mathbf{x}_{n}^{*}] \in
+\mathbb{R}^{nd}\)</span> 可以被表示为 <span class="math inline">\(\mathbf{x}^{*}_{i} = \mathbf{\bar{x}}^{*} -
+\frac{1}{\lambda}\nabla f_{i}(\mathbf{x}_{i}^{*})\)</span>，其中 <span class="math inline">\(\mathbf{\bar{x}}^{*} = \frac{1}{n}\sum_{i=1}^{n}
+\mathbf{x}_{i}^{*}\)</span>，该形式与MAML相似。</p>
 <h1 id="contributions">Contributions</h1>
 <p>在这篇论文中，作者给出了求解上述优化问题的通信和局部计算复杂度（迭代次数）的最低界限，并且给出了几种能够达到最低界限的算法。</p>
 <ul>
@@ -188,9 +187,9 @@ Proximal Gradient Descent (APGD) for Federated Learning</h2>
 <p>根据另一篇论文，有两种不同的方式可以将梯度下降算法应用到上述优化问题上。最直接的方式是令
 <span class="math inline">\(h = f\)</span>，<span class="math inline">\(\phi =
 \lambda\psi\)</span>，那么可以得到如下更新步骤： <img src="/2021/01/26/AL2SGD/2.png"></p>
-<p>另一种方式是令 <span class="math inline">\(h(\bm{x}) = \lambda
-\phi(\bm{x}) + \frac{\mu}{2n}\|\bm{x}\|^{2}\)</span>， <span class="math inline">\(\phi(\bm{x}) = f(\bm{x}) -
-\frac{\mu}{2n}\|\bm{x}\|^{2}\)</span>。由此得到的更新过程如下： <img src="/2021/01/26/AL2SGD/3.png"></p>
+<p>另一种方式是令 <span class="math inline">\(h(\mathbf{x}) = \lambda
+\phi(\mathbf{x}) + \frac{\mu}{2n}\|\mathbf{x}\|^{2}\)</span>， <span class="math inline">\(\phi(\mathbf{x}) = f(\mathbf{x}) -
+\frac{\mu}{2n}\|\mathbf{x}\|^{2}\)</span>。由此得到的更新过程如下： <img src="/2021/01/26/AL2SGD/3.png"></p>
 <p>同FedProx算法一致。</p>
 <p>由于上述两种情况下，每次迭代都需要进行一轮通信，相应的通信复杂度次优。但是可以结合动量算法，程序(6)
 可以结合Nesterov's
