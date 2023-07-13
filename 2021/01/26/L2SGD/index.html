@@ -183,17 +183,17 @@ G(\mathbf{x}):= \begin{cases} \frac{\nabla f(\mathbf{x})}{1-p}, &amp;
 \mathbf{x}^{k+1} = \mathbf{x}^{k} - \alpha G(\mathbf{x}).
 \]</span></p>
 <figure>
-<img src="./L2SGD/l2gd.png" alt="Algorithm 1">
+<img src="/2021/01/26/L2SGD/l2gd.png" alt="Algorithm 1">
 <figcaption aria-hidden="true">Algorithm 1</figcaption>
 </figure>
 <p><span class="math inline">\(\textbf{Lemma 4.2}\)</span> 经过 <span class="math inline">\(k\)</span> 步迭代后，期望的通信次数为 <span class="math inline">\(p(1-p)k\)</span>。</p>
 <h2 id="收敛理论">收敛理论</h2>
 <p>作者首先证明梯度估计量<span class="math inline">\(G(\mathbf{x})\)</span>的期望具有光滑性质，然后证明了算法L2GD的收敛性质。（<span class="math inline">\(\mathbf{x(\lambda)}\)</span>为最优解，定理4.4
-表明，L2GD算法只能收敛到最优解邻域。） <img src="./L2SGD/4.3.png"></p>
+表明，L2GD算法只能收敛到最优解邻域。） <img src="/2021/01/26/L2SGD/4.3.png"></p>
 <h2 id="收敛率优化">收敛率优化</h2>
 <p>作者给出最优抽样概率 <span class="math inline">\(p^{*} =
 \frac{\lambda}{L + \lambda}\)</span>，步长 <span class="math inline">\(\alpha\)</span> 要满足 <span class="math inline">\(\frac{\alpha\lambda}{np} \leq
-\frac{1}{2}\)</span>. <img src="./L2SGD/4.4.png"></p>
+\frac{1}{2}\)</span>. <img src="/2021/01/26/L2SGD/4.4.png"></p>
 <h1 id="loopless-local-sgd-with-variance-reduction">Loopless Local SGD
 with Variance Reduction</h1>
 <p>L2GD算法仅线性收敛到最优解的邻域，无法收敛到最优解。假设每个子目标函数具有有限和形式，作者提出了一个算法L2SGD+，在每个节点上进行随机梯度下降，并且具有线性收敛速度。L2SGD是一个具有variance
@@ -210,18 +210,18 @@ F(\mathbf{x}) =
 + \lambda\frac{1}{2n}\sum_{i=1}^{n}\|\mathbf{x}_{i} -
 \mathbf{\bar{x}}\|^{2}
 \]</span></p>
-<p><img src="./L2SGD/l2sgd+.png"></p>
+<p><img src="/2021/01/26/L2SGD/l2sgd+.png"></p>
 <p>L2SGD算法仅在两次抽样不同时才会发生通信，经过 <span class="math inline">\(k\)</span> 次迭代后，需要进行 <span class="math inline">\(p(1-p)k\)</span>
 次聚合平均。但是，L2SGD算法还需要通信控制变量 <span class="math inline">\(\mathbf{J_{i}I,
 \Psi_{i}}\)</span>，因此通信次数变为原来的3倍。在附录中，作者给出了一个高效的L2SGD+，不需要通信控制变量。</p>
 <h2 id="理论">理论</h2>
 <p>作者给出了L2SGD算法的理论性质，并且给出最优抽样概率 <span class="math inline">\(p^{*}\)</span>。</p>
-<p><img src="./L2SGD/5.1.jpg"> <img src="./L2SGD/5.2.png"> <img src="./L2SGD/5.3.png"></p>
+<p><img src="/2021/01/26/L2SGD/5.1.jpg"> <img src="/2021/01/26/L2SGD/5.2.png"> <img src="/2021/01/26/L2SGD/5.3.png"></p>
 <h1 id="experiments">Experiments</h1>
 <p>作者考虑Logistic回归问题，数据为LibSVM data(Chank &amp; Lin,
 2011)。数据首先进行normalized，以使得 <span class="math inline">\(f_{ij}\)</span>
 为1-smooth。步长根据定理5.2确定。每个数据集被划分为不同个数的节点，具体参数设置如下：
-<img src="./L2SGD/table1.png"></p>
+<img src="/2021/01/26/L2SGD/table1.png"></p>
 <p>作者考虑三种算法：L2SGD+, L2SGD(L2GD with local SGD), L2SGD2(L2GD
 with local subsampling and control variates constructed for <span class="math inline">\(\Psi\)</span>)。根据理论分析，L2SGD+线性收敛到最优解，而L2SGD和L2SGD2收敛到最优解邻域。</p>
 <p>作者考虑了两种数据分割方式。对于homogeneous data,
@@ -229,7 +229,7 @@ with local subsampling and control variates constructed for <span class="math in
 data,
 首先根据观测样本的标签将样本排序，然后将排序后的数据依次划分到不同节点上
 (the worst-case heterogeneity)。</p>
-<p><img src="./L2SGD/figure3.png"></p>
+<p><img src="/2021/01/26/L2SGD/figure3.png"></p>
 <p>结果表明 - L2SGD+ (Full variance reduction)可以收敛到最优解，而
 L2SGD(without variance reduction)和 L2SGD2(with partial variance
 reduction) 只收敛到最优解邻域。 - 进行variance
@@ -248,20 +248,20 @@ and further experiments</h2>
 <ul>
 <li><p>Local GD with variance reduction</p>
 <p>当每个节点采用梯度下降算法，且考虑variance reduction时，</p>
-<p><img src="./L2SGD/b1.png"> <img src="./L2SGD/a3.png"></p></li>
+<p><img src="/2021/01/26/L2SGD/b1.png"> <img src="/2021/01/26/L2SGD/a3.png"></p></li>
 <li><p>Efficient implementation of L2SGD+
 考虑到L2SGD+需要通信控制变量，增加了通信次数。作者给出了一个高效的版本，不需要通信控制变量，<span class="math inline">\(k\)</span>次迭代只需要通信 <span class="math inline">\(p(1-p)k\)</span>次。</p>
-<p><img src="./L2SGD/a4.png"></p></li>
+<p><img src="/2021/01/26/L2SGD/a4.png"></p></li>
 <li><p>Local SGD with variance reduction – general method
 在这部分中，作者给出了一个使用性更广的版本。每个节点上目标函数可以包含一个非光滑正则项：</p>
-<p><img src="./L2SGD/b3.png"></p>
+<p><img src="/2021/01/26/L2SGD/b3.png"></p>
 <p>另外，该版本算法允许从所有节点中任意抽样，允许节点结构任意（比如节点数据集大小，目标函数光滑程度，每个节点抽样方式任意）。</p>
-<p><img src="./L2SGD/a5.png"></p></li>
+<p><img src="/2021/01/26/L2SGD/a5.png"></p></li>
 <li><p>Local stochastic algorithms</p>
 <p>在这部分中，作者给出两个简单算法，不考虑variance reduction的Local
 SGD(算法6)以及只考虑部分variance reduction的Local SGD (算法7)。</p>
-<p><img src="./L2SGD/a6.png"></p>
-<p><img src="./L2SGD/a7.png"></p></li>
+<p><img src="/2021/01/26/L2SGD/a6.png"></p>
+<p><img src="/2021/01/26/L2SGD/a7.png"></p></li>
 </ul>
 <h1 id="参考文献">参考文献</h1>
 <ul>
