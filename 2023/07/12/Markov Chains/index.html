@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Markov Chains |  Welcome to XueYu&#39;s Blog
+    Discrete Markov Chains |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -60,7 +60,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Markov Chains
+  Discrete Markov Chains
 </h1>
  
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">554</span>
+            <span class="post-count">512</span>
         </span>
     </span>
 
@@ -97,8 +97,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="markov-chain">Markov Chain</h1>
-<h2 id="markov-chains-definitions-and-representations">Markov Chains:
+  <h2 id="markov-chains-definitions-and-representations">Markov Chains:
 Definitions and Representations</h2>
 <p>A stochastic process <span class="math inline">\(X = \{ x(t): t\in
 T\}\)</span> is a collection of random variables. There are two
@@ -111,10 +110,13 @@ comes from a countably infinite set) * continuous space.</p>
 the future behaviour, given the past and the present, only depends on
 the present and not on the past. Markov process is the
 <strong>continuous-time</strong> version of a Markov chain.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Definition 1.[Markov chain] A discrete time stochastic process $ X_0, X_1, X_2, $. . . is a Markov chain if
-$$
-P(X_{t} = a_t | X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, ..., X_0 = a_0) = P(X_{t} = a_t | X_{t-1} = a_{t-1}) = P_{a_{t-1}, a_{t} }
-$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>Definition 1.[Markov chain] A discrete time stochastic process $ X_0,
+X_1, X_2, $. . . is a Markov chain if <span class="math display">\[
+P(X_{t} = a_t | X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, ..., X_0 = a_0) =
+P(X_{t} = a_t | X_{t-1} = a_{t-1}) = P_{a_{t-1}, a_{t} }
+\]</span></p>
+</blockquote>
 <p>Remark 1: This is time-homogeneous markov chain, which for t, for
 a_{t-1}, a_{t} , the transition probability <span class="math inline">\(P_{a_{t-1}, a_{t} }\)</span> is the same.</p>
 <p>Remark 2: In DDPM, it is not a time-homogeneous chain, as the
@@ -142,14 +144,16 @@ probability of transition from state <span class="math inline">\(i\)</span> to s
 P(X_{t} = j| X_{t-1} = i), i,j \in \Omega\)</span>. For <span class="math inline">\(i\)</span>, <span class="math inline">\(\sum_{j
 \geq 0} P_{i,j} = 1\)</span>.</p>
 <h2 id="classification-of-states">Classification of States</h2>
-<p>For simplicity, we assume that the state space <span class="math inline">\(\Omega\)</span> is finite. ### Communicating class
-</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Definition 2. [Communicating class] A state $j$ is reachable from state $i$ if there exists a positive integer $n$ such that $P_{i,j}^{(n)} &gt; 0$. We write $i \rightarrow j$. If $j$ is reachable
-from $i$, and $i$ is reachable from $j$, then the states $i$ and $j$ are said to **communicate**, denoted by $i \leftrightarrow j$. A communicating class $C$ is a **maximal** set of states that communicate with each other. No state in $C$ communicates with any state not in $C$.
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre> &gt; The relation <span class="math inline">\(\leftrightarrow\)</span> is an equivalence
-relation. The equivalence classes are called <strong>communicating
-classes</strong>. A communicating class is a maximal set of states that
-communicate with each other. No state in <span class="math inline">\(C\)</span> communicates with any state not in
-<span class="math inline">\(C\)</span>.<p></p>
+<p>For simplicity, we assume that the state space <span class="math inline">\(\Omega\)</span> is finite. ### Communicating
+class</p>
+<blockquote>
+<p>Definition 2. [Communicating class] A state <span class="math inline">\(j\)</span> is reachable from state <span class="math inline">\(i\)</span> if there exists a positive integer
+<span class="math inline">\(n\)</span> such that <span class="math inline">\(P_{i,j}^{(n)} &gt; 0\)</span>. We write <span class="math inline">\(i \rightarrow j\)</span>. If <span class="math inline">\(j\)</span> is reachable from <span class="math inline">\(i\)</span>, and <span class="math inline">\(i\)</span> is reachable from <span class="math inline">\(j\)</span>, then the states <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to
+<strong>communicate</strong>, denoted by <span class="math inline">\(i
+\leftrightarrow j\)</span>. A communicating class <span class="math inline">\(C\)</span> is a <strong>maximal</strong> set of
+states that communicate with each other. No state in <span class="math inline">\(C\)</span> communicates with any state not in
+<span class="math inline">\(C\)</span>.</p>
+</blockquote>
 <h1 id="参考文献">参考文献</h1>
 <ul>
 <li>Hanzely, F. , &amp; Richtárik, Peter. (2020). Federated learning of

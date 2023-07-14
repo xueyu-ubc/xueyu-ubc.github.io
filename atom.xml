@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-07-14T21:04:25.863Z</updated>
+  <updated>2023-07-14T21:09:31.693Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,18 +17,20 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Markov Chains</title>
+    <title>Discrete Markov Chains</title>
     <link href="https://xueyu-ubc.github.io/2023/07/12/Markov%20Chains/"/>
     <id>https://xueyu-ubc.github.io/2023/07/12/Markov%20Chains/</id>
     <published>2023-07-13T01:00:00.000Z</published>
-    <updated>2023-07-14T21:04:25.863Z</updated>
+    <updated>2023-07-14T21:09:31.693Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;markov-chains-definitions-and-representations&quot;&gt;Markov Chains:
+Definitions and Representations&lt;/h2&gt;
+&lt;p&gt;A stochastic process &lt;span</summary>
         
       
     
