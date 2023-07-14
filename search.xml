@@ -4,23 +4,48 @@
   
     
     <entry>
-      <title>Reading group about Diffusion Models</title>
-      <link href="/2023/07/12/mcmc/"/>
-      <url>/2023/07/12/mcmc/</url>
+      <title>Markov Chains</title>
+      <link href="/2023/07/12/Markov%20Chains/"/>
+      <url>/2023/07/12/Markov%20Chains/</url>
       
-        <content type="html"><![CDATA[<ul><li><a href="#markov-chain">Markov Chain</a></li><li><a href="#metropolis-hasting-algorithm">Metropolis Hastingalgorithm</a></li><li><a href="#totoal-variation-distance--mixing">Totoal VariationDistance &amp; Mixing</a></li><li><a href="#coupling-and-convergence-of-markov-chain">Coupling andConvergence of Markov Chain</a></li></ul><!-- /TOC --><h1 id="markov-chain">Markov Chain</h1><h1 id="metropolis-hasting-algorithm">Metropolis Hasting algorithm</h1><h1 id="totoal-variation-distance-mixing">Totoal Variation Distance&amp; Mixing</h1><h1 id="coupling-and-convergence-of-markov-chain">Coupling andConvergence of Markov Chain</h1>]]></content>
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="markov-chain">Markov Chain</h1><h2 id="markov-chains-definitions-and-representations">Markov Chains:Definitions and Representations</h2><p>A stochastic process <span class="math inline">\(X = \{ x(t): t\inT\}\)</span> is a collection of random variables. There are twoelements: - Time <span class="math inline">\(t\)</span>: * discrete time(T is a countably infinite set; under this case, we call 'Markov chain')* continuous time (under this case, we call 'Markov process') - Space<span class="math inline">\(\Omega\)</span>: * discrete space (X_{t}comes from a countably infinite set) * continuous space.</p><p>Markov chain is a <strong>discrete-time</strong> process for whichthe future behaviour, given the past and the present, only depends onthe present and not on the past. Markov process is the<strong>continuous-time</strong> version of a Markov chain.</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Definition 1.[Markov chain] A discrete time stochastic process $ X_0, X_1, X_2, $. . . is a Markov chain if$$P(X_{t} = a_t | X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, ..., X_0 = a_0) = P(X_{t} = a_t | X_{t-1} = a_{t-1}) = P_{a_{t-1}, a_{t} }$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>Remark 1: This is time-homogeneous markov chain, which for t, fora_{t-1}, a_{t} , the transition probability <span class="math inline">\(P_{a_{t-1}, a_{t} }\)</span> is the same.</p><p>Remark 2: In DDPM, it is not a time-homogeneous chain, as thetransition probability at t is obtained by a network(t).</p><p>The state <span class="math inline">\(X_{t}\)</span> depends on theprevious state <span class="math inline">\(X_{t-1}\)</span> but isindependent of the particular history <span class="math inline">\(X_{t-2}, X_{t-3},...\)</span>. This is called the<strong>Markov property</strong> or <strong>memorylessproperty</strong>.</p><p>The Markov property does not imply that <span class="math inline">\(X_{t}\)</span> is independent of the randomvariables <span class="math inline">\(X_{0}\)</span>, <span class="math inline">\(X_{1}\)</span>,..., <span class="math inline">\(X_{t-2}\)</span>; it just implies that <strong>anydependency of <span class="math inline">\(X_{t}\)</span> on the past iscaptured in the value of <span class="math inline">\(X_{t-1}\)</span></strong>.</p><p>The Markov chain is <strong>uniquely</strong> defined by the one-steptransition probability matrix P: <span class="math display">\[P =\begin{pmatrix}P_{0,0} &amp; P_{0, 1} &amp; \cdots &amp; P_{0, j} &amp; \cdots\\\vdots &amp; \vdots &amp; \ddots &amp; \vdots&amp; \vdots\\P_{i,0} &amp; P_{i, 1} &amp; \cdots &amp; P_{i, j} &amp; \cdots\\\vdots &amp; \vdots &amp; \ddots &amp; \vdots&amp; \vdots\\\end{pmatrix}\]</span> where <span class="math inline">\(P_{i,j}\)</span> is theprobability of transition from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span>. <span class="math inline">\(P_{i,j} =P(X_{t} = j| X_{t-1} = i), i,j \in \Omega\)</span>. For <span class="math inline">\(i\)</span>, <span class="math inline">\(\sum_{j\geq 0} P_{i,j} = 1\)</span>.</p><h2 id="classification-of-states">Classification of States</h2><p>For simplicity, we assume that the state space <span class="math inline">\(\Omega\)</span> is finite. ### Communicating class</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Definition 2. [Communicating class] A state $j$ is reachable from state $i$ if there exists a positive integer $n$ such that $P_{i,j}^{(n)} &gt; 0$. We write $i \rightarrow j$. If $j$ is reachablefrom $i$, and $i$ is reachable from $j$, then the states $i$ and $j$ are said to **communicate**, denoted by $i \leftrightarrow j$. A communicating class $C$ is a **maximal** set of states that communicate with each other. No state in $C$ communicates with any state not in $C$.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre> &gt; The relation <span class="math inline">\(\leftrightarrow\)</span> is an equivalencerelation. The equivalence classes are called <strong>communicatingclasses</strong>. A communicating class is a maximal set of states thatcommunicate with each other. No state in <span class="math inline">\(C\)</span> communicates with any state not in<span class="math inline">\(C\)</span>.<p></p><h1 id="参考文献">参考文献</h1><ul><li>Hanzely, F. , &amp; Richtárik, Peter. (2020). Federated learning ofa mixture of global and local models.</li></ul>]]></content>
       
       
       <categories>
           
-          <category> paper </category>
+          <category> Reading Group </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Reading Group </tag>
+            <tag> Markov Chains </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Introduction about diffusion model</title>
+      <link href="/2023/07/12/diffusion%20model/"/>
+      <url>/2023/07/12/diffusion%20model/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Please refer to <a href="">Blog</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Reading Group </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> diffusion model </tag>
             
         </tags>
       

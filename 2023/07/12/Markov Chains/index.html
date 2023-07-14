@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Archives: 2023 |  Welcome to XueYu&#39;s Blog
+    Markov Chains |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -48,73 +48,251 @@
       
     <main class="content on">
       <section class="outer">
-  
-  
-  <article class="articles">
+  <article
+  id="post-Markov Chains"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">2023</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2023" class="archive-year">2023</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/07/12/Markov%20Chains/" class="archive-article-date">
-  <time datetime="2023-07-13T01:00:00.000Z" itemprop="datePublished">07/12</time>
-</a>
+    <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/07/12/Markov%20Chains/"
-    >Markov Chains</a> 
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Markov Chains
+</h1>
  
 
     </header>
-    
-    
+     
+    <div class="article-meta">
+      <a href="/2023/07/12/Markov%20Chains/" class="article-date">
+  <time datetime="2023-07-13T01:00:00.000Z" itemprop="datePublished">2023-07-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Reading-Group/">Reading Group</a>
   </div>
-</article>
-      
   
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/07/12/diffusion%20model/" class="archive-article-date">
-  <time datetime="2023-07-13T01:00:00.000Z" itemprop="datePublished">07/12</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/07/12/diffusion%20model/"
-    >Introduction about diffusion model</a> 
-</h2>
- 
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">554</span>
+        </span>
+    </span>
 
-    </header>
-    
-    
-  </div>
-</article>
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">3 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
       
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="markov-chain">Markov Chain</h1>
+<h2 id="markov-chains-definitions-and-representations">Markov Chains:
+Definitions and Representations</h2>
+<p>A stochastic process <span class="math inline">\(X = \{ x(t): t\in
+T\}\)</span> is a collection of random variables. There are two
+elements: - Time <span class="math inline">\(t\)</span>: * discrete time
+(T is a countably infinite set; under this case, we call 'Markov chain')
+* continuous time (under this case, we call 'Markov process') - Space
+<span class="math inline">\(\Omega\)</span>: * discrete space (X_{t}
+comes from a countably infinite set) * continuous space.</p>
+<p>Markov chain is a <strong>discrete-time</strong> process for which
+the future behaviour, given the past and the present, only depends on
+the present and not on the past. Markov process is the
+<strong>continuous-time</strong> version of a Markov chain.</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Definition 1.[Markov chain] A discrete time stochastic process $ X_0, X_1, X_2, $. . . is a Markov chain if
+$$
+P(X_{t} = a_t | X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, ..., X_0 = a_0) = P(X_{t} = a_t | X_{t-1} = a_{t-1}) = P_{a_{t-1}, a_{t} }
+$$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Remark 1: This is time-homogeneous markov chain, which for t, for
+a_{t-1}, a_{t} , the transition probability <span class="math inline">\(P_{a_{t-1}, a_{t} }\)</span> is the same.</p>
+<p>Remark 2: In DDPM, it is not a time-homogeneous chain, as the
+transition probability at t is obtained by a network(t).</p>
+<p>The state <span class="math inline">\(X_{t}\)</span> depends on the
+previous state <span class="math inline">\(X_{t-1}\)</span> but is
+independent of the particular history <span class="math inline">\(X_{t-2}, X_{t-3},...\)</span>. This is called the
+<strong>Markov property</strong> or <strong>memoryless
+property</strong>.</p>
+<p>The Markov property does not imply that <span class="math inline">\(X_{t}\)</span> is independent of the random
+variables <span class="math inline">\(X_{0}\)</span>, <span class="math inline">\(X_{1}\)</span>,..., <span class="math inline">\(X_{t-2}\)</span>; it just implies that <strong>any
+dependency of <span class="math inline">\(X_{t}\)</span> on the past is
+captured in the value of <span class="math inline">\(X_{t-1}\)</span></strong>.</p>
+<p>The Markov chain is <strong>uniquely</strong> defined by the one-step
+transition probability matrix P: <span class="math display">\[
+P =
+\begin{pmatrix}
+P_{0,0} &amp; P_{0, 1} &amp; \cdots &amp; P_{0, j} &amp; \cdots\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots&amp; \vdots\\
+P_{i,0} &amp; P_{i, 1} &amp; \cdots &amp; P_{i, j} &amp; \cdots\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots&amp; \vdots\\
+\end{pmatrix}
+\]</span> where <span class="math inline">\(P_{i,j}\)</span> is the
+probability of transition from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span>. <span class="math inline">\(P_{i,j} =
+P(X_{t} = j| X_{t-1} = i), i,j \in \Omega\)</span>. For <span class="math inline">\(i\)</span>, <span class="math inline">\(\sum_{j
+\geq 0} P_{i,j} = 1\)</span>.</p>
+<h2 id="classification-of-states">Classification of States</h2>
+<p>For simplicity, we assume that the state space <span class="math inline">\(\Omega\)</span> is finite. ### Communicating class
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Definition 2. [Communicating class] A state $j$ is reachable from state $i$ if there exists a positive integer $n$ such that $P_{i,j}^{(n)} &gt; 0$. We write $i \rightarrow j$. If $j$ is reachable
+from $i$, and $i$ is reachable from $j$, then the states $i$ and $j$ are said to **communicate**, denoted by $i \leftrightarrow j$. A communicating class $C$ is a **maximal** set of states that communicate with each other. No state in $C$ communicates with any state not in $C$.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre> &gt; The relation <span class="math inline">\(\leftrightarrow\)</span> is an equivalence
+relation. The equivalence classes are called <strong>communicating
+classes</strong>. A communicating class is a maximal set of states that
+communicate with each other. No state in <span class="math inline">\(C\)</span> communicates with any state not in
+<span class="math inline">\(C\)</span>.<p></p>
+<h1 id="参考文献">参考文献</h1>
+<ul>
+<li>Hanzely, F. , &amp; Richtárik, Peter. (2020). Federated learning of
+a mixture of global and local models.</li>
+</ul>
+ 
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
+    
 
-  
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/07/12/Markov%20Chains/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markov-Chains/" rel="tag">Markov Chains</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/07/12/diffusion%20model/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Introduction about diffusion model</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">

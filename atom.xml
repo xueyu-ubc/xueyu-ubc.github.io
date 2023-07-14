@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-07-13T22:56:14.782Z</updated>
+  <updated>2023-07-14T21:04:25.863Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,29 +17,52 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Reading group about Diffusion Models</title>
-    <link href="https://xueyu-ubc.github.io/2023/07/12/mcmc/"/>
-    <id>https://xueyu-ubc.github.io/2023/07/12/mcmc/</id>
+    <title>Markov Chains</title>
+    <link href="https://xueyu-ubc.github.io/2023/07/12/Markov%20Chains/"/>
+    <id>https://xueyu-ubc.github.io/2023/07/12/Markov%20Chains/</id>
     <published>2023-07-13T01:00:00.000Z</published>
-    <updated>2023-07-13T22:56:14.782Z</updated>
+    <updated>2023-07-14T21:04:25.863Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#markov-chain&quot;&gt;Markov Chain&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#metropolis-hasting-algorithm&quot;&gt;Metropolis</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot;</summary>
         
       
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
     
     
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/tags/Reading-Group/"/>
+    <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Introduction about diffusion model</title>
+    <link href="https://xueyu-ubc.github.io/2023/07/12/diffusion%20model/"/>
+    <id>https://xueyu-ubc.github.io/2023/07/12/diffusion%20model/</id>
+    <published>2023-07-13T01:00:00.000Z</published>
+    <updated>2023-07-14T07:18:06.979Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    
+    
+    <category term="diffusion model" scheme="https://xueyu-ubc.github.io/tags/diffusion-model/"/>
     
   </entry>
   
