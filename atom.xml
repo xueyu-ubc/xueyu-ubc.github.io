@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-07-15T19:40:29.459Z</updated>
+  <updated>2023-07-16T00:37:41.937Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Convergence of Markov Chain</title>
+    <link href="https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/"/>
+    <id>https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/</id>
+    <published>2023-07-15T21:00:00.000Z</published>
+    <updated>2023-07-16T00:37:41.937Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    
+    
+    <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
+    
+  </entry>
   
   <entry>
     <title>Metropolis-Hastings</title>
