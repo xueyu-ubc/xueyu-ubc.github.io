@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-07-16T00:37:41.937Z</updated>
+  <updated>2023-07-16T00:47:14.626Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -21,14 +21,15 @@
     <link href="https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/"/>
     <id>https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/</id>
     <published>2023-07-15T21:00:00.000Z</published>
-    <updated>2023-07-16T00:37:41.937Z</updated>
+    <updated>2023-07-16T00:47:14.626Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;total-variation-distance&quot;&gt;Total Variation Distance&lt;/h1&gt;
+&lt;p&gt;Define Total Variation Distance: &amp;gt;&lt;span class=&quot;math</summary>
         
       
     
@@ -73,14 +74,16 @@ Metropolis et al. (1953). It</summary>
     <link href="https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/"/>
     <id>https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/</id>
     <published>2023-07-13T01:00:00.000Z</published>
-    <updated>2023-07-15T18:00:14.476Z</updated>
+    <updated>2023-07-16T00:45:31.373Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;&#92;assets&#92;css&#92;APlayer.min.css&quot;&gt;&lt;script src=&quot;&#92;assets&#92;js&#92;APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;markov-chains-definitions-and-representations&quot;&gt;Markov Chains:
+Definitions and Representations&lt;/h1&gt;
+&lt;p&gt;A stochastic process &lt;span</summary>
         
       
     
