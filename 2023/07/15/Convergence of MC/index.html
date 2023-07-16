@@ -98,17 +98,16 @@
     <div class="article-entry" itemprop="articleBody">
        
   <h1 id="total-variation-distance">Total Variation Distance</h1>
-<p>Define Total Variation Distance: &gt;<span class="math display">\[
-&gt;d_{TV}(\mu(x), v(x)) = \frac{1}{2} \sum_{x \in \Omega} |\mu(x) -
-v(x)|
-&gt;\]</span> This is equivalent to the following: &gt;<span class="math display">\[
-&gt;d_{TV}(\mu(x), v(x)) = \sum_{x \in \Omega^{-}} (v(x) - \mu(x))
+<p>Define Total Variation Distance: <span class="math display">\[
+d_{TV}(\mu(x), v(x)) = \frac{1}{2} \sum_{x \in \Omega} |\mu(x) - v(x)|
+\]</span> This is equivalent to the following: <span class="math display">\[
+d_{TV}(\mu(x), v(x)) = \sum_{x \in \Omega^{-}} (v(x) - \mu(x))
 = \sum_{x \in \Omega^{+}} (\mu(x) - v(x))
-&gt;\]</span> where <span class="math inline">\(\Omega^{+} = \{x \in
-\Omega: \mu(x) \geq v(x)\}\)</span>, <span class="math inline">\(\Omega^{-} = \{x \in \Omega: \mu(x) &lt;
-v(x)\}\)</span>, and &gt;<span class="math display">\[
-&gt;d_{TV}(\mu(x), v(x)) = \max_{S \subset \Omega} |\mu(S) - v(S)|
-&gt;\]</span> where <span class="math inline">\(\mu(S) = \sum_{x \in S}
+\]</span> where <span class="math inline">\(\Omega^{+} = \{x \in \Omega:
+\mu(x) \geq v(x)\}\)</span>, <span class="math inline">\(\Omega^{-} =
+\{x \in \Omega: \mu(x) &lt; v(x)\}\)</span>, and <span class="math display">\[
+d_{TV}(\mu(x), v(x)) = \max_{S \subset \Omega} |\mu(S) - v(S)|
+\]</span> where <span class="math inline">\(\mu(S) = \sum_{x \in S}
 \mu(x)\)</span>, <span class="math inline">\(v(S) = \sum_{x \in S}
 v(x)\)</span>.</p>
 <p>Proof: Define <span class="math inline">\(\Omega^{+} = \{x \in
