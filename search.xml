@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Ordinary Differential Equation</title>
+      <link href="/2023/07/19/ODE/"/>
+      <url>/2023/07/19/ODE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="introduction-about-diffusion-model">Introduction about diffusionmodel</h1><p>For detailed information, please refer to <a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Blog</a></p><h2 id="ddpm-denoising-diffusion-probabilistic-models">DDPM: DenoisingDiffusion Probabilistic Models</h2><p>diffusion model is a generative model <img src="image.png"></p><ul><li>diffusion process: add noise to a real image, finally we get a noiseimage.</li><li>reverse process: from noise image to generate real image.</li></ul><ol type="1"><li><p>training phase from a real image datasets ---&gt; throughdiffusion process ---&gt; noise images ---&gt; through reverse process---&gt; real images</p></li><li><p>inference phase</p></li></ol><p>sampling noise images from a gaussian distribution, then use thepre-trained reverse process to generate images.</p><h2 id="compare-with-baselines">Compare with baselines</h2><p>GAN: need the balance between generator and discriminator, unstableand it's difficult to train.</p><h2 id="diffusion-process">Diffusion process</h2><p>add noise to a clean image <span class="math inline">\(X_0\)</span>and then we get noisy image <span class="math inline">\(X_1, X_2, ...,X_T\)</span>.</p><p>Now, we focus on the process from image <span class="math inline">\(X_{t-1}\)</span> to <span class="math inline">\(X_t\)</span>. <span class="math display">\[X_t = \sqrt {1 - \beta_t}X_{t-1} + \sqrt {\beta_t} Z_{t}, \quad Z_t \simN(0, I)\]</span> &gt;Remark: the noise scale <span class="math inline">\(\beta_t\)</span> will be increased gradually. $_t$ increases from <span class="math inline">\(10^{-4}\)</span> to <span class="math inline">\(2*10^{-2}\)</span> linearly. <span class="math inline">\(T = 2000\)</span>.</p><p>Let <span class="math inline">\(1 - \beta_t = \alpha_t\)</span>, thenwe have <span class="math display">\[X_t = \sqrt{\alpha_t}X_{t-1} + \sqrt{1 - \alpha_t} Z_t \\X_{t-1} = \sqrt{\alpha_{t-1}}X_{t-2} + \sqrt{1 - \alpha_{t-1}} Z_{t-1}\\\]</span> Combine these two equlities, we have <span class="math display">\[\begin{aligned}X_t &amp;= \sqrt{\alpha_t}X_{t-1} + \sqrt{1 - \alpha_t} Z_t \\&amp;= \sqrt{\alpha_t}(\sqrt{\alpha_{t-1}}X_{t-2} + \sqrt{1 -\alpha_{t-1}} Z_{t-1})+ \sqrt{1 - \alpha_t} Z_t \\&amp;= \sqrt{\alpha_t \alpha_{t-1}}X_{t-2} + \sqrt{\alpha_t(1 -\alpha_{t-1})} Z_{t-1}+ \sqrt{1 - \alpha_t} Z_t \\&amp; = \sqrt{\alpha_t \alpha_{t-1}}X_{t-2} + + \sqrt{1 - \alpha_t\alpha_{t-1}} Z,   \quad Z \sim N(0, I) \\&amp;= ... \\&amp;= \sqrt{\alpha_t \alpha_{t-1}...\alpha_1}X_{0} + + \sqrt{1 -\alpha_t \alpha_{t-1}... \alpha_{1}} Z \\&amp;= \sqrt{\bar{\alpha}_t}X_{0} + + \sqrt{1 - \bar{\alpha}_t}Z,   \qquad \bar{\alpha}_t = \prod_{i = 1}^{t}\alpha_i.\end{aligned}\]</span></p><h2 id="reverse-process">Reverse process</h2><h1 id="reference">Reference</h1><ul><li>Jonathan et al. Denoising Diffusion Probabilistic Models.NeurIPS2020.</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Reading Group </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> diffusion model </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Convergence of Markov Chain</title>
       <link href="/2023/07/15/Convergence%20of%20MC/"/>
       <url>/2023/07/15/Convergence%20of%20MC/</url>
@@ -83,7 +108,7 @@
       <link href="/2023/07/12/diffusion%20model/"/>
       <url>/2023/07/12/diffusion%20model/</url>
       
-        <content type="html"><![CDATA[<p>Please refer to <a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Blog</a></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="introduction-about-diffusion-model">Introduction about diffusionmodel</h1><p>For detailed information, please refer to <a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">Blog</a></p><h2 id="ddpm-denoising-diffusion-probabilistic-models">DDPM: DenoisingDiffusion Probabilistic Models</h2><p>diffusion model is a generative model <img src="image.png"></p><ul><li>diffusion process: add noise to a real image, finally we get a noiseimage.</li><li>reverse process: from noise image to generate real image.</li></ul><ol type="1"><li><p>training phase from a real image datasets ---&gt; throughdiffusion process ---&gt; noise images ---&gt; through reverse process---&gt; real images</p></li><li><p>inference phase</p></li></ol><p>sampling noise images from a gaussian distribution, then use thepre-trained reverse process to generate images.</p><h2 id="compare-with-baselines">Compare with baselines</h2><p>GAN: need the balance between generator and discriminator, unstableand it's difficult to train.</p><h2 id="diffusion-process">Diffusion process</h2><p>add noise to a clean image <span class="math inline">\(X_0\)</span>and then we get noisy image <span class="math inline">\(X_1, X_2, ...,X_T\)</span>.</p><p>Now, we focus on the process from image <span class="math inline">\(X_{t-1}\)</span> to <span class="math inline">\(X_t\)</span>. <span class="math display">\[X_t = \sqrt {1 - \beta_t}X_{t-1} + \sqrt {\beta_t} Z_{t}, \quad Z_t \simN(0, I)\]</span> &gt;Remark: the noise scale <span class="math inline">\(\beta_t\)</span> will be increased gradually. $_t$ increases from <span class="math inline">\(10^{-4}\)</span> to <span class="math inline">\(2*10^{-2}\)</span> linearly. <span class="math inline">\(T = 2000\)</span>.</p><p>Let <span class="math inline">\(1 - \beta_t = \alpha_t\)</span>, thenwe have <span class="math display">\[X_t = \sqrt{\alpha_t}X_{t-1} + \sqrt{1 - \alpha_t} Z_t \\X_{t-1} = \sqrt{\alpha_{t-1}}X_{t-2} + \sqrt{1 - \alpha_{t-1}} Z_{t-1}\\\]</span> Combine these two equlities, we have <span class="math display">\[\begin{aligned}X_t &amp;= \sqrt{\alpha_t}X_{t-1} + \sqrt{1 - \alpha_t} Z_t \\&amp;= \sqrt{\alpha_t}(\sqrt{\alpha_{t-1}}X_{t-2} + \sqrt{1 -\alpha_{t-1}} Z_{t-1})+ \sqrt{1 - \alpha_t} Z_t \\&amp;= \sqrt{\alpha_t \alpha_{t-1}}X_{t-2} + \sqrt{\alpha_t(1 -\alpha_{t-1})} Z_{t-1}+ \sqrt{1 - \alpha_t} Z_t \\&amp; = \sqrt{\alpha_t \alpha_{t-1}}X_{t-2} + + \sqrt{1 - \alpha_t\alpha_{t-1}} Z,   \quad Z \sim N(0, I) \\&amp;= ... \\&amp;= \sqrt{\alpha_t \alpha_{t-1}...\alpha_1}X_{0} + + \sqrt{1 -\alpha_t \alpha_{t-1}... \alpha_{1}} Z \\&amp;= \sqrt{\bar{\alpha}_t}X_{0} + + \sqrt{1 - \bar{\alpha}_t}Z,   \qquad \bar{\alpha}_t = \prod_{i = 1}^{t}\alpha_i.\end{aligned}\]</span></p><h2 id="reverse-process">Reverse process</h2><h1 id="reference">Reference</h1><ul><li>Jonathan et al. Denoising Diffusion Probabilistic Models.NeurIPS2020.</li></ul>]]></content>
       
       
       <categories>
