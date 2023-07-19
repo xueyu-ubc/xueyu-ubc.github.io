@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-07-19T22:12:55.100Z</updated>
+  <updated>2023-07-19T23:21:33.919Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -21,14 +21,17 @@
     <link href="https://xueyu-ubc.github.io/2023/07/19/ODE/"/>
     <id>https://xueyu-ubc.github.io/2023/07/19/ODE/</id>
     <published>2023-07-19T23:00:00.000Z</published>
-    <updated>2023-07-19T22:12:55.100Z</updated>
+    <updated>2023-07-19T23:21:33.919Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1</summary>
+    <summary type="html">&lt;h1 id=&quot;ordinary-differential-equation&quot;&gt;Ordinary Differential
+Equation&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;particular solution: a function that satisfies the</summary>
         
       
     
@@ -46,7 +49,7 @@
     <link href="https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/"/>
     <id>https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/</id>
     <published>2023-07-15T21:00:00.000Z</published>
-    <updated>2023-07-16T02:56:41.873Z</updated>
+    <updated>2023-07-19T23:12:47.650Z</updated>
     
     
       
