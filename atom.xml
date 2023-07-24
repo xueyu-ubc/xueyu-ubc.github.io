@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-07-19T23:21:33.919Z</updated>
+  <updated>2023-07-20T00:31:39.855Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://xueyu-ubc.github.io/2023/07/19/ODE/"/>
     <id>https://xueyu-ubc.github.io/2023/07/19/ODE/</id>
     <published>2023-07-19T23:00:00.000Z</published>
-    <updated>2023-07-19T23:21:33.919Z</updated>
+    <updated>2023-07-20T00:31:39.855Z</updated>
     
     
       
@@ -98,33 +98,6 @@ Metropolis et al. (1953). It</summary>
   </entry>
   
   <entry>
-    <title>Discrete Markov Chains</title>
-    <link href="https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/"/>
-    <id>https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/</id>
-    <published>2023-07-13T01:00:00.000Z</published>
-    <updated>2023-07-16T00:47:33.089Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;markov-chains-definitions-and-representations&quot;&gt;Markov Chains:
-Definitions and Representations&lt;/h1&gt;
-&lt;p&gt;A stochastic process &lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
-    
-    
-    <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Introduction about diffusion model</title>
     <link href="https://xueyu-ubc.github.io/2023/07/12/diffusion-model/"/>
     <id>https://xueyu-ubc.github.io/2023/07/12/diffusion-model/</id>
@@ -148,6 +121,33 @@ model&lt;/h1&gt;
     
     
     <category term="diffusion model" scheme="https://xueyu-ubc.github.io/tags/diffusion-model/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Discrete Markov Chains</title>
+    <link href="https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/"/>
+    <id>https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/</id>
+    <published>2023-07-13T01:00:00.000Z</published>
+    <updated>2023-07-24T03:00:37.684Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;markov-chains-definitions-and-representations&quot;&gt;Markov Chains:
+Definitions and Representations&lt;/h1&gt;
+&lt;p&gt;A stochastic process &lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    
+    
+    <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
     
   </entry>
   

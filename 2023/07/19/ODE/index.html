@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">81</span>
+            <span class="post-count">223</span>
         </span>
     </span>
 
@@ -113,9 +113,47 @@ m\frac{d^2 x}{d x^2} = F(t)
 <ul>
 <li><strong>order</strong>: the order of a differential equation is the
 order of the highest derivative that appears in the equation.</li>
-<li>Order N ODE can convert to Order 1 vector ODE</li>
+<li>Order N ODE can convert to Order 1 vector ODE e.g. <span class="math display">\[
+\ddot{x} + \gamma \dot{x}＋\nu^2 x = w
+\]</span> if we define a state variable <span class="math inline">\(x =
+(x_1 = x, x_2 = \dot{x})\)</span>, then we can convert the equation to
+<span class="math display">\[\begin{pmatrix}
+\frac{d x_1 (x)}{dt} \\
+\frac{d x_2 (x)}{dt}
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 &amp; 1 \\
+-\nu^2 &amp; -\gamma
+\end{pmatrix}
+\begin{pmatrix}
+x_1 (x) \\
+x_2 (x)
+\end{pmatrix} +
+\begin{pmatrix}
+0 \\
+1
+\end{pmatrix}
+w(t)
+\]</span></li>
 </ul>
-<h1 id="reference">Reference</h1>
+<p>Define....</p>
+<h2 id="linear-ode">Linear ODE</h2>
+<p><span class="math display">\[
+\frac{d x(t)}{dt} = F x(t) + L \omega(t)
+\]</span></p>
+<h3 id="solutions-of-linear-time-invariant-odes">Solutions of Linear
+Time-Invariant ODEs</h3>
+<h3 id="linear-differential-equation-with-an-inhomogeneous-term">linear
+differential equation with an inhomogeneous term</h3>
+<p>difference of <span class="math inline">\(w(t)\)</span> and <span class="math inline">\(F(t)\)</span></p>
+<p><span class="math inline">\(F(t)\)</span>： time-varying <span class="math inline">\(w(t)\)</span>: imhomogeneous term</p>
+<h3 id="solutions-of-general-linear-odes">Solutions of General Linear
+ODEs</h3>
+<p>when <span class="math inline">\(F(t)\)</span> is constant, the
+solution should be the special case of ..., and we can verfiy that the
+<span class="math inline">\(\phi\)</span> satisfies equations (2.34). #
+Reference</p>
  
       <!-- reward -->
       
