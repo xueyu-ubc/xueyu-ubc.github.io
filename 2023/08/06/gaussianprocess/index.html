@@ -109,17 +109,18 @@ Gaussian distributed.</p>
 <h2 id="pdf-of-jointly-gaussian-rvs-in-n-dimensions">Pdf of jointly
 Gaussian RVs in n dimensions</h2>
 <p>Let <span class="math inline">\(X \in \mathbb{R}^n\)</span>, <span class="math inline">\(\mu = \mathbb{E}[X]\)</span>,</p>
-covariance matrix $C:= [(X - )(X - )^T] =
-<span class="math display">\[\begin{pmatrix}
+<p>covariance matrix <span class="math display">\[C:= \mathbb{E}[(X -
+\mu)(X - \mu)^T] =
+\begin{pmatrix}
     \sigma_{11}^2 &amp; \sigma_{12}^2 &amp; \cdots &amp; \sigma_{1n}^2
 \\
     \sigma_{21}^2 &amp; \sigma_{22}^2 &amp; \cdots &amp; \sigma_{2n}^2
 \\
     \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
     \sigma_{n1}^2 &amp; \sigma_{n2}^2 &amp; \cdots &amp; \sigma_{nn}^2
-\end{pmatrix}\]</span>
-<p>$. Then, the pdf of RV <span class="math inline">\(X\)</span> can be
-defined as <span class="math display">\[
+\end{pmatrix}
+\]</span> Then, the pdf of RV <span class="math inline">\(X\)</span> can
+be defined as <span class="math display">\[
 p(x) = \frac{1}{(2\pi)^{n/2} \text{det}^{1/2}(C)} \exp(-\frac{1}{2}(x -
 \mu)^T C^{-1} (x - \mu)).
 \]</span></p>
