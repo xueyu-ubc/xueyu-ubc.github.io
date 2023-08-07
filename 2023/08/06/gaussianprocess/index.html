@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Gaussian processes |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-gaussianprocess"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Gaussian processes
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/08/06/gaussianprocess/" class="article-date">
+  <time datetime="2023-08-06T23:00:00.000Z" itemprop="datePublished">2023-08-06</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Reading-Group/">Reading Group</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">12 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="jointly-gaussian-random-variables">Jointly Gaussian random
+variables</h1>
+<p>Definition: Random variables (RV) <span class="math inline">\(X_1,
+..., X_n\)</span> are jointly Gaussian if any linear combination of them
+is Gaussian.</p>
+<p>RV <span class="math inline">\(X = [X_1, ..., X_n]^{T}\)</span> is
+Gaussian <span class="math inline">\(\leftrightarrows\)</span> Given any
+scalars <span class="math inline">\(a_1,... a_n\)</span>, the RV <span class="math inline">\(Y = a_1 X_1 + a_2 X_2 + ... + a_n X_n\)</span> is
+Gaussian distributed.</p>
+<h2 id="pdf-of-jointly-gaussian-rvs-in-n-dimensions">Pdf of jointly
+Gaussian RVs in n dimensions</h2>
+<p>Let <span class="math inline">\(X \in \mathbb{R}^n\)</span>, <span class="math inline">\(\mu = \mathbb{E}[X]\)</span>,</p>
+covariance matrix $C := [(X - )(X - )^T] =
+<span class="math display">\[\begin{pmatrix}
+    \sigma_{11}^2 &amp; \sigma_{12}^2 &amp; \cdots &amp; \sigma_{1n}^2
+\\
+    \sigma_{21}^2 &amp; \sigma_{22}^2 &amp; \cdots &amp; \sigma_{2n}^2
+\\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+    \sigma_{n1}^2 &amp; \sigma_{n2}^2 &amp; \cdots &amp; \sigma_{nn}^2
+\end{pmatrix}\]</span>
+<p>$. Then, the pdf of RV <span class="math inline">\(X\)</span> can be
+defined as <span class="math display">\[
+p(x) = \frac{1}{(2\pi)^{n/2} \text{det}^{1/2}(C)} \exp(-\frac{1}{2}(x -
+\mu)^T C^{-1} (x - \mu)).
+\]</span></p>
+<ul>
+<li><span class="math inline">\(C\)</span> is invertible</li>
+<li>We can verify all linear combinations is Gaussian.</li>
+<li>To fully specofy the probability distribution of a Gaussian vector
+<span class="math inline">\(X\)</span>, the mean vector <span class="math inline">\(\mu\)</span> and covariance matrix <span class="math inline">\(C\)</span> suffice.</li>
+</ul>
+<h1 id="gaussian-processes">Gaussian processes</h1>
+<p>Gaussian processes (GP) generalize Gaussian vectors to
+<strong>infinite</strong> dimensions.</p>
+<p>Definition. <span class="math inline">\(X(t)\)</span> is a GP if any
+linear combination of values <span class="math inline">\(X(t)\)</span>
+is Gaussian. That is, for arbitrary <span class="math inline">\(n &gt;
+0\)</span>, times <span class="math inline">\(t_1, ..., t_n\)</span> and
+constants <span class="math inline">\(a_1, ..., a_n\)</span>, <span class="math inline">\(Y = a_1 X(t_1) + a_2 X(t_2) + ... + a_n
+X(t_n)\)</span> is Gaussian distributed.</p>
+<ul>
+<li><p>Time index <span class="math inline">\(t\)</span> can be
+continuous or discrete.</p></li>
+<li><p>Any linear functional of <span class="math inline">\(X(t)\)</span> is Gaussian distributed. For
+example, the integral <span class="math inline">\(Y = \int_{t_1}^{t_2}
+X(t) \text{d}t\)</span> is Gaussian distributed.</p></li>
+</ul>
+<h2 id="joint-pdf-in-a-gaussian-process">Joint pdf in a Gaussian
+process</h2>
+<p>Consider times <span class="math inline">\(t_1,..., t_n\)</span>, the
+mean value <span class="math inline">\(\mu(t_i)\)</span> is <span class="math display">\[\mu(t_i) = \mathbb{E}[X(t_i)].\]</span></p>
+<p>The covariance between values at time <span class="math inline">\(t_i\)</span> and <span class="math inline">\(t_j\)</span> is <span class="math inline">\(C(t_i,
+t_j) := \mathbb{E}[(X(t_i) - \mu(t_i))(X(t_j) -
+\mu(t_j))^T]\)</span>.</p>
+<p>The covariance matrix for values <span class="math inline">\(X(t_1),..., X(t_n)\)</span> is <span class="math display">\[
+C(t_1,..., t_n) =
+\begin{pmatrix}
+    C_{t_1, t_1} &amp; C_{t_1, t_2} &amp; \cdots &amp; C_{t_1, t_n}\\
+    C_{t_2, t_1} &amp; C_{t_2, t_2} &amp; \cdots &amp; C_{t_2, t_n} \\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+    C_{t_n, t_1} &amp; C_{t_n, t_2} &amp; \cdots &amp; C_{t_n, t_n}
+\end{pmatrix}
+\]</span>.</p>
+<p>The joint pdf of <span class="math inline">\(X(t_1),...,
+X(t_n)\)</span> is <span class="math inline">\(N([\mu(t_1), ...,
+\mu(t_n)]^T, C(t_1,..., t_n))\)</span>.</p>
+<h2 id="mean-value-and-autocorrelation-functions">Mean value and
+autocorrelation functions</h2>
+<p>To specify a Gaussian process, we only need to specify: - Mean value
+function: <span class="math inline">\(\mu(t) =
+\mathbb{E}[x(t)]\)</span>. - Autocorrelation function (symmetric): <span class="math inline">\(R(t_1, t_2) = \mathbb{E}[X(t_1)
+X(t_2)]\)</span>.</p>
+<p>The autocovariance <span class="math inline">\(C(t_1, t_2) = R(t_1,
+t_2) - \mu(t_1) \mu (t_2)\)</span>.</p>
+<p>More general, we consider GP with <span class="math inline">\(\mu(t)
+= 0\)</span>. [define new process <span class="math inline">\(Y(t) =
+X(t) - \mu(t)\)</span>]. In this case, <span class="math inline">\(C(t_1, t_2) = R(t_1, t_2)\)</span>.</p>
+<p>All probs. in a GP can be expressed in terms of <span class="math inline">\(\mu(t)\)</span> and <span class="math inline">\(R(t, t)\)</span>. <span class="math display">\[
+p(x_t) = \frac{1}{\sqrt{2\pi (R(t,t) - \mu^2(t))}} \exp(- \frac{(x_t -
+\mu(t))^2}{2(R(t,t) - \mu^2(t))}).
+\]</span></p>
+<h2 id="conditional-probabilities-in-a-gp">Conditional probabilities in
+a GP</h2>
+<p>Consider a zero-mean GP <span class="math inline">\(X(t)\)</span>,
+two times <span class="math inline">\(t_1\)</span> and <span class="math inline">\(t_2\)</span>. The covariance matrix is <span class="math display">\[
+C = \begin{pmatrix}
+  R(t_1, t_1) &amp; R(t_1, t_2) \\
+  R(t_1, t_2) &amp; R(t_2, t_2)
+\end{pmatrix}
+\]</span></p>
+<p>The joint pdf of <span class="math inline">\(X(t_1)\)</span> and
+<span class="math inline">\(X(t_2)\)</span> is <span class="math display">\[
+p(x_{t_1}, x_{t_2}) = \frac{1}{2\pi \text{det}^{1/2} C}
+\exp(-\frac{1}{2}[x_{t_1}, x_{t_2}]^T C^{-1} [x_{t_1}, x_{t_2}])
+\]</span></p>
+<p>The conditional pdf of <span class="math inline">\(X(t_1)\)</span>
+given <span class="math inline">\(X(t_2)\)</span> is <span class="math display">\[
+p_{X(t_1)| X(t_2)}(x_{t_1} | x_{t_2}) = \frac{p(x_{t_1},
+x_{t_2})}{p(x_{t_2})}. \qquad (1)
+\]</span></p>
+<h1 id="brownian-motion-process-a.k.a-wiener-process">Brownian motion
+process (a.k.a Wiener process)</h1>
+<p>Definition. A Brownian motion process (a.k.a Wiener process)
+satisfies</p>
+<ol type="1">
+<li><p><span class="math inline">\(X(t)\)</span> is normally distributed
+with zero mean and variance <span class="math inline">\(\sigma^2
+t\)</span>, <span class="math display">\[X(t) \sim N(0, \sigma^2
+t).\]</span></p></li>
+<li><p>Independent increments. For all times <span class="math inline">\(0 &lt; t_1 &lt; t_2 &lt; \cdots &lt; t_n\)</span>,
+the random variables <span class="math inline">\(X(t_1), X(t_2) -
+X(t_1), ..., X(t_n) - X(t_{n-1})\)</span> are independent.</p></li>
+<li><p>Stationary increments. Probability distribution of increment
+<span class="math inline">\(X(t+s) - X(s)\)</span> is the same as
+probability distribution of <span class="math inline">\(X(t)\)</span>.
+<span class="math display">\[[X(t+s) - X(s)]  \sim N(0,
+t).\]</span></p></li>
+</ol>
+<ul>
+<li>Brownian motion is a Markov process.</li>
+<li>Brownian motion is a Gaussian process.</li>
+</ul>
+<h2 id="mean-and-autocorrelation-of-brownian-motion">Mean and
+autocorrelation of Brownian motion</h2>
+<p>1, Mean funtion <span class="math inline">\(\mu(t) = \mathbb{E}[X(t)]
+= 0\)</span>.</p>
+<p>2, Autocorrelation of Brownian motion <span class="math inline">\(R(t_1, t_2) = \sigma^2 \min{t_1,t_2}\)</span>.</p>
+<p>Proof. Assume <span class="math inline">\(t_1 &lt; t_2\)</span>, then
+autocorrelation <span class="math inline">\(R(t_1, t_2) =
+\mathbb{E}[X(t_1)X(t_2)] = \sigma^2 t_1\)</span>.</p>
+<p>If <span class="math inline">\(t_1 &lt; t_2\)</span>, according to
+conditional expectations, we have <span class="math display">\[
+\begin{aligned}
+  R(t_1, t_2) = \mathbb{E}[X(t_1)X(t_2)] &amp;=
+\mathbb{E}_{X(t_1)}[\mathbb{E}_{X(t_2)}[X(t_1)X(t_2) | X(t_1)]] \\
+  &amp;= \mathbb{E}_{X(t_1)}[X(t_1)\mathbb{E}_{X(t_2)}[X(t_2) | X(t_1)]]
+\end{aligned}
+\]</span> According to equation (1), the condition distribution of <span class="math inline">\(X(t_2)\)</span> given <span class="math inline">\(X(t_1)\)</span> is <span class="math display">\[
+[X(t_2) | X(t_1)] \sim N(X(t_1), \sigma^2 (t_2 - t_1)),
+\]</span> thus, <span class="math inline">\(\mathbb{E}_{X(t_2)}[X(t_2) |
+X(t_1)] = X(t_1)\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+  R(t_1, t_2) = \mathbb{E}[X(t_1)X(t_2)] &amp;=
+\mathbb{E}_{X(t_1)}[\mathbb{E}_{X(t_2)}[X(t_1)X(t_2) | X(t_1)]] \\
+  &amp;= \mathbb{E}_{X(t_1)}[X(t_1) X(t_1)] \\
+  &amp;= \mathbb{E}_{X(t_1)}[X^2(t_1)] = \sigma^2 t_1.
+\end{aligned}
+\]</span></p>
+<p>Similarly, if <span class="math inline">\(t_2 &lt; t_1\)</span>,
+<span class="math inline">\(R(t_1, t_2) = \sigma^2 t_2\)</span>.</p>
+<h2 id="brownian-motion-with-drift-bmd">Brownian motion with drift
+(BMD)</h2>
+<p>For Brownian motion, it is a unbiased random walk. Walker steps right
+or left with the same probability <span class="math inline">\(1/2\)</span> for each direction (one
+dimension).</p>
+<p>For BMD, it is a biased random walk. Walker steps right or left with
+different probs.</p>
+<p>For example, consider time interval <span class="math inline">\(h\)</span>, step size <span class="math inline">\(\sigma \sqrt{h}\)</span>, <span class="math display">\[
+p(X(t+h) = x + \sigma \sqrt{h} | X(t) = x) = \frac{1}{2} (1 +
+\frac{\mu}{\sigma} \sqrt{h}).
+\]</span> <span class="math display">\[
+p(X(t+h) = x - \sigma \sqrt{h} | X(t) = x) = \frac{1}{2} (1 -
+\frac{\mu}{\sigma} \sqrt{h}).
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\mu &gt; 0\)</span>, biased to the
+right. <span class="math inline">\(\mu &lt; 0\)</span>, biased to the
+left.</p></li>
+<li><p><span class="math inline">\(h\)</span> needs to be small enough
+to make <span class="math inline">\(|\frac{\mu}{\sigma} \sqrt{h} | \leq
+1\)</span>.</p></li>
+</ul>
+<p>In this BMD case, <span class="math inline">\(x(t) \sim N(\mu t,
+\sigma^2 t)\)</span>.</p>
+<ul>
+<li>Independent and stationary increments.</li>
+</ul>
+<p>(We omit the proof. More details can be found at <a target="_blank" rel="noopener" href="https://www.hajim.rochester.edu/ece/sites/gmateos/ECE440/Slides/block_5_stationary_processes_part_a.pdf">Gaussian
+process</a> ).</p>
+<h2 id="geometric-brownian-motion-gbm">Geometric Brownian motion
+(GBM)</h2>
+<p>Definition. Suppose that <span class="math inline">\(Z(t)\)</span> is
+a standard Brownian motion <span class="math inline">\(Z(t) \sim N(0,
+t)\)</span>. Parameters <span class="math inline">\(\mu \in
+\mathbb{R}\)</span> and <span class="math inline">\(\sigma \in (0,
+\infty)\)</span>. Let <span class="math display">\[
+X(t) = \exp[(\mu - \frac{\sigma^2}{2})t + \sigma Z(t)], \qquad t \geq 0.
+\qquad (2)
+\]</span> The stochastic process <span class="math inline">\(\{X(t): t
+\geq 0\}\)</span> is geometric Brownian motion with drift parameter
+<span class="math inline">\(\mu\)</span> and volatility parameter <span class="math inline">\(\sigma\)</span>.</p>
+<ul>
+<li>The process is always positive, one of the reasons that geometric
+Brownian motion is used to model financial and other processes that
+<strong>cannot be negative</strong>.</li>
+<li>For the stochastic process</li>
+</ul>
+<p><span class="math display">\[
+(\mu - \frac{\sigma^2}{2})t + \sigma Z(t) \sim N((\mu -
+\frac{\sigma^2}{2})t , \sigma^2 t),
+  \]</span></p>
+<p>it is a BMD with drift parameter <span class="math inline">\(\mu -
+\sigma^2/2\)</span> and scale parameter <span class="math inline">\(\sigma\)</span>. Thus, the geometric Brownian
+motion is just the exponential of this BMD process.</p>
+<ul>
+<li><p>Here <span class="math inline">\(X(0) = 1\)</span>, the process
+starts at 1. For GBM starting at <span class="math inline">\(X(0) =
+x_0\)</span>, the process is <span class="math display">\[
+X(t) = x_0 \exp[(\mu - \frac{\sigma^2}{2})t + \sigma Z(t)], \qquad t
+\geq 0.
+\]</span></p></li>
+<li><p>GBM is not a Gaussian process.</p></li>
+</ul>
+<p>From the definietion of GBM (2), we can have the following
+differential equation: <span class="math display">\[
+\begin{aligned}
+  \frac{\text{d}X}{\text{d} t} &amp;= \exp[(\mu - \frac{\sigma^2}{2})t +
+\sigma Z(t)][(\mu - \frac{\sigma^2}{2}) + \sigma
+\frac{\text{d}Z}{\text{d} t}] \\
+  &amp;= X [(\mu - \frac{\sigma^2}{2}) + \sigma
+\frac{\text{d}Z}{\text{d} t}] \\
+  &amp;= X \tilde{\mu} + \sigma X \frac{\text{d}Z}{\text{d} t},  \qquad
+(\tilde{\mu} := \mu - \frac{\sigma^2}{2})
+\end{aligned}
+\]</span> thus, Geometric Brownian motion <span class="math inline">\(X(t)\)</span> satisfies the stochastic
+differential equation <span class="math display">\[
+\begin{aligned}
+\frac{\text{d}X}{\text{d} t}  &amp;= X \tilde{\mu} + \sigma X
+\frac{\text{d}Z}{\text{d} t},  \\
+  \text{d}X &amp; = X \tilde{\mu} {\text{d} t} + \sigma X \text{d}Z.
+\end{aligned}
+\]</span></p>
+<p>The second equation is the Black–Scholes model. In the Black–Scholes
+model, <span class="math inline">\(X(t)\)</span> is the stock price.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/18%3A_Brownian_Motion/18.04%3A_Geometric_Brownian_Motion">Geometric
+Brownian motion</a></li>
+</ul>
+<h1 id="white-gaussian-processes">White Gaussian processes</h1>
+<p>Definition. A white Gaussian noise (WGN) process <span class="math inline">\(W(t)\)</span> is a GP with</p>
+<ol type="1">
+<li><p>zero mean: <span class="math inline">\(\mu(t) = \mathbb{E}[W(t)]
+= 0\)</span> for all <span class="math inline">\(t\)</span>.</p></li>
+<li><p>Delta function antocorrelation: <span class="math inline">\(R(t_1, t_2) = \sigma^2 \delta(t_1 -
+t_2)\)</span>.</p></li>
+</ol>
+<p>Here the Dirac delta is often thought as a function that is 0
+everywhere and infinite at 0. <span class="math display">\[
+\delta(t) =
+\begin{cases}
+\infty, &amp; t=0 \\
+0, &amp; t\ne 0
+\end{cases}.
+\]</span> The Dirac delta is actually a distribution, a generalization
+of functions, and it is defined through the integral of its product with
+an arbitrary function <span class="math inline">\(f(t)\)</span>. <span class="math display">\[
+\int_{a}^{b} f(t)\delta(t)
+=
+\begin{cases}
+f(0), &amp; a &lt; 0 &lt; b \\
+0, &amp; \text{otherwise}
+\end{cases}.
+\]</span></p>
+<!-- since the autocorrelation function of W(t) is not really a function (it involves the
+Dirac delta), WGN cannot model any real physical phenomena. Nonetheless, it is a convenient
+abstraction to generate processes that can model real physical phenomena. -->
+<p>Properties of white Gaussian noise:</p>
+<ol type="1">
+<li><p>For <span class="math inline">\(t_1 \ne t_2\)</span>, <span class="math inline">\(W(t_1)\)</span> and <span class="math inline">\(W(t_2)\)</span> are uncorrelated. <span class="math display">\[
+\mathbb{E}[W(t_1)W(t_2)] = R(t_1, t_2) = 0, \qquad t_1 \ne t_2.
+\]</span> This means <span class="math inline">\(W(t)\)</span> at
+different times are independent.</p></li>
+<li><p>WGN has infinite variance (large power). <span class="math display">\[
+\mathbb{E}[W^2(t)] = R(t, t) = \sigma^2 \delta(0) = \infty.
+\]</span></p></li>
+</ol>
+<ul>
+<li>WGN is discontinuous almost everywhere.</li>
+<li>WGN is unbounded and it takes arbitrarily large positive and
+negative values at any finite interval.</li>
+</ul>
+<h2 id="white-gaussian-noise-and-brownian-motion">White Gaussian noise
+and Brownian motion</h2>
+<p>Remember that the Brownian motion is a solution to the differential
+equation: <span class="math display">\[
+\frac{\text{d} X(t)}{\text{d}t} = W(t).
+\]</span> <strong>Why <span class="math inline">\(\frac{\text{d}
+X(t)}{\text{d}t}\)</span> is called white noise ???</strong></p>
+<p>Proof. Assume <span class="math inline">\(X(t)\)</span> is the
+integral of a WGN process <span class="math inline">\(W(t)\)</span>,
+i.e., <span class="math inline">\(X(t) = \int_{0}^{t} W(u) \text{d}
+u\)</span>.</p>
+<p>Since integration is linear functional and <span class="math inline">\(W(t)\)</span> is a GP, <span class="math inline">\(X(t)\)</span> is also a GP.</p>
+<p>A Gaussian process can be uniquely specified by its Mean value
+function and Autocorrelation function.</p>
+<ol type="1">
+<li>The mean function: <span class="math display">\[
+\mu(t) = \mathbb{E}[\int_{0}^{t} W(u) \text{d} u] = \int_{0}^{t}
+\mathbb{E} [W(u)] \text{d} u = 0.
+\]</span><br>
+</li>
+<li>The autocorrelation <span class="math inline">\(R_{X}(t_1,
+t_2)\)</span> with <span class="math inline">\(t_1 &lt; t_2\)</span>:
+<span class="math display">\[
+\begin{aligned}
+  R_{X}(t_1, t_2) &amp;= \mathbb{E}[(\int_{0}^{t_1} W(u_1) \text{d}
+u_1)(\int_{0}^{t_2} W(u_2) \text{d} u_2)] \\
+  &amp;= \mathbb{E}[\int_{0}^{t_1} \int_{0}^{t_2} W(u_1)  W(u_2)
+\text{d} u_1 \text{d} u_2] \\
+  &amp;= \int_{0}^{t_1} \int_{0}^{t_2} \mathbb{E}[W(u_1)  W(u_2)
+\text{d} u_1 \text{d} u_2] \\
+  &amp;= \int_{0}^{t_1} \int_{0}^{t_2} \sigma^2 \delta(u_1 - u_2)
+\text{d} u_1 \text{d} u_2 \\
+  &amp;= \int_{0}^{t_1} \int_{0}^{t_1} \sigma^2 \delta(u_1 - u_2)
+\text{d} u_1 \text{d} u_2 + \int_{0}^{t_1} \int_{t_1}^{t_2} \sigma^2
+\delta(u_1 - u_2) \text{d} u_1 \text{d} u_2 \\
+  &amp;= \int_{0}^{t_1} \int_{0}^{t_1} \sigma^2 \delta(u_1 - u_2)
+\text{d} u_1 \text{d} u_2 + 0\\
+  &amp;= \int_{0}^{t_1} \sigma^2 \delta(u_1 - u_1) \text{d} u_1  \\
+  &amp;= \int_{0}^{t_1} \sigma^2 \text{d} u_1 \\
+  &amp;= \sigma^2 t_1.
+\end{aligned}
+\]</span> If <span class="math inline">\(t_2 &lt; t_1\)</span>, we can
+obtain <span class="math inline">\(R_{X}(t_1, t_2) = \sigma^2
+t_2\)</span>. Thus, <span class="math inline">\(R_{X}(t_1, t_2) =
+\sigma^2 \min \{t_1, t_2\}\)</span>.</li>
+</ol>
+<p>The mean function and autocorrelation function are the same as
+Brownian motion!</p>
+<p>Because a Gaussian process can be uniquely determined by its mean
+value function and autocorrelation function. We can conclude</p>
+<ul>
+<li>The integral of WGN is a Brownian motion process.</li>
+<li>The derivative of Brownian motion is WGN.</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<p><a target="_blank" rel="noopener" href="https://www.hajim.rochester.edu/ece/sites/gmateos/ECE440/Slides/block_5_stationary_processes_part_a.pdf">Gaussian
+process</a></p>
+<p><a target="_blank" rel="noopener" href="https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/18%3A_Brownian_Motion/18.04%3A_Geometric_Brownian_Motion">Geometric
+Brownian motion</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.columbia.edu/~ks20/FE-Notes/4700-07-Notes-GBM.pdf">Geometric
+Brownian motion</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.seas.upenn.edu/~ese3030/homework/week_11/week_11_white_gaussian_noise.pdf">White
+Gaussian noise</a></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/08/06/gaussianprocess/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SDE/" rel="tag">SDE</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/07/19/ODE/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Ordinary Differential Equation</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2023
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>
