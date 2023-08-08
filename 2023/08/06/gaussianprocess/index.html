@@ -146,7 +146,7 @@ continuous or discrete.</p></li>
 example, the integral <span class="math inline">\(Y = \int_{t_1}^{t_2}
 X(t) \text{d}t\)</span> is Gaussian distributed.</p></li>
 </ul>
-<h2 id="joint-pdf-in-a-gaussian-process">Joint pdf in a Gaussian
+<h2 id="jointly-pdf-in-a-gaussian-process">Jointly pdf in a Gaussian
 process</h2>
 <p>Consider times <span class="math inline">\(t_1,..., t_n\)</span>, the
 mean value <span class="math inline">\(\mu(t_i)\)</span> is <span class="math display">\[\mu(t_i) = \mathbb{E}[X(t_i)].\]</span></p>
@@ -162,15 +162,18 @@ C(t_1,..., t_n) =
     C_{t_n, t_1} &amp; C_{t_n, t_2} &amp; \cdots &amp; C_{t_n, t_n}
 \end{pmatrix}
 \]</span>.</p>
-<p>The joint pdf of <span class="math inline">\(X(t_1),...,
+<p>The jointly pdf of <span class="math inline">\(X(t_1),...,
 X(t_n)\)</span> is <span class="math inline">\(N([\mu(t_1), ...,
 \mu(t_n)]^T, C(t_1,..., t_n))\)</span>.</p>
 <h2 id="mean-value-and-autocorrelation-functions">Mean value and
 autocorrelation functions</h2>
-<p>To specify a Gaussian process, we only need to specify: - Mean value
-function: <span class="math inline">\(\mu(t) =
-\mathbb{E}[x(t)]\)</span>. - Autocorrelation function (symmetric): <span class="math inline">\(R(t_1, t_2) = \mathbb{E}[X(t_1)
-X(t_2)]\)</span>.</p>
+<p>To specify a Gaussian process, we only need to specify:</p>
+<ul>
+<li><p>Mean value function: <span class="math inline">\(\mu(t) =
+\mathbb{E}[x(t)]\)</span>.</p></li>
+<li><p>Autocorrelation function (symmetric): <span class="math inline">\(R(t_1, t_2) = \mathbb{E}[X(t_1)
+X(t_2)]\)</span>.</p></li>
+</ul>
 <p>The autocovariance <span class="math inline">\(C(t_1, t_2) = R(t_1,
 t_2) - \mu(t_1) \mu (t_2)\)</span>.</p>
 <p>More general, we consider GP with <span class="math inline">\(\mu(t)
@@ -189,7 +192,7 @@ C = \begin{pmatrix}
   R(t_1, t_2) &amp; R(t_2, t_2)
 \end{pmatrix}
 \]</span></p>
-<p>The joint pdf of <span class="math inline">\(X(t_1)\)</span> and
+<p>The jointly pdf of <span class="math inline">\(X(t_1)\)</span> and
 <span class="math inline">\(X(t_2)\)</span> is <span class="math display">\[
 p(x_{t_1}, x_{t_2}) = \frac{1}{2\pi \text{det}^{1/2} C}
 \exp(-\frac{1}{2}[x_{t_1}, x_{t_2}]^T C^{-1} [x_{t_1}, x_{t_2}])
@@ -214,7 +217,7 @@ X(t_1), ..., X(t_n) - X(t_{n-1})\)</span> are independent.</p></li>
 <li><p>Stationary increments. Probability distribution of increment
 <span class="math inline">\(X(t+s) - X(s)\)</span> is the same as
 probability distribution of <span class="math inline">\(X(t)\)</span>.
-<span class="math display">\[[X(t+s) - X(s)]  \sim N(0,
+<span class="math display">\[[X(t+s) - X(s)]  \sim N(0, \sigma^2
 t).\]</span></p></li>
 </ol>
 <ul>
@@ -225,7 +228,8 @@ t).\]</span></p></li>
 autocorrelation of Brownian motion</h2>
 <p>1, Mean funtion <span class="math inline">\(\mu(t) = \mathbb{E}[X(t)]
 = 0\)</span>.</p>
-<p>2, Autocorrelation of Brownian motion <span class="math inline">\(R(t_1, t_2) = \sigma^2 \min{t_1,t_2}\)</span>.</p>
+<p>2, Autocorrelation of Brownian motion <span class="math inline">\(R(t_1, t_2) = \sigma^2 \min
+\{t_1,t_2\}\)</span>.</p>
 <p>Proof. Assume <span class="math inline">\(t_1 &lt; t_2\)</span>, then
 autocorrelation <span class="math inline">\(R(t_1, t_2) =
 \mathbb{E}[X(t_1)X(t_2)] = \sigma^2 t_1\)</span>.</p>
@@ -252,8 +256,8 @@ X(t_1)] = X(t_1)\)</span>.</p>
 <span class="math inline">\(R(t_1, t_2) = \sigma^2 t_2\)</span>.</p>
 <h2 id="brownian-motion-with-drift-bmd">Brownian motion with drift
 (BMD)</h2>
-<p>For Brownian motion, it is a unbiased random walk. Walker steps right
-or left with the same probability <span class="math inline">\(1/2\)</span> for each direction (one
+<p>For Brownian motion, it is an unbiased random walk. Walker steps
+right or left with the same probability <span class="math inline">\(1/2\)</span> for each direction (one
 dimension).</p>
 <p>For BMD, it is a biased random walk. Walker steps right or left with
 different probs.</p>
@@ -313,7 +317,7 @@ X(t) = x_0 \exp[(\mu - \frac{\sigma^2}{2})t + \sigma Z(t)], \qquad t
 \]</span></p></li>
 <li><p>GBM is not a Gaussian process.</p></li>
 </ul>
-<p>From the definietion of GBM (2), we can have the following
+<p>From the definition of GBM (2), we can have the following
 differential equation: <span class="math display">\[
 \begin{aligned}
   \frac{\text{d}X}{\text{d} t} &amp;= \exp[(\mu - \frac{\sigma^2}{2})t +
@@ -338,7 +342,7 @@ model, <span class="math inline">\(X(t)\)</span> is the stock price.</p>
 <li><a target="_blank" rel="noopener" href="https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/18%3A_Brownian_Motion/18.04%3A_Geometric_Brownian_Motion">Geometric
 Brownian motion</a></li>
 </ul>
-<h1 id="white-gaussian-processes">White Gaussian processes</h1>
+<h1 id="white-gaussian-process">White Gaussian process</h1>
 <p>Definition. A white Gaussian noise (WGN) process <span class="math inline">\(W(t)\)</span> is a GP with</p>
 <ol type="1">
 <li><p>zero mean: <span class="math inline">\(\mu(t) = \mathbb{E}[W(t)]
@@ -356,7 +360,7 @@ everywhere and infinite at 0. <span class="math display">\[
 \]</span> The Dirac delta is actually a distribution, a generalization
 of functions, and it is defined through the integral of its product with
 an arbitrary function <span class="math inline">\(f(t)\)</span>. <span class="math display">\[
-\int_{a}^{b} f(t)\delta(t)
+\int_{a}^{b} f(t)\delta(t) \text{d} t
 =
 \begin{cases}
 f(0), &amp; a &lt; 0 &lt; b \\
@@ -378,8 +382,8 @@ different times are independent.</p></li>
 </ol>
 <ul>
 <li>WGN is discontinuous almost everywhere.</li>
-<li>WGN is unbounded and it takes arbitrarily large positive and
-negative values at any finite interval.</li>
+<li>WGN is unbounded and it takes arbitrary large positive and negative
+values at any finite interval.</li>
 </ul>
 <h2 id="white-gaussian-noise-and-brownian-motion">White Gaussian noise
 and Brownian motion</h2>
@@ -410,7 +414,7 @@ u_1)(\int_{0}^{t_2} W(u_2) \text{d} u_2)] \\
   &amp;= \mathbb{E}[\int_{0}^{t_1} \int_{0}^{t_2} W(u_1)  W(u_2)
 \text{d} u_1 \text{d} u_2] \\
   &amp;= \int_{0}^{t_1} \int_{0}^{t_2} \mathbb{E}[W(u_1)  W(u_2)
-\text{d} u_1 \text{d} u_2] \\
+]\text{d} u_1 \text{d} u_2 \\
   &amp;= \int_{0}^{t_1} \int_{0}^{t_2} \sigma^2 \delta(u_1 - u_2)
 \text{d} u_1 \text{d} u_2 \\
   &amp;= \int_{0}^{t_1} \int_{0}^{t_1} \sigma^2 \delta(u_1 - u_2)
@@ -418,7 +422,6 @@ u_1)(\int_{0}^{t_2} W(u_2) \text{d} u_2)] \\
 \delta(u_1 - u_2) \text{d} u_1 \text{d} u_2 \\
   &amp;= \int_{0}^{t_1} \int_{0}^{t_1} \sigma^2 \delta(u_1 - u_2)
 \text{d} u_1 \text{d} u_2 + 0\\
-  &amp;= \int_{0}^{t_1} \sigma^2 \delta(u_1 - u_1) \text{d} u_1  \\
   &amp;= \int_{0}^{t_1} \sigma^2 \text{d} u_1 \\
   &amp;= \sigma^2 t_1.
 \end{aligned}
