@@ -102,7 +102,7 @@ Itô</h1>
 <p>A stochastic differential equation can be transformed into a vector
 differential equation of the form <span class="math display">\[
 \begin{aligned}
-\frac{\text{d}x}{\text{d} t}  &amp;= f(x, t) + \mathbb{L}(X, t) w(t) \\
+\frac{\text{d}x}{\text{d} t}  &amp;= f(x, t) + \mathbb{L}(X, t) w(t), \\
 \end{aligned}
 \]</span> where <span class="math inline">\(w(t)\)</span> is a white
 Gaussian noise with zero mean. Since <span class="math inline">\(w(t)\)</span> is discontinuous, we can not use the
@@ -112,7 +112,7 @@ stochastic integral of Itô.</p>
 <p>We can integrate the SDE from initial time <span class="math inline">\(t_0\)</span> to final time <span class="math inline">\(t\)</span>: <span class="math display">\[
 \begin{aligned}
 x(t) - x(t_0) &amp;= \int_{t_0}^{t} f(x, t) \text{d} t + \int_{t_0}^{t}
-\mathbb{L}(x, t) w(t) \text{d} t \\
+\mathbb{L}(x, t) w(t) \text{d} t. \\
 \end{aligned}
 \]</span> The first integral with respect to time on the right-hand side
 can be solved by Riemann integral or Lebesgue integral. The second
@@ -165,24 +165,24 @@ Itô integral is defined as <span class="math display">\[
 <p>The SDE can be defined to be the Itô integral of the form <span class="math display">\[
 \begin{aligned}
 x(t) - x(t_0) &amp;= \int_{t_0}^{t} f(x(t), t) \text{d} t +
-\int_{t_0}^{t} \mathbb{L}(x, t) \text{d} \beta(t) \\
+\int_{t_0}^{t} \mathbb{L}(x, t) \text{d} \beta(t).
 \end{aligned}
 \]</span></p>
 <p>The differential form is <span class="math display">\[
 \begin{aligned}
 \text{d} x &amp;= f(x, t) \text{d} t + \mathbb{L}(x, t) \text{d}
-\beta(t) \\
+\beta(t).
 \end{aligned}
 \]</span> or <span class="math display">\[
 \begin{aligned}
 \frac{\text{d} x}{\text{d} t } &amp;= f(x, t) + \mathbb{L}(x, t) \frac{
-\text{d} \beta(t)}{\text{d} t } \\
+\text{d} \beta(t)}{\text{d} t}.
 \end{aligned}
 \]</span></p>
 <ul>
 <li>Why don't we consider more general SDEs of the form <span class="math display">\[
 \begin{aligned}
-\frac{\text{d} x}{\text{d} t } &amp;= f(x(t), w(t), t)\\
+\frac{\text{d} x}{\text{d} t } &amp;= f(x(t), w(t), t),
 \end{aligned}
 \]</span> where the white noise <span class="math inline">\(w(t)\)</span> enters the system through a
 nonlinear transformation. We can not rewrite this equation as a
@@ -222,7 +222,7 @@ an Itô process(note: <span class="math inline">\(x(t)\)</span> is a
 vector process) which is the solution of an SDE of the form <span class="math display">\[
 \begin{aligned}
 \text{d} x &amp;= f(x, t) \text{d} t + \mathbb{L}(x, t) \text{d}
-\beta(t) \\
+\beta(t),
 \end{aligned}
 \]</span> where <span class="math inline">\(\beta(t)\)</span> is a
 Brownian motion. Consider an arbitrary <strong>scalar</strong> function
@@ -242,26 +242,30 @@ the mixed partial derivatives are combined according to the rules <span class="m
 \begin{aligned}
 \text{d} \beta \text{d} t &amp;= 0, \\
 \text{d} t \text{d} \beta &amp;= 0, \\
-\text{d} \beta \text{d} \beta^T &amp;= Q \text{d} t. (Q is the diffusion
-matrix(covariance matrix) of the Brownian motion) \\
+\text{d} \beta \text{d} \beta^T &amp;= Q \text{d} t.
 \end{aligned}
-\]</span></p>
-<p>It can be derived from the Taylor expansion of <span class="math inline">\(\phi(x(t), t)\)</span>. Usually, in deterministic
+\]</span> (Q is the diffusion matrix(covariance matrix) of the Brownian
+motion). It can be derived from the Taylor expansion of <span class="math inline">\(\phi(x(t), t)\)</span>. Usually, in deterministic
 case, we could ignore the second-order, we have <span class="math display">\[
 \begin{aligned}
 \text{d} \phi &amp;= \frac{\partial \phi}{\partial t} \text{d} t +
 \frac{\partial \phi}{\partial x} \text{d} x.
 \end{aligned}
-\]</span> In stochastic case, because <span class="math inline">\(\text{d} \beta \text{d} \beta^T &amp;= Q \text{d}
+\]</span> In stochastic case, because <span class="math inline">\(\text{d} \beta \text{d} \beta^T = Q \text{d}
 t\)</span>, which is order one, the <span class="math inline">\(\text{d}
 x \text{d} x^T\)</span> is potentially of order one, so we need to
 consider the second-order term.</p>
+<ul>
+<li>Here the Itô formula is derived for a scalar function <span class="math inline">\(\phi(x(t), t)\)</span>. However, for vector
+function, it works for each of the components of a vector-valued
+function separately and thus also includes the vector case.</li>
+</ul>
 <p>Example: We can apply the Itô formula to the function <span class="math inline">\(\phi(x(t), t) = x^2(t)/2\)</span>, with <span class="math inline">\(x(t) = \beta(t)\)</span>, where <span class="math inline">\(\beta(t)\)</span> is a standard Brownian motion
 (q=1). The Itô SDE of <span class="math inline">\(\phi\)</span> is <span class="math display">\[
 \begin{aligned}
 \text{d} \phi &amp;= \beta \text{d} \beta + \frac{1}{2} \text{d} \beta
 \text{d} \beta \\
-&amp;= \beta \text{d} \beta +　\frac{1}{2} \text{d} t.
+&amp;= \beta \text{d} \beta +\frac{1}{2} \text{d} t.
 \end{aligned}
 \]</span></p>
 <h1 id="reference">Reference</h1>
