@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-08-25T07:06:11.538Z</updated>
+  <updated>2023-09-11T23:30:08.306Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -15,6 +15,80 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Introduction to Deep Learning</title>
+    <link href="https://xueyu-ubc.github.io/2023/09/11/deep%20learning%20with%20structures/"/>
+    <id>https://xueyu-ubc.github.io/2023/09/11/deep%20learning%20with%20structures/</id>
+    <published>2023-09-11T20:30:00.000Z</published>
+    <updated>2023-09-11T23:30:08.306Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;brief-intro-to-deep-learning&quot;&gt;Brief Intro to Deep Learning&lt;/h2&gt;
+&lt;p&gt;Deep learning: - Data: large datasets, e.g., ImageNet, etc.; -</summary>
+        
+      
+    
+    
+    
+    <category term="Lectures" scheme="https://xueyu-ubc.github.io/categories/Lectures/"/>
+    
+    
+    <category term="Deep Learning with Structures" scheme="https://xueyu-ubc.github.io/tags/Deep-Learning-with-Structures/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Basic knowledge</title>
+    <link href="https://xueyu-ubc.github.io/2023/09/06/paper-reading/"/>
+    <id>https://xueyu-ubc.github.io/2023/09/06/paper-reading/</id>
+    <published>2023-09-06T17:00:00.000Z</published>
+    <updated>2023-09-06T18:50:03.341Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;graph-convolutional-autoencoders-with-co-learning-of-graph-structure-and-node-attributes&quot;&gt;Graph
+convolutional autoencoders with</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="paper reading" scheme="https://xueyu-ubc.github.io/tags/paper-reading/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Q</title>
+    <link href="https://xueyu-ubc.github.io/2023/08/27/Q&amp;A/"/>
+    <id>https://xueyu-ubc.github.io/2023/08/27/Q&amp;A/</id>
+    <published>2023-08-28T02:00:00.000Z</published>
+    <updated>2023-08-28T03:38:44.136Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;排序&quot;&gt;排序&lt;/h1&gt;
+&lt;p&gt;Q 1, Why does sorting a collection have (at least) &lt;span class=&quot;math inline&quot;&gt;&#92;(O(n log n)&#92;)&lt;/span&gt; complexity? n is</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Itô Calculus and Stochastic Differential Equations</title>

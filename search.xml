@@ -4,6 +4,69 @@
   
     
     <entry>
+      <title>Introduction to Deep Learning</title>
+      <link href="/2023/09/11/deep%20learning%20with%20structures/"/>
+      <url>/2023/09/11/deep%20learning%20with%20structures/</url>
+      
+        <content type="html"><![CDATA[<h2 id="brief-intro-to-deep-learning">Brief Intro to Deep Learning</h2><p>Deep learning: - Data: large datasets, e.g., ImageNet, etc.; - Model:deep neural networks, e.g., ResNet-152, etc.; - Learning algorithm:backpropagation, i.e., stochastic gradient descent (SGD).</p><p>In recurrent neural networks (RNNs): <strong>same</strong> neuralnetwork gets reused many times. <span class="math display">\[h^t = F(x^t, h^{t-1}, W).\]</span></p><h2 id="reference">Reference</h2><p><a href="https://lrjconan.github.io/UBC-EECE571F-DL-Structures/">EECE571F (2023 Winter Term 1): Deep Learning with Structures</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Lectures </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Deep Learning with Structures </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Basic knowledge</title>
+      <link href="/2023/09/06/paper-reading/"/>
+      <url>/2023/09/06/paper-reading/</url>
+      
+        <content type="html"><![CDATA[<h2 id="graph-convolutional-autoencoders-with-co-learning-of-graph-structure-and-node-attributes">Graphconvolutional autoencoders with co-learning of graph structure and nodeattributes</h2><p>In this paper, they design the special graph encoder and decoder forthe tasks undertaken by the graph autoencoders. The task of the encoderis to embed the nodes into a new space, and then the latentrepresentation of each node is close to its neighbors[the encoder is alow-pass filter]. The decoder restores the original space from theembedded space by making the latent representation of each node awayfrom its neighbors[the decoder is a high-pass filter].</p><p>In this paper, they encode both the graph structure and the nodeattributes in the latent space with an improved GCN, which is a<strong>completely low-pass graph filter</strong>. Then, to reconstructthe node attributes X , they design a new <strong>high-pass graphdecoder</strong>. At the same time, we use the inner product layer toreconstruct the graph structure information. Last, the graph encoder andtwo sub-decoders are jointly optimized in a unified framework in such away that each can be beneficial to the other and finally lead to abetter graph embedding.</p><h3 id="normalized-adjacency-matrix-and-laplacian-matrices">Normalizedadjacency matrix and Laplacian matrices</h3><p>1, The normalized adjacency matrix is defined as: <span class="math display">\[\hat{A} = D^{-1/2}A D^{-1/2},\]</span> where<span class="math inline">\(A\)</span> is the adjacency matrix of graph<span class="math inline">\(G\)</span>. <span class="math inline">\(D =diag(d)\)</span>, <span class="math inline">\(d(i)\)</span> is thedegree of node <span class="math inline">\(i\)</span>.</p><p>2, The normalized Laplacian matrix is defined as: <span class="math display">\[L_s = I - \hat{A} = I - D^{-1/2}AD^{-1/2}.\]</span> Note that <span class="math inline">\(L_s = I -\hat{A} = D^{-1/2}(D - A) D^{-1/2} = D^{-1/2}L D^{-1/2}\)</span>, where<span class="math inline">\(L = D - A\)</span> is the unnormalizedLaplacian matrix of graph <span class="math inline">\(G\)</span>.</p><p>For the largest eigenvalue <span class="math inline">\(\lambda^s\)</span> of <span class="math inline">\(A\)</span> and the maximum degree <span class="math inline">\(\Delta\)</span> of a node in a graph, we have $d_{avg} ^s $. Normalizing the adjacency matrix can make its largesteigenvalue 1.</p><p>3, Let <span class="math inline">\(\alpha_1 \geq \alpha_2 \geq ...\geq \alpha_n\)</span> be the eigenvalues of <span class="math inline">\(\hat{A}\)</span>, <span class="math inline">\(\lambda^s_1 \leq \lambda^s_2 \leq ... \leq\lambda^s_n\)</span> be the eigenvalues of <span class="math inline">\(L_s\)</span>, then <span class="math display">\[ 1= \alpha_1 \geq ... \geq \alpha_n \geq -1, \quad 0=\lambda^s_1 \leq ...\leq \lambda^s_n \leq 2.\]</span></p><h3 id="graph-convolutional-networks">Graph convolutional networks</h3><p>GCN generalizes the convolutional neural networks on non-Euclideandomains. It uses the first-order approximation of Chebyshev polynomials:<span class="math display">\[g_{\theta} \star x \approx \theta (I_N + D^{-1/2}AD^{-1/2})X.\]</span> The spectral radius of <span class="math inline">\((I_N +D^{-1/2}AD^{-1/2})\)</span> is 2, and repeated application of thisoperator will cause numerical instabilities. To solve this problem, GCNuses a renormalization trick by adding a self-loop to each node, whichis equivalent to adding the identity matrix <span class="math inline">\(I_N\)</span> to the adjacency matrix <span class="math inline">\(A\)</span>: <span class="math inline">\(\tilde{A}= A + I\)</span>, the associated degree matrix <span class="math inline">\(\tilde{D} = D + I\)</span>. The new symmetricallynormalized matrix is <span class="math inline">\(\tilde{A}_{GCN} =\tilde{D}^{-1/2} \tilde{A} \tilde{D}^{-1/2}\)</span>. The one-layer GCNis <span class="math display">\[Z^{(m+1)} = \sigma(\tilde{A}_{GCN}Z^{(m)}W^{(m)}),\]</span> where <span class="math inline">\(Z^{(m)}\)</span> is thelatent representation matrix learned by the <span class="math inline">\(m\)</span>-th layer, <span class="math inline">\(Z^{(0)} = X\)</span>.</p><h3 id="graph-signal-processing">Graph signal processing</h3><p>In graph signal processing , the eigenvalues and eigenvectors of thegraph Laplacian correspond to the frequencies and Fourier basis.</p><p>The graph laplacian is defined as <span class="math inline">\(L =D-A\)</span>. By eigen-decomposition, <span class="math inline">\(L = U\Lambda U^{-1}\)</span>, where <span class="math inline">\(\Lambda =diag(\lambda_1, ..., \lambda_n)\)</span>, <span class="math inline">\(U= (u_1, u_2, ..., u_n)\)</span>. The eigenvalues <span class="math inline">\(\lambda_i, i \in [n]\)</span> can be considered tobe frequencies, and the associated eigenvectors <span class="math inline">\(u_i, i \in [n]\)</span> can be considered to be aFourier basis.</p><p>A graph signal <span class="math inline">\(f\)</span> can bedecomposed into a linear combination of basis signals <span class="math inline">\(u_i\)</span>: <span class="math display">\[f = Uc = \sum_{i=1}^n c_i u_i,\]</span> where <span class="math inline">\(c = (c_1, ...,c_n)^T\)</span>, <span class="math inline">\(c_i\)</span> is thecoefficient of <span class="math inline">\(u_i\)</span>, the magnitudeof <span class="math inline">\(c_i\)</span> represents the importance of<span class="math inline">\(u_i\)</span> in <span class="math inline">\(f\)</span>.</p><p>The smoothness of the basis signal <span class="math inline">\(u_i\)</span> is measured by the correspondingeigenvalue <span class="math inline">\(\lambda_i\)</span>. The smallerthe eigenvalue <span class="math inline">\(\lambda_i\)</span>, thesmoother the basis signal <span class="math inline">\(u_i\)</span>.<span class="math display">\[\sum_{e_{j,k} \in E} a_{j,k}[u_i(j) - u_i(k)]^2 = u_i^T L u_i =\lambda_i u_i^T u_i = \lambda_i.\]</span></p><p>The basic idea of graph filtering is to design a proper graph filterto produce the required signals for the downstream tasks. A graph filteris a function that takes a graph signal as input and <strong>outputs anew signal</strong>. A linear graph filter can be represented as amatrix <span class="math inline">\(G \in \mathbb{R}^{N \timesN}\)</span>, which is defined as <span class="math display">\[G = U p(\Lambda) U^{-1},\]</span> where <span class="math inline">\(p(\Lambda) =diag(p(\lambda_1), ..., p(\lambda_n))\)</span>. <span class="math inline">\(p(\cdot)\)</span> is the frequency responsefunction.</p><p>The output signal can be written as <span class="math display">\[y = Gf = U p(\Lambda) U^{-1} Uc = U p(\Lambda) c = \sum_{i=1}^np(\lambda_i) c_i u_i.\]</span></p><p>Definition 1 (completely low-pass graph filter). A completelylow-pass graph filter is a graph filter whose frequency responsefunction <span class="math inline">\(p(\cdot): \mathbb{R} \to\mathbb{R}^{+}\)</span> is a decreasing function with <span class="math inline">\(\lambda\)</span>.</p><ul><li>According to definition 1, the completely low-pass graph filterobtains a smooth graph output signal <span class="math inline">\(y\)</span> that consists of mostly low-frequencybasis signals, and as a result, the latent representation of each nodeis close to its neighbors.</li></ul><p>Definition 2 (completely high-pass graph filter). A completelyhigh-pass graph filter is a graph filter whose frequency responsefunction <span class="math inline">\(p(\cdot): \mathbb{R} \to\mathbb{R}^{+}\)</span> is an increasing function with <span class="math inline">\(\lambda\)</span>.</p><p>According to definition 2, the completely high-pass graph filterobtains an unsmooth graph output signal <span class="math inline">\(y\)</span> that consists of mostly high-frequencybasis signals, which makes the latent representation of each node faraway from its neighbors.</p><p>For GCN, the graph filter of GCN is <span class="math display">\[\tilde{A}_{GCN} = \tilde{D}^{-1/2} \tilde{A} \tilde{D}^{-1/2} = I - L_s= U (I - \Lambda^s) U^{-1}.\]</span> The frequency response function of GCN is <span class="math inline">\(p(\lambda^s_i) = 1 - \lambda_i^s\)</span>. Sincethe range of <span class="math inline">\(\lambda_i^s\)</span> is <span class="math inline">\([0, 2]\)</span>, the frequency response functionof GCN is a decreasing function with <span class="math inline">\(\lambda_i^s\)</span>. GCN is completely low-passgraph filter when <span class="math inline">\(\lambda_i^s \in [0,1]\)</span>, but not in <span class="math inline">\([1, 2]\)</span>.When <span class="math inline">\(\lambda_i^s \in [1, 2]\)</span>, <span class="math inline">\(p(\lambda^s_i)\)</span> will take a negative valuethat will introduce noise and undermine the performance. Thus, GCN isnot a completely low-pass graph filter.</p><h1 id="reference">Reference</h1><p>Jie Wang, Jiye Liang, Kaixuan Yao, Jianqing Liang, Dianhui Wang,Graphconvolutional autoencoders with co-learning of graph structure and nodeattributes,Pattern Recognition,Volume 121,2022,108215,ISSN 0031-3203,https://doi.org/10.1016/j.patcog.2021.108215.</p><p>https://people.orie.cornell.edu/dpw/orie6334/Fall2016/lecture7.pdf</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> paper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> paper reading </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Q</title>
+      <link href="/2023/08/27/Q&amp;A/"/>
+      <url>/2023/08/27/Q&amp;A/</url>
+      
+        <content type="html"><![CDATA[<h1 id="排序">排序</h1><p>Q 1, Why does sorting a collection have (at least) <span class="math inline">\(O(n log n)\)</span> complexity? n is the length ofthe collection.</p><p>ans: <span class="math inline">\(O(n log n)\)</span> is the optimalvalue for a comparison sort.[https://theartofmachinery.com/2019/01/05/sorting_is_nlogn.html].</p><p>Q 2, Quicksort, Heapsort and Mergesort. What are the differencesbetween them? What are the time complexities of them?</p><p>ans: [https://www.geeksforgeeks.org/quick-sort-vs-merge-sort/]</p><p>[https://www.interviewcake.com/concept/java/heapsort#:~:text=Heapsort%20is%20similar%20to%20selection,into%20a%20max%20heap%20%E2%86%B4]</p><p>The worst case complexity of quick sort is <span class="math inline">\(O(n^2)\)</span> as there is need of lot ofcomparisons in the worst condition. whereas In merge sort, worst caseand average case has same complexities <span class="math inline">\(O(nlog n)\)</span>. Heap sort runs in <span class="math inline">\(O(n logn)\)</span> time.</p><p>Space efficient. Heap sort takes <span class="math inline">\(O(1)\)</span> extra space. Merge sort requires atemporary array <span class="math inline">\(O(n)\)</span>.</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Itô Calculus and Stochastic Differential Equations</title>
       <link href="/2023/08/24/Heuristic%20Solutions%20of%20SDEs/"/>
       <url>/2023/08/24/Heuristic%20Solutions%20of%20SDEs/</url>
