@@ -49,7 +49,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-deep learning with structures"
+  id="post-deep-learning-with-structures"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -67,7 +67,7 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/09/11/deep%20learning%20with%20structures/" class="article-date">
+      <a href="/2023/09/11/deep-learning-with-structures/" class="article-date">
   <time datetime="2023-09-11T20:30:00.000Z" itemprop="datePublished">2023-09-11</time>
 </a> 
   <div class="article-category">
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">64</span>
+            <span class="post-count">943</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">5 min</span>
         </span>
     </span>
 </div>
@@ -105,9 +105,131 @@ backpropagation, i.e., stochastic gradient descent (SGD).</p>
 network gets reused many times. <span class="math display">\[
 h^t = F(x^t, h^{t-1}, W).
 \]</span></p>
+<p>Back propagation: - Loss is always a scalar value; - For the backward
+propogation, the gradient is in the form: <span class="math inline">\(J^T v\)</span>, where <span class="math inline">\(v\)</span> is a vector, and <span class="math inline">\(J\)</span> is a Jacobian matrix, <span class="math inline">\(T\)</span> means transpose; - For the forward
+propogation, the gradient is in the form: <span class="math inline">\(J
+v\)</span>. - In BF process, the shape of a Jacobian matrix is <span class="math inline">\(m \times n\)</span>, where <span class="math inline">\(m\)</span> is the dimension of output, and <span class="math inline">\(n\)</span> is the dimension of input.</p>
+<p>Consider Vector-by-Matrix Gradients:</p>
+<p>Case 1: <span class="math inline">\(\bm{z} =
+\mathbf{W}\bm{x}\)</span>, where <span class="math inline">\(\bm x \in
+\mathbb{R}^{n \times 1}\)</span>, <span class="math inline">\(\mathbf{W}
+\in \mathbb{R}^{m \times n}\)</span>, <span class="math inline">\(\bm z
+\in \mathbb{R}^{m \times 1}\)</span>. <span class="math display">\[
+\begin{aligned}
+\frac{\partial \bm{z}}{\partial \bm{x}} &amp;= \mathbf{W}, \\
+\end{aligned}
+\]</span></p>
+<p>Case 2： <span class="math inline">\(\bm{z} = \bm{x}
+\mathbf{W}\)</span>, where <span class="math inline">\(\bm x \in
+\mathbb{R}^{1 \times m}\)</span>, <span class="math inline">\(\mathbf{W}
+\in \mathbb{R}^{m \times n}\)</span>, <span class="math inline">\(\bm z
+\in \mathbb{R}^{1 \times n}\)</span>. <span class="math display">\[
+\begin{aligned}
+\frac{\partial \bm{z}}{\partial \bm{x}} &amp;= \mathbf{W}^T, \\
+\end{aligned}
+\]</span></p>
+<p>Case 3: <span class="math inline">\(\bm z = \bm x\)</span>, then
+<span class="math inline">\(\frac{\partial \bm z}{\partial \bm x} =
+\mathbf{I}\)</span>.</p>
+<p>Case 4: <span class="math inline">\(\mathbf{X} \in \mathbb{R}^{m
+\times n}\)</span>, then <span class="math inline">\(\frac{\partial
+scalar}{\partial \mathbf{X}} \in \mathbb{R}^{m \times n}\)</span>, just
+as the same as the shape of <span class="math inline">\(\mathbf{X}\)</span>.</p>
+<p>Case 5: <span class="math inline">\(\mathbf{Z} =
+\mathbf{X}\mathbf{W}\)</span>, where <span class="math inline">\(\mathbf{X} \in \mathbb{R}^{m \times n}\)</span>,
+<span class="math inline">\(\mathbf{W} \in \mathbb{R}^{n \times
+w}\)</span>. Assume <span class="math inline">\(\frac{\partial
+Loss}{\partial \mathbf{Z}} = \mathbf{\delta} \in \mathbb{R}^{m \times
+w}\)</span>. <span class="math display">\[
+\begin{aligned}
+\frac{\partial Loss}{\partial \mathbf{X}} &amp;= \mathbf{\delta}
+\mathbf{W}^T, \\
+\frac{\partial Loss}{\partial \mathbf{W}} &amp;= \mathbf{X}^T
+\mathbf{\delta}.
+\end{aligned}
+\]</span></p>
+<p><img src="/2023/09/11/deep-learning-with-structures/bp.jpg"></p>
+<p>Here we consider the simple example: <span class="math display">\[
+\begin{aligned}
+\bm h_1 = \bm x \mathbf{W}_1,  \qquad (1 \times 4) = (1 \times 3) \times
+(3 \times 4)\\
+\hat{\bm y} = \bm h_1 \mathbf{W}_2, \qquad (1 \times 2) = (1 \times 4)
+\times (4 \times 2)\\
+L = \|\hat{\bm y}\|_2^2. \qquad (1 \times 1) = (1 \times 2) \times (2
+\times 1)
+\end{aligned}
+\]</span> Then, for the backward propagation process, we have: <span class="math display">\[
+\begin{aligned}
+\frac{\partial L}{\partial \hat{\bm y}} &amp;= 2 \hat{\bm y}, \qquad (1
+\times 2) = (1 \times 2) \\
+\frac{\partial L}{\partial \mathbf{W}_2} &amp;=  (\frac{\partial
+\hat{\bm y}}{\partial \mathbf{W}_2})^T \frac{\partial L}{\partial
+\hat{\bm y}}= \bm h_1^T  \frac{\partial L}{\partial \hat{\bm y}} = 2 \bm
+h_1^T \hat{\bm y}, \qquad (4 \times 2) = (4 \times 1) \times (1 \times
+2)\\
+\frac{\partial L}{\partial \bm h_1} &amp;=  \frac{\partial L}{\partial
+\hat{\bm y}}\frac{\partial \hat{\bm y}}{\partial \bm h_1}=\frac{\partial
+L}{\partial \hat{\bm y}} \mathbf{W}_2^T = 2 \hat{\bm y} \mathbf{W}_2^T
+, \qquad (1 \times 4) = (1 \times 2) \times (2 \times 4)\\
+\frac{\partial L}{\partial \mathbf{W}_1} &amp;=  (\frac{\partial \bm
+h_1}{\partial \mathbf{W}_1})^T [\frac{\partial L}{\partial \hat{\bm
+y}}\frac{\partial \hat{\bm y}}{\partial \bm h_1}] = \bm x^T
+\frac{\partial L}{\partial \bm h_1} = 2 \bm x^T \hat{\bm y}
+\mathbf{W}_2^T, \qquad (3 \times 4) = (3 \times 1) \times (1 \times 4)
+\\
+\frac{\partial L}{\partial \bm x} &amp;=  \frac{\partial L}{\partial
+\hat{\bm y}}\frac{\partial \hat{\bm y}}{\partial \bm h_1} \frac{\partial
+\bm h_1}{\partial \bm x} = 2\hat{\bm y} \mathbf{W}_2^T \mathbf{W}_1^T,
+\qquad (1 \times 3) = (1 \times 2) \times (2 \times 4) \times (4 \times
+3)
+\end{aligned}
+\]</span></p>
+<p>We can get similar results if <span class="math inline">\(\bm x \in
+\mathbb{R}^{3 \times 1}\)</span>.</p>
+<h2 id="invariant-and-equivariant">Invariant and Equivariant:</h2>
+<p><strong>Invariant</strong>: A mathematical object (or a class of
+mathematical objects) remains unchanged after operations or
+transformations of a certain type are applied to the objects <span class="math inline">\(F(g(x)) = F(x)\)</span>, e.g., max pooling;</p>
+<ul>
+<li>Symmetry Group: all transformations under which the object is
+invariant</li>
+</ul>
+<p><strong>Equivariant</strong>: Applying a transformation and then
+computing the function produces the same result as computing the
+function and then applying the transformation <span class="math inline">\(F(g(x)) = g(F(x))\)</span>.</p>
+<ul>
+<li><p>Convolution is translation equivariant, i.e., Conv(Shift(X)) =
+Shift(Conv(X))!</p></li>
+<li><p>Global pooling gives you shift-invariance!</p></li>
+</ul>
+<h3 id="permutation-invariance">Permutation Invariance</h3>
+<p>Birkhoff Polytope: <span class="math display">\[
+B_n = \{P \in \mathbb{R}^{n \times n} | \forall i, j, P_{ij} \geq 0,
+\sum_{i=1}^n P_{ij} = 1, \sum_{j=1}^n P_{ij} = 1\}
+\]</span> This type of matrix is Doubly Stochastic Matrix.</p>
+<p>Birkhoff–von Neumann Theorem: 1. Birkhoff Polytope is the convex hull
+of permutation matrices 2. Permutation matrices = Vertices of Birkhoff
+Polytope (S_n):</p>
+<p><img src="/2023/09/11/deep-learning-with-structures/Birkhoff.png"></p>
+<p>Assume <span class="math inline">\(\mathbf{X} \in \mathbb{R}^{n
+\times 3}\)</span>, permutation matrix <span class="math inline">\(\mathbf{P} \in \mathbb{R}^{n \times n}\)</span>.
+<span class="math inline">\(\bm Y \in \mathbb{R}^{1 \times K}\)</span>
+is the output probability of classes.</p>
+<p>Permutation Invariance : <span class="math inline">\(\bm Y =
+f(\mathbf{PX})\)</span>, <span class="math inline">\(\forall \mathbf{P}
+\in S_n\)</span>.</p>
+<p>Assume <span class="math inline">\(\mathbf{H} \in \mathbb{R}^{n
+\times d}\)</span> is the representations, and <span class="math inline">\(\mathbf{H} = f(\mathbf{X})\)</span>, then,</p>
+<p>Permutation Equivariance: <span class="math inline">\(\mathbf{PH} =
+\mathbf{P}f(\mathbf{X}) = f(\mathbf{PX})\)</span>, where <span class="math inline">\(\mathbf{P} \in S_n\)</span> is a permutation
+matrix.</p>
+<ul>
+<li>equivariant first, then move to invariant.</li>
+</ul>
 <h2 id="reference">Reference</h2>
 <p><a target="_blank" rel="noopener" href="https://lrjconan.github.io/UBC-EECE571F-DL-Structures/">EECE
 571F (2023 Winter Term 1): Deep Learning with Structures</a></p>
+<p>http://cs231n.stanford.edu/slides/2018/cs231n_2018_ds02.pdf</p>
  
       <!-- reward -->
       
@@ -172,7 +294,7 @@ h^t = F(x^t, h^{t-1}, W).
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/09/11/deep%20learning%20with%20structures/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/09/11/deep-learning-with-structures/" alt="微信分享二维码">
     </div>
 </div>
 
