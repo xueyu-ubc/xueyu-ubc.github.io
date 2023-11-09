@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-09-14T01:20:41.880Z</updated>
+  <updated>2023-11-09T00:49:55.589Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,11 +17,57 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>The Effect of Data Centering on PCA Models</title>
+    <link href="https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/"/>
+    <id>https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/</id>
+    <published>2023-11-08T03:00:00.000Z</published>
+    <updated>2023-11-09T00:49:55.589Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;The Effect of Data Centering on PCA Models&lt;/h1&gt;
+&lt;p&gt;A common misconception in PCA is that&lt;br&gt;
+PC 1 is the mean of the data when the data</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Monte Carlo Gradient Estimation in Machine Learning</title>
+    <link href="https://xueyu-ubc.github.io/2023/10/21/Monte-Carlo-Gradient-Estimation/"/>
+    <id>https://xueyu-ubc.github.io/2023/10/21/Monte-Carlo-Gradient-Estimation/</id>
+    <published>2023-10-22T06:00:00.000Z</published>
+    <updated>2023-10-25T06:31:00.295Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Monte Carlo Methods and Stochastic Optimisation&lt;/h1&gt;
+&lt;p&gt;The mean-value analysis problem:&lt;/p&gt;
+&lt;p class=&quot;katex-block&quot;&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>Introduction to Deep Learning</title>
     <link href="https://xueyu-ubc.github.io/2023/09/11/deep-learning-with-structures/"/>
     <id>https://xueyu-ubc.github.io/2023/09/11/deep-learning-with-structures/</id>
     <published>2023-09-11T20:30:00.000Z</published>
-    <updated>2023-09-14T01:20:41.880Z</updated>
+    <updated>2023-10-30T22:10:15.791Z</updated>
     
     
       
@@ -29,7 +75,9 @@
         
         
     <summary type="html">&lt;h2 id=&quot;brief-intro-to-deep-learning&quot;&gt;Brief Intro to Deep Learning&lt;/h2&gt;
-&lt;p&gt;Deep learning: - Data: large datasets, e.g., ImageNet, etc.; -</summary>
+&lt;p&gt;Deep learning:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Data: large datasets, e.g.,</summary>
         
       
     
@@ -44,18 +92,17 @@
   
   <entry>
     <title>Basic knowledge</title>
-    <link href="https://xueyu-ubc.github.io/2023/09/06/paper-reading/"/>
-    <id>https://xueyu-ubc.github.io/2023/09/06/paper-reading/</id>
+    <link href="https://xueyu-ubc.github.io/2023/09/06/Basic%20knowledge/"/>
+    <id>https://xueyu-ubc.github.io/2023/09/06/Basic%20knowledge/</id>
     <published>2023-09-06T17:00:00.000Z</published>
-    <updated>2023-09-06T18:50:03.341Z</updated>
+    <updated>2023-09-16T02:47:32.224Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;graph-convolutional-autoencoders-with-co-learning-of-graph-structure-and-node-attributes&quot;&gt;Graph
-convolutional autoencoders with</summary>
+    <summary type="html">&lt;h2 id=&quot;graph-convolutional-autoencoders-with-co-learning-of-graph-structure-and-node-attributes&quot;&gt;Graph convolutional autoencoders with</summary>
         
       
     
@@ -82,6 +129,28 @@ convolutional autoencoders with</summary>
         
     <summary type="html">&lt;h1 id=&quot;排序&quot;&gt;排序&lt;/h1&gt;
 &lt;p&gt;Q 1, Why does sorting a collection have (at least) &lt;span class=&quot;math inline&quot;&gt;&#92;(O(n log n)&#92;)&lt;/span&gt; complexity? n is</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Kolmogorov-Smirnov statistic</title>
+    <link href="https://xueyu-ubc.github.io/2023/08/27/KS_test/"/>
+    <id>https://xueyu-ubc.github.io/2023/08/27/KS_test/</id>
+    <published>2023-08-28T02:00:00.000Z</published>
+    <updated>2023-10-05T00:11:45.767Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Kolmogorov-Smirnov statistic&lt;/h1&gt;
+&lt;p&gt;Consider any distribution &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math</summary>
         
       
     
@@ -229,15 +298,14 @@ Metropolis et al. (1953). It</summary>
     <link href="https://xueyu-ubc.github.io/2023/07/12/diffusion-model/"/>
     <id>https://xueyu-ubc.github.io/2023/07/12/diffusion-model/</id>
     <published>2023-07-13T01:00:00.000Z</published>
-    <updated>2023-07-19T22:11:16.462Z</updated>
+    <updated>2023-11-02T00:46:38.832Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;introduction-about-diffusion-model&quot;&gt;Introduction about diffusion
-model&lt;/h1&gt;
+    <summary type="html">&lt;h1&gt;Introduction about diffusion model&lt;/h1&gt;
 &lt;p&gt;For detailed information, please refer to &lt;a</summary>
         
       

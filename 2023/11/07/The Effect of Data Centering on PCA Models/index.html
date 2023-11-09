@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Basic knowledge |  Welcome to XueYu&#39;s Blog
+    The Effect of Data Centering on PCA Models |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -49,7 +49,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-paper-reading"
+  id="post-The Effect of Data Centering on PCA Models"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -60,26 +60,22 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Basic knowledge
+  The Effect of Data Centering on PCA Models
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2023/09/06/paper-reading/" class="article-date">
-  <time datetime="2023-09-06T17:00:00.000Z" itemprop="datePublished">2023-09-06</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/paper/">paper</a>
-  </div>
-  
+      <a href="/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/" class="article-date">
+  <time datetime="2023-11-08T03:00:00.000Z" itemprop="datePublished">2023-11-07</time>
+</a>   
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.1k</span>
+            <span class="post-count">100</span>
         </span>
     </span>
 
@@ -88,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">6 min</span>
+            <span class="post-count">1 min</span>
         </span>
     </span>
 </div>
@@ -97,137 +93,16 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="graph-convolutional-autoencoders-with-co-learning-of-graph-structure-and-node-attributes">Graph
-convolutional autoencoders with co-learning of graph structure and node
-attributes</h2>
-<p>In this paper, they design the special graph encoder and decoder for
-the tasks undertaken by the graph autoencoders. The task of the encoder
-is to embed the nodes into a new space, and then the latent
-representation of each node is close to its neighbors[the encoder is a
-low-pass filter]. The decoder restores the original space from the
-embedded space by making the latent representation of each node away
-from its neighbors[the decoder is a high-pass filter].</p>
-<p>In this paper, they encode both the graph structure and the node
-attributes in the latent space with an improved GCN, which is a
-<strong>completely low-pass graph filter</strong>. Then, to reconstruct
-the node attributes X , they design a new <strong>high-pass graph
-decoder</strong>. At the same time, we use the inner product layer to
-reconstruct the graph structure information. Last, the graph encoder and
-two sub-decoders are jointly optimized in a unified framework in such a
-way that each can be beneficial to the other and finally lead to a
-better graph embedding.</p>
-<h3 id="normalized-adjacency-matrix-and-laplacian-matrices">Normalized
-adjacency matrix and Laplacian matrices</h3>
-<p>1, The normalized adjacency matrix is defined as: <span class="math display">\[\hat{A} = D^{-1/2}A D^{-1/2},\]</span> where
-<span class="math inline">\(A\)</span> is the adjacency matrix of graph
-<span class="math inline">\(G\)</span>. <span class="math inline">\(D =
-diag(d)\)</span>, <span class="math inline">\(d(i)\)</span> is the
-degree of node <span class="math inline">\(i\)</span>.</p>
-<p>2, The normalized Laplacian matrix is defined as: <span class="math display">\[L_s = I - \hat{A} = I - D^{-1/2}A
-D^{-1/2}.\]</span> Note that <span class="math inline">\(L_s = I -
-\hat{A} = D^{-1/2}(D - A) D^{-1/2} = D^{-1/2}L D^{-1/2}\)</span>, where
-<span class="math inline">\(L = D - A\)</span> is the unnormalized
-Laplacian matrix of graph <span class="math inline">\(G\)</span>.</p>
-<p>For the largest eigenvalue <span class="math inline">\(\lambda^s\)</span> of <span class="math inline">\(A\)</span> and the maximum degree <span class="math inline">\(\Delta\)</span> of a node in a graph, we have $
-d_{avg} ^s $. Normalizing the adjacency matrix can make its largest
-eigenvalue 1.</p>
-<p>3, Let <span class="math inline">\(\alpha_1 \geq \alpha_2 \geq ...
-\geq \alpha_n\)</span> be the eigenvalues of <span class="math inline">\(\hat{A}\)</span>, <span class="math inline">\(\lambda^s_1 \leq \lambda^s_2 \leq ... \leq
-\lambda^s_n\)</span> be the eigenvalues of <span class="math inline">\(L_s\)</span>, then <span class="math display">\[ 1
-= \alpha_1 \geq ... \geq \alpha_n \geq -1, \quad 0=\lambda^s_1 \leq ...
-\leq \lambda^s_n \leq 2.\]</span></p>
-<h3 id="graph-convolutional-networks">Graph convolutional networks</h3>
-<p>GCN generalizes the convolutional neural networks on non-Euclidean
-domains. It uses the first-order approximation of Chebyshev polynomials:
-<span class="math display">\[
-g_{\theta} \star x \approx \theta (I_N + D^{-1/2}AD^{-1/2})X.
-\]</span> The spectral radius of <span class="math inline">\((I_N +
-D^{-1/2}AD^{-1/2})\)</span> is 2, and repeated application of this
-operator will cause numerical instabilities. To solve this problem, GCN
-uses a renormalization trick by adding a self-loop to each node, which
-is equivalent to adding the identity matrix <span class="math inline">\(I_N\)</span> to the adjacency matrix <span class="math inline">\(A\)</span>: <span class="math inline">\(\tilde{A}
-= A + I\)</span>, the associated degree matrix <span class="math inline">\(\tilde{D} = D + I\)</span>. The new symmetrically
-normalized matrix is <span class="math inline">\(\tilde{A}_{GCN} =
-\tilde{D}^{-1/2} \tilde{A} \tilde{D}^{-1/2}\)</span>. The one-layer GCN
-is <span class="math display">\[
-Z^{(m+1)} = \sigma(\tilde{A}_{GCN}Z^{(m)}W^{(m)}),
-\]</span> where <span class="math inline">\(Z^{(m)}\)</span> is the
-latent representation matrix learned by the <span class="math inline">\(m\)</span>-th layer, <span class="math inline">\(Z^{(0)} = X\)</span>.</p>
-<h3 id="graph-signal-processing">Graph signal processing</h3>
-<p>In graph signal processing , the eigenvalues and eigenvectors of the
-graph Laplacian correspond to the frequencies and Fourier basis.</p>
-<p>The graph laplacian is defined as <span class="math inline">\(L =
-D-A\)</span>. By eigen-decomposition, <span class="math inline">\(L = U
-\Lambda U^{-1}\)</span>, where <span class="math inline">\(\Lambda =
-diag(\lambda_1, ..., \lambda_n)\)</span>, <span class="math inline">\(U
-= (u_1, u_2, ..., u_n)\)</span>. The eigenvalues <span class="math inline">\(\lambda_i, i \in [n]\)</span> can be considered to
-be frequencies, and the associated eigenvectors <span class="math inline">\(u_i, i \in [n]\)</span> can be considered to be a
-Fourier basis.</p>
-<p>A graph signal <span class="math inline">\(f\)</span> can be
-decomposed into a linear combination of basis signals <span class="math inline">\(u_i\)</span>: <span class="math display">\[
-f = Uc = \sum_{i=1}^n c_i u_i,
-\]</span> where <span class="math inline">\(c = (c_1, ...,
-c_n)^T\)</span>, <span class="math inline">\(c_i\)</span> is the
-coefficient of <span class="math inline">\(u_i\)</span>, the magnitude
-of <span class="math inline">\(c_i\)</span> represents the importance of
-<span class="math inline">\(u_i\)</span> in <span class="math inline">\(f\)</span>.</p>
-<p>The smoothness of the basis signal <span class="math inline">\(u_i\)</span> is measured by the corresponding
-eigenvalue <span class="math inline">\(\lambda_i\)</span>. The smaller
-the eigenvalue <span class="math inline">\(\lambda_i\)</span>, the
-smoother the basis signal <span class="math inline">\(u_i\)</span>.
-<span class="math display">\[
-\sum_{e_{j,k} \in E} a_{j,k}[u_i(j) - u_i(k)]^2 = u_i^T L u_i =
-\lambda_i u_i^T u_i = \lambda_i.
-\]</span></p>
-<p>The basic idea of graph filtering is to design a proper graph filter
-to produce the required signals for the downstream tasks. A graph filter
-is a function that takes a graph signal as input and <strong>outputs a
-new signal</strong>. A linear graph filter can be represented as a
-matrix <span class="math inline">\(G \in \mathbb{R}^{N \times
-N}\)</span>, which is defined as <span class="math display">\[
-G = U p(\Lambda) U^{-1},
-\]</span> where <span class="math inline">\(p(\Lambda) =
-diag(p(\lambda_1), ..., p(\lambda_n))\)</span>. <span class="math inline">\(p(\cdot)\)</span> is the frequency response
-function.</p>
-<p>The output signal can be written as <span class="math display">\[
-y = Gf = U p(\Lambda) U^{-1} Uc = U p(\Lambda) c = \sum_{i=1}^n
-p(\lambda_i) c_i u_i.
-\]</span></p>
-<p>Definition 1 (completely low-pass graph filter). A completely
-low-pass graph filter is a graph filter whose frequency response
-function <span class="math inline">\(p(\cdot): \mathbb{R} \to
-\mathbb{R}^{+}\)</span> is a decreasing function with <span class="math inline">\(\lambda\)</span>.</p>
-<ul>
-<li>According to definition 1, the completely low-pass graph filter
-obtains a smooth graph output signal <span class="math inline">\(y\)</span> that consists of mostly low-frequency
-basis signals, and as a result, the latent representation of each node
-is close to its neighbors.</li>
-</ul>
-<p>Definition 2 (completely high-pass graph filter). A completely
-high-pass graph filter is a graph filter whose frequency response
-function <span class="math inline">\(p(\cdot): \mathbb{R} \to
-\mathbb{R}^{+}\)</span> is an increasing function with <span class="math inline">\(\lambda\)</span>.</p>
-<p>According to definition 2, the completely high-pass graph filter
-obtains an unsmooth graph output signal <span class="math inline">\(y\)</span> that consists of mostly high-frequency
-basis signals, which makes the latent representation of each node far
-away from its neighbors.</p>
-<p>For GCN, the graph filter of GCN is <span class="math display">\[
-\tilde{A}_{GCN} = \tilde{D}^{-1/2} \tilde{A} \tilde{D}^{-1/2} = I - L_s
-= U (I - \Lambda^s) U^{-1}.
-\]</span> The frequency response function of GCN is <span class="math inline">\(p(\lambda^s_i) = 1 - \lambda_i^s\)</span>. Since
-the range of <span class="math inline">\(\lambda_i^s\)</span> is <span class="math inline">\([0, 2]\)</span>, the frequency response function
-of GCN is a decreasing function with <span class="math inline">\(\lambda_i^s\)</span>. GCN is completely low-pass
-graph filter when <span class="math inline">\(\lambda_i^s \in [0,
-1]\)</span>, but not in <span class="math inline">\([1, 2]\)</span>.
-When <span class="math inline">\(\lambda_i^s \in [1, 2]\)</span>, <span class="math inline">\(p(\lambda^s_i)\)</span> will take a negative value
-that will introduce noise and undermine the performance. Thus, GCN is
-not a completely low-pass graph filter.</p>
-<h1 id="reference">Reference</h1>
-<p>Jie Wang, Jiye Liang, Kaixuan Yao, Jianqing Liang, Dianhui Wang,Graph
-convolutional autoencoders with co-learning of graph structure and node
-attributes,Pattern Recognition,Volume 121,2022,108215,ISSN 0031-3203,
-https://doi.org/10.1016/j.patcog.2021.108215.</p>
-<p>https://people.orie.cornell.edu/dpw/orie6334/Fall2016/lecture7.pdf</p>
+  <h1>The Effect of Data Centering on PCA Models</h1>
+<p>A common misconception in PCA is that<br>
+PC 1 is the mean of the data when the data are not<br>
+centered. It was shown in this paper that PC 1 is not the<br>
+mean of the data but it can point in the direction of the<br>
+mean. The extent to which PC 1 points in the direction<br>
+of the mean depends on how far away the data set mean<br>
+is from the origin. More details can be found in the paper [1].</p>
+<h2 id="references">References</h2>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/228961729_The_Effect_of_Data_Centering_on_PCA_Models">The Effect of Data Centering on PCA Models</a></p>
  
       <!-- reward -->
       
@@ -292,32 +167,21 @@ https://doi.org/10.1016/j.patcog.2021.108215.</p>
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/09/06/paper-reading/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/paper-reading/" rel="tag">paper reading</a></li></ul>
-
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/2023/09/11/deep-learning-with-structures/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Introduction to Deep Learning
-          
-        </div>
-      </a>
     
-    
-      <a href="/2023/08/27/Q&A/" class="article-nav-link">
+      <a href="/2023/10/21/Monte-Carlo-Gradient-Estimation/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Q</div>
+        <div class="article-nav-title">Monte Carlo Gradient Estimation in Machine Learning</div>
       </a>
     
   </nav>
