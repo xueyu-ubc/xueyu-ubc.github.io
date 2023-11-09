@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-11-09T00:58:29.133Z</updated>
+  <updated>2023-11-09T01:00:55.699Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -21,20 +21,23 @@
     <link href="https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/"/>
     <id>https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/</id>
     <published>2023-11-08T03:00:00.000Z</published>
-    <updated>2023-11-09T00:58:29.133Z</updated>
+    <updated>2023-11-09T01:00:55.699Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1&gt;The Effect of Data Centering on PCA Models&lt;/h1&gt;
-&lt;p&gt;A common misconception in PCA is that PC 1 is the mean of the data when the data are</summary>
+    <summary type="html">&lt;p&gt;A common misconception in PCA is that PC 1 is the mean of the data when the data are not centered. It was shown in this paper that PC 1</summary>
         
       
     
     
     
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/tags/paper/"/>
     
   </entry>
   

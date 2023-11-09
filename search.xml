@@ -8,9 +8,21 @@
       <link href="/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/"/>
       <url>/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/</url>
       
-        <content type="html"><![CDATA[<h1>The Effect of Data Centering on PCA Models</h1><p>A common misconception in PCA is that PC 1 is the mean of the data when the data are not centered. It was shown in this paper that PC 1 is not the mean of the data but it can point in the direction of the mean. The extent to which PC 1 points in the direction of the mean depends on how far away the data set mean is from the origin. More details can be found in the paper [1].</p><h2 id="references">References</h2><p>[1] <a href="https://www.researchgate.net/publication/228961729_The_Effect_of_Data_Centering_on_PCA_Models">The Effect of Data Centering on PCA Models</a></p>]]></content>
+        <content type="html"><![CDATA[<p>A common misconception in PCA is that PC 1 is the mean of the data when the data are not centered. It was shown in this paper that PC 1 is not the mean of the data but it can point in the direction of the mean. The extent to which PC 1 points in the direction of the mean depends on how far away the data set mean is from the origin. More details can be found in the paper [1].</p><h2 id="references">References</h2><p>[1] <a href="https://www.researchgate.net/publication/228961729_The_Effect_of_Data_Centering_on_PCA_Models">The Effect of Data Centering on PCA Models</a></p>]]></content>
       
       
+      <categories>
+          
+          <category> paper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> paper </tag>
+            
+        </tags>
       
     </entry>
     
