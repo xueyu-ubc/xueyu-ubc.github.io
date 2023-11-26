@@ -4,11 +4,36 @@
   
     
     <entry>
+      <title>Why the Gibbs sampler can generate random variables from a (marginal) distribution indirectly?</title>
+      <link href="/2023/11/26/Gibbs_sampling/"/>
+      <url>/2023/11/26/Gibbs_sampling/</url>
+      
+        <content type="html"><![CDATA[<h3 id="reference">Reference</h3><p><a href="https://uh.edu/~cmurray/courses/econ_7395/Explaining%20the%20Gibbs%20Sampler.pdf">Explainingthe Gibbs sampler</a></p><p><a href="https://edisciplinas.usp.br/pluginfile.php/7733433/mod_resource/content/1/aula9slidesT.pdf#:~:text=%E2%80%9CThe%20Gibbs%20sampler%20is%20a,this%20scheme%20may%20seem%20mysterious.">MarkovChain Monte Carlo.Gibbs Sampler.</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> paper </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> paper reading </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>The Effect of Data Centering on PCA Models</title>
       <link href="/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/"/>
       <url>/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/</url>
       
-        <content type="html"><![CDATA[<p>A common misconception in PCA is that PC 1 is the mean of the data when the data are not centered. It was shown in this paper that PC 1 is not the mean of the data but it can point in the direction of the mean. The extent to which PC 1 points in the direction of the mean depends on how far away the data set mean is from the origin. More details can be found in the paper [1].</p><h2 id="references">References</h2><p>[1] <a href="https://www.researchgate.net/publication/228961729_The_Effect_of_Data_Centering_on_PCA_Models">The Effect of Data Centering on PCA Models</a></p>]]></content>
+        <content type="html"><![CDATA[<p>A common misconception in PCA is that PC 1 is the mean of the datawhen the data are not centered. It was shown in this paper that PC 1 isnot the mean of the data but it can point in the direction of the mean.The extent to which PC 1 points in the direction of the mean depends onhow far away the data set mean is from the origin. More details can befound in the paper [1].</p><h2 id="references">References</h2><p>[1] <a href="https://eigenvector.com/wp-content/uploads/2020/06/EffectofCenteringonPCA.pdf">TheEffect of Data Centering on PCA Models</a></p>]]></content>
       
       
       <categories>

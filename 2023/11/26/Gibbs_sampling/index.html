@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-     Welcome to XueYu&#39;s Blog
+    Why the Gibbs sampler can generate random variables from a (marginal) distribution indirectly? |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,517 +47,200 @@
     
       
     <main class="content on">
-      
-<section class="cover">
+      <section class="outer">
+  <article
+  id="post-Gibbs_sampling"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Why the Gibbs sampler can generate random variables from a (marginal) distribution indirectly?
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/26/Gibbs_sampling/" class="article-date">
+  <time datetime="2023-11-26T18:00:00.000Z" itemprop="datePublished">2023-11-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/paper/">paper</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">11</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">1 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
       
-      <a class="forkMe" href="https://github.com/xueyu-ubc"
-        target="_blank"><img width="149" height="149" src="/images/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="reference">Reference</h3>
+<p><a target="_blank" rel="noopener" href="https://uh.edu/~cmurray/courses/econ_7395/Explaining%20the%20Gibbs%20Sampler.pdf">Explaining
+the Gibbs sampler</a></p>
+<p><a target="_blank" rel="noopener" href="https://edisciplinas.usp.br/pluginfile.php/7733433/mod_resource/content/1/aula9slidesT.pdf#:~:text=%E2%80%9CThe%20Gibbs%20sampler%20is%20a,this%20scheme%20may%20seem%20mysterious.">Markov
+Chain Monte Carlo.Gibbs Sampler.</a></p>
+ 
+      <!-- reward -->
+      
+    </div>
     
-  <div class="cover-frame">
-    <div class="bg-box">
-      <img src="/images/bg_img.jpg" alt="image frame" />
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
     </div>
-    <div class="cover-inner text-center text-white">
-      <h1><a href="/">Welcome to XueYu&#39;s Blog</a></h1>
-      <div id="subtitle-box">
-        
-        <span id="subtitle"></span>
-        
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
       </div>
-      <div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="cover-learn-more">
-    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
-  </div>
-</section>
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
-
-
-<!-- Subtitle -->
-
-  <script>
-    try {
-      var typed = new Typed("#subtitle", {
-        strings: ['片刻组成永恒', '知足且上进，温柔且坚定', ''],
-        startDelay: 0,
-        typeSpeed: 200,
-        loop: true,
-        backSpeed: 100,
-        showCursor: true
-      });
-    } catch (err) {
-      console.log(err)
-    }
-  </script>
-  
-<div id="main">
-  <section class="outer">
-  
-  
-  
-<div class="notice" style="margin-top:50px">
-    <i class="ri-heart-fill"></i>
-    <div class="notice-content">让我们一起，温柔地推翻这个世界</div>
 </div>
 
-
-<style>
-    .notice {
-        padding: 20px;
-        border: 1px dashed #e6e6e6;
-        color: #969696;
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        background: #fbfbfb50;
-        border-radius: 10px;
-    }
-
-    .notice i {
-        float: left;
-        color: #999;
-        font-size: 16px;
-        padding-right: 10px;
-        vertical-align: middle;
-        margin-top: -2px;
-    }
-
-    .notice-content {
-        display: initial;
-        vertical-align: middle;
-    }
-</style>
-  
-  <article class="articles">
-    
-    
-    
-    
-    <article
-  id="post-Convergence of MC"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/07/15/Convergence%20of%20MC/"
-    >Convergence of Markov Chain</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/07/15/Convergence%20of%20MC/" class="article-date">
-  <time datetime="2023-07-15T21:00:00.000Z" itemprop="datePublished">2023-07-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Reading-Group/">Reading Group</a>
-  </div>
-   
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/11/26/Gibbs_sampling/" alt="微信分享二维码">
     </div>
-       
+</div>
 
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markov-Chains/" rel="tag">Markov Chains</a></li></ul>
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/paper-reading/" rel="tag">paper reading</a></li></ul>
 
     </footer>
   </div>
 
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-Metropolis-Hastings"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/07/15/Metropolis-Hastings/"
-    >Metropolis-Hastings</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/07/15/Metropolis-Hastings/" class="article-date">
-  <time datetime="2023-07-15T17:00:00.000Z" itemprop="datePublished">2023-07-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Reading-Group/">Reading Group</a>
-  </div>
    
-    </div>
-       
-
-    <!-- copyright -->
+  <nav class="article-nav">
     
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markov-Chains/" rel="tag">Markov Chains</a></li></ul>
-
-    </footer>
-  </div>
-
     
- 
+      <a href="/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">The Effect of Data Centering on PCA Models</div>
+      </a>
     
-</article>
-
-    
-    <article
-  id="post-diffusion-model"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/07/12/diffusion-model/"
-    >Introduction about diffusion model</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/07/12/diffusion-model/" class="article-date">
-  <time datetime="2023-07-13T01:00:00.000Z" itemprop="datePublished">2023-07-12</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Reading-Group/">Reading Group</a>
-  </div>
-   
-    </div>
-       
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion-model/" rel="tag">diffusion model</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-Markov-Chains"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/07/12/Markov-Chains/"
-    >Discrete Markov Chains</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/07/12/Markov-Chains/" class="article-date">
-  <time datetime="2023-07-13T01:00:00.000Z" itemprop="datePublished">2023-07-12</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Reading-Group/">Reading Group</a>
-  </div>
-   
-    </div>
-       
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markov-Chains/" rel="tag">Markov Chains</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-GD"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/27/GD/"
-    >Gradient Descent, Stochastic Gradient Descent, Variance Reduction</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/02/27/GD/" class="article-date">
-  <time datetime="2021-02-27T17:53:22.000Z" itemprop="datePublished">2021-02-27</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/paper/">paper</a>
-  </div>
-   
-    </div>
-       
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GD/" rel="tag">GD</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-ADMMdecentralized"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/03/ADMMdecentralized/"
-    >ADMMdecentralized</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/02/03/ADMMdecentralized/" class="article-date">
-  <time datetime="2021-02-04T04:49:48.000Z" itemprop="datePublished">2021-02-03</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/paper/">paper</a>
-  </div>
-   
-    </div>
-       
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FL/" rel="tag">FL</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-AL2SGD"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/01/26/AL2SGD/"
-    >Lower Bounds and Optimal Algorithms for Personalized Federated Learning</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/01/26/AL2SGD/" class="article-date">
-  <time datetime="2021-01-27T06:12:22.000Z" itemprop="datePublished">2021-01-26</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/paper/">paper</a>
-  </div>
-   
-    </div>
-       
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FL/" rel="tag">FL</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-L2SGD"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/01/26/L2SGD/"
-    >Federated Learning of a Mixture of Global and Local Models</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/01/26/L2SGD/" class="article-date">
-  <time datetime="2021-01-27T06:12:10.000Z" itemprop="datePublished">2021-01-26</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/paper/">paper</a>
-  </div>
-   
-    </div>
-       
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FL/" rel="tag">FL</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-FLreview"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/01/21/FLreview/"
-    >FLreview</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/01/21/FLreview/" class="article-date">
-  <time datetime="2021-01-21T23:15:17.000Z" itemprop="datePublished">2021-01-21</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/paper/">paper</a>
-  </div>
-   
-    </div>
-       
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FL/" rel="tag">FL</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-  </article>
-  
-
-  
-  <nav class="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
-  
-</section>
-</div>
 
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
       <footer class="footer">
   <div class="outer">
     <ul>
