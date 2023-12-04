@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-12-04T10:07:29.673Z</updated>
+  <updated>2023-12-04T10:21:39.010Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -21,16 +21,15 @@
     <link href="https://xueyu-ubc.github.io/2023/11/29/Generative-Models/"/>
     <id>https://xueyu-ubc.github.io/2023/11/29/Generative-Models/</id>
     <published>2023-11-29T23:00:00.000Z</published>
-    <updated>2023-12-04T10:07:29.673Z</updated>
+    <updated>2023-12-04T10:21:39.010Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;generative-models&quot;&gt;Generative Models&lt;/h1&gt;
-&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive
-Models, GAN,</summary>
+    <summary type="html">&lt;h1&gt;Generative Models&lt;/h1&gt;
+&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive Models, GAN, Flow-based Models,</summary>
         
       
     
