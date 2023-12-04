@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-11-26T08:47:06.793Z</updated>
+  <updated>2023-12-04T10:07:29.673Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,28 +17,29 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Why the Gibbs sampler can generate random variables from a (marginal) distribution indirectly?</title>
-    <link href="https://xueyu-ubc.github.io/2023/11/26/Gibbs_sampling/"/>
-    <id>https://xueyu-ubc.github.io/2023/11/26/Gibbs_sampling/</id>
-    <published>2023-11-26T18:00:00.000Z</published>
-    <updated>2023-11-26T08:47:06.793Z</updated>
+    <title>Generative Models</title>
+    <link href="https://xueyu-ubc.github.io/2023/11/29/Generative-Models/"/>
+    <id>https://xueyu-ubc.github.io/2023/11/29/Generative-Models/</id>
+    <published>2023-11-29T23:00:00.000Z</published>
+    <updated>2023-12-04T10:07:29.673Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-&lt;p&gt;&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;generative-models&quot;&gt;Generative Models&lt;/h1&gt;
+&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive
+Models, GAN,</summary>
         
       
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
     
     
-    <category term="paper reading" scheme="https://xueyu-ubc.github.io/tags/paper-reading/"/>
+    <category term="diffusion model" scheme="https://xueyu-ubc.github.io/tags/diffusion-model/"/>
     
   </entry>
   
@@ -319,32 +320,6 @@ Metropolis et al. (1953). It</summary>
     
     
     <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Introduction about diffusion model</title>
-    <link href="https://xueyu-ubc.github.io/2023/07/12/diffusion-model/"/>
-    <id>https://xueyu-ubc.github.io/2023/07/12/diffusion-model/</id>
-    <published>2023-07-13T01:00:00.000Z</published>
-    <updated>2023-11-02T00:46:38.832Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;Introduction about diffusion model&lt;/h1&gt;
-&lt;p&gt;For detailed information, please refer to &lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
-    
-    
-    <category term="diffusion model" scheme="https://xueyu-ubc.github.io/tags/diffusion-model/"/>
     
   </entry>
   

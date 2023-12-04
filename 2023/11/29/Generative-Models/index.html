@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Generative Models |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Generative-Models"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Generative Models
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/29/Generative-Models/" class="article-date">
+  <time datetime="2023-11-29T23:00:00.000Z" itemprop="datePublished">2023-11-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Reading-Group/">Reading Group</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">6.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">40 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="generative-models">Generative Models</h1>
+<h2 id="autoregressive-models-gan-flow-based-models-vae">Autoregressive
+Models, GAN, Flow-based Models, VAE</h2>
+<p>GAN: refer to <a target="_blank" rel="noopener" href="https://lilianweng.github.io/lil-log/2017/08/20/from-GAN-to-WGAN.html">From
+GAN to WGAN</a></p>
+<p>VAE: refer to <a target="_blank" rel="noopener" href="https://lilianweng.github.io/lil-log/2018/08/12/from-autoencoder-to-beta-vae.html">From
+Autoencoder to Beta-VAE</a></p>
+<p>Flow-based Models: refer to <a target="_blank" rel="noopener" href="https://lilianweng.github.io/lil-log/2018/10/13/flow-based-deep-generative-models.html">Flow-based
+Deep Generative Models</a></p>
+<p>Autoregressive Models: refer to <a target="_blank" rel="noopener" href="https://lrjconan.github.io/UBC-EECE571F-DL-Structures/">Autoregressive
+Models</a></p>
+<p>Reference: <a target="_blank" rel="noopener" href="https://deepgenerativemodels.github.io/syllabus.html">CS236 - Fall
+2023 Deep Generative Models</a></p>
+<p>Reference: <a target="_blank" rel="noopener" href="https://lrjconan.github.io/UBC-EECE571F-DL-Structures/">EECE 571F
+(2023 Winter Term 1): Deep Learning with Structures</a></p>
+<h2 id="energy-based-models-ebms">Energy-based Models (EBMs)</h2>
+<h3 id="parameterizing-probability-distributions">Parameterizing
+probability distributions</h3>
+<p>In generating models, we want to learn a probability distribution
+<span class="math inline">\(p_{\theta}(x)\)</span>, which closely
+matches the true data distribution <span class="math inline">\(p_{data}(x)\)</span>. The probability should
+satisfy the following two conditions: - non-negative: <span class="math inline">\(p_{\theta}(x) \geq 0\)</span>. - sum to one: <span class="math inline">\(\int p_{\theta}(x)dx = 1\)</span> or <span class="math inline">\(\sum_{x}p(x) = 1\)</span>.</p>
+<p>It's not hard to choose a non-negative function, for example, given
+any function <span class="math inline">\(f_{\theta}(x)\)</span>, we can
+choose <span class="math inline">\(g_{\theta}(x) = f_{\theta}(x)^2,
+g_{\theta} = \exp(f_{\theta}(x)), g_{\theta}(x) =
+|f_{\theta}(x)|\)</span>, etc. However, <span class="math inline">\(g_{\theta}(x)\)</span> might not sum to one. The
+solution is to normalize <span class="math inline">\(g_{\theta}(x)\)</span> by dividing the sum of
+<span class="math inline">\(g_{\theta}(x)\)</span> over all possible
+<span class="math inline">\(x\)</span>. <span class="math display">\[
+p_{\theta}(x) = \frac{g_{\theta}(x)}{\sum_{x}g_{\theta}(x)} =
+\frac{g_{\theta}(x)}{\int g_{\theta}(x) \text{d}x} =
+\frac{g_{\theta}(x)}{Z(\theta)},
+\]</span> where <span class="math inline">\(Z(\theta)\)</span> is called
+the Partition function / Normalization constant.</p>
+<p>Example: - Gaussian: <span class="math inline">\(g_{(\mu, \sigma)}(x)
+= e^{-\frac{(x-\mu)^2}{2 \sigma^2}}\)</span>, volume is <span class="math inline">\(Z(\mu, \sigma) = \int e^{-\frac{(x-\mu)^2}{2
+\sigma^2}} \text{d}x = \sqrt{2 \pi \sigma^2}\)</span>. - Exponential:
+<span class="math inline">\(g_{\lambda}(x) = e^{-\lambda x}\)</span>,
+volume is <span class="math inline">\(Z(\lambda) = \int_0^{\infty}
+e^{-\lambda x} \text{d}x = 1/\lambda\)</span>. - Exponential family:
+<span class="math inline">\(g_{\theta}(x) = h(x) e^{\theta^T
+T(x)}\)</span>, volume is <span class="math inline">\(Z(\theta) = \int
+h(x) e^{\theta^T T(x)} \text{d}x\)</span>. - Beta, Poisson, Gamma,
+Dirichlet, etc.</p>
+<p>Generally, we can choose <span class="math inline">\(g_{\theta}(x)\)</span> so that <span class="math inline">\(Z(\theta)\)</span> is analytically. But how about
+using the models that <span class="math inline">\(Z(\theta)\)</span> is
+not easy to compute analytically?</p>
+<h3 id="energy-based-models">Energy-based Models</h3>
+<p>EBMs has the following form: <span class="math display">\[
+p_{\theta}(x) = \frac{1}{\int \exp(f_{\theta}(x))
+\text{d}x}e^{f_{\theta}(x)} = \frac{1}{Z(\theta)} e^{f_{\theta}(x)}.
+\]</span></p>
+<p>Why do we choose <span class="math inline">\(f_{\theta}(x)\)</span>
+as the form of <span class="math inline">\(e^{f_{\theta}(x)}\)</span>?</p>
+<ul>
+<li>We want to capture large variations in probability. We usually to
+use log-probability.</li>
+<li>Exponential families. Many distributions can be written in this
+form.</li>
+<li>Some physical meaning. <span class="math inline">\(-
+f_{\theta}(x)\)</span> is called the energy.</li>
+</ul>
+<p>Pros:</p>
+<ul>
+<li>We can use any function <span class="math inline">\(f_{\theta}(x)\)</span> to parameterize the
+probability distribution.</li>
+<li>Stable training.</li>
+<li>Relatively high sample quality.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>Sampling from <span class="math inline">\(p_{\theta}(x)\)</span> is
+hard.</li>
+<li>Evaluating and optimizing likelihood is <span class="math inline">\(p_{\theta}(x)\)</span> is hard.</li>
+<li>Curse of dimensionality. Computing <span class="math inline">\(Z(\theta)\)</span> numerically scales
+exponentially with the dimensionality of <span class="math inline">\(x\)</span>.</li>
+</ul>
+<h4 id="ebms-with-discrete-observable-variables-and-discrete-latent-variables-restricted-boltzmann-machinerbm">EBMs
+with Discrete Observable Variables and Discrete Latent Variables:
+Restricted Boltzmann machine(RBM)</h4>
+<p>Suppose we have binary visible units <span class="math inline">\(x\)</span>, binary hidden units(latent variables)
+<span class="math inline">\(h\)</span>, the energy function is: <span class="math display">\[
+E(x, h) = - a^T x - b^T h - x^T W h
+\]</span> where <span class="math inline">\(a, b, W\)</span> are
+parameters.</p>
+<p>The probability distribution is: <span class="math display">\[
+p(x, h) = \frac{1}{Z} e^{-E(x, h)} = \frac{1}{Z} e^{a^T x + b^T h + x^T
+W h}
+\]</span> where <span class="math inline">\(Z = \sum_{x, h} e^{-E(x,
+h)}\)</span>.</p>
+<p><img src="/2023/11/29/Generative-Models/bipartite_model.jpg"> Why
+restricted? - Only one layer of hidden units. - No connections between
+hidden units.</p>
+<p>Bipartite graph: conditional independence <span class="math display">\[
+\begin{aligned}
+p(x|h) &amp;= \prod_{i=1}^D p(x_i|h) \\
+p(h|x) &amp;= \prod_{j=1}^H p(h_j|x)
+\end{aligned}
+\]</span></p>
+<p>Formally, we have <span class="math display">\[
+\begin{aligned}
+p(x|h = \tilde{h}) \propto \exp(- E_{\theta}(x, h = \tilde{h})) \propto
+\exp(-\tilde{a}^Tx) = \prod_{i} \exp(-\tilde{a}_i x_i)
+\end{aligned}
+\]</span></p>
+<h4 id="inference-gibbs-sampling">Inference: Gibbs Sampling</h4>
+<p>In inference, we want to compute the maximum a posterior(MAP) <span class="math inline">\(p(h|x)\)</span> and computing the marginals <span class="math inline">\(p(x)\)</span>.</p>
+<ul>
+<li>Due to the conditional independence, we can compute <span class="math inline">\(p(h|x)\)</span> in parallel.</li>
+<li>But, the marginal <span class="math inline">\(p(x)\)</span> is
+intractable. We need to use Markov Chain Monte Carlo(MCMC) to sample
+from <span class="math inline">\(p(x)\)</span>.</li>
+</ul>
+<p>Gibbs sampling is a special case of MCMC. It can draw samples from
+<span class="math inline">\(p(x_1, x_2,...,x_n)\)</span> by iteratively
+sampling from the conditional distributions <span class="math inline">\(p(x_i|x_1, x_2,...,x_{i-1},
+x_{i+1},...,x_n)\)</span>.</p>
+<p>In RBM, we do not iterative over individual variables. Instead, we do
+block-Gibbs sampling, i.e., sampling a block of variables conditioned on
+the other block.</p>
+<blockquote>
+<p>Given initial sample <span class="math inline">\((x^{(0)},
+h^{(0)})\)</span>,</p>
+<p>for <span class="math inline">\(t = 1, 2, ..., T\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+h^{(t)} &amp;\sim p(h|x = x^{(t-1)}), \\
+x^{(t)} &amp;\sim p(x|h = h^{(t)}),
+\end{aligned}
+\]</span></p>
+<p>Return <span class="math inline">\((x^{(T)}, h^{(T)})\)</span>.</p>
+</blockquote>
+<p>For both <span class="math inline">\(p(h|x)\)</span> and <span class="math inline">\(p(x|h)\)</span>, we can sampling in parallel.</p>
+<p>Remark: <strong>the Gibbs sampler can generate random variables from
+a (marginal) distribution indirectly.</strong> After sampling many
+iterations, <span class="math inline">\((x^{(T)}, h^{(T)})\)</span>
+follows the distribution <span class="math inline">\(p(x, h)\)</span>,
+<span class="math inline">\(x^{(T)}\)</span> follows the marginal
+distribution <span class="math inline">\(p(x)\)</span>, and <span class="math inline">\(h^{(T)}\)</span> follows the marginal distribution
+<span class="math inline">\(p(h)\)</span>. For more detials:</p>
+<p><a target="_blank" rel="noopener" href="https://uh.edu/~cmurray/courses/econ_7395/Explaining%20the%20Gibbs%20Sampler.pdf">Explaining
+the Gibbs sampler</a></p>
+<p><a target="_blank" rel="noopener" href="https://edisciplinas.usp.br/pluginfile.php/7733433/mod_resource/content/1/aula9slidesT.pdf#:~:text=%E2%80%9CThe%20Gibbs%20sampler%20is%20a,this%20scheme%20may%20seem%20mysterious.">Markov
+Chain Monte Carlo.Gibbs Sampler.</a></p>
+<h4 id="learning-contrastive-divergence">Learning: Contrastive
+Divergence</h4>
+<p>In RBMs, we want to learn the parameters <span class="math inline">\(\theta\)</span> by maximizing the summed
+log-likelihood of the training data <span class="math inline">\(\log
+p_{\theta}(x)\)</span>. The problem is that the partition function <span class="math inline">\(Z(\theta)\)</span> is intractable. Contrastive
+divergence(CD) is a method to approximate the gradient of the
+log-likelihood.</p>
+<p>Since <span class="math display">\[
+\begin{aligned}
+    \frac{\partial p_{\theta}(x)}{\partial \theta} &amp;=
+\frac{1}{p_{\theta}(x)} \frac{\partial p_{\theta}(x)}{\partial \theta}
+\\
+    &amp;= \frac{1}{p_{\theta}(x)} \frac{\partial \int p_{\theta}(x,
+h)\text{d}h}{\partial \theta} \\
+    &amp;= \frac{1}{p_{\theta}(x)} \int \frac{\partial p_{\theta}(x,
+h)}{\partial \theta}\text{d}h \\
+    &amp;=  \frac{1}{p_{\theta}(x)} \int \frac{\frac{1}{Z}
+\exp(-E_{\theta}(x, h))}{\partial \theta} \text{d}h \\
+    &amp;= \frac{1}{p_{\theta}(x)} \int (-\frac{1}{Z^2}
+\exp(-E_{\theta}(x, h)) \frac{\partial Z}{\partial \theta} - \frac{1}{Z}
+\exp(-E_{\theta}(x, h)) \frac{\partial E_{\theta}(x, h)}{\partial
+\theta}) \text{d}h \\
+    &amp;= -\frac{1}{p_{\theta}(x)} \int \frac{1}{Z}
+\frac{\partial  Z}{\partial \theta} p_{\theta}(x, h) \text{d}h  -
+\frac{1}{p_{\theta}(x)}  \int  \frac{\partial E_{\theta}(x, h)}{\partial
+\theta} p_{\theta}(x, h) \text{d}h \\
+    &amp;= - \int \frac{1}{Z} \frac{\partial  Z}{\partial \theta}
+p_{\theta}(h | x) \text{d}h  - \int \frac{\partial E_{\theta}(x,
+h)}{\partial \theta} p_{\theta}(h | x) \text{d}h  \\
+    &amp;= - \frac{1}{Z} \frac{\partial  Z}{\partial \theta} - \int
+\frac{\partial E_{\theta}(x, h)}{\partial \theta} p_{\theta}(h | x)
+\text{d}h  \\
+    &amp;= - \frac{1}{Z} \frac{\partial  \int \int  \exp(-E_{\theta}(x,
+h)) \text{d}x \text{d}h}{\partial \theta} -
+\mathbb{E}_{p_{\theta}(h|x)}[\frac{\partial E_{\theta}(x, h)}{\partial
+\theta}] \\
+    &amp;=  -\int \int   (-\frac{\partial E_{\theta}(x, h)}{\partial
+\theta}) p_{\theta}(x,h) \text{d}x \text{d}h -
+\mathbb{E}_{p_{\theta}(h|x)}[\frac{\partial E_{\theta}(x, h)}{\partial
+\theta}] \\
+    &amp;= \mathbb{E}_{p_{\theta}(h|x)}[-\frac{\partial E_{\theta}(x,
+h)}{\partial \theta}] - \mathbb{E}_{p_{\theta}(x, h)}[-\frac{\partial
+E_{\theta}(x, h)}{\partial \theta}]  \\
+\end{aligned}
+\]</span> Here we don't know the distribution <span class="math inline">\(p_{\theta}(h|x)\)</span>. Maximizing the summed
+log-likelihood of the training data <span class="math inline">\(\log
+p_{\theta}(x)\)</span> is equivalent to minimizing the KL divergence
+between the real data distribution <span class="math inline">\(p_{data}(x)\)</span> and the model distribution
+<span class="math inline">\(p_{\theta}(x)\)</span>: <span class="math display">\[
+\begin{aligned}
+    \min_{\theta} \text{KL}(p_{data}(x) || p_{\theta}(x)) =
+\min_{\theta} \int p_{data}(x) \log p_{data}(x) \text{d}x - \int
+p_{data}(x) \log p_{\theta}(x) \text{d}x.
+\end{aligned}
+\]</span> Since the entropy of <span class="math inline">\(p_{data}(x)\)</span> is: <span class="math display">\[
+\begin{aligned}
+    H(p_{data}(x)) &amp;= - \int p_{data}(x) \log p_{data}(x) \text{d}x
+\end{aligned}
+\]</span> The cross-entropy of <span class="math inline">\(p_{data}(x)\)</span> and <span class="math inline">\(p_{\theta}(x)\)</span> is: <span class="math display">\[
+\begin{aligned}
+    H(p_{data}(x), p_{\theta}(x)) &amp;= -\int p_{data}(x) \log
+p_{\theta}(x) \text{d}x \\
+\end{aligned}
+\]</span> And <span class="math inline">\(H(p_{data}(x), p_{\theta}(x))
+= H(p_{data}(x)) + \text{KL}(p_{data}(x) || p_{\theta}(x))\)</span>.</p>
+<p>The entropy of <span class="math inline">\(p_{data}(x)\)</span> is a
+constant, so minimizing the KL divergence is equivalent to minimizing
+the cross-entropy of <span class="math inline">\(p_{data}(x)\)</span>
+and <span class="math inline">\(p_{\theta}(x)\)</span>, which is
+equivalent to maximizing： <span class="math display">\[
+\begin{aligned}
+    \max_{\theta} \int p_{data}(x) \log p_{\theta}(x) \text{d}x.
+\end{aligned}
+\]</span></p>
+<p>We can use stochastic gradient ascent to maximize the above equation.
+The gradient is: <span class="math display">\[
+\begin{aligned}
+    \frac{\partial}{\partial \theta} \int p_{data}(x) \log p_{\theta}(x)
+\text{d}x &amp;= \int p_{data}(x) \frac{\partial}{\partial \theta} \log
+p_{\theta}(x) \text{d}x \\
+    &amp;= \mathbb{E}_{p_{\theta}(h|x)p_{data}(x)}[-\frac{\partial
+E_{\theta}(x, h)}{\partial \theta}] - \mathbb{E}_{p_{\theta}(x,
+h)}[-\frac{\partial E_{\theta}(x, h)}{\partial \theta}].
+\end{aligned}
+\]</span> We can use Monte Carlo to approximate the above equation.</p>
+<ul>
+<li>For the first expectation <span class="math inline">\(\mathbb{E}_{p_{\theta}(h|x)p_{data}(x)}[-\frac{\partial
+E_{\theta}(x, h)}{\partial \theta}]\)</span>, we can first sample <span class="math inline">\(x\)</span> from <span class="math inline">\(p_{data}(x)\)</span> (we don't know the
+distribution of real data, but we have training data.), then sample
+<span class="math inline">\(h\)</span> from <span class="math inline">\(p_{\theta}(h|x)\)</span>.</li>
+<li>For the second expectation <span class="math inline">\(\mathbb{E}_{p_{\theta}(x, h)}[-\frac{\partial
+E_{\theta}(x, h)}{\partial \theta}]\)</span>, we can use
+<strong>finite-step</strong> Gibbs sampler.</li>
+</ul>
+<p>In this way, we don't need to compute the partition function <span class="math inline">\(Z(\theta)\)</span>. This method is called
+Contrastive Divergence(CD).</p>
+<h4 id="ebms-with-continuous-observable-variables-and-discrete-latent-variables-grbms">EBMs
+with Continuous Observable Variables and Discrete Latent Variables:
+GRBMs</h4>
+<p>Here, we consider continuous observable variables <span class="math inline">\(v\)</span> and binary units (latent variables)
+<span class="math inline">\(h\)</span>. The energy function is: <span class="math display">\[
+E_{\theta}(v, h) = \frac{1}{2}
+(\frac{v-\mu}{\sigma})^T(\frac{v-\mu}{\sigma}) - (\frac{v}{\sigma^2}) W
+h - b^T h.
+\]</span> The conditional independence still holds: <span class="math display">\[
+\begin{aligned}
+p(v|h) &amp;= \mathcal{N}(v | Wh + \mu, \text{diag}(\sigma^2)) \\
+p(h_j = 1|v) &amp;= [\text{Sigmoid}(W^T \frac{v}{\sigma^2} + b)]_j
+\end{aligned}
+\]</span></p>
+<h3 id="modern-ebms">Modern EBMs</h3>
+<h4 id="ebms-with-learnable-energy-functions">EBMs with Learnable Energy
+Functions</h4>
+<p>For RBMs, we designed the energy function in advance, and it implied
+conditional independence. But, in general, it's hard to design the
+energy function in advance.Thus, we want to learn the energy function
+<span class="math inline">\(E_{\theta}(x)\)</span> from data.</p>
+<p>One way is to use deep neural networks to parameterize the energy
+function <span class="math inline">\(E_{\theta}(x)\)</span>. For
+example, we can use U-Net architecture：</p>
+<p><img src="/2023/11/29/Generative-Models/u-net.png"></p>
+<p>The energy obtained by the energy function is a scalar and the output
+of the U-Net is a tensor. Thus, we need to design some readout choices
+to get the scalar energy. For example, <span class="math display">\[
+\begin{aligned}
+    E_{\theta}(x) &amp;= x^T f_{\theta}(x), \\
+    E_{\theta}(x) &amp;= (x - f_{\theta}(x))^2, \\
+    E_{\theta}(x) &amp;= f_{\theta}(x)^2 .\\
+\end{aligned}
+\]</span> Empirically, the first choice is better.</p>
+<h4 id="inference-langevin-monte-carlo">Inference: Langevin Monte
+Carlo</h4>
+<p>After learning the energy function <span class="math inline">\(E_{\theta}(x)\)</span>, how to sample from <span class="math display">\[p_{\theta}(x) =
+\frac{1}{Z}\exp(-E_{\theta}(x))\]</span></p>
+<p>One way is to use Langevin Monte Carlo(LMC). The stochastic
+differential equation(SDE) of LMC is: <span class="math display">\[
+\begin{aligned}
+    \text{d}x = \nabla \log p_{\theta} (x) \text{d}t + \sqrt{2} \text{d}
+B_t
+\end{aligned}
+\]</span> where <span class="math inline">\(B_t\)</span> is a standard
+Brownian motion. The first term <span class="math inline">\(\nabla \log
+p_{\theta} (x) \text{d}t\)</span> is called the drift term, which
+dominates the movement of the particle. The second term <span class="math inline">\(\sqrt{2} \text{d} B_t\)</span> is called the
+diffusion term, which includes the stochasticity of the process.</p>
+<p>One can prove Langevin diffusion is irreducible, strong Feller, and
+aperiodic. Thus, <strong>the stationary distribution of the Langevin
+diffusion is <span class="math inline">\(p_{\theta}(x)\)</span>, and we
+can use Langevin diffusion to sample from <span class="math inline">\(p_{\theta}(x)\)</span>.</strong></p>
+<p>To turn the Langevin diffusion into a sampling algorithm, we need to
+discretize the SDE. The simplest way is to use Euler-Maruyama
+discretization: <span class="math display">\[
+\begin{aligned}
+    \text{d}x &amp;= \nabla \log p_{\theta} (x) \text{d}t + \sqrt{2}
+\text{d} B_t \\
+    x_{t+\eta} &amp;= x_t + \nabla \log p_{\theta} (x_t) (t+\eta - t) +
+\sqrt{2} (B_{t+\eta} - B_t) \\
+    &amp;= x_t + \eta \nabla \log p_{\theta} (x_t) + \sqrt{2 \eta}
+\epsilon, \quad \epsilon \sim N(0, I)
+\end{aligned}
+\]</span> where <span class="math inline">\(\eta\)</span> is the step
+size.</p>
+<ul>
+<li>If we ignore the noise term, we are using gradient ascent to
+maximize the density, this means we are trying to fing the 'mode' of
+<span class="math inline">\(x\)</span>. The 'mode' is the mean of the
+distribution. In order to generate more samples, we add noise term.</li>
+</ul>
+<blockquote>
+<p>Sampling algorithm: - Given initial sample <span class="math inline">\(x^{(0)}\)</span> and step size <span class="math inline">\(\eta\)</span>. - for <span class="math inline">\(t
+= 1, 2, ..., T\)</span>:</p>
+<pre><code>$x^{(t)} = x^{(t-1)} + \eta \nabla \log p_{\theta} (x^{(t-1)}) + \sqrt{2 \eta} \epsilon, \quad \epsilon \sim N(0, I)$</code></pre>
+<ul>
+<li>Return <span class="math inline">\(x^{(T)}\)</span>.</li>
+</ul>
+</blockquote>
+<p>In EBMs, the score function <span class="math inline">\(\nabla \log
+p_{\theta} (x)\)</span> is the derivative of the energy function <span class="math inline">\(\log p_{\theta} (x)\)</span> with respect to <span class="math inline">\(x\)</span>, and <span class="math display">\[
+\nabla_x \log p_{\theta} (x) = \nabla_x (-E_{\theta}(x) - \log Z)=
+-\nabla E_{\theta}(x).
+\]</span> here, <span class="math inline">\(Z\)</span> doesn't depend on
+<span class="math inline">\(x\)</span>.</p>
+<p>Noticed that there is another score function <span class="math inline">\(\nabla \log p_{\theta} (x)\)</span>, which is the
+derivative of the probability distribution <span class="math inline">\(\log p_{\theta} (x)\)</span> with respect to <span class="math inline">\(\theta\)</span>.</p>
+<h4 id="learning-contrastive-divergence-1">Learning: Contrastive
+Divergence</h4>
+<p>Similar to RBMs, we can use contrastive divergence to update <span class="math inline">\(\theta\)</span>. The gradient is <span class="math display">\[
+\int p_{data} \frac{\partial \log p_{\theta}(x)}{\partial \theta}
+\text{d} x = \mathbb{E}_{p_{data}(x)}[- \frac{\partial
+E_{\theta}(x)}{\partial \theta}] -
+\mathbb{E}_{p_{\theta}(x)}[-\frac{\partial E_{\theta}(x)}{\partial
+\theta}].
+\]</span></p>
+<p>For the second expectation, we can use Langevin Monte Carlo sampling
+to sample from <span class="math inline">\(p_{\theta}(x)\)</span>, and
+then estimate the expectation.</p>
+<h4 id="score-matching">Score Matching</h4>
+<p>In contrastive divergence, <strong>at each training
+iteration</strong>, we use Langevin Monte Carlo to sample from <span class="math inline">\(p_{\theta}(x)\)</span>, and then estimate the
+expectation. However, the Langevin Monte Carlo sampling is not
+efficient, expecially in high-dimensional space. Thus, we need to train
+the model without sampling.</p>
+<p>Score matching is a method to train the model without sampling. The
+idea is to minimize the difference between the score function <span class="math inline">\(\nabla \log p_{\theta} (x)\)</span> and the score
+function of the data distribution <span class="math inline">\(\nabla
+\log p_{data} (x)\)</span>.</p>
+<p>The (stein) score function is: <span class="math display">\[
+s_{\theta}(x) = \nabla \log p_{\theta} (x) = -\nabla E_{\theta}(x),
+\]</span> which is independent of the partition function <span class="math inline">\(Z(\theta)\)</span> and needs <strong>the pdf is
+differentiable</strong>.</p>
+<p><strong>Fisher divergence</strong> between two distributions <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span> is: <span class="math display">\[
+D_F(p(x), q(x)) = \frac{1}{2} \mathbb{E}_{x \sim p(x)}[||\nabla_x \log
+p(x) - \nabla_x \log q(x)||_2^2].
+\]</span> Score matching is to minimize the Fisher divergence between
+<span class="math inline">\(p_{\theta}(x)\)</span> and <span class="math inline">\(p_{data}(x)\)</span>: <span class="math display">\[
+\begin{aligned}
+    \min_{\theta} D_F(p_{\theta}(x), p_{data}(x)) &amp;= \min_{\theta}
+\frac{1}{2} \mathbb{E}_{x \sim p_{data}(x)}[||\nabla_x \log p_{data}(x)
+- s_{\theta}(x)||_2^2] \\
+    &amp;= \min_{\theta} \frac{1}{2} \mathbb{E}_{x \sim
+p_{data}(x)}[||\nabla_x \log p_{data}(x) - (-\nabla_x E_{\theta}(x)
+)||_2^2]
+\end{aligned}
+\]</span> Since we don't know the real data distribution, we need to
+deal with <span class="math inline">\(\nabla_x \log
+p_{data}(x)\)</span>. Assume that $ p_{data}(x)$ decays to 0
+sufficiently rapidly as <span class="math inline">\(x \rightarrow \pm
+\infty\)</span>, one can derive the following equation: <span class="math display">\[
+\begin{aligned}
+   &amp;\frac{1}{2} \mathbb{E}_{x \sim p_{data}(x)}[||\nabla_x \log
+p_{data}(x) - \nabla_x \log p_{\theta}(x)||_2^2] \\
+    =&amp;\mathbb{E}_{x \sim p_{data}(x)}[\frac{1}{2} ||\nabla_x \log
+p_{\theta}(x)||^2_2 + \text{tr}(\nabla^2_x \log p_{\theta}(x))] +
+\text{const},
+\end{aligned}
+\]</span> where <span class="math inline">\(tr(\nabla^2_x \log
+p_{\theta}(x))\)</span> is the trace of the Hessian matrix of <span class="math inline">\(\log p_{\theta}(x)\)</span>. Therefore, we can use
+monte carlo to estimate the above loss: <span class="math display">\[
+\begin{aligned}
+   &amp;\mathbb{E}_{x \sim p_{data}(x)}[\frac{1}{2} ||\nabla_x \log
+p_{\theta}(x)||^2_2 + \text{tr}(\nabla^2_x \log p_{\theta}(x))], \\
+   =&amp; \frac{1}{n} \sum_{i=1}^n [\frac{1}{2} ||\nabla_x \log
+p_{\theta}(x_i)||^2_2 + \text{tr}(\nabla^2_x \log p_{\theta}(x_i))] \\
+   =&amp; \frac{1}{n} \sum_{i=1}^n [\frac{1}{2} ||\nabla
+E_{\theta}(x_i)||^2_2 + \text{tr}(\nabla^2_x \log p_{\theta}(x_i))] \\
+\end{aligned}
+\]</span> Then, we can use stochastic gradient descent to minimize the
+above loss.</p>
+<p>Note: computing the trace of the Hessian matrix <span class="math inline">\(tr(\nabla^2_x \log p_{\theta}(x))\)</span> is
+expensive.</p>
+<p>Conclusions:</p>
+<ul>
+<li>we have used two distances for training EBMs:
+<ul>
+<li>KL divergence, which is equal to maximum likelihood. (contrastive
+divergence).</li>
+<li>Fisher divergence, which is equal to score matching.</li>
+</ul></li>
+<li>Energy-based models are very felxible probabilistic models with
+intracable partition functions.</li>
+<li>Sampling is hard and requires MCMC.</li>
+<li>Computing the likelihood is hard.</li>
+<li>Comparing the likelihood/probability of two different points is
+tractable.</li>
+<li>Contrastive divergence is a good approximation to maximum
+likelihood. But, it needs sampling for each iteration.</li>
+<li>Sampling free methods: score matching, noise contrastive estimation,
+adversarial optimization, etc.</li>
+</ul>
+<h2 id="score-based-models">Score-Based Models</h2>
+<p>How to represent probability distribution function <span class="math inline">\(p(x)\)</span> in different models:</p>
+<ul>
+<li><p>GAN: min-max loss</p></li>
+<li><p>Autoregressive models: <span class="math inline">\(p_{\theta}(x)
+= \prod_{i=1}^{d} p_{\theta}(x_i | x_{&lt;i})\)</span></p></li>
+<li><p>Flow-based models: <span class="math inline">\(p_{\theta}(x) =
+p(z) |\det(J_{f_{\theta}}(x))|\)</span>, <span class="math inline">\(z =
+f_{\theta}(x)\)</span>.</p></li>
+<li><p>VAE: use ELBO obj and latent variables</p></li>
+<li><p>EBMs: <span class="math inline">\(p_{\theta}(x) =
+\frac{1}{Z}\exp(-E_{\theta}(x))\)</span></p></li>
+</ul>
+<p>Pros: except for GAN, these models are maximizing the likelihood.</p>
+<p>Cons: They need special atchitectures or surrogate losses.</p>
+<p>Remember that the score function is: <span class="math display">\[
+s_{\theta}(x) = \nabla \log p_{\theta} (x).
+\]</span> As shown in the following figure, score function is the
+gradient of the log probability function <span class="math inline">\(\log p_{\theta}(x)\)</span> and the direction of
+the score function is the vector to the mode of the distribution. This
+means that the score function directly models the vector field of
+gradients.</p>
+<p align="center">
+<img src="./Generative-Models/score.jpg" width="200" height="200" alt="Image Description">
+</p>
+<p>Score matching is not limited to EBMs. We can use score matching to
+train other models, such as autoregressive models, flow-based models,
+etc.</p>
+<p><img src="./Generative-Models/scorebased-models.jpg" width="500" height="200" alt="Image Description"></p>
+<p>We want to train a score-based model <span class="math inline">\(s_{\theta}\)</span> to estimate the score <span class="math inline">\(\nabla_{x} \log p_{data}(x)\)</span>, we use the
+average Euclidean distance between the score function <span class="math inline">\(s_{\theta}(x)\)</span> and the score <span class="math inline">\(\nabla_{x} \log p_{data}(x)\)</span> over the
+whole space as the loss function: <span class="math display">\[
+\begin{aligned}
+    \frac{1}{2} \mathbb{E}_{x \sim p_{data}(x)}[||s_{\theta}(x) -
+\nabla_{x} \log p_{data}(x)||_2^2],  (\text{Fisher divergence})
+\end{aligned}
+\]</span> which is equal to minimize: <span class="math display">\[
+\begin{aligned}
+    \mathbb{E}_{x \sim p_{data}(x)}[\frac{1}{2} ||s_{\theta}(x) ||^2_2 +
+\text{tr}(\nabla_x s_{\theta}(x))],  (\text{Score matching})
+\end{aligned}
+\]</span></p>
+<p>We need to compute the value of the score function <span class="math inline">\(s_{\theta}(x)\)</span> and the trace of the
+Jacobian matrix <span class="math inline">\(\text{tr}(\nabla_x
+s_{\theta}(x))\)</span>. Thus, the score model must be efficient to
+evaluate. Since the score models is not scalable, computing the trace of
+the Jacobian matrix <span class="math inline">\(\text{tr}(\nabla_x
+s_{\theta}(x))\)</span> in the backpropagation is order of <span class="math inline">\(O(d)\)</span>, where <span class="math inline">\(d\)</span> is the dimension of <span class="math inline">\(x\)</span>. We need to find an efficient way to
+train the score model.</p>
+<h3 id="denoising-score-matching">Denoising Score Matching</h3>
+<p>Consider the perturbed distribution: <span class="math display">\[
+q_{\sigma}(\tilde{x}|x) = \mathcal{N}(\tilde{x}|x, \sigma^2 I), \qquad
+q_{\sigma}(\tilde{x}) = \int p(x)q_{\sigma}(\tilde{x}|x) \text{d}x.
+\]</span> Instead of estimating <span class="math inline">\(\nabla_x
+\log q_{\theta}(x)\)</span>, we can estimate <span class="math inline">\(\nabla_{\tilde{x}} \log
+q_{\sigma}(\tilde{x})\)</span>. It's easier to estimate and when the
+noise level is small, <span class="math inline">\(q_{\sigma}(\tilde{x})
+\approx p(\tilde{x})\)</span>.</p>
+<p>Therefore, we can use denoising score matching to match the score of
+a noise-perturbed distribution: <span class="math display">\[
+\begin{aligned}
+    &amp;\frac{1}{2}E_{\tilde{x} \sim
+q_{\sigma}}[\|\nabla_{\tilde{x}}\log q_{\sigma}(\tilde{x}) -
+s_{\theta}(\tilde{x})\|_2^2] \\
+    =&amp; \frac{1}{2} E_{x \sim p_{data}(x), \tilde{x} \sim
+q_{\sigma}(\tilde{x}|x)}[\|s_{\theta}(\tilde{x})- \nabla_{\tilde{x}}
+\log q_{\sigma}(\tilde{x}|x)\|_2^2] + \text{const}.
+\end{aligned}
+\]</span> In this form, we don't need to compute the trace of the
+Jacobian matrix <span class="math inline">\(\text{tr}(\nabla_x
+s_{\theta}(x))\)</span>. Since <span class="math inline">\(q_{\sigma}(\tilde{x}|x) = \mathcal{N}(\tilde{x}|x,
+\sigma^2 I)\)</span>, <span class="math inline">\(\nabla_{\tilde{x}}
+\log q_{\sigma}(\tilde{x}|x) = -\frac{\tilde{x} - x}{\sigma^2}\)</span>.
+It's more efficient to optimize for high dimensional data.</p>
+<p>Con: notice that, we use score function to estimate the
+noise-perturbed distribution, which means <strong>we cannot estimate the
+score of the clean data</strong>.</p>
+<h4 id="denoising">Denoising</h4>
+<p>Denoising: after training a score model, we can use langevin MC
+sampling to get noise samples from <span class="math inline">\(q_{\sigma}(\tilde{x})\)</span>. According to
+Tweedie's formula: <span class="math display">\[
+E_{x \sim p(x|\tilde{x})}[x] = \tilde{x} + \sigma^2 \nabla_x \log
+q_{\sigma}(\tilde{x}) \approx \tilde{x} + \sigma^2
+s_{\theta}(\tilde{x}).
+\]</span> [remember <span class="math inline">\(s_{\theta}(\tilde{x}) =
+\nabla_{\tilde{x}}\log q_{\sigma}(\tilde{x})\)</span>]</p>
+<blockquote>
+<p>Langevin MCMC: from scores to samples: - Given initial sample <span class="math inline">\(x^{(0)}\)</span>. - for <span class="math inline">\(t = 1, 2, ..., T\)</span>: - <span class="math inline">\(\qquad z^{(t)} \sim \mathcal{N}(0, I)\)</span> -
+<span class="math inline">\(\qquad\tilde{x}^{(t)} = \tilde{x}^{(t-1)} +
+\frac{\epsilon}{2} \nabla s_{\theta}(\tilde{x}) + \sqrt{\epsilon}
+z^t\)</span> - Return <span class="math inline">\(\tilde{x}^{(T)}\)</span>.</p>
+</blockquote>
+<p>If noise <span class="math inline">\(\epsilon \to 0\)</span> and
+<span class="math inline">\(T \to \infty\)</span>, <span class="math inline">\(\tilde{x}^{(T)} \sim p_{data}(x)\)</span>.</p>
+<h4 id="multi-scale-noise-perturbation">Multi-scale Noise
+Perturbation</h4>
+<p>When using the denoising score matching, we only use the observed
+samples to estimate the scores. Thus, the estimated scores in low
+density regions are not accurate. Moreover, langevin MCMC converges very
+slowly.</p>
+<p><img src="./Generative-Models/low_density.png" width="500" height="200" alt="Image Description"></p>
+<p>One way to improve the accuracy of the estimated scores in low
+density regions is to increase the noise level <span class="math inline">\(\sigma\)</span>. As shown in the following figure,
+the estimated scores in low density regions are more accurate when the
+noise level <span class="math inline">\(\sigma\)</span> is large.</p>
+<p><img src="./Generative-Models/add_noise.png" width="500" height="200" alt="Image Description"></p>
+<ul>
+<li>High noise provides useful directional information for Langevin
+dynamics.</li>
+<li>But perturbed density no longer approximates the true data
+density.</li>
+</ul>
+<p>Multi-scale noise perturbation: perturb data with different levels of
+noise simulteanously, and aggregate the information from all noise
+levels.</p>
+<p><img src="./Generative-Models/multi_noise.png" width="450" height="150" alt="Image Description"></p>
+<p>If the noise levle <span class="math inline">\(\sigma\)</span> is
+large, the perturbed data quality is worse, but the estimated score is
+more close to the perturbed scores. It's a trade-off between the data
+quality and estimated score accuracy.</p>
+<p>When the noise is small, the perturbed distribution is close to the
+original data distribution, but the estimation errors in low density
+regions are still high.</p>
+<p>When we add larger and larger noise, the estimation score is close to
+the perturbed data score, but the perturbed data score differs from the
+original data score.</p>
+<p>In order to achieve the best data quality and estimation accuracy at
+the same time, we should consider all perturbations jointly instead of
+focusing on only one perturbation.</p>
+<p><strong>Training procedure</strong>: Assume we have <span class="math inline">\(L\)</span> noise levels <span class="math inline">\(\sigma_1, \sigma_2, ..., \sigma_L\)</span> and
+corresponding perturbed data distributions <span class="math inline">\(q_{\sigma_1}(\tilde{x}), q_{\sigma_2}(\tilde{x}),
+..., q_{\sigma_L}(\tilde{x})\)</span>. For each perturbed data
+distribution, we can easily sample from them, and use score estimation
+to estimate the corresponding scores. However, this method requires a
+large number of separate score models to be learned independently, which
+is very costly, exspecially when the number of noise levels <span class="math inline">\(L\)</span> is large.</p>
+<p>One way is to train a single conditional score network for all noise
+levels. The score model will take <span class="math inline">\(\sigma\)</span> as an input. This model is named
+the <strong>Noise Conditional Score Network</strong>.</p>
+<p><img src="./Generative-Models/noise-score.png" width="400" height="200" alt="Image Description"></p>
+<p>The loss function is a weighted combination of denoising score
+matching loss with different noise levels: <span class="math display">\[
+\begin{aligned}
+    &amp;\frac{1}{L}\sum_{l=1}^L \lambda(\sigma_i) E_{\tilde{x} \sim
+q_{\sigma_i}}[\|\nabla_{\tilde{x}}\log q_{\sigma_i}(\tilde{x}) -
+s_{\theta}(\tilde{x}, \sigma_i)\|_2^2]  \\
+    =&amp; \frac{1}{L}\sum_{l=1}^L \lambda(\sigma_i)
+    E_{x \sim p_{data}(x), z \sim N(0, I)}[\|s_{\theta}(x+\sigma_i z,
+\sigma_i) + \frac{z}{\sigma_i}\|_2^2] + \text{const}.
+\end{aligned}
+\]</span></p>
+<p>[compute the loss in parallel?]</p>
+<p>About the weighting function <span class="math inline">\(\lambda(\sigma_i)\)</span>, we can set <span class="math inline">\(\lambda(\sigma_i) = \sigma_i^2\)</span>.</p>
+<p>About choosing the noise level <span class="math inline">\(\sigma_i\)</span>:</p>
+<ul>
+<li><p>The largest noise level <span class="math inline">\(\sigma_1\)</span> approximates the maximum
+pairwise distance between data points.</p></li>
+<li><p>The smallest noise level <span class="math inline">\(\sigma_L\)</span> should be small enough so that
+the noise in final samples is negligible.</p></li>
+<li><p>Adjacent noise scales should have sufficient overlap to
+facilitate transitioning across noise scales in annealed Langevin
+dynamics. One way is to use geometric sequence: <span class="math display">\[
+\frac{\sigma_1}{\sigma_2} = \frac{\sigma_2}{\sigma_3} = ... =
+\frac{\sigma_{L-1}}{\sigma_L},  \quad \sigma_1 &gt; \sigma_2 &gt; ...
+&gt; \sigma_L.
+\]</span></p></li>
+</ul>
+<p><strong>Sampling procedure</strong>: we use annealed Langevin
+dynamics to sample from the noise conditional score network using scores
+of different noise levels.</p>
+<p>We first use Langevin dynamics to sample from the most perturbed data
+distribution. Then, the resulting samples will be used as initial
+samples for sampling from the next noise level. We continue in this
+fashion and finally use Langevin dynamics to sample from the least
+perturbed data distribution.</p>
+<p><img src="./Generative-Models/annealed.png" width="300" height="200" alt="Image Description"></p>
+<p><strong><span class="math inline">\(s_{\theta}\)</span> is shared at
+each iteration, since we only have one network.</strong></p>
+<p>Conclusions:</p>
+<ul>
+<li>Gradients of distributions (scores) can be estimated easily</li>
+<li>Flexible architecture choices — no need to be
+normalized/invertible</li>
+<li>Stable training — no minimax optimization</li>
+<li>Better or comparable sample quality to GANs</li>
+<li>Exact likelihood computation</li>
+</ul>
+<h2 id="introduction-about-diffusion-model">Introduction about diffusion
+model</h2>
+<p>Reference: <a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">What
+are Diffusion Models?</a></p>
+<h3 id="ddpm-denoising-diffusion-probabilistic-models">DDPM: Denoising
+Diffusion Probabilistic Models</h3>
+<p>Diffusion model is a generative model:</p>
+<p><img src="/2023/11/29/Generative-Models/image.png"></p>
+<ul>
+<li>diffusion process: add noise to a real image, finally we get a noise
+image.</li>
+<li>reverse process: from noise image to generate real image.</li>
+</ul>
+<ol type="1">
+<li><p>training phase from a real image datasets ---&gt; through
+diffusion process ---&gt; noise images ---&gt; through reverse process
+---&gt; real images</p></li>
+<li><p>inference phase</p></li>
+</ol>
+<p>sampling noise images from a gaussian distribution, then use the
+pre-trained reverse process to generate images.</p>
+<h4 id="diffusion-process">Diffusion process</h4>
+<p>add noise to a clean image <span class="math inline">\(X_0\)</span>
+and then we get noisy image <span class="math inline">\(X_1, X_2, ...,
+X_T\)</span>.</p>
+<p>Now, we focus on the process from image <span class="math inline">\(X_{t-1}\)</span> to <span class="math inline">\(X_t\)</span>. <span class="math display">\[
+X_t = \sqrt {1 - \beta_t}X_{t-1} + \sqrt {\beta_t} Z_{t}, \quad Z_t \sim
+N(0, I)
+\]</span> &gt;Remark: the noise scale <span class="math inline">\(\beta_t\)</span> will be increased gradually. $
+_t$ increases from <span class="math inline">\(10^{-4}\)</span> to <span class="math inline">\(2*10^{-2}\)</span> linearly. <span class="math inline">\(T = 2000\)</span>.</p>
+<p>Let <span class="math inline">\(1 - \beta_t = \alpha_t\)</span>, then
+we have <span class="math display">\[
+X_t = \sqrt{\alpha_t}X_{t-1} + \sqrt{1 - \alpha_t} Z_t \\
+X_{t-1} = \sqrt{\alpha_{t-1}}X_{t-2} + \sqrt{1 - \alpha_{t-1}} Z_{t-1}
+\\
+\]</span> Combine these two equlities, we have <span class="math display">\[
+\begin{aligned}
+X_t &amp;= \sqrt{\alpha_t}X_{t-1} + \sqrt{1 - \alpha_t} Z_t \\
+&amp;= \sqrt{\alpha_t}(\sqrt{\alpha_{t-1}}X_{t-2} + \sqrt{1 -
+\alpha_{t-1}} Z_{t-1})+ \sqrt{1 - \alpha_t} Z_t \\
+&amp;= \sqrt{\alpha_t \alpha_{t-1}}X_{t-2} + \sqrt{\alpha_t(1 -
+\alpha_{t-1})} Z_{t-1}+ \sqrt{1 - \alpha_t} Z_t \\
+&amp; = \sqrt{\alpha_t \alpha_{t-1}}X_{t-2} + + \sqrt{1 - \alpha_t
+\alpha_{t-1}} Z,   \quad Z \sim N(0, I) \\
+&amp;= ... \\
+&amp;= \sqrt{\alpha_t \alpha_{t-1}...\alpha_1}X_{0} + + \sqrt{1 -
+\alpha_t \alpha_{t-1}... \alpha_{1}} Z \\
+&amp;= \sqrt{\bar{\alpha}_t}X_{0} + + \sqrt{1 - \bar{\alpha}_t}
+Z,   \qquad \bar{\alpha}_t = \prod_{i = 1}^{t}\alpha_i.
+\end{aligned}
+\]</span></p>
+<h4 id="the-relation-between-ddpm-and-sde">The relation between DDPM and
+SDE</h4>
+<p>DDPM: <span class="math inline">\(x_i = \sqrt{1 - \beta_i} x_{i-1} +
+\sqrt{\beta_i}z_{i-1}\)</span></p>
+<p>SDE: <span class="math inline">\(\text{d}x = f(x, t)\text{d}t + g(x,
+t)\text{d}w\)</span>,</p>
+<p>the solution is <span class="math display">\[
+x_t = x_0 + \int_0^t f(x, t)dt + \int_0^t g(x, t)dw
+\]</span> where <span class="math inline">\(w\)</span> is a Brownian
+motion.</p>
+<p>How to get the mean and convariance of <span class="math inline">\(x_t\)</span> ?</p>
+<p>We can use FPK equation. See more on <a target="_blank" rel="noopener" href="https://users.aalto.fi/~ssarkka/course_s2014/handout3.pdf">FPK
+equation</a>.</p>
+<p>The problem is the mean and covariance of <span class="math inline">\(x_t\)</span> is dependent on the expectation of
+<span class="math inline">\(p(x(t))\)</span>, which we don't know.</p>
+<h4 id="ddpm-variance-preserving-sde">DDPM / Variance preserving
+SDE</h4>
+<p><span class="math display">\[x_i = \sqrt{1 - \beta_i} x_{i-1} +
+\sqrt{\beta_i}z_{i-1}\]</span></p>
+<p>Let <span class="math inline">\(\beta(t=i/N) = N \beta_i, X(t = i/N)
+= x_i, Z(i/N) = z_i, \Delta t = 1/N\)</span>.</p>
+<p>Then we have <span class="math display">\[
+\begin{aligned}
+    X(t + \Delta t) &amp;= \sqrt{1 - \beta(t+\Delta t)\Delta t}X(t) +
+\sqrt{\beta(t+\Delta t)\Delta t}Z(t) \\
+    &amp; \approx X(t)  - \frac{1}{2} \beta(t) \Delta t X(t) +
+\sqrt{\beta(t)\Delta t}Z(t) \\
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\text{d} x = - \frac{1}{2} \beta(t) x(t) dt + \sqrt{\beta(t)} \text{d}
+w,
+\]</span> where <span class="math inline">\(w\)</span> is a Brownian
+motion.</p>
+<p>The mean and covariance of <span class="math inline">\(x_t\)</span>
+is <span class="math display">\[
+\begin{aligned}
+    \mathbb{E}[x(t)] &amp;= \mathbb{E}[x(0)]e^{-\frac{1}{2}\int_0^t
+\beta(s)ds} \\
+    \text{cov}[x(t)] &amp;= I -  I \times e^{-\frac{1}{2}\int_0^t
+\beta(s)ds} \leq I.
+\end{aligned}
+\]</span></p>
+<h4 id="score-based-model-variance-exploding-sde">SCORE-based model /
+Variance Exploding SDE</h4>
+<p><span class="math display">\[x_i = x_{i-1} + \sqrt{\sigma_{i}^2 -
+\sigma^2_{i-1}}z_{i-1}\]</span></p>
+<p>Let <span class="math inline">\(X(t = i/N) = x_i\)</span>, <span class="math inline">\(\sigma(t = i/N) = \sigma_i, Z(t = 1/N) = z_i,
+\Delta t = 1/N\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+    X(t + \Delta t) &amp;= X(t) + \sqrt{\sigma(t+\Delta t)^2 -
+\sigma(t)^2}Z(t) \\
+    &amp; \approx X(t) + \sqrt{\frac{\Delta \sigma(t)^2}{\Delta t}
+\Delta t}Z(t) \\
+\end{aligned}
+\]</span> where <span class="math inline">\(w\)</span> is a Brownian
+motion. <span class="math display">\[
+d x = \sqrt{\frac{d \sigma(t)^2}{dt}} d w
+\]</span></p>
+<p>The mean and covariance of <span class="math inline">\(x_t\)</span>
+is <span class="math display">\[
+\begin{aligned}
+    \mathbb{E}[x(t)] &amp;= \mathbb{E}[x(0)]  \\
+    \text{cov}[x(t)] &amp;= \sigma^2(t) I.
+\end{aligned}
+\]</span> Here, <span class="math inline">\(\sigma^2(t)\)</span> is
+non-decreasing variance. Thus, the variance will be exploded.</p>
+<h2 id="evaluating-generative-models">Evaluating Generative Models</h2>
+<h3 id="model-families">Model families</h3>
+<ul>
+<li>Probability density/mass functions
+<ul>
+<li>Autoregressive models: <span class="math inline">\(p_{\theta}(x) =
+\prod_{i=1}^{d} p_{\theta}(x_i | x_{&lt;i})\)</span>.</li>
+<li>Normalizing flow models: <span class="math inline">\(p_{\theta}(x) =
+p(z) |\det(J_{f_{\theta}}(x))|\)</span>, <span class="math inline">\(z =
+f_{\theta}(x)\)</span>.</li>
+<li>Latent variable models(VAEs): <span class="math inline">\(p_{\theta}(x) = \int p_{\theta}(x|z)p(z)
+\text{d}z\)</span>.</li>
+<li>Energy-based models: <span class="math inline">\(p_{\theta}(x) =
+\frac{1}{Z}\exp(-E_{\theta}(x))\)</span>.</li>
+</ul></li>
+<li>Sample generation processes
+<ul>
+<li>GANs: <span class="math inline">\(x = G_{\theta}(z)\)</span>, <span class="math inline">\(z \sim p(z)\)</span>.</li>
+</ul></li>
+<li>Score functions
+<ul>
+<li>Score-based models: <span class="math inline">\(s_{\theta}(x) =
+\nabla_x \log p_{\theta} (x)\)</span>.</li>
+</ul></li>
+</ul>
+<h3 id="distances-of-probability-distributions">Distances of probability
+distributions</h3>
+<ul>
+<li>KL divergence(maximum likelihood): <span class="math inline">\(D_{KL}(p||q) = \int p(x) \log \frac{p(x)}{q(x)}
+\text{d}x\)</span>
+<ul>
+<li>Autoregressive models.</li>
+<li>Normalizing flow models.</li>
+<li>ElBO in VAEs.</li>
+<li>Contrastive divergence in EBMs.</li>
+</ul></li>
+<li>f-divergences, Wasserstein distances
+<ul>
+<li>GANs (f-GANs, WGANs)</li>
+</ul></li>
+<li>Fisher divergence(score matching): denoising score matching, sliced
+score matching
+<ul>
+<li>Score-based models</li>
+<li>Energy-based models</li>
+</ul></li>
+<li>Noise-contrastive estimation
+<ul>
+<li>Energy-based models</li>
+</ul></li>
+</ul>
+<h3 id="evaluation---density-estimation">Evaluation - Density
+estimation</h3>
+<p>We can use likelihood as a matric for density estimation: - Split
+dataset into train, validation, test sets. - Learn model <span class="math inline">\(p_{\theta}(x)\)</span> using the train set. - Tune
+hyperparameters using the validation set. - Evaluate likelihood on the
+test set: <span class="math inline">\(\mathbb{p_{data}}[\log
+p_{\theta}(x)]\)</span>.</p>
+<p>However, the likelihood is intractable for many models. Not all
+models have tractable likelihoods. For example, GANs, VAEs, EBMs,
+etc.</p>
+<p>For VAEs, we can compare the ELBO to log-likelihood. But, how about
+GANs and EBMs?</p>
+<blockquote>
+<p>In general, unbiased estimation of probability density functions from
+samples is impossible.</p>
+</blockquote>
+<blockquote>
+<p>We can use approximation methods, such as kernel density
+estimation.</p>
+<h4 id="kernel-density-estimation">Kernel density estimation:</h4>
+<p>Given an intractable density model <span class="math inline">\(p_{\theta}(x)\)</span> and limited samples <span class="math inline">\(S = \{x_i\}_{i=1}^n\)</span>, we can use kernel
+density estimation to estimate the density function <span class="math inline">\(p_{\theta}(x)\)</span>. For a new data point <span class="math inline">\(x\)</span>, we can estimate the density of <span class="math inline">\(x\)</span> as: <span class="math display">\[
+\hat{p}_{\theta}(x) = \frac{1}{n} \sum_{i \in S} K(\frac{x -
+x_i}{\sigma}),
+\]</span> where <span class="math inline">\(K\)</span> is a kernel
+function, <span class="math inline">\(\sigma\)</span> is the
+bandwidth.</p>
+</blockquote>
+<ul>
+<li>Gaussian kernel: <span class="math inline">\(K(x) =
+\frac{1}{\sqrt{2\pi}}\exp(-\frac{1}{2}x^2)\)</span>.</li>
+<li>A kernel is a function that satisfies the following properties:
+<ul>
+<li><span class="math inline">\(K(x) \geq 0\)</span>.</li>
+<li><span class="math inline">\(\int K(x) \text{d}x = 1\)</span>.</li>
+<li><span class="math inline">\(K(x) = K(-x)\)</span>.</li>
+</ul></li>
+<li>Bandwidth <span class="math inline">\(\sigma\)</span> controls the
+smoothness of the density estimate.
+<ul>
+<li>Small <span class="math inline">\(\sigma\)</span>:
+undersmoothed</li>
+<li>Large <span class="math inline">\(\sigma\)</span>: oversmoothed</li>
+<li><span class="math inline">\(\sigma\)</span> is a hyperparameter. We
+can use cross-validation to choose <span class="math inline">\(\sigma\)</span>.</li>
+</ul></li>
+<li>KDE is very unreliable in higher dimensions.</li>
+</ul>
+<h3 id="importance-sampling-for-latent-variable-models">Importance
+sampling for latent variable models</h3>
+<p>For likelihood <span class="math inline">\(p(x)\)</span>, we can use
+likehood weighting to estimate the likelihood: <span class="math display">\[p(x)= \mathbb{E}_{p(z)}[p(x|z)].\]</span></p>
+<p>Monte Carlo sampling is one way to estimate the expectation. However,
+if <span class="math inline">\(p(z)\)</span> is far from <span class="math inline">\(p(z|x)\)</span>, the variance of the likehood
+weighting is very large. For example, the probability of <span class="math inline">\(p(z)\)</span> is very small, but the probability
+of <span class="math inline">\(p(z|x)\)</span> is very large at some
+regions. Thus, we need another distribution <span class="math inline">\(q(z)\)</span>, which is close to <span class="math inline">\(p(z|x)\)</span>, to estimate the expectation.</p>
+<p>Importance sampling is another way to estimate the expectation. The
+idea is to sample from a proposal distribution <span class="math inline">\(q(z)\)</span>, then <span class="math display">\[
+\begin{aligned}
+\mathbb{E}_{p(z)}[p(x|z)] = \int p(z) p(x|z) \text{d}z = \int q(z)
+\frac{p(z)}{q(z)} p(x|z) \text{d}z = \mathbb{E}_{q(z)}[\frac{p(z)}{q(z)}
+p(x|z)].
+\end{aligned}
+\]</span> Then, we can use Monte Carlo sampling to estimate the
+expectation.</p>
+<p>Pros: - Still unbiased. - We can choose <span class="math inline">\(q(z)\)</span> to have lower variance. One can
+prove that <span class="math inline">\(q(z)\)</span> should be high
+where <span class="math inline">\(|p(z)p(x|z)|\)</span> is high.</p>
+<p>Cons: - We need to choose a good proposal distribution <span class="math inline">\(q(z)\)</span>. - It's unreliable in high
+dimensions.</p>
+<p>When to use importance sampling?</p>
+<ul>
+<li><span class="math inline">\(p(z)\)</span> is difficult to sample
+from.</li>
+<li>We can evaluate <span class="math inline">\(p(z)\)</span>.</li>
+<li><span class="math inline">\(q(x)\)</span> is easy to evaluate and
+sample from.</li>
+<li>We can choose <span class="math inline">\(q(z)\)</span> to be high
+where <span class="math inline">\(|p(z)p(x|z)|\)</span> is high.</li>
+</ul>
+<p>Annealed importance sampling is another method to estimate the
+likelihood.</p>
+<h3 id="sample-quality">Sample quality</h3>
+<h4 id="inception-score-is">Inception score (IS)</h4>
+<p>Inception score is a metric for evaluating the quality of generated
+images. The idea is to use a pretrained Inception network to classify
+the generated images.</p>
+<p>Assumption 1: we are evaluating sample quality for generative models
+trained on labeled datasets.</p>
+<p>Assumption 2: We have a good probabilistic classifier <span class="math inline">\(c(y|x)\)</span> for predicting the label <span class="math inline">\(y\)</span> of any point <span class="math inline">\(x\)</span>.</p>
+<p>(A classifier can be trained on a large dataset, such as
+ImageNet.)</p>
+<p>We want a good generative model to satisfy two properties:</p>
+<ul>
+<li><p>Sharpness: the generated images should be sharp.</p>
+<p><img src="./Generative-Models/sharpness.png" width="900" height="50" alt="Image Description"></p>
+<p><span class="math display">\[S = \exp(E_{x \sim p}[\int c(y | x)\log
+c(y|x) \text{d}y])\]</span> High sharpness implies classifier is
+confident in making predictions for generated images, and <span class="math inline">\(c(y|x)\)</span> has low entropy.</p></li>
+<li><p>Diversity: the generated images should be diverse.</p>
+<p><img src="./Generative-Models/diversity.png" width="900" height="50" alt="Image Description"></p>
+<p><span class="math display">\[D = \exp(E_{x \sim p}[\int c(y|x) \log
+c(y) \text{d} y]), \qquad c(y) = E_{x \sim p} [c(y|x)]\]</span></p>
+<p>High diversity implies the generated images are diverse, and <span class="math inline">\(c(y)\)</span> has high entropy.</p></li>
+</ul>
+<p>Inception score combines these two properties: <span class="math display">\[
+IS = D \times S.
+\]</span></p>
+<p>Higher IS implies better sample quality.</p>
+<h4 id="frechet-inception-distance-fid">Frechet inception distance
+(FID)</h4>
+<p>Inception score only considers the samples from <span class="math inline">\(p_{\theta}(x)\)</span>, but ignores the real data
+distribution <span class="math inline">\(p_{data}(x)\)</span>.</p>
+<p>FID is a metric for evaluating the quality of generated images. The
+idea is to use a pretrained Inception network to extract features from
+the generated images and real images. Then, we can compute the Frechet
+distance between the two feature distributions.</p>
+<ul>
+<li>Let <span class="math inline">\(\mathcal{G}\)</span> be the
+generated samples and <span class="math inline">\(\mathcal{T}\)</span>
+be the test dataset.</li>
+<li>Compute feature representations <span class="math inline">\(F_{\mathcal{G}}\)</span> and <span class="math inline">\(F_{\mathcal{T}}\)</span>.</li>
+<li>Fit a multivariate Gaussian to <span class="math inline">\(F_{\mathcal{G}}\)</span> and <span class="math inline">\(F_{\mathcal{T}}\)</span>. Let <span class="math inline">\(\mu_{\mathcal{G}}\)</span> and <span class="math inline">\(\mu_{\mathcal{T}}\)</span> be the mean vectors and
+<span class="math inline">\(\Sigma_{\mathcal{G}}\)</span> and <span class="math inline">\(\Sigma_{\mathcal{T}}\)</span> be the covariance
+matrices.</li>
+<li>FID is defined as the Wasserstein-2 distance between the two
+Gaussians: <span class="math display">\[
+FID(\mathcal{G}, \mathcal{T}) = ||\mu_{\mathcal{G}} -
+\mu_{\mathcal{T}}||_2^2 + \text{tr}(\Sigma_{\mathcal{G}} +
+\Sigma_{\mathcal{T}} -
+2(\Sigma_{\mathcal{G}}\Sigma_{\mathcal{T}})^{1/2}).
+\]</span></li>
+</ul>
+<p>Lower FID implies better sample quality.</p>
+<h4 id="kernel-inception-distance-kid">Kernel inception distance
+(KID)</h4>
+<p>Maximum mean discrepancy (MMD) is a two-sample test statistic that
+measures the distance between two distributions by computing differences
+in their moments. Using the kernel trick, we can compute the MMD between
+two distributions: <span class="math display">\[
+MMD(p, q) = E_{x, x' \sim p} [K(x, x')] + E_{y, y' \sim q}
+[K(y, y')] - 2E_{x \sim p, y \sim q} [K(x, y)].
+\]</span></p>
+<p>Kernel inception distance (KID) is a metric for evaluating the
+quality of generated images. The idea is to use a pretrained Inception
+network to extract features from the generated images and real images.
+Then, we can compute the MMD between the two feature distributions.</p>
+<p>FID VS. KID: - FID can only be positive, and it's biased, KID is
+unbiased. - The computation time of FID is <span class="math inline">\(O(n)\)</span>, but the computation time of KID is
+<span class="math inline">\(O(n^2)\)</span>.</p>
+<h3 id="evaluation---latent-representations">Evaluation - latent
+representations</h3>
+<p>What is a good latent representation? For downstream tasks, we can
+evaluate the quality of latent representations by evaluating the
+performance of the downstream tasks, such as reconstruction,
+classification, etc.</p>
+<p>For unsupervised learning, there is no one-size-fits-all metric for
+evaluating the quality of latent representations. We can use the
+following metrics to evaluate the quality of latent representations:</p>
+<h4 id="clustering">clustering</h4>
+<p>Representations that can be grouped into clusters are potentially
+useful. For example, the representations of a generated model for MNIST
+can be grouped into different clusters, where each cluster corresponds
+to one or more digits.</p>
+<p>For labelled datasets, there are many evaluation metrics. The lables
+are only used for evaluation, not for clustering.</p>
+<pre><code>from sklearn.metrics.cluster import completeness_score, homogeneity_score, v_measure_score</code></pre>
+<h4 id="compression-or-reconstruction">compression or
+reconstruction</h4>
+<p>Latent representations can be evaluated based on the maximum
+compression they can achieve without significant loss in reconstruction
+quality.</p>
+<p>Some metrics: Mean Squared Error (MSE), Peak signal-to-noise ratio
+(PSNR), Structural similarity (SSIM), etc.</p>
+<h4 id="disentanglement">disentanglement</h4>
+<p>We want representations that disentangle independent and
+interpretable factors of variation in the observed data.</p>
+<p>Some quantitative metrics:</p>
+<ul>
+<li>Beta-VAE metric: accuracy of a linear classifier that predicts a
+fixed factor of variation.</li>
+<li>Factor-VAE, Mutual Information Gap (MIG), SAP score, DCI
+disentanglement, Modularity, etc.</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://users.aalto.fi/~asolin/sde-book/sde-book.pdf">SDE
+BOOK</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.11239">Denoising Diffusion
+Probabilistic Models. Jonathan et al.</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://yang-song.net/blog/2021/score/">Generative
+Modeling by Estimating Gradients of the Data Distribution</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">What
+are Diffusion Models?</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://deepgenerativemodels.github.io/syllabus.html">CS236 - Fall
+2023 Deep Generative Models</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://lrjconan.github.io/UBC-EECE571F-DL-Structures/">EECE 571F
+(2023 Winter Term 1): Deep Learning with Structures</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2101.03288">How to Train Your
+Energy-Based Models. Yang Song and Durk Kingma.</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://glizen.com/radfordneal/ftp/ais-rev.pdf">Importance
+sampling</a></p></li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/11/29/Generative-Models/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diffusion-model/" rel="tag">diffusion model</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">The Effect of Data Centering on PCA Models</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2023
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>
