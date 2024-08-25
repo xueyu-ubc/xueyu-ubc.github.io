@@ -68,7 +68,7 @@
      
     <div class="article-meta">
       <a href="/2021/01/26/AL2SGD/" class="article-date">
-  <time datetime="2021-01-27T06:12:22.000Z" itemprop="datePublished">2021-01-26</time>
+  <time datetime="2021-01-26T14:12:22.000Z" itemprop="datePublished">2021-01-26</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/paper/">paper</a>
@@ -137,11 +137,10 @@ f(\mathbf{x}):= \frac{1}{n}\sum_{i=1}^{n}f_{i}(\mathbf{x_{i}}), \quad
 <p>在这篇论文中，作者给出了求解上述优化问题的通信和局部计算复杂度（迭代次数）的最低界限，并且给出了几种能够达到最低界限的算法。</p>
 <ul>
 <li><p>lower bound on the communication complexity.
-作者证明对于任意一个满足一定假设条件的算法，会有一个L-smooth, <span class="math inline">\(\mu\)</span>-strongly convex 局部目标函数 <span class="math inline">\(f_{i}\)</span> 至少需要通信 <span class="math inline">\(O(\sqrt{\frac{\min\{L,
-\lambda\}}{\mu}}\log\frac{1}{\epsilon})\)</span> 轮才能得到最优解 <span class="math inline">\(\epsilon\)</span>邻域内的解。</p></li>
+作者证明对于任意一个满足一定假设条件的算法，会有一个L-smooth, <span class="math inline">\(\mu\)</span>-strongly convex 局部目标函数 <span class="math inline">\(f_{i}\)</span> 至少需要通信 <span class="math inline">\(O(\sqrt{\frac{\min\{L,  \lambda\}}{\mu}}\log\frac{1}{\epsilon})\)</span>
+轮才能得到最优解 <span class="math inline">\(\epsilon\)</span>邻域内的解。</p></li>
 <li><p>lower complexity bound on the number of local oracle calls.
-作者证明对于局部近端梯度下降，至少需要迭代<span class="math inline">\(O(\sqrt{\frac{\min\{L,
-\lambda\}}{\mu}}\log\frac{1}{\epsilon})\)</span>
+作者证明对于局部近端梯度下降，至少需要迭代<span class="math inline">\(O(\sqrt{\frac{\min\{L,  \lambda\}}{\mu}}\log\frac{1}{\epsilon})\)</span>
 次；对于局部梯度下降，至少需要进行 <span class="math inline">\(O(\sqrt{\frac{L}{\mu}}\log\frac{1}{\epsilon})\)</span>
 次迭代；若每个目标函数为 <span class="math inline">\(m\)</span>
 个有限和形式（<span class="math inline">\(\tilde{L}\)</span>-smooth)，至少需要 <span class="math inline">\(O((m +
@@ -166,8 +165,7 @@ Katyusha算法近似得到。Local AGD 可以得到 <span class="math inline">\(
 \geq \Lambda\)</span> 时能达到最优，后者当 <span class="math inline">\(m\lambda \leq \tilde{L}\)</span>（取决于对数因子）
 时达到最优。</p></li>
 <li><p>作者提出了加速的L2SGD+算法-AL2SGD+，该算法可以实现最优通信复杂 度
-<span class="math inline">\(O(\sqrt{\frac{\min\{\tilde{L},
-\lambda\}}{\mu}}\log\frac{1}{\epsilon})\)</span>，以及局部梯度复杂度
+<span class="math inline">\(O(\sqrt{\frac{\min\{\tilde{L},  \lambda\}}{\mu}}\log\frac{1}{\epsilon})\)</span>，以及局部梯度复杂度
 <span class="math inline">\(O((m + \sqrt{\frac{m(\tilde{L} +
 \lambda)}{\mu}})\log\frac{1}{\epsilon})\)</span>，当 <span class="math inline">\(\lambda \leq \tilde{L}\)</span>
 时最优。但是，两者无法同时实现最优。</p>
@@ -383,7 +381,7 @@ https://ui.adsabs.harvard.edu/abs/2020arXiv201002372H</li>
     <ul>
       <li>
         Copyrights &copy;
-        2021-2023
+        2021-2024
         <i class="ri-heart-fill heart_icon"></i> Xue Yu
       </li>
     </ul>

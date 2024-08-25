@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-12-04T10:21:39.010Z</updated>
+  <updated>2023-12-04T10:21:40.000Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -20,16 +20,17 @@
     <title>Generative Models</title>
     <link href="https://xueyu-ubc.github.io/2023/11/29/Generative-Models/"/>
     <id>https://xueyu-ubc.github.io/2023/11/29/Generative-Models/</id>
-    <published>2023-11-29T23:00:00.000Z</published>
-    <updated>2023-12-04T10:21:39.010Z</updated>
+    <published>2023-11-29T07:00:00.000Z</published>
+    <updated>2023-12-04T10:21:40.000Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1&gt;Generative Models&lt;/h1&gt;
-&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive Models, GAN, Flow-based Models,</summary>
+    <summary type="html">&lt;h1 id=&quot;generative-models&quot;&gt;Generative Models&lt;/h1&gt;
+&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive
+Models, GAN,</summary>
         
       
     
@@ -46,8 +47,8 @@
     <title>The Effect of Data Centering on PCA Models</title>
     <link href="https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/"/>
     <id>https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/</id>
-    <published>2023-11-08T03:00:00.000Z</published>
-    <updated>2023-11-26T08:48:43.937Z</updated>
+    <published>2023-11-07T11:00:00.000Z</published>
+    <updated>2023-11-26T08:48:44.000Z</updated>
     
     
       
@@ -72,17 +73,17 @@ when the data are not centered. It was shown in this paper that PC 1</summary>
     <title>Monte Carlo Gradient Estimation in Machine Learning</title>
     <link href="https://xueyu-ubc.github.io/2023/10/21/Monte-Carlo-Gradient-Estimation/"/>
     <id>https://xueyu-ubc.github.io/2023/10/21/Monte-Carlo-Gradient-Estimation/</id>
-    <published>2023-10-22T06:00:00.000Z</published>
-    <updated>2023-11-21T03:10:37.710Z</updated>
+    <published>2023-10-21T15:00:00.000Z</published>
+    <updated>2023-11-21T03:10:38.000Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1&gt;Monte Carlo Methods and Stochastic Optimisation&lt;/h1&gt;
-&lt;p&gt;The mean-value analysis problem:&lt;/p&gt;
-&lt;p class=&quot;katex-block&quot;&gt;&lt;span</summary>
+    <summary type="html">&lt;h1 id=&quot;monte-carlo-methods-and-stochastic-optimisation&quot;&gt;Monte Carlo
+Methods and Stochastic Optimisation&lt;/h1&gt;
+&lt;p&gt;The mean-value analysis</summary>
         
       
     
@@ -95,8 +96,8 @@ when the data are not centered. It was shown in this paper that PC 1</summary>
     <title>Introduction to Deep Learning</title>
     <link href="https://xueyu-ubc.github.io/2023/09/11/deep-learning-with-structures/"/>
     <id>https://xueyu-ubc.github.io/2023/09/11/deep-learning-with-structures/</id>
-    <published>2023-09-11T20:30:00.000Z</published>
-    <updated>2023-10-30T22:10:15.791Z</updated>
+    <published>2023-09-11T05:30:00.000Z</published>
+    <updated>2023-10-30T22:10:16.000Z</updated>
     
     
       
@@ -104,9 +105,7 @@ when the data are not centered. It was shown in this paper that PC 1</summary>
         
         
     <summary type="html">&lt;h2 id=&quot;brief-intro-to-deep-learning&quot;&gt;Brief Intro to Deep Learning&lt;/h2&gt;
-&lt;p&gt;Deep learning:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Data: large datasets, e.g.,</summary>
+&lt;p&gt;Deep learning: - Data: large datasets, e.g., ImageNet, etc.; -</summary>
         
       
     
@@ -123,15 +122,16 @@ when the data are not centered. It was shown in this paper that PC 1</summary>
     <title>Basic knowledge</title>
     <link href="https://xueyu-ubc.github.io/2023/09/06/Basic%20knowledge/"/>
     <id>https://xueyu-ubc.github.io/2023/09/06/Basic%20knowledge/</id>
-    <published>2023-09-06T17:00:00.000Z</published>
-    <updated>2023-09-16T02:47:32.224Z</updated>
+    <published>2023-09-06T02:00:00.000Z</published>
+    <updated>2023-09-16T02:47:34.000Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;graph-convolutional-autoencoders-with-co-learning-of-graph-structure-and-node-attributes&quot;&gt;Graph convolutional autoencoders with</summary>
+    <summary type="html">&lt;h2 id=&quot;graph-convolutional-autoencoders-with-co-learning-of-graph-structure-and-node-attributes&quot;&gt;Graph
+convolutional autoencoders with</summary>
         
       
     
@@ -145,11 +145,33 @@ when the data are not centered. It was shown in this paper that PC 1</summary>
   </entry>
   
   <entry>
+    <title>Kolmogorov-Smirnov statistic</title>
+    <link href="https://xueyu-ubc.github.io/2023/08/27/KS_test/"/>
+    <id>https://xueyu-ubc.github.io/2023/08/27/KS_test/</id>
+    <published>2023-08-27T11:00:00.000Z</published>
+    <updated>2023-10-05T00:11:46.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;kolmogorov-smirnov-statistic&quot;&gt;Kolmogorov-Smirnov statistic&lt;/h1&gt;
+&lt;p&gt;Consider any distribution &lt;span class=&quot;math inline&quot;&gt;&#92;(D&#92;)&lt;/span&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>Q</title>
     <link href="https://xueyu-ubc.github.io/2023/08/27/Q&amp;A/"/>
     <id>https://xueyu-ubc.github.io/2023/08/27/Q&amp;A/</id>
-    <published>2023-08-28T02:00:00.000Z</published>
-    <updated>2023-08-28T03:38:44.136Z</updated>
+    <published>2023-08-27T11:00:00.000Z</published>
+    <updated>2023-08-28T03:38:46.000Z</updated>
     
     
       
@@ -167,33 +189,11 @@ when the data are not centered. It was shown in this paper that PC 1</summary>
   </entry>
   
   <entry>
-    <title>Kolmogorov-Smirnov statistic</title>
-    <link href="https://xueyu-ubc.github.io/2023/08/27/KS_test/"/>
-    <id>https://xueyu-ubc.github.io/2023/08/27/KS_test/</id>
-    <published>2023-08-28T02:00:00.000Z</published>
-    <updated>2023-10-05T00:11:45.767Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;Kolmogorov-Smirnov statistic&lt;/h1&gt;
-&lt;p&gt;Consider any distribution &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>Itô Calculus and Stochastic Differential Equations</title>
     <link href="https://xueyu-ubc.github.io/2023/08/24/Heuristic%20Solutions%20of%20SDEs/"/>
     <id>https://xueyu-ubc.github.io/2023/08/24/Heuristic%20Solutions%20of%20SDEs/</id>
-    <published>2023-08-24T18:00:00.000Z</published>
-    <updated>2023-08-25T07:06:11.538Z</updated>
+    <published>2023-08-24T03:00:00.000Z</published>
+    <updated>2023-08-25T07:06:12.000Z</updated>
     
     
       
@@ -219,8 +219,8 @@ Itô&lt;/h1&gt;
     <title>Gaussian processes</title>
     <link href="https://xueyu-ubc.github.io/2023/08/06/gaussianprocess/"/>
     <id>https://xueyu-ubc.github.io/2023/08/06/gaussianprocess/</id>
-    <published>2023-08-06T23:00:00.000Z</published>
-    <updated>2023-08-08T18:43:10.311Z</updated>
+    <published>2023-08-06T08:00:00.000Z</published>
+    <updated>2023-08-24T18:06:52.000Z</updated>
     
     
       
@@ -246,8 +246,8 @@ variables&lt;/h1&gt;
     <title>Ordinary Differential Equation</title>
     <link href="https://xueyu-ubc.github.io/2023/07/19/ODE/"/>
     <id>https://xueyu-ubc.github.io/2023/07/19/ODE/</id>
-    <published>2023-07-19T23:00:00.000Z</published>
-    <updated>2023-07-30T07:14:42.650Z</updated>
+    <published>2023-07-19T08:00:00.000Z</published>
+    <updated>2023-07-30T07:14:44.000Z</updated>
     
     
       
@@ -273,8 +273,8 @@ Equation (ODE)&lt;/h1&gt;
     <title>Convergence of Markov Chain</title>
     <link href="https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/"/>
     <id>https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/</id>
-    <published>2023-07-15T21:00:00.000Z</published>
-    <updated>2023-07-19T23:45:53.452Z</updated>
+    <published>2023-07-15T06:00:00.000Z</published>
+    <updated>2023-07-19T23:45:54.000Z</updated>
     
     
       
@@ -299,8 +299,8 @@ Equation (ODE)&lt;/h1&gt;
     <title>Metropolis-Hastings</title>
     <link href="https://xueyu-ubc.github.io/2023/07/15/Metropolis-Hastings/"/>
     <id>https://xueyu-ubc.github.io/2023/07/15/Metropolis-Hastings/</id>
-    <published>2023-07-15T17:00:00.000Z</published>
-    <updated>2023-07-15T19:40:29.459Z</updated>
+    <published>2023-07-15T02:00:00.000Z</published>
+    <updated>2023-07-15T19:40:30.000Z</updated>
     
     
       
@@ -326,8 +326,8 @@ Metropolis et al. (1953). It</summary>
     <title>Discrete Markov Chains</title>
     <link href="https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/"/>
     <id>https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/</id>
-    <published>2023-07-13T01:00:00.000Z</published>
-    <updated>2023-07-24T03:00:37.684Z</updated>
+    <published>2023-07-12T10:00:00.000Z</published>
+    <updated>2023-07-24T03:00:38.000Z</updated>
     
     
       
@@ -353,8 +353,8 @@ Definitions and Representations&lt;/h1&gt;
     <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
     <link href="https://xueyu-ubc.github.io/2021/02/27/GD/"/>
     <id>https://xueyu-ubc.github.io/2021/02/27/GD/</id>
-    <published>2021-02-27T17:53:22.000Z</published>
-    <updated>2023-07-13T23:03:33.691Z</updated>
+    <published>2021-02-27T01:53:22.000Z</published>
+    <updated>2023-07-13T23:03:34.000Z</updated>
     
     
       
@@ -379,8 +379,8 @@ Accelerating Stochastic Gradient</summary>
     <title>ADMMdecentralized</title>
     <link href="https://xueyu-ubc.github.io/2021/02/03/ADMMdecentralized/"/>
     <id>https://xueyu-ubc.github.io/2021/02/03/ADMMdecentralized/</id>
-    <published>2021-02-04T04:49:48.000Z</published>
-    <updated>2021-02-03T13:56:19.141Z</updated>
+    <published>2021-02-03T12:49:48.000Z</published>
+    <updated>2021-02-03T13:56:20.000Z</updated>
     
     
       
@@ -407,8 +407,8 @@ Accelerating Stochastic Gradient</summary>
     <title>Lower Bounds and Optimal Algorithms for Personalized Federated Learning</title>
     <link href="https://xueyu-ubc.github.io/2021/01/26/AL2SGD/"/>
     <id>https://xueyu-ubc.github.io/2021/01/26/AL2SGD/</id>
-    <published>2021-01-27T06:12:22.000Z</published>
-    <updated>2023-07-13T22:44:06.721Z</updated>
+    <published>2021-01-26T14:12:22.000Z</published>
+    <updated>2023-07-13T22:44:08.000Z</updated>
     
     
       
@@ -435,8 +435,8 @@ Accelerating Stochastic Gradient</summary>
     <title>Federated Learning of a Mixture of Global and Local Models</title>
     <link href="https://xueyu-ubc.github.io/2021/01/26/L2SGD/"/>
     <id>https://xueyu-ubc.github.io/2021/01/26/L2SGD/</id>
-    <published>2021-01-27T06:12:10.000Z</published>
-    <updated>2023-07-13T22:59:01.800Z</updated>
+    <published>2021-01-26T14:12:10.000Z</published>
+    <updated>2023-07-13T22:59:02.000Z</updated>
     
     
       
@@ -463,8 +463,8 @@ Accelerating Stochastic Gradient</summary>
     <title>FLreview</title>
     <link href="https://xueyu-ubc.github.io/2021/01/21/FLreview/"/>
     <id>https://xueyu-ubc.github.io/2021/01/21/FLreview/</id>
-    <published>2021-01-21T23:15:17.000Z</published>
-    <updated>2023-07-13T22:58:05.608Z</updated>
+    <published>2021-01-21T07:15:17.000Z</published>
+    <updated>2023-07-13T22:58:06.000Z</updated>
     
     
       

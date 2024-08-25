@@ -68,7 +68,7 @@
      
     <div class="article-meta">
       <a href="/2023/07/12/Markov-Chains/" class="article-date">
-  <time datetime="2023-07-13T01:00:00.000Z" itemprop="datePublished">2023-07-12</time>
+  <time datetime="2023-07-12T10:00:00.000Z" itemprop="datePublished">2023-07-12</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Reading-Group/">Reading Group</a>
@@ -123,10 +123,10 @@ the present and not on the past.</p>
 Markov chain.</p>
 <blockquote>
 <p>Definition 1.[Markov chain] A discrete time stochastic process $ X_0,
-X_1, X_2, $. . . is a Markov chain if <span class="math display">\[
-P(X_{t} = a_t | X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, ..., X_0 = a_0) =
-P(X_{t} = a_t | X_{t-1} = a_{t-1}) = P_{a_{t-1},  a_{t}}
-\]</span></p>
+X_1, X_2, <span class="math inline">\(. . . is a Markov chain
+if\)</span>$ P(X_{t} = a_t | X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, ...,
+X_0 = a_0) = P(X_{t} = a_t | X_{t-1} = a_{t-1}) = P_{a_{t-1}, a_{t}}
+$$</p>
 </blockquote>
 <p>Remark 1: This is time-homogeneous markov chain, for <span class="math inline">\(\forall t\)</span>, for <span class="math inline">\(\forall a_{t-1}, a_{t} \in \Omega\)</span>, the
 transition probability <span class="math inline">\(P_{a_{t-1}, a_{t}
@@ -391,7 +391,7 @@ first step from state <span class="math inline">\(i\)</span> to state
 2,...\}: X_t = i\}\)</span>. It is different from <span class="math inline">\(H_{i}\)</span>, as we exclude time <span class="math inline">\(t = 0\)</span>. It is the first time that the
 chain returns to state <span class="math inline">\(i\)</span> after
 <span class="math inline">\(t = 0\)</span>.</li>
-<li>Return probability: <span class="math inline">\(m_{i} = P(X_t = i \
+<li>Return probability: <span class="math inline">\(m_{i} = P(X_t = i  \
 \text{for some} \ n \geq 1 | X_0 = i) = P(M_i &lt; \infty | X_0 = i) =
 \sum_{t&gt;1}r_{i,i}^{t}.\)</span></li>
 <li>Expected return time: <span class="math inline">\(\mu_{i} = E(M_i |
@@ -407,7 +407,7 @@ m_{i} = \sum_{j \in \Omega} P_{i,j}h_{j,i},  \qquad \mu_{i} = 1 +
 <col style="width: 23%">
 </colgroup>
 <tbody>
-<tr class="odd">
+<tr>
 <td>&gt; Theorem 1. Consider an irreducible Markov chain (<strong>finite
 or infinite</strong>), &gt; (1) if it is <strong>positive
 recurrent</strong>, <span class="math inline">\(\exists\)</span> an
@@ -417,12 +417,12 @@ such that <span class="math inline">\(\pi_i =
 recurrent</strong> or <strong>transient</strong>, no stationary
 distribution exists.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Remark: If the chain is <strong>finite</strong> irreducible, it must
 be positive recurrent, thus it has an unique stationary
 distribution.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Remark: If the Markov chain is not irreducible, we can decompose the
 state space into several communicating classes. Then, we can consider
 each communicating class separately. - If none of the classes are
@@ -432,7 +432,7 @@ there exists a unique stationary distribution, supported only on that
 closed class. - If more the one of the classes are positive recurrent,
 then many stationary distributions will exist.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Now, we give the proof of Theorem 1. We first prove that if a Markov
 chain is irreducible and positive recurrent, then there
 <strong>exists</strong> a stationary distribution. Next, we will prove
@@ -442,14 +442,14 @@ important and more complicated, we will omit it. If you are interested
 in it, you can refer to the book <a target="_blank" rel="noopener" href="https://www.statslab.cam.ac.uk/~james/Markov/">Markov Chains</a>
 by James Norris.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Proof. (1) Suppose that <span class="math inline">\((X_0, X_1
 ...)\)</span> a recurrent Markov chain, which can be positive recurrent
 or null recurrent. Then we can desigh a stationary distribution as
 follows. (If we can desigh a stationary distribution, then it must be
 existed.)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Let <span class="math inline">\(\nu_i\)</span> be the expected
 number of visits to <span class="math inline">\(i\)</span> before we
 return back to <span class="math inline">\(k\)</span>, <span class="math display">\[
@@ -462,10 +462,10 @@ X_0 = k) \\
 \]</span> The last equation holds because of $ P(X_0 = i | X_0 = k) = 0$
 and $ P(X_{M_k} = i | X_0 = k) = 0$.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>If we want design a stationary distribution, it must statisfy <span class="math inline">\(\pi P = \pi\)</span> and <span class="math inline">\(\sum_{i \in \Omega}\pi_i = 1\)</span>.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>(a) We first prove that <span class="math inline">\(\nu P =
 \nu\)</span>. <span class="math display">\[
 \begin{align*}
@@ -488,17 +488,17 @@ have <span class="math display">\[
 \nu_i/\mu_k\)</span>, <span class="math inline">\(\pi = \{\pi_i, i \in
 \Omega\}\)</span> is one of the stationary distribution.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>(2) Next, we prove that if a Markov chain is irreducible and
 positive recurrent, then the stationary distribution is
 <strong>unique</strong> and is given by <span class="math inline">\(\pi_j = \frac{1}{\mu_j}\)</span>.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Given a stationary distribution <span class="math inline">\(\pi\)</span>, if we prove that for all <span class="math inline">\(i\)</span>, <span class="math inline">\(\pi_j ==
 \frac{1}{\mu_j}\)</span>, then we prove that the stationary distribution
 is unique.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Remember that the expected hitting time: <span class="math display">\[
 \eta_{i,j} = 1 + \sum_{k \in \Omega}P_{i,k}\eta_{k,j},  j \ne i  \qquad
 (eq:1)
@@ -511,7 +511,7 @@ can rewrite the above equation as <span class="math display">\[
 \ne j} \sum_{k \in \Omega} \pi_i P_{i,k}\eta_{k,j}. \qquad (eq:2)
 \]</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td>(The above equality lacks <span class="math inline">\(j\)</span>,
 and we also want to design <span class="math inline">\(\pi_j =
 1/\mu_j\)</span>.) Remember that the expected return time: <span class="math display">\[ \mu_{j} = 1 + \sum_{i \in \Omega}
@@ -568,25 +568,25 @@ P =
 <col style="width: 6%">
 </colgroup>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Define <span class="math inline">\(V_{i,j}^{t} = |\{ n &lt; t | X_n
 = j\}|\)</span>. <span class="math inline">\(V_{i,j}^{t}\)</span> is the
 number of visits to state <span class="math inline">\(j\)</span> before
 time <span class="math inline">\(t\)</span> starting from state <span class="math inline">\(i\)</span>. Then we can interpret <span class="math inline">\(V_{i,j}^{t}/t\)</span> as the proportion of time
 up to time <span class="math inline">\(t\)</span> spent in state <span class="math inline">\(j\)</span>.</td>
 </tr>
-<tr class="even">
+<tr>
 <td>&gt; Theorem 3 [Ergodic theorem] Consider an irreducible Markov
 chain, we have <span class="math inline">\(\lim\limits_{t \to \infty}
 V_{i,j}^{t}/t = \frac{1}{\mu_{j}}\)</span> <strong>almost
 surely</strong>. Spectially, &gt; (1) Suppose the Markov chain is
 positive recurrent. Then <span class="math inline">\(\lim\limits_{t \to
-\infty} V_{i,j}^{t}/t = \pi_j = \frac{1}{\mu_{j}}\)</span>
+\infty}  V_{i,j}^{t}/t = \pi_j = \frac{1}{\mu_{j}}\)</span>
 <strong>almost surely</strong>. &gt; (2) Suppose the Markov chain is
 null recurrent or transient. Then $ V_{i,j}^{t}/t $ <strong>almost
 surely</strong> for all <span class="math inline">\(j\)</span>.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>almost surely</strong> means that the convergence
 probability of the event is 1.</td>
 </tr>
@@ -775,7 +775,7 @@ Probability</a></li>
     <ul>
       <li>
         Copyrights &copy;
-        2021-2023
+        2021-2024
         <i class="ri-heart-fill heart_icon"></i> Xue Yu
       </li>
     </ul>

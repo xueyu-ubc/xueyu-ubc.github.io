@@ -68,7 +68,7 @@
      
     <div class="article-meta">
       <a href="/2021/02/27/GD/" class="article-date">
-  <time datetime="2021-02-27T17:53:22.000Z" itemprop="datePublished">2021-02-27</time>
+  <time datetime="2021-02-27T01:53:22.000Z" itemprop="datePublished">2021-02-27</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/paper/">paper</a>
@@ -126,12 +126,12 @@ Reduction</h1>
 \omega^{(t)} = \omega^{(t-1)} - \eta_{t}g_{t}(\omega^{(t-1)},  \xi_{t})
 \]</span></p>
 <p><span class="math inline">\(\xi_{t}\)</span> 为一个依赖于 <span class="math inline">\(\omega^{(t-1)}\)</span> 的随机变量， 并且期望
-<span class="math inline">\(E[g_{t}(\omega^{(t-1)},
-\xi_{t})|\omega^{(t-1)}] = \nabla P(\omega^{(t-1)})\)</span>。</p>
+<span class="math inline">\(E[g_{t}(\omega^{(t-1)},  \xi_{t})|\omega^{(t-1)}]
+= \nabla P(\omega^{(t-1)})\)</span>。</p>
 <p>SGD的优势就是每步迭代只需要计算一个梯度，因此计算成本是GD的 <span class="math inline">\(\frac{1}{n}\)</span>。但是，SGD的一个缺点就是随机性引入了方差：虽然
-<span class="math inline">\(g_{t}(\omega^{(t-1)}, \xi_{t})\)</span>
+<span class="math inline">\(g_{t}(\omega^{(t-1)},  \xi_{t})\)</span>
 的期望等于梯度 <span class="math inline">\(\nabla
-P(\omega^{(t-1)})\)</span>，但是每个<span class="math inline">\(g_{t}(\omega^{(t-1)}, \xi_{t})\)</span>
+P(\omega^{(t-1)})\)</span>，但是每个<span class="math inline">\(g_{t}(\omega^{(t-1)},  \xi_{t})\)</span>
 是不同的。方差的出现导致收敛速度变慢。
 对于SGD，由于随机取样带来的方差，一般都会要求其步长 <span class="math inline">\(\eta_{t} = O(1/t)\)</span>，从而得到一个
 sub-linear 收敛率 <span class="math inline">\(O(1/t)\)</span>。</p>
@@ -415,7 +415,7 @@ arbitrary sampling. arXiv preprint arXiv:1906.01481, 2019a.</li>
     <ul>
       <li>
         Copyrights &copy;
-        2021-2023
+        2021-2024
         <i class="ri-heart-fill heart_icon"></i> Xue Yu
       </li>
     </ul>
