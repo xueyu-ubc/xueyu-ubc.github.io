@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    VIT, CLIP, ALBEF, VLMO |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Multimodal"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  VIT, CLIP, ALBEF, VLMO
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/08/25/Multimodal/" class="article-date">
+  <time datetime="2024-08-25T06:00:00.000Z" itemprop="datePublished">2024-08-25</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/paper/">paper</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">12 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="total-variation-distance">Total Variation Distance</h1>
+<p>Define Total Variation Distance: <span class="math display">\[
+d_{TV}(\mu(x), v(x)) = \frac{1}{2} \sum_{x \in \Omega} |\mu(x) - v(x)|
+\]</span> This is equivalent to the following: <span class="math display">\[
+d_{TV}(\mu(x), v(x)) = \sum_{x \in \Omega^{-}} (v(x) - \mu(x))
+= \sum_{x \in \Omega^{+}} (\mu(x) - v(x))
+\]</span> where <span class="math inline">\(\Omega^{+} = \{x \in \Omega:
+\mu(x) \geq v(x)\}\)</span>, <span class="math inline">\(\Omega^{-} =
+\{x \in \Omega: \mu(x) &lt; v(x)\}\)</span>, and <span class="math display">\[
+d_{TV}(\mu(x), v(x)) = \max_{S \subset \Omega} |\mu(S) - v(S)|
+\]</span> where <span class="math inline">\(\mu(S) = \sum_{x \in S}
+\mu(x)\)</span>, <span class="math inline">\(v(S) = \sum_{x \in S}
+v(x)\)</span>.</p>
+<p>Proof: Define <span class="math inline">\(\Omega^{+} = \{x \in
+\Omega: \mu(x) \geq v(x)\}\)</span>, <span class="math inline">\(\Omega^{-} = \{x \in \Omega: \mu(x) &lt;
+v(x)\}\)</span>, then <span class="math display">\[
+\begin{aligned}
+d_{TV}(\mu(x), v(x)) &amp;= \frac{1}{2} \sum_{x \in \Omega} |\mu(x) -
+v(x)| \\
+&amp;= \frac{1}{2} \sum_{x \in \Omega^{+}} (\mu(x) - v(x)) + \frac{1}{2}
+\sum_{x \in \Omega^{-}} (v(x) - \mu(x))
+\end{aligned}
+\]</span> Since <span class="math inline">\(\sum_{x \in \Omega} \mu(x) =
+1 = \sum_{x \in \Omega^{+}} \mu(x) + \sum_{x \in \Omega^{-}}
+\mu(x)\)</span>, we have <span class="math display">\[
+\begin{aligned}
+d_{TV}(\mu(x), v(x)) &amp;= \frac{1}{2} \sum_{x \in \Omega^{+}} (\mu(x)
+- v(x)) + \frac{1}{2} \sum_{x \in \Omega^{-}} (v(x) - \mu(x)) \\
+&amp;= \frac{1}{2} \sum_{x \in \Omega^{-}} (v(x) - \mu(x)) + \frac{1}{2}
+\sum_{x \in \Omega^{-}} (v(x) - \mu(x)) \\
+&amp;= \sum_{x \in \Omega^{-}} (v(x) - \mu(x)) \\
+&amp;= \sum_{x \in \Omega^{+}} (\mu(x) - v(x))
+\end{aligned}
+\]</span> If <span class="math inline">\(S = \Omega^{+}\)</span> or
+<span class="math inline">\(\Omega^{-}\)</span>, then <span class="math display">\[
+\begin{aligned}
+d_{TV}(\mu(x), v(x)) &amp;= \frac{1}{2} \sum_{x \in \Omega} |\mu(x) -
+v(x)| \\
+&amp;=  \max_{S \in \Omega} \sum_{x \in S} |\mu(x) - v(x)| \\
+\end{aligned}
+\]</span></p>
+<p>If <span class="math inline">\(S\)</span> contains any elements <span class="math inline">\(x \in \Omega^{-}\)</span>, then <span class="math inline">\(d_{TV}(\mu(x), v(x)) = |\sum_{x \in S} (\mu(x) -
+v(x))| \leq \sum_{x \in \Omega^{+}} (\mu(x) - v(x))\)</span> when <span class="math inline">\(S = \Omega^{+}\)</span>.</p>
+<h1 id="convergence-of-markov-chain">Convergence of Markov Chain</h1>
+<p>Assume we start from state <span class="math inline">\(x\)</span>,
+run Markov chain for <span class="math inline">\(t\)</span> steps, then
+we get the distribution <span class="math inline">\(P_{x}^{t}\)</span>.
+If we want to prove <span class="math inline">\(P_{x}^{t}\)</span>
+converges to stationary distribution <span class="math inline">\(\pi\)</span>, we need to prove <span class="math inline">\(d_{TV}(P_{x}^{t}, \pi) \rightarrow 0\)</span> as
+<span class="math inline">\(t \rightarrow \infty\)</span>. Thus, we need
+to bound <span class="math inline">\(d_{TV}(P_{x}^{t},
+\pi)\)</span>.</p>
+<p>Define <span class="math inline">\(d_{x}(t) := d_{TV}(P_{x}^{t},
+\pi)\)</span>.</p>
+<p>Consider all possible initial states <span class="math inline">\(x
+\in \Omega\)</span>, we define <span class="math inline">\(d(t) :=
+\max_{x \in \Omega} d_{TV} (P_{x}^{t}, \pi)\)</span>.</p>
+<p>Assume there are two Markov chains <span class="math inline">\(x_{t}
+\sim P_{x}^{t}\)</span>, <span class="math inline">\(y_{t} \sim
+P_{y}^{t}\)</span>. <span class="math inline">\(x_{t}\)</span> and <span class="math inline">\(y_{t}\)</span> share the same transition
+probability matrix <span class="math inline">\(P\)</span> but start from
+different states. Then we define <span class="math display">\[\bar{d}(t)
+:= \max_{x, y \in \Omega} d_{TV}(P_{x}^{t}, P_{y}^{t})\]</span>.</p>
+<p>Next, we will prove this Lemma: &gt; Lemma 1. &gt; <span class="math display">\[
+d(t) \leq \bar{d}(t) \leq 2 d(t).
+\]</span></p>
+<p>Proof: Let's prove the second inequality <span class="math inline">\(\bar{d}(t) \leq 2 d(t)\)</span>. <span class="math display">\[
+\begin{aligned}
+\bar{d}(t) &amp;= \max_{x, y \in \Omega} d_{TV}(P_{x}^{t}, P_{y}^{t}) \\
+&amp;= \max_{x, y \in \Omega} \frac{1}{2} \sum_{z \in \Omega}
+|P_{x}^{t}(z) - P_{y}^{t}(z)| \\
+&amp; = \max_{x, y \in \Omega} \frac{1}{2} \sum_{z \in \Omega}
+|P_{x}^{t}(z) - \pi(z) + \pi(z) - P_{y}^{t}(z)| \\
+&amp;\leq \max_{x, y \in \Omega} [\frac{1}{2} \sum_{z \in \Omega}
+|P_{x}^{t}(z) - \pi(z)| + \frac{1}{2} \sum_{z \in \Omega} |\pi(z) -
+P_{y}^{t}(z)| ]\\
+&amp;= \max_{x \in \Omega} d_{TV}(P_{x}^{t}, \pi) + \max_{y \in \Omega}
+d_{TV}(P_{y}^{t}, \pi) \\
+&amp;= d(t) + d(t) \\
+&amp;= 2 d(t)
+\end{aligned}
+\]</span></p>
+<p>For the first inequality <span class="math inline">\(\bar{d}(t) \leq
+2 d(t)\)</span>, we need to prove <span class="math inline">\(d(t) \leq
+\bar{d}(t)\)</span>.</p>
+<p>Define <span class="math display">\[
+S_{x,y}^{*} = \arg\max_{S \subset \Omega} （P_{x}^{t}(S) -
+P_{y}^{t}(S)）
+\]</span></p>
+<p><span class="math display">\[
+S_{x}^{**} = \arg\max_{S \subset \Omega, y \in \Omega} （P_{x}^{t}(S) -
+P_{y}^{t}(S)）
+\]</span></p>
+<p><span class="math display">\[
+S_{x}^{*} = \arg\max_{S \subset \Omega} \sum_{y \in \Omega}
+\pi(y)（P_{x}^{t}(S) - P_{y}^{t}(S)）
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+d(t) &amp;= \max_{x \in \Omega} d_{TV}(P_{x}^{t}, \pi) \\
+&amp;= \max_{x \in \Omega} \max_{S \subset \Omega}|P_{x}^{t}(S) -
+\pi(S)| \\
+&amp;= \max_{x \in \Omega} \max_{S \subset \Omega^{+}}(P_{x}^{t}(S) -
+\pi(S))  \\
+&amp;= \max_{x \in \Omega} \max_{S \subset \Omega^{+}}(P_{x}^{t}(S) -
+\sum_{y \in \Omega} \pi(y) P_{y}^{t}(S))  \qquad  (\pi(y) = \sum_{x \in
+\Omega} \pi(x) P_{x,y}) \\
+&amp;= \max_{x \in \Omega} \max_{S \subset \Omega^{+}} \sum_{y \in
+\Omega} \pi(y) (P_{x}^{t}(S) - P_{y}^{t}(S)).
+\end{aligned}
+\]</span> Since for all <span class="math inline">\(S\)</span>: <span class="math inline">\(（P_{x}^{t}(S_{x,y}^{*}) -
+P_{y}^{t}(S_{x,y}^{*})）\geq （P_{x}^{t}(S) -
+P_{y}^{t}(S)）\)</span></p>
+<p>we have, <span class="math display">\[
+\begin{aligned}
+d(t) &amp;= \max_{x \in \Omega} \max_{S \subset \Omega^{+}} \sum_{y \in
+\Omega} \pi(y) (P_{x}^{t}(S) - P_{y}^{t}(S)) \\
+&amp; \leq \max_{x \in \Omega} \sum_{y \in \Omega} \pi(y)
+(P_{x}^{t}(S_{x,y}^{*}) - P_{y}^{t}(S_{x,y}^{*})) \\
+&amp;= \max_{x \in \Omega} \sum_{y \in \Omega} \pi(y)
+\max_{S}  (P_{x}^{t}(S) - P_{y}^{t}(S)) \\
+&amp; \leq  \max_{x \in \Omega} \sum_{y \in \Omega}
+\pi(y)   (P_{x}^{t}(S_{x}^{**}) - P_{y}^{t}(S_{x}^{**})) \\
+&amp; = \max_{x \in \Omega} \sum_{y \in \Omega} \pi(y) \max_{y,
+S}(P_{x}^{t}(S) - P_{y}^{t}(S)) \\
+&amp;= \max_{x, y \in \Omega}\max_{ S \subset \Omega}(P_{x}^{t}(S) -
+P_{y}^{t}(S))   \qquad (\sum_{y \in \Omega} \pi(y) = 1) \\
+&amp;= \max_{x, y \in \Omega} d_{TV}(P_{x}^{t}, P_{y}^{t}) \\
+&amp;= \bar{d}(t).
+\end{aligned}
+\]</span> that is, <span class="math inline">\(d(t) \leq \bar{d}(t) \leq
+2d(t)\)</span>.</p>
+<p><strong>What we have proved is that, <span class="math inline">\(d(t)\)</span> is bounded by <span class="math inline">\(\bar{d}(t)\)</span>, and <span class="math inline">\(\bar{d}(t)\)</span> is controlled by <span class="math inline">\(\max_{x,y \in \Omega} d_{TV}(P_{x}^{t},
+P_{y}^{t})\)</span>. Let's find a way to bound <span class="math inline">\(d_{TV}(P_{x}^{t},
+P_{y}^{t})\)</span>!</strong></p>
+<blockquote>
+<p>Define 1. (Coupling) Assume <span class="math inline">\(x , y \in
+\Omega\)</span>, <span class="math inline">\(x \sim \mu, y \sim
+v\)</span>, <span class="math inline">\(\mu, v\)</span> are two
+distributions. A joint distribution <span class="math inline">\(w(x,
+y)\)</span> on <span class="math inline">\(\Omega \times \Omega\)</span>
+is called <strong>couping</strong> if <span class="math inline">\(\forall x \in \Omega\)</span>, <span class="math inline">\(\sum_{y}w(x, y) = \mu(x)\)</span>, <span class="math inline">\(\forall y \in \Omega\)</span>, <span class="math inline">\(\sum_{x} w(x, y) = v(y)\)</span>.</p>
+</blockquote>
+<blockquote>
+<p>Lemma 2. Consider <span class="math inline">\(\mu, v\)</span> defined
+on <span class="math inline">\(\Omega\)</span>,<br>
+(a) For any coupling <span class="math inline">\(w(x, y)\)</span> of
+<span class="math inline">\(\mu, v\)</span>, <span class="math inline">\(d_{TV}(\mu, v) \leq P(x \ne y)\)</span>.<br>
+(b) There always exists a coupling <span class="math inline">\(w(x,
+y)\)</span> of <span class="math inline">\(\mu, v\)</span> such that
+<span class="math inline">\(d_{TV}(\mu, v) = P(x \ne y)\)</span>.</p>
+</blockquote>
+<p>Proof: (a) <span class="math inline">\(\forall z\)</span>, <span class="math inline">\(w(z, z) \leq \sum_{y \in \Omega} w(z, y) =
+\mu(z)\)</span>. Similarly, <span class="math inline">\(w(z, z) \leq
+v(z)\)</span>. Thus, <span class="math inline">\(w(z, z) \leq
+\min(\mu(z), v(z))\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(x \ne y) &amp;= 1 - P(x = y) \\
+&amp;= 1 - \sum_{z \in \Omega} w(z, z) \\
+&amp;\geq 1 - \sum_{z \in \Omega} \min(\mu(z), v(z)) \\
+&amp;= \sum_{z \in \Omega} \mu(z) - \sum_{z \in \Omega} \min(\mu(z),
+v(z)) \\
+&amp;= \sum_{z \in \Omega^{+}} (\mu(z) - v(z)) \\
+&amp;= d_{TV}(\mu, v)
+\end{aligned}
+\]</span></p>
+<ol start="2" type="a">
+<li>We can construct a coupling <span class="math inline">\(w(x,
+y)\)</span>: <span class="math display">\[
+w(x, y) = \left\{
+\begin{aligned}
+&amp; \min \{\mu(x), v(y)\}, \quad x = y \\
+&amp;\frac{(\mu(x) - w(x, x))(v(y) - w(y,y))}{1 - \sum_{z \in
+\Omega}w(z,z)}, \quad x \ne y
+\end{aligned}
+\right.
+\]</span> For this joint distribution, we have <span class="math display">\[
+\begin{aligned}
+P(x \ne y) &amp;= 1 - P(x = y) \\
+&amp;= 1 - \sum_{z \in \Omega} w(z, z) \\
+&amp;= 1 - \sum_{z \in \Omega} \min(\mu(z), v(z)) \\
+&amp;= \sum_{z \in \Omega} \mu(z) - \sum_{z \in \Omega} \min(\mu(z),
+v(z)) \\
+&amp;= \sum_{z \in \Omega^{+}} (\mu(z) - v(z)) \\
+&amp;= d_{TV}(\mu, v)
+\end{aligned}
+\]</span> Thus, this joint distribution <span class="math inline">\(w(x,
+y)\)</span> satisfies <span class="math inline">\(d_{TV}(\mu, v) = P(x
+\ne y)\)</span>. Now, we need to prove that this joint distribution
+<span class="math inline">\(w(x, y)\)</span> is a coupling of <span class="math inline">\(\mu, v\)</span>.</li>
+</ol>
+<p><span class="math inline">\(\forall x \in \Omega\)</span>, <span class="math display">\[
+\begin{aligned}
+\sum_{y \in \Omega} w(x, y) &amp;= \sum_{y=x} \min \{\mu(x), v(y)\} +
+\sum_{y \in \Omega, y \ne x} \frac{(\mu(x) - w(x, x))(v(y) - w(y,y))}{1
+- \sum_{z \in \Omega}w(z,z)} \\
+&amp;= w(x, x) + \frac{(\mu(x) - w(x, x))}{1 - \sum_{z \in
+\Omega}w(z,z)} \sum_{y \ne x} (v(y) - w(y,y)) \\
+&amp;= w(x,x) + \frac{(\mu(x) - w(x, x))}{1 - \sum_{z \in \Omega}w(z,z)}
+(1 - v(x) - (\sum_{z} w(z,z) - w(x,x)))  \qquad (\sum_{y \ne x} v(y) = 1
+- v(x))\\
+&amp;= w(x,x) + \frac{(\mu(x) - w(x, x))}{1 - \sum_{z \in \Omega}w(z,z)}
+(1 - \sum_{z} w(z,z) + w(x,x) - v(x) ) \qquad (\sum_{y \ne x} w(y,y) =
+\sum_{z} w(z,z) - w(x, x))
+\end{aligned}
+\]</span> If $ x ^{+} = {x | (x) v(x)}$, then <span class="math inline">\(w(x,x) = v(x)\)</span>, <span class="math inline">\(\sum_{y \in \Omega} w(x, y)  = v(x) + (\mu(x) -
+v(x)) = \mu(x)\)</span>.</p>
+<p>If $ x ^{-} = {x | (x) &lt; v(x)}$, then <span class="math inline">\(w(x,x) = \mu(x)\)</span>, <span class="math inline">\(\sum_{y \in \Omega} w(x, y)  = \mu(x) + 0 =
+\mu(x)\)</span>. Thus, <span class="math inline">\(w(x, y)\)</span> is a
+coupling of <span class="math inline">\(\mu, v\)</span>.</p>
+<p>Last but not least, let's begin to prove the nonincreasing property
+of <span class="math inline">\(d(t)\)</span>!! <strong>Almost close to
+the end!! ^o/</strong></p>
+<blockquote>
+<p>Lemma 3. Consider two Markov chains <span class="math inline">\(x^{t}
+\sim P_{x}^{t}\)</span>, <span class="math inline">\(y^{t} \sim
+P_{y}^{t}\)</span>, <span class="math inline">\(x^{t}\)</span> and <span class="math inline">\(y^{t}\)</span> share the same transition
+probability matrix <span class="math inline">\(P\)</span> but start from
+different states. If <span class="math inline">\(x^t = y^t\)</span>,
+then <span class="math inline">\(x^{t+1} = y^{t+1}\)</span>, elif <span class="math inline">\(x^t \ne y^t\)</span>, then <span class="math inline">\(x^{t+1} \ne y^{t+1}\)</span>, <span class="math inline">\(x^{t+1}\)</span> and <span class="math inline">\(y^{t+1}\)</span> are independent.</p>
+</blockquote>
+<blockquote>
+<p>Define 2. (Coupling of Markov chains) Consider two Markov chains
+<span class="math inline">\(x^{t} \sim P_{x}^{t}\)</span>, <span class="math inline">\(y^{t} \sim P_{y}^{t}\)</span>, <span class="math inline">\(x^{t}\)</span> and <span class="math inline">\(y^{t}\)</span> share the same transition
+probability matrix <span class="math inline">\(P\)</span> but start from
+different states. If <span class="math display">\[
+P(y^{t+1} | x^{t}, y^{t}) = P(y^{t+1} | y^{t})
+\]</span> and <span class="math display">\[
+P(x^{t+1} | x^{t}, y^{t}) = P(x^{t+1} | x^{t})
+\]</span> then we say <span class="math inline">\(x^{t}\)</span> and
+<span class="math inline">\(y^{t}\)</span> are coupled.</p>
+</blockquote>
+<p>Define <span class="math inline">\(w^{t} := w^{t}(x^t, y^t)\)</span>
+is a coupling of <span class="math inline">\(P_{x}^{t},
+P_{y}^{t}\)</span>, <span class="math inline">\(x^t \sim P_x^t, y \sim
+P_{y}^{t}\)</span>, and <span class="math inline">\(w^{t}\)</span>
+satisfies Lemma 2(b).</p>
+<p><span class="math display">\[
+P_{w^{t}}(x^{t+1} \ne y^{t+1}) = P_{w^{t}}(x^{t+1} \ne y^{t+1} | x^t \ne
+y^t) p(x^t \ne y^t) + P_{w^{t}}(x^{t+1} \ne y^{t+1} | x^t = y^t) p(x^t =
+y^t)
+\]</span> If <span class="math inline">\(x^t = y^t\)</span>, according
+to Lemma 3, <span class="math inline">\(P_{w^{t}}(x^{t+1} \ne y^{t+1}) =
+P_{w^{t}}(x^{t+1} = y^{t+1} | x^t = y^t) p(x^t = y^t)  \leq
+P_{w^{t}}(x^{t} \ne y^t)\)</span>;</p>
+<h1 id="useful-lectures">Useful Lectures:</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://people.eecs.berkeley.edu/~sinclair/cs294/n7.pdf">L1</a></li>
+<li><a target="_blank" rel="noopener" href="https://courses.cs.duke.edu/spring13/compsci590.2/slides/lec5.pdf">Markov
+Chains and Coupling</a></li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2024/08/25/Multimodal/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Multi-modal/" rel="tag">Multi-modal</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/11/29/Generative-Models/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Generative Models</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2024
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

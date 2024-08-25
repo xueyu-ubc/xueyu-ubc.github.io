@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2023-12-04T10:21:40.000Z</updated>
+  <updated>2024-08-25T17:31:14.848Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>VIT, CLIP, ALBEF, VLMO</title>
+    <link href="https://xueyu-ubc.github.io/2024/08/25/Multimodal/"/>
+    <id>https://xueyu-ubc.github.io/2024/08/25/Multimodal/</id>
+    <published>2024-08-25T06:00:00.000Z</published>
+    <updated>2024-08-25T17:31:14.848Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;total-variation-distance&quot;&gt;Total Variation Distance&lt;/h1&gt;
+&lt;p&gt;Define Total Variation Distance: &lt;span class=&quot;math</summary>
+        
+      
+    
+    
+    
+    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    
+    
+    <category term="Multi-modal" scheme="https://xueyu-ubc.github.io/tags/Multi-modal/"/>
+    
+  </entry>
   
   <entry>
     <title>Generative Models</title>
