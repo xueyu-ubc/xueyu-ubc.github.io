@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Metropolis-Hastings |  Welcome to XueYu&#39;s Blog
+    Foundation Model |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -48,281 +48,58 @@
       
     <main class="content on">
       <section class="outer">
-  <article
-  id="post-Metropolis-Hastings"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
+  
+  
+  <article class="articles">
     
-    <header class="article-header">
+    
+    <h1 class="page-type-title">Foundation Model</h1>
+    
+    
+  
+  
+  
+  
+  
+  
+  <div class="archives-wrap">
+    <div class="archive-year-wrap">
+      <a href="/archives/2024" class="archive-year">2024</a>
+    </div>
+    <div class="archives">
+      
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2024/08/26/Multimodal/" class="archive-article-date">
+  <time datetime="2024-08-25T23:30:00.000Z" itemprop="datePublished">08/26</time>
+</a>
        
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Metropolis-Hastings
-</h1>
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2024/08/26/Multimodal/"
+    >Transformer, Swin Transformer</a> 
+</h2>
  
 
     </header>
-     
-    <div class="article-meta">
-      <a href="/2023/07/15/Metropolis-Hastings/" class="article-date">
-  <time datetime="2023-07-15T02:00:00.000Z" itemprop="datePublished">2023-07-15</time>
-</a> 
+    
+      
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Random-Process/">Random Process</a>
+    <a class="article-category-link" href="/categories/Foundation-Model/">Foundation Model</a>
+  </div>
+
+    
+    
+  </div>
+</article>
+      
+      
+    </div>
   </div>
   
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">602</span>
-        </span>
-    </span>
+  
 
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
-        </span>
-    </span>
-</div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="introduction">Introduction</h1>
-<p>The first MCMC algorithm is the Metropolis algorithm, published by
-Metropolis et al. (1953). It was generalized by Hastings (1970) and
-Peskun (1973, 1981) towards statistical applications. After a long time,
-it was rediscovered by Geman and Geman (1984), Tanner and Wong (1987),
-and Gelfand and Smith (1990).</p>
-<p>Assume the probability density <span class="math inline">\(\pi\)</span> is the target distribution and <span class="math inline">\(q(\cdot | \cdot)\)</span> is the proposal
-transition distribution. From an initial state <span class="math inline">\(X_0\)</span>, the Metropolis-Hastings algorithm
-aims to generate a Markov chain <span class="math inline">\(\{X_1, X_2,
-...\}\)</span>, such that <span class="math inline">\(X_t\)</span>
-converges to distribution <span class="math inline">\(\pi\)</span>.</p>
-<h1 id="metropolis-hastings-algorithm">Metropolis-Hastings
-algorithm</h1>
-<p>Input: initial value <span class="math inline">\(X_0\)</span>,
-transition <span class="math inline">\(q(\cdot | \cdot)\)</span>, number
-of iterations <span class="math inline">\(T\)</span>.</p>
-<p>Output: Markov chain <span class="math inline">\(\{X_1, X_2, ...,
-X_T\}\)</span>.</p>
-<p>For <span class="math inline">\(t = 1, 2, ..., T\)</span>:</p>
-<ol type="1">
-<li>Generate <span class="math inline">\(u\)</span> from uniform
-distribution <span class="math inline">\(U(0, I)\)</span>.</li>
-<li>Generate <span class="math inline">\(X\)</span> from <span class="math inline">\(q(X | X_{t-1})\)</span>.</li>
-<li>Compute the acceptance probability <span class="math inline">\(A(X,
-X_{t-1}) = \min\{1, \frac{\pi(X)q(X_{t-1} | X)}{\pi(X_{t-1})q(X |
-X_{t-1})}\}\)</span>.</li>
-<li>if <span class="math inline">\(u \leq A(X, X_{t-1})\)</span>, then
-<span class="math inline">\(X_t = X\)</span>; else <span class="math inline">\(X_t = X_{t-1}\)</span>.</li>
-</ol>
-<p>Now, we prove that <span class="math inline">\(\pi\)</span> is one of
-the stationary distribution of the generated Markov chain.</p>
-<p>Proof: Recall the detailed balance equation, for any <span class="math inline">\(i, j \in \Omega\)</span>, we have <span class="math display">\[
-\pi_i P_{i,j} = \pi_j P_{j,i},
-\]</span> then <span class="math inline">\(\pi\)</span> is a stationary
-distribution of the Markov chain.</p>
-<p>For the Metropolis-Hastings algorithm, we have the transition
-probability <span class="math display">\[
-K(X_t | X_{t-1}) = q(X_t| X_{t-1}) A(X_t, X_{t-1}) + \delta(X_t =
-X_{t-1}) (1 - \sum_{X \in \Omega} q(X|X_{t-1}) A(X, X_{t-1})).
-\]</span></p>
-<p>Now we need to prove <span class="math display">\[
-\pi(X_{t-1})K(X_t | X_{t-1}) = \pi(X_t)K(X_{t-1} | X_t).
-\]</span></p>
-<p>If <span class="math inline">\(X_t = X_{t-1}\)</span>, then the
-equation holds. If <span class="math inline">\(X_t \neq
-X_{t-1}\)</span>, then <span class="math display">\[
-\pi(X_{t-1})K(X_t | X_{t-1}) = \pi(X_{t-1})q(X_t| X_{t-1}) A(X_t,
-X_{t-1}) = \min\{\pi(X_{t-1})q(X_t| X_{t-1}), \pi(X_t)q(X_{t-1} |
-X_t)\}.
-\]</span> and <span class="math display">\[
-\pi(X_{t})K(X_{t-1} | X_{t}) = \pi(X_{t})q(X_{t-1}| X_{t}) A(X_{t-1},
-X_{t}) = \min\{\pi(X_{t})q(X_{t-1}| X_{t}), \pi(X_{t-1})q(X_{t} |
-X_{t-1})\}.
-\]</span> So, <span class="math inline">\(\pi(X_{t-1})K(X_t | X_{t-1}) =
-\pi(X_{t})K(X_{t-1} | X_{t})\)</span>. <span class="math inline">\(\pi\)</span> is a stationary distribution of the
-Markov chain.</p>
-<hr>
-<p>Remark 1. The detailed balance condition is a sufficient but not
-necessary condition for <span class="math inline">\(\pi\)</span> to be a
-stationary distribution of the Markov chain. If we want to prove <span class="math inline">\(\pi\)</span> is the unique stationary distribution
-of the Markov chain, we need to prove the Markov chain is
-<strong>irreducible and positive recurrent</strong>. 【？？？】</p>
-<p>Remark 2. The first initial state <span class="math inline">\(X_0\)</span> is randomly generated and usually
-removed from the sample as burn-in or warm-up.</p>
-<p>Q: <strong>Since it is recurrent, it must return to the initial
-values. Will this initial be rejected with a high
-probability?</strong></p>
-<p>Remark 3. In practice, the performances of the algorithm are
-obviously highly dependent on the choice of the transition <span class="math inline">\(q(\cdot | \cdot)\)</span>, since some choices see
-the chain unable to converge in a manageable time.</p>
-<p>Remark 4. We need to able to evaluate a function <span class="math inline">\(p(x) \propto \pi(x)\)</span>. Since we only need
-to compute the ratio <span class="math inline">\(\pi(y)/\pi(x)\)</span>,
-the proportionality constant is irrelevant. Similarly, we only care
-about <span class="math inline">\(q(\cdot | \cdot)\)</span> up to a
-constant</p>
-<h1 id="reference">Reference</h1>
-<ul>
-<li>C.P. Robert. (2016). The Metropolis-Hastings algorithm.</li>
-</ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <div class="declare">
-      <ul class="post-copyright">
-        <li>
-          <i class="ri-copyright-line"></i>
-          <strong>Copyright： </strong>
-          
-          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
-          
-        </li>
-      </ul>
-    </div>
-    
-    <footer class="article-footer">
-       
-<div class="share-btn">
-      <span class="share-sns share-outer">
-        <i class="ri-share-forward-line"></i>
-        分享
-      </span>
-      <div class="share-wrap">
-        <i class="arrow"></i>
-        <div class="share-icons">
-          
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="ri-weibo-fill"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="ri-wechat-fill"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="ri-qq-fill"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="ri-douban-line"></i>
-          </a>
-          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a> -->
-          
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="ri-facebook-circle-fill"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="ri-twitter-fill"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="ri-google-fill"></i>
-          </a>
-        </div>
-      </div>
-</div>
-
-<div class="wx-share-modal">
-    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2023/07/15/Metropolis-Hastings/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markov-Chains/" rel="tag">Markov Chains</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-  <nav class="article-nav">
-    
-      <a href="/2023/07/15/Convergence%20of%20MC/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Convergence of Markov Chain
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2023/07/12/Markov-Chains/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Discrete Markov Chains</div>
-      </a>
-    
-  </nav>
-
-   
-<!-- valine评论 -->
-<div id="vcomments-box">
-  <div id="vcomments"></div>
-</div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
-<script>
-  new Valine({
-    el: "#vcomments",
-    app_id: "",
-    app_key: "",
-    path: window.location.pathname,
-    avatar: "monsterid",
-    placeholder: "给我的文章加点评论吧~",
-    recordIP: true,
-  });
-  const infoEle = document.querySelector("#vcomments .info");
-  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
-    infoEle.childNodes.forEach(function (item) {
-      item.parentNode.removeChild(item);
-    });
-  }
-</script>
-<style>
-  #vcomments-box {
-    padding: 5px 30px;
-  }
-
-  @media screen and (max-width: 800px) {
-    #vcomments-box {
-      padding: 5px 0px;
-    }
-  }
-
-  #vcomments-box #vcomments {
-    background-color: #fff;
-  }
-
-  .v .vlist .vcard .vh {
-    padding-right: 20px;
-  }
-
-  .v .vlist .vcard {
-    padding-left: 10px;
-  }
-</style>
-
- 
-   
-     
-</article>
-
+  
 </section>
       <footer class="footer">
   <div class="outer">

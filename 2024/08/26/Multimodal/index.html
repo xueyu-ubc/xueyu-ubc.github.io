@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    VIT, CLIP, ALBEF, VLMO |  Welcome to XueYu&#39;s Blog
+    Transformer, Swin Transformer |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -60,18 +60,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  VIT, CLIP, ALBEF, VLMO
+  Transformer, Swin Transformer
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2024/08/25/Multimodal/" class="article-date">
-  <time datetime="2024-08-25T06:00:00.000Z" itemprop="datePublished">2024-08-25</time>
+      <a href="/2024/08/26/Multimodal/" class="article-date">
+  <time datetime="2024-08-25T23:30:00.000Z" itemprop="datePublished">2024-08-26</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/paper/">paper</a>
+    <a class="article-category-link" href="/categories/Foundation-Model/">Foundation Model</a>
   </div>
   
 <div class="word_count">
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2k</span>
+            <span class="post-count">1.3k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">12 min</span>
+            <span class="post-count">8 min</span>
         </span>
     </span>
 </div>
@@ -97,7 +97,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="total-variation-distance">Total Variation Distance</h1>
+  <h1 id="attention-is-all-you-need">Attention is all you need</h1>
 <p>Define Total Variation Distance: <span class="math display">\[
 d_{TV}(\mu(x), v(x)) = \frac{1}{2} \sum_{x \in \Omega} |\mu(x) - v(x)|
 \]</span> This is equivalent to the following: <span class="math display">\[
@@ -264,85 +264,6 @@ v(z)) \\
 &amp;= d_{TV}(\mu, v)
 \end{aligned}
 \]</span></p>
-<ol start="2" type="a">
-<li>We can construct a coupling <span class="math inline">\(w(x,
-y)\)</span>: <span class="math display">\[
-w(x, y) = \left\{
-\begin{aligned}
-&amp; \min \{\mu(x), v(y)\}, \quad x = y \\
-&amp;\frac{(\mu(x) - w(x, x))(v(y) - w(y,y))}{1 - \sum_{z \in
-\Omega}w(z,z)}, \quad x \ne y
-\end{aligned}
-\right.
-\]</span> For this joint distribution, we have <span class="math display">\[
-\begin{aligned}
-P(x \ne y) &amp;= 1 - P(x = y) \\
-&amp;= 1 - \sum_{z \in \Omega} w(z, z) \\
-&amp;= 1 - \sum_{z \in \Omega} \min(\mu(z), v(z)) \\
-&amp;= \sum_{z \in \Omega} \mu(z) - \sum_{z \in \Omega} \min(\mu(z),
-v(z)) \\
-&amp;= \sum_{z \in \Omega^{+}} (\mu(z) - v(z)) \\
-&amp;= d_{TV}(\mu, v)
-\end{aligned}
-\]</span> Thus, this joint distribution <span class="math inline">\(w(x,
-y)\)</span> satisfies <span class="math inline">\(d_{TV}(\mu, v) = P(x
-\ne y)\)</span>. Now, we need to prove that this joint distribution
-<span class="math inline">\(w(x, y)\)</span> is a coupling of <span class="math inline">\(\mu, v\)</span>.</li>
-</ol>
-<p><span class="math inline">\(\forall x \in \Omega\)</span>, <span class="math display">\[
-\begin{aligned}
-\sum_{y \in \Omega} w(x, y) &amp;= \sum_{y=x} \min \{\mu(x), v(y)\} +
-\sum_{y \in \Omega, y \ne x} \frac{(\mu(x) - w(x, x))(v(y) - w(y,y))}{1
-- \sum_{z \in \Omega}w(z,z)} \\
-&amp;= w(x, x) + \frac{(\mu(x) - w(x, x))}{1 - \sum_{z \in
-\Omega}w(z,z)} \sum_{y \ne x} (v(y) - w(y,y)) \\
-&amp;= w(x,x) + \frac{(\mu(x) - w(x, x))}{1 - \sum_{z \in \Omega}w(z,z)}
-(1 - v(x) - (\sum_{z} w(z,z) - w(x,x)))  \qquad (\sum_{y \ne x} v(y) = 1
-- v(x))\\
-&amp;= w(x,x) + \frac{(\mu(x) - w(x, x))}{1 - \sum_{z \in \Omega}w(z,z)}
-(1 - \sum_{z} w(z,z) + w(x,x) - v(x) ) \qquad (\sum_{y \ne x} w(y,y) =
-\sum_{z} w(z,z) - w(x, x))
-\end{aligned}
-\]</span> If $ x ^{+} = {x | (x) v(x)}$, then <span class="math inline">\(w(x,x) = v(x)\)</span>, <span class="math inline">\(\sum_{y \in \Omega} w(x, y)  = v(x) + (\mu(x) -
-v(x)) = \mu(x)\)</span>.</p>
-<p>If $ x ^{-} = {x | (x) &lt; v(x)}$, then <span class="math inline">\(w(x,x) = \mu(x)\)</span>, <span class="math inline">\(\sum_{y \in \Omega} w(x, y)  = \mu(x) + 0 =
-\mu(x)\)</span>. Thus, <span class="math inline">\(w(x, y)\)</span> is a
-coupling of <span class="math inline">\(\mu, v\)</span>.</p>
-<p>Last but not least, let's begin to prove the nonincreasing property
-of <span class="math inline">\(d(t)\)</span>!! <strong>Almost close to
-the end!! ^o/</strong></p>
-<blockquote>
-<p>Lemma 3. Consider two Markov chains <span class="math inline">\(x^{t}
-\sim P_{x}^{t}\)</span>, <span class="math inline">\(y^{t} \sim
-P_{y}^{t}\)</span>, <span class="math inline">\(x^{t}\)</span> and <span class="math inline">\(y^{t}\)</span> share the same transition
-probability matrix <span class="math inline">\(P\)</span> but start from
-different states. If <span class="math inline">\(x^t = y^t\)</span>,
-then <span class="math inline">\(x^{t+1} = y^{t+1}\)</span>, elif <span class="math inline">\(x^t \ne y^t\)</span>, then <span class="math inline">\(x^{t+1} \ne y^{t+1}\)</span>, <span class="math inline">\(x^{t+1}\)</span> and <span class="math inline">\(y^{t+1}\)</span> are independent.</p>
-</blockquote>
-<blockquote>
-<p>Define 2. (Coupling of Markov chains) Consider two Markov chains
-<span class="math inline">\(x^{t} \sim P_{x}^{t}\)</span>, <span class="math inline">\(y^{t} \sim P_{y}^{t}\)</span>, <span class="math inline">\(x^{t}\)</span> and <span class="math inline">\(y^{t}\)</span> share the same transition
-probability matrix <span class="math inline">\(P\)</span> but start from
-different states. If <span class="math display">\[
-P(y^{t+1} | x^{t}, y^{t}) = P(y^{t+1} | y^{t})
-\]</span> and <span class="math display">\[
-P(x^{t+1} | x^{t}, y^{t}) = P(x^{t+1} | x^{t})
-\]</span> then we say <span class="math inline">\(x^{t}\)</span> and
-<span class="math inline">\(y^{t}\)</span> are coupled.</p>
-</blockquote>
-<p>Define <span class="math inline">\(w^{t} := w^{t}(x^t, y^t)\)</span>
-is a coupling of <span class="math inline">\(P_{x}^{t},
-P_{y}^{t}\)</span>, <span class="math inline">\(x^t \sim P_x^t, y \sim
-P_{y}^{t}\)</span>, and <span class="math inline">\(w^{t}\)</span>
-satisfies Lemma 2(b).</p>
-<p><span class="math display">\[
-P_{w^{t}}(x^{t+1} \ne y^{t+1}) = P_{w^{t}}(x^{t+1} \ne y^{t+1} | x^t \ne
-y^t) p(x^t \ne y^t) + P_{w^{t}}(x^{t+1} \ne y^{t+1} | x^t = y^t) p(x^t =
-y^t)
-\]</span> If <span class="math inline">\(x^t = y^t\)</span>, according
-to Lemma 3, <span class="math inline">\(P_{w^{t}}(x^{t+1} \ne y^{t+1}) =
-P_{w^{t}}(x^{t+1} = y^{t+1} | x^t = y^t) p(x^t = y^t)  \leq
-P_{w^{t}}(x^{t} \ne y^t)\)</span>;</p>
 <h1 id="useful-lectures">Useful Lectures:</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://people.eecs.berkeley.edu/~sinclair/cs294/n7.pdf">L1</a></li>
@@ -413,12 +334,12 @@ Chains and Coupling</a></li>
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2024/08/25/Multimodal/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2024/08/26/Multimodal/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Multi-modal/" rel="tag">Multi-modal</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li></ul>
 
     </footer>
   </div>

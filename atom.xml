@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2024-08-25T17:31:14.848Z</updated>
+  <updated>2024-08-25T23:45:15.318Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,28 +17,28 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>VIT, CLIP, ALBEF, VLMO</title>
-    <link href="https://xueyu-ubc.github.io/2024/08/25/Multimodal/"/>
-    <id>https://xueyu-ubc.github.io/2024/08/25/Multimodal/</id>
-    <published>2024-08-25T06:00:00.000Z</published>
-    <updated>2024-08-25T17:31:14.848Z</updated>
+    <title>Transformer, Swin Transformer</title>
+    <link href="https://xueyu-ubc.github.io/2024/08/26/Multimodal/"/>
+    <id>https://xueyu-ubc.github.io/2024/08/26/Multimodal/</id>
+    <published>2024-08-25T23:30:00.000Z</published>
+    <updated>2024-08-25T23:45:15.318Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;total-variation-distance&quot;&gt;Total Variation Distance&lt;/h1&gt;
+    <summary type="html">&lt;h1 id=&quot;attention-is-all-you-need&quot;&gt;Attention is all you need&lt;/h1&gt;
 &lt;p&gt;Define Total Variation Distance: &lt;span class=&quot;math</summary>
         
       
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
     
     
-    <category term="Multi-modal" scheme="https://xueyu-ubc.github.io/tags/Multi-modal/"/>
+    <category term="Transformer" scheme="https://xueyu-ubc.github.io/tags/Transformer/"/>
     
   </entry>
   
@@ -47,7 +47,7 @@
     <link href="https://xueyu-ubc.github.io/2023/11/29/Generative-Models/"/>
     <id>https://xueyu-ubc.github.io/2023/11/29/Generative-Models/</id>
     <published>2023-11-29T07:00:00.000Z</published>
-    <updated>2023-12-04T10:21:40.000Z</updated>
+    <updated>2024-08-25T23:38:21.704Z</updated>
     
     
       
@@ -62,10 +62,10 @@ Models, GAN,</summary>
     
     
     
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    <category term="Generative Model" scheme="https://xueyu-ubc.github.io/categories/Generative-Model/"/>
     
     
-    <category term="diffusion model" scheme="https://xueyu-ubc.github.io/tags/diffusion-model/"/>
+    <category term="Diffusion" scheme="https://xueyu-ubc.github.io/tags/Diffusion/"/>
     
   </entry>
   
@@ -74,7 +74,7 @@ Models, GAN,</summary>
     <link href="https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/"/>
     <id>https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/</id>
     <published>2023-11-07T11:00:00.000Z</published>
-    <updated>2023-11-26T08:48:44.000Z</updated>
+    <updated>2024-08-25T23:39:42.418Z</updated>
     
     
       
@@ -88,10 +88,10 @@ when the data are not centered. It was shown in this paper that PC 1</summary>
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Statitic" scheme="https://xueyu-ubc.github.io/categories/Statitic/"/>
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/tags/paper/"/>
+    <category term="Statitic" scheme="https://xueyu-ubc.github.io/tags/Statitic/"/>
     
   </entry>
   
@@ -100,7 +100,7 @@ when the data are not centered. It was shown in this paper that PC 1</summary>
     <link href="https://xueyu-ubc.github.io/2023/10/21/Monte-Carlo-Gradient-Estimation/"/>
     <id>https://xueyu-ubc.github.io/2023/10/21/Monte-Carlo-Gradient-Estimation/</id>
     <published>2023-10-21T15:00:00.000Z</published>
-    <updated>2023-11-21T03:10:38.000Z</updated>
+    <updated>2024-08-25T23:37:24.788Z</updated>
     
     
       
@@ -115,6 +115,10 @@ Methods and Stochastic Optimisation&lt;/h1&gt;
     
     
     
+    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/categories/Machine-Learning/"/>
+    
+    
+    <category term="Monte Carlo Gradient Estimator" scheme="https://xueyu-ubc.github.io/tags/Monte-Carlo-Gradient-Estimator/"/>
     
   </entry>
   
@@ -123,7 +127,7 @@ Methods and Stochastic Optimisation&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2023/09/11/deep-learning-with-structures/"/>
     <id>https://xueyu-ubc.github.io/2023/09/11/deep-learning-with-structures/</id>
     <published>2023-09-11T05:30:00.000Z</published>
-    <updated>2023-10-30T22:10:16.000Z</updated>
+    <updated>2024-08-25T23:34:13.781Z</updated>
     
     
       
@@ -137,7 +141,7 @@ Methods and Stochastic Optimisation&lt;/h1&gt;
     
     
     
-    <category term="Lectures" scheme="https://xueyu-ubc.github.io/categories/Lectures/"/>
+    <category term="Graph" scheme="https://xueyu-ubc.github.io/categories/Graph/"/>
     
     
     <category term="Deep Learning with Structures" scheme="https://xueyu-ubc.github.io/tags/Deep-Learning-with-Structures/"/>
@@ -149,7 +153,7 @@ Methods and Stochastic Optimisation&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2023/09/06/Basic%20knowledge/"/>
     <id>https://xueyu-ubc.github.io/2023/09/06/Basic%20knowledge/</id>
     <published>2023-09-06T02:00:00.000Z</published>
-    <updated>2023-09-16T02:47:34.000Z</updated>
+    <updated>2024-08-25T23:38:08.117Z</updated>
     
     
       
@@ -163,10 +167,10 @@ convolutional autoencoders with</summary>
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Graph" scheme="https://xueyu-ubc.github.io/categories/Graph/"/>
     
     
-    <category term="paper reading" scheme="https://xueyu-ubc.github.io/tags/paper-reading/"/>
+    <category term="Graph" scheme="https://xueyu-ubc.github.io/tags/Graph/"/>
     
   </entry>
   
@@ -175,7 +179,7 @@ convolutional autoencoders with</summary>
     <link href="https://xueyu-ubc.github.io/2023/08/27/KS_test/"/>
     <id>https://xueyu-ubc.github.io/2023/08/27/KS_test/</id>
     <published>2023-08-27T11:00:00.000Z</published>
-    <updated>2023-10-05T00:11:46.000Z</updated>
+    <updated>2024-08-25T23:38:34.746Z</updated>
     
     
       
@@ -189,15 +193,19 @@ convolutional autoencoders with</summary>
     
     
     
+    <category term="Statitic" scheme="https://xueyu-ubc.github.io/categories/Statitic/"/>
+    
+    
+    <category term="Statitic" scheme="https://xueyu-ubc.github.io/tags/Statitic/"/>
     
   </entry>
   
   <entry>
-    <title>Q</title>
+    <title>Q&amp;A</title>
     <link href="https://xueyu-ubc.github.io/2023/08/27/Q&amp;A/"/>
     <id>https://xueyu-ubc.github.io/2023/08/27/Q&amp;A/</id>
     <published>2023-08-27T11:00:00.000Z</published>
-    <updated>2023-08-28T03:38:46.000Z</updated>
+    <updated>2024-08-25T23:39:24.760Z</updated>
     
     
       
@@ -211,6 +219,8 @@ convolutional autoencoders with</summary>
     
     
     
+    <category term="Basic" scheme="https://xueyu-ubc.github.io/categories/Basic/"/>
+    
     
   </entry>
   
@@ -219,7 +229,7 @@ convolutional autoencoders with</summary>
     <link href="https://xueyu-ubc.github.io/2023/08/24/Heuristic%20Solutions%20of%20SDEs/"/>
     <id>https://xueyu-ubc.github.io/2023/08/24/Heuristic%20Solutions%20of%20SDEs/</id>
     <published>2023-08-24T03:00:00.000Z</published>
-    <updated>2023-08-25T07:06:12.000Z</updated>
+    <updated>2024-08-25T23:35:59.029Z</updated>
     
     
       
@@ -234,7 +244,7 @@ Itô&lt;/h1&gt;
     
     
     
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    <category term="Generative Model" scheme="https://xueyu-ubc.github.io/categories/Generative-Model/"/>
     
     
     <category term="SDE" scheme="https://xueyu-ubc.github.io/tags/SDE/"/>
@@ -246,7 +256,7 @@ Itô&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2023/08/06/gaussianprocess/"/>
     <id>https://xueyu-ubc.github.io/2023/08/06/gaussianprocess/</id>
     <published>2023-08-06T08:00:00.000Z</published>
-    <updated>2023-08-24T18:06:52.000Z</updated>
+    <updated>2024-08-25T23:34:52.772Z</updated>
     
     
       
@@ -261,7 +271,7 @@ variables&lt;/h1&gt;
     
     
     
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    <category term="Random Process" scheme="https://xueyu-ubc.github.io/categories/Random-Process/"/>
     
     
     <category term="SDE" scheme="https://xueyu-ubc.github.io/tags/SDE/"/>
@@ -273,7 +283,7 @@ variables&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2023/07/19/ODE/"/>
     <id>https://xueyu-ubc.github.io/2023/07/19/ODE/</id>
     <published>2023-07-19T08:00:00.000Z</published>
-    <updated>2023-07-30T07:14:44.000Z</updated>
+    <updated>2024-08-25T23:37:57.342Z</updated>
     
     
       
@@ -288,10 +298,10 @@ Equation (ODE)&lt;/h1&gt;
     
     
     
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    <category term="Generative Model" scheme="https://xueyu-ubc.github.io/categories/Generative-Model/"/>
     
     
-    <category term="diffusion model" scheme="https://xueyu-ubc.github.io/tags/diffusion-model/"/>
+    <category term="Diffusion" scheme="https://xueyu-ubc.github.io/tags/Diffusion/"/>
     
   </entry>
   
@@ -300,7 +310,7 @@ Equation (ODE)&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/"/>
     <id>https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/</id>
     <published>2023-07-15T06:00:00.000Z</published>
-    <updated>2023-07-19T23:45:54.000Z</updated>
+    <updated>2024-08-25T23:33:46.756Z</updated>
     
     
       
@@ -314,7 +324,7 @@ Equation (ODE)&lt;/h1&gt;
     
     
     
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    <category term="Random Process" scheme="https://xueyu-ubc.github.io/categories/Random-Process/"/>
     
     
     <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
@@ -326,7 +336,7 @@ Equation (ODE)&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2023/07/15/Metropolis-Hastings/"/>
     <id>https://xueyu-ubc.github.io/2023/07/15/Metropolis-Hastings/</id>
     <published>2023-07-15T02:00:00.000Z</published>
-    <updated>2023-07-15T19:40:30.000Z</updated>
+    <updated>2024-08-25T23:36:54.034Z</updated>
     
     
       
@@ -341,7 +351,7 @@ Metropolis et al. (1953). It</summary>
     
     
     
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    <category term="Random Process" scheme="https://xueyu-ubc.github.io/categories/Random-Process/"/>
     
     
     <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
@@ -353,7 +363,7 @@ Metropolis et al. (1953). It</summary>
     <link href="https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/"/>
     <id>https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/</id>
     <published>2023-07-12T10:00:00.000Z</published>
-    <updated>2023-07-24T03:00:38.000Z</updated>
+    <updated>2024-08-25T23:36:47.827Z</updated>
     
     
       
@@ -368,7 +378,7 @@ Definitions and Representations&lt;/h1&gt;
     
     
     
-    <category term="Reading Group" scheme="https://xueyu-ubc.github.io/categories/Reading-Group/"/>
+    <category term="Random Process" scheme="https://xueyu-ubc.github.io/categories/Random-Process/"/>
     
     
     <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
@@ -380,7 +390,7 @@ Definitions and Representations&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2021/02/27/GD/"/>
     <id>https://xueyu-ubc.github.io/2021/02/27/GD/</id>
     <published>2021-02-27T01:53:22.000Z</published>
-    <updated>2023-07-13T23:03:34.000Z</updated>
+    <updated>2024-08-25T23:35:20.383Z</updated>
     
     
       
@@ -394,7 +404,7 @@ Accelerating Stochastic Gradient</summary>
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/categories/Machine-Learning/"/>
     
     
     <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
@@ -406,7 +416,7 @@ Accelerating Stochastic Gradient</summary>
     <link href="https://xueyu-ubc.github.io/2021/02/03/ADMMdecentralized/"/>
     <id>https://xueyu-ubc.github.io/2021/02/03/ADMMdecentralized/</id>
     <published>2021-02-03T12:49:48.000Z</published>
-    <updated>2021-02-03T13:56:20.000Z</updated>
+    <updated>2024-08-25T23:32:36.312Z</updated>
     
     
       
@@ -422,7 +432,7 @@ Accelerating Stochastic Gradient</summary>
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Distributed Learning" scheme="https://xueyu-ubc.github.io/categories/Distributed-Learning/"/>
     
     
     <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
@@ -434,7 +444,7 @@ Accelerating Stochastic Gradient</summary>
     <link href="https://xueyu-ubc.github.io/2021/01/26/AL2SGD/"/>
     <id>https://xueyu-ubc.github.io/2021/01/26/AL2SGD/</id>
     <published>2021-01-26T14:12:22.000Z</published>
-    <updated>2023-07-13T22:44:08.000Z</updated>
+    <updated>2024-08-25T23:32:44.614Z</updated>
     
     
       
@@ -450,7 +460,7 @@ Accelerating Stochastic Gradient</summary>
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Distributed Learning" scheme="https://xueyu-ubc.github.io/categories/Distributed-Learning/"/>
     
     
     <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
@@ -462,7 +472,7 @@ Accelerating Stochastic Gradient</summary>
     <link href="https://xueyu-ubc.github.io/2021/01/26/L2SGD/"/>
     <id>https://xueyu-ubc.github.io/2021/01/26/L2SGD/</id>
     <published>2021-01-26T14:12:10.000Z</published>
-    <updated>2023-07-13T22:59:02.000Z</updated>
+    <updated>2024-08-25T23:36:30.684Z</updated>
     
     
       
@@ -478,7 +488,7 @@ Accelerating Stochastic Gradient</summary>
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Distributed Learning" scheme="https://xueyu-ubc.github.io/categories/Distributed-Learning/"/>
     
     
     <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
@@ -490,7 +500,7 @@ Accelerating Stochastic Gradient</summary>
     <link href="https://xueyu-ubc.github.io/2021/01/21/FLreview/"/>
     <id>https://xueyu-ubc.github.io/2021/01/21/FLreview/</id>
     <published>2021-01-21T07:15:17.000Z</published>
-    <updated>2023-07-13T22:58:06.000Z</updated>
+    <updated>2024-08-25T23:34:18.658Z</updated>
     
     
       
@@ -504,7 +514,7 @@ Personalized Cross-Silo Federated Learning on Non-IID</summary>
     
     
     
-    <category term="paper" scheme="https://xueyu-ubc.github.io/categories/paper/"/>
+    <category term="Distributed Learning" scheme="https://xueyu-ubc.github.io/categories/Distributed-Learning/"/>
     
     
     <category term="FL" scheme="https://xueyu-ubc.github.io/tags/FL/"/>
