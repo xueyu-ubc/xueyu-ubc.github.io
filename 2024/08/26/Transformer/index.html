@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">3.6k</span>
+            <span class="post-count">3.5k</span>
         </span>
     </span>
 
@@ -187,12 +187,12 @@ d_v = d_{model}/h\)</span>.</p>
 <h2 id="positional-encoding">Positional Encoding</h2>
 <p>对于rnn而言，当前时刻的输入包含了上一时刻的输出，依次传递序列信息。而attention是考虑所有词之间的关联性，权重与序列信息无关，并没有将序列/位置信息考虑进去。如果将句子的词打乱，语义可能有所不同，但是attention
 无法捕捉这种情况。在transformer中，通过将position进行encoding记录时序信息，然后和词的embedding相加作为输入。</p>
-<p><img src="/2024/08/26/Transformer/positional.png"> <span class="math display">\[
+<p><img src="/2024/08/26/Transformer/positional.png"> <!-- $$
 \begin{aligned}
-PE(pos, 2i) &amp;= sin(pos/10000^{2i/d_{model}}) \\
-PE(pos, 2i+1) &amp;= cos(pos/10000^{2i/d_{model}}) \\
+PE(pos, 2i) &= sin(pos/10000^{2i/d_{model}}) \\
+PE(pos, 2i+1) &= cos(pos/10000^{2i/d_{model}}) \\
 \end{aligned}
-\]</span></p>
+$$ --></p>
 <p>pos is the index of the word in the sentence. (0-30) <span class="math inline">\(2i\)</span> and <span class="math inline">\(2i+1\)</span> is the index of the column, d_model
 is the number of columns, it is a hyper-parameter(120). For each
 word(token), we encode it to a vector with dimension d_model according
@@ -231,16 +231,16 @@ heads, i.e., <span class="math inline">\(A\)</span>.</p>
 <span class="math inline">\(L=12, H=768, A=12\)</span>, total parameters
 is <span class="math inline">\(110M\)</span>. 2. Bert <span class="math inline">\(_{large}\)</span>: <span class="math inline">\(L=24, H=1024, A=16\)</span>, total parameters is
 <span class="math inline">\(340M\)</span>.</p>
-<table style="width:58%;">
+<table style="width:15%;">
 <colgroup>
-<col style="width: 58%">
+<col style="width: 15%">
 </colgroup>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong><em>如何根据超参数设置计算所需要训练的参数量？</em></strong></td>
+<td><strong><em>如何根据超参数设置计算所需要训练的参数量？</em></strong></td>
 </tr>
 <tr>
-<td style="text-align: left;">对于transformer架构，输入是字典（句子）的大小，这里假设为<span class="math inline">\(30k\)</span>。通过嵌入层得到输出，输出维度为<span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)。输出的embedding会喂给
+<td>对于transformer架构，输入是字典（句子）的大小，这里假设为<span class="math inline">\(30k\)</span>。通过嵌入层得到输出，输出维度为<span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)。输出的embedding会喂给
 transformer blocks，transformer block中包括两部分，分别是self-attention
 和 mlp。 对于self-attention，dot-production
 是没有学习参数的，但是对于MHA，会对Q, K, V分别通过一个linear
@@ -259,12 +259,12 @@ block的可学习参数总共为 <span class="math inline">\(12
 H^2\)</span>。</td>
 </tr>
 <tr>
-<td style="text-align: left;">假设模型有 <span class="math inline">\(L\)</span>个blocks，那么该模型的可学习参数总量为
+<td>假设模型有 <span class="math inline">\(L\)</span>个blocks，那么该模型的可学习参数总量为
 <span class="math inline">\(30k \times H + L \times H^2 \times
 12\)</span>。</td>
 </tr>
 <tr>
-<td style="text-align: left;">对于Bert <span class="math inline">\(_{base}\)</span>，<span class="math inline">\(L=12, H=768, A=12\)</span>，根据公式计算得到：$30k
+<td>对于Bert <span class="math inline">\(_{base}\)</span>，<span class="math inline">\(L=12, H=768, A=12\)</span>，根据公式计算得到：$30k
 + 12 ^2 = 108,514,656 110M $。</td>
 </tr>
 </tbody>
