@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Transformer, KV Cache, MHA, MQA, GQA, ViT, Swin Transformer |  Welcome to XueYu&#39;s Blog
+    Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, Swin Transformer |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -60,7 +60,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Transformer, KV Cache, MHA, MQA, GQA, ViT, Swin Transformer
+  Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, Swin Transformer
 </h1>
  
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.6k</span>
+            <span class="post-count">2.4k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">6 min</span>
+            <span class="post-count">10 min</span>
         </span>
     </span>
 </div>
@@ -112,9 +112,11 @@
 </ul>
 <h2 id="model-architecture">Model Architecture</h2>
 <p>当前的时序模型主要是encoder-decoder的架构。对于一个序列表示<span class="math inline">\((x_1, ...,
-x_n)\)</span>，encoder将该序列映射为一个连续表征 <span class="math inline">\(\bm z = (\bm z_1,..., \bm z_n)\)</span>，其中
-<span class="math inline">\(\bm z_i \in R^d\)</span>, <span class="math inline">\(d\)</span> 为隐藏向量维度。对于encoder输出的<span class="math inline">\(\bm z\)</span>，decoder <strong>依次</strong>
-生成输出序列 <span class="math inline">\((y_1, ..., y_m)\)</span>。</p>
+x_n)\)</span>，encoder将该序列映射为一个连续表征 <span class="math inline">\(\mathbf z = (\mathbf z_1,..., \mathbf
+z_n)\)</span>，其中 <span class="math inline">\(\mathbf z_i \in
+R^d\)</span>, <span class="math inline">\(d\)</span>
+为隐藏向量维度。对于encoder输出的<span class="math inline">\(\mathbf
+z\)</span>，decoder <strong>依次</strong> 生成输出序列 <span class="math inline">\((y_1, ..., y_m)\)</span>。</p>
 <p>注意，对于encoder而言，可以看到整个输入句子。但是，对于decoder而言，无法观察到序列后面的词，因此词是按照自回归模式一个一个生成的，<strong>过去时刻的输出也作为当前时刻的输入</strong>。</p>
 <p><img src="/2024/08/26/Transformer/architecture.jpg"></p>
 <h3 id="encoder-and-decoder-stacks">Encoder and Decoder Stacks</h3>
@@ -123,7 +125,7 @@ self-attention，第二个子层是一个position-wise fully connected
 feed-forward network
 (MLP)。对于每个子层，使用残差连接+layernorm，即Layernorm(<span class="math inline">\(x\)</span> + sublayer(<span class="math inline">\(x\)</span>))。每层的输出维度统一为<span class="math inline">\(d_{model}=512\)</span>。</p>
 <p>Decoder: <span class="math inline">\(N=6\)</span>个layers。每个layer具有三个sub-layers，并且每个子层都使用残差连接+layernorm。对于第一个子层的self-attention，由于不能获取之后的输入，因此使用masked
-MHA.</p>
+MHA。</p>
 <h3 id="attention">Attention</h3>
 <p>Query: 需要查询的内容向量；</p>
 <p>Key: 可以认为是用于被查询的关键信息向量；</p>
@@ -146,9 +148,9 @@ feed-forward networks</h2>
 \text{FFN}(x) = \text{max}(0, xW_1 + b_1)W_2 + b_2.
 \end{aligned}
 \]</span> 其中, <span class="math inline">\(x\)</span>是一个 512
-的向量，inner-layer has dimensionality <span class="math inline">\(d_{ff}=2048\)</span>，输出也是一个 512 向量.</p>
+的向量，inner-layer has dimensionality <span class="math inline">\(d_{ff}=2048\)</span>，输出也是一个 512 向量。</p>
 <h2 id="为什么需要除以sqrtd_k">为什么需要除以<span class="math inline">\(\sqrt{d_k}\)</span></h2>
-<p>https://mp.weixin.qq.com/s/h-24XRdJDDZDg65LTjXA0w</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/h-24XRdJDDZDg65LTjXA0w">ref1</a></p>
 <ol type="1">
 <li>当维度<span class="math inline">\(d_k\)</span>比较大时，点积的大小会增大，元素的相对距离增大，进行softmax操作时，会推动softmax函数往仅有很小的梯度的方向靠拢，导致softmax
 函数容易导致梯度消失问题。</li>
@@ -180,12 +182,12 @@ d_k}\)</span>, <span class="math inline">\(W_i^V \in
 d_{model}}\)</span>. In this paper, they set <span class="math inline">\(h=8\)</span>, <span class="math inline">\(d_k =
 d_v = d_{model}/h\)</span>.</p>
 <h2 id="kv-cache-原理-mha-mqa-gqa">KV Cache 原理, MHA, MQA, GQA</h2>
-<p>https://mp.weixin.qq.com/s/mKdliGu4WhUx4PHatBpewA</p>
-<p>https://www.linsight.cn/3dc22f96.html</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mKdliGu4WhUx4PHatBpewA">ref1</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.linsight.cn/3dc22f96.html">ref2</a></p>
 <h2 id="positional-encoding">Positional Encoding</h2>
 <p>对于rnn而言，当前时刻的输入包含了上一时刻的输出，依次传递序列信息。而attention是考虑所有词之间的关联性，权重与序列信息无关，并没有将序列/位置信息考虑进去。如果将句子的词打乱，语义可能有所不同，但是attention
 无法捕捉这种情况。在transformer中，通过将position进行encoding记录时序信息，然后和词的embedding相加作为输入。</p>
-<p><img src="./deep-learning-with-structures/positional.png"> <span class="math display">\[
+<p><img src="/2024/08/26/Transformer/positional.png"> <span class="math display">\[
 \begin{aligned}
 PE(pos, 2i) &amp;= sin(pos/10000^{2i/d_{model}}) \\
 PE(pos, 2i+1) &amp;= cos(pos/10000^{2i/d_{model}}) \\
@@ -195,7 +197,7 @@ PE(pos, 2i+1) &amp;= cos(pos/10000^{2i/d_{model}}) \\
 is the number of columns, it is a hyper-parameter(120). For each
 word(token), we encode it to a vector with dimension d_model according
 to its position.</p>
-<p>Here we use denominator <span class="math inline">\(10000^{2i/d_model}\)</span> to make sure the
+<p>Here we use denominator <span class="math inline">\(10000^{2i/d_{model}}\)</span> to make sure the
 positional encoding is different for different tokens. The sin and cos
 are periodic functions, if we don't use the denominator, then the
 positional encoding could be same for different tokens.</p>
@@ -205,6 +207,77 @@ positional encodings be the same?? yes.</li>
 </ul>
 <h2 id="complexity">Complexity</h2>
 <p><img src="/2024/08/26/Transformer/complexity.jpg"></p>
+<h1 id="bert-bidirectional-encoder-representations-from-transformers">BERT:
+Bidirectional Encoder Representations from Transformers</h1>
+<ul>
+<li>GPT: 单向，使用过去的信息预测未来。</li>
+<li>ELMo: 基于rnn的架构，双向rnn,
+在用到一些下游任务时，需要对架构进行调整。</li>
+<li>BERT: 相较于gpt, 可以使用左右侧信息，进行双向预测。相较于ELMo,
+基于transformer架构，结构简单，只需要修改最上层。</li>
+</ul>
+<p>Bert
+结合了ELMo的双向性和gpt的transformer架构，将预测未来变成<strong>完形填空</strong>。</p>
+<h2 id="framework">Framework</h2>
+<p>Bert主要包括两部分，pre-training and
+fine-tuning。在pre-training阶段，模型在一个没有进行标注的数据上进行训练。在fine-tuning阶段，用同一个Bert模型，但是模型首先被初始化为预训练的权重，然后再在有标注的数据上进行微调。每一个下游任务都会创建一个不同的模型进行微调。</p>
+<p><img src="/2024/08/26/Transformer/bert.jpg"></p>
+<p>Model architecture: a multi-layer bidirectional transformer
+encoder.</p>
+<p>主要包括三个参数： 1. number of layers/ transformer blocks, i.e.,
+<span class="math inline">\(L\)</span>. 2. hidden dimension, i.e., <span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>). 3. the number of attention
+heads, i.e., <span class="math inline">\(A\)</span>.</p>
+<p>两个模型： 1. Bert <span class="math inline">\(_{base}\)</span>:
+<span class="math inline">\(L=12, H=768, A=12\)</span>, total parameters
+is <span class="math inline">\(110M\)</span>. 2. Bert <span class="math inline">\(_{large}\)</span>: <span class="math inline">\(L=24, H=1024, A=16\)</span>, total parameters is
+<span class="math inline">\(340M\)</span>.</p>
+<table style="width:58%;">
+<colgroup>
+<col style="width: 58%">
+</colgroup>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><em>如何根据超参数设置计算所需要训练的参数量？</em></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">对于transformer架构，输入是字典（句子）的大小，这里假设为<span class="math inline">\(30k\)</span>。通过嵌入层得到输出，输出维度为<span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)。输出的embedding会喂给
+transformer blocks，transformer block中包括两部分，分别是self-attention
+和 mlp。 对于self-attention，dot-production
+是没有学习参数的，但是对于MHA，会对Q, K, V分别通过一个linear
+layer映射到低维向量，然后进行scaled dot-product attention操作，得到<span class="math inline">\(A\)</span>个输出向量，再将<span class="math inline">\(A\)</span>个输出向量进行拼接，最后再通过一个linear
+layer回到<span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)维度。在MHA中，头的个数乘以低维投影的维度=<span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)，因此低维投影部分的参数量为 $
+3 H H<span class="math inline">\(。这里乘以 3 的原因是Q, K,
+V分别通过一个linear
+layer进行投影操作。同样，对于得到的低维投影向量进行拼接后还会进行一次投影，可学习参数量是\)</span>H
+H<span class="math inline">\(。因此，一个self-attention层的可学习参数量为\)</span>
+4 H H = 4 H^2$ （观察上文中的MHA结构图，可以发现有 4
+个linear模块）。接下来是 mlp,
+mlp具有两个全连接层，第一个全连接层的输入输出是<span class="math inline">\(H \times
+4H\)</span>，第二个全连接层的输入输出是<span class="math inline">\(4H
+\times H\)</span>，总共为 <span class="math inline">\(8H^2\)</span>。因此，一个transformer
+block的可学习参数总共为 <span class="math inline">\(12
+H^2\)</span>。</td>
+</tr>
+<tr>
+<td style="text-align: left;">假设模型有 <span class="math inline">\(L\)</span>个blocks，那么该模型的可学习参数总量为
+<span class="math inline">\(30k \times H + L \times H^2 \times
+12\)</span>。</td>
+</tr>
+<tr>
+<td style="text-align: left;">对于Bert <span class="math inline">\(_{base}\)</span>，<span class="math inline">\(L=12, H=768, A=12\)</span>，根据公式计算得到：$30k
++ 12 ^2 = 108,514,656 110M $。</td>
+</tr>
+</tbody>
+</table>
+<p>输入输出：</p>
+<p>对于transformer而言，输入是一个序列对，编码器和解码器会分别输入一个序列。Bert只有一个编码器，输入是一个序列，可以包含两个句子。</p>
+<p>To make BERT handle a variety of downstream tasks, our input
+representation is able to unambiguously represent both a single sentence
+and a pair of sentences (e.g., ⟨ Question, Answer ⟩) in one token
+sequence. Throughout this work, a “sentence” can be an arbitrary span of
+contiguous text, rather than an actual linguistic sentence. A “sequence”
+refers to the input token sequence to BERT, which may be a single
+sentence or two sentences packed together.</p>
 <h1 id="vit">ViT</h1>
 <p>paper: AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE
 RECOGNITION AT SCALE</p>
@@ -214,8 +287,8 @@ RECOGNITION AT SCALE</p>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/mli/paper-reading">李沐,
 Transformer论文精读</a></p></li>
-<li><p><a target="_blank" rel="noopener" href="https://courses.cs.duke.edu/spring13/compsci590.2/slides/lec5.pdf">Markov
-Chains and Coupling</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="http://nlp.seas.harvard.edu/2018/04/03/attention.html">The
+Annotated Transformer</a></p></li>
 <li><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1706.03762">Attention is all you
 need</a></p></li>
 <li><p><a target="_blank" rel="noopener" href="https://jalammar.github.io/illustrated-transformer/" class="uri">https://jalammar.github.io/illustrated-transformer/</a></p></li>
