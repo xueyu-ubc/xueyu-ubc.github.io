@@ -165,7 +165,7 @@ dimensionality <span class="math inline">\(d_{ff}=2048\)</span>，输出也是�
 <p>为了不看到 <span class="math inline">\(t\)</span>
 时刻之后的内容，对于点积矩阵的上半部分添加一个较小的数字，比如 <span class="math inline">\(-1e10\)</span>，这样经过softmax函数后对应位置会变成零。</p>
 <h2 id="mha">MHA</h2>
-<p><img src="/2024/08/26/Transformer/mha.jpg?400x200"></p>
+<p><img src="/2024/08/26/Transformer/mha.jpg?400x300"></p>
 <p>对原始的Q,K，V，先通过一个linear layer映射到低维向量，然后进行scaled
 dot-product
 attention操作，得到h个输出向量，再将h个输出向量进行拼接，最后再通过一个linear
@@ -239,21 +239,22 @@ heads, i.e., <span class="math inline">\(A\)</span>.</p>
 is <span class="math inline">\(110M\)</span>. 2. Bert <span class="math inline">\(_{large}\)</span>: <span class="math inline">\(L=24, H=1024, A=16\)</span>, total parameters is
 <span class="math inline">\(340M\)</span>.</p>
 <p><strong>如何根据超参数设置计算所需要训练的参数量？</strong></p>
-<p>对于transformer架构，输入是字典（句子）的大小，这里假设为<span class="math inline">\(30k\)</span>。通过嵌入层得到输出，输出维度为<span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)。输出的embedding会喂给
+<p>对于transformer架构，输入是字典（句子）的大小，这里假设为<span class="math inline">\(30k\)</span>。通过嵌入层得到输出，输出维度为 <span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)。输出的embedding会喂给
 transformer blocks，transformer block中包括两部分，分别是self-attention
-和 mlp。 对于self-attention，dot-production
-是没有学习参数的，但是对于MHA，会对Q, K, V分别通过一个linear
-layer映射到低维向量，然后进行scaled dot-product attention操作，得到<span class="math inline">\(A\)</span>个输出向量，再将<span class="math inline">\(A\)</span>个输出向量进行拼接，最后再通过一个linear
-layer回到<span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)维度。在MHA中，头的个数乘以低维投影的维度=<span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)，因此低维投影部分的参数量为 $
-3 H H<span class="math inline">\(。这里乘以 3 的原因是Q, K,
-V分别通过一个linear
-layer进行投影操作。同样，对于得到的低维投影向量进行拼接后还会进行一次投影，可学习参数量是\)</span>H
-H<span class="math inline">\(。因此，一个self-attention层的可学习参数量为\)</span>
-4 H H = 4 H^2$ （观察上文中的MHA结构图，可以发现有 4
-个linear模块）。接下来是 mlp,
-mlp具有两个全连接层，第一个全连接层的输入输出是<span class="math inline">\(H \times
-4H\)</span>，第二个全连接层的输入输出是<span class="math inline">\(4H
-\times H\)</span>，总共为 <span class="math inline">\(8H^2\)</span>。因此，一个transformer
+和 mlp。 对于self-attention，dot-production 没有学习参数，但是对于
+MHA，会对 Q, K, V分别通过一个 linear layer 映射到低维向量，然后进行
+scaled dot-product attention 操作，得到 <span class="math inline">\(A\)</span> 个输出向量，再将 <span class="math inline">\(A\)</span> 个输出向量进行拼接，最后再通过一个
+linear layer 回到 <span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>) 维度。在 MHA
+中，头的个数乘以低维投影的维度 = <span class="math inline">\(H\)</span>
+(<span class="math inline">\(d_{model}\)</span>)，因此低维投影部分的参数量为
+<span class="math inline">\(3 \times H \times H\)</span>。这里乘以 <span class="math inline">\(3\)</span> 的原因是 Q, K, V分别通过一个 linear
+layer
+进行投影操作。同样，对于得到的低维投影向量进行拼接后还会进行一次投影，可学习参数量是
+<span class="math inline">\(H \times H\)</span>。因此，一个
+self-attention 层的可学习参数量为 $ 4 H H = 4 H^2$
+（观察上文中的MHA结构图，可以发现有 4 个linear模块）。接下来是 mlp, mlp
+具有两个全连接层，第一个全连接层的输入输出是 <span class="math inline">\(H \times 4H\)</span>，第二个全连接层的输入输出是
+<span class="math inline">\(4H \times H\)</span>，总共为 <span class="math inline">\(8H^2\)</span>。因此，一个transformer
 block的可学习参数总共为 <span class="math inline">\(12
 H^2\)</span>。</p>
 <p>假设模型有 <span class="math inline">\(L\)</span>个blocks，那么该模型的可学习参数总量为
@@ -278,7 +279,7 @@ embedding层，输入的是每个词元在该序列里的位置信息，从 0
 <p>We do not use traditional left-to-right or right-to-left language
 models to pre-train BERT. Instead, we pre-train BERT using two
 unsupervised tasks, described in this section.</p>
-<h3 id="task-1-masked-lm.">Task #1: Masked LM.</h3>
+<h3 id="task-1-masked-lm">Task #1: Masked LM</h3>
 <p>如果一个词元是由WordPiece生成，那么该词元有<span class="math inline">\(15\%\)</span>的概率被随机替换为掩码
 [Mask]。对于特殊词元，比如第一个词元[CLS]和中间分割词元[SEP]，就不进行替换。但是这种操作会带来一个问题，在训练的时候会有序列中的词元被替换为特殊token
 [Mask]，但是在fine-tuning的时候，输入的序列不会包含[Mask]这种
@@ -295,7 +296,7 @@ task。该任务可以从任何语料库中生成。具体来说，每个预训�
 A 和 B，<span class="math inline">\(50\%\)</span> 的情况下, B 是 A
 后面的实际下一句（标记为 IsNext），<span class="math inline">\(50\%\)</span> 的情况下，B
 是语料库中的随机句子（标记为 NotNext）。如下图所示。</p>
-<p><img src="/2024/08/26/Transformer/bert3.jpg"></p>
+<p><img src="/2024/08/26/Transformer/bert3.jpg?400x300"></p>
 <p>其中，‘flight ##less’
 是一个词，但是该词出现的概率较低，所以WordPiece中被划分为两个词，
 '##'表示与前面词相连。 如图 1 所示，特殊标记[CLS]对应的输出向量 <span class="math inline">\(C\)</span> 用来进行下一个句子预测。</p>
@@ -316,23 +317,26 @@ RECOGNITION AT SCALE</p>
 <p>在中小型数据集上，ViT的效果较弱，弱于ResNets。主要原因是Transformer不具备归纳偏置
 (inductive bias)
 能力。卷积神经网络具有归纳偏置能力，该能力类似于一种先验知识/假设。比如对于卷积神经网络来说，具有两个
-inductive
-bias。（1）locality。卷积神经网络假设相邻区域具有相邻特征，因此通过滑动窗口进行学习。（2）translation
-equivariance，平移等价性。<span class="math inline">\(f(g(x)) =
-g(f(x))\)</span>。在卷积神经网络中，无论是对图片中物体先进行平移再卷积，还是先卷积再平移，只要是对于同一个不变的输入，结果不变。卷积神经网络具备这两个归纳偏置能力，等同于拥有很多先验信息，可以在中小型数据集上表现不错。</p>
+inductive bias:</p>
+<ol type="1">
+<li><p>locality。卷积神经网络假设相邻区域具有相邻特征，因此通过滑动窗口进行学习。</p></li>
+<li><p>translation equivariance，平移等价性。<span class="math inline">\(f(g(x)) =
+g(f(x))\)</span>。在卷积神经网络中，无论是对图片中物体先进行平移再卷积，还是先卷积再平移，只要是对于同一个不变的输入，结果不变。卷积神经网络具备这两个归纳偏置能力，等同于拥有很多先验信息，可以在中小型数据集上表现不错。</p></li>
+</ol>
 <p>通过在大数据集上进行预训练，作者发现，即使
 transformer不具备归纳偏置能力，依旧具有很好的表现，且可以扩展到下游任务中。</p>
 <p>以往的工作要么是将卷积神经网络和自注意力结合，要么直接用自注意力取代卷积神经网络。但是没有工作直接只用transformer到图像领域。因此，本文直接使用标准的transformer结构，只是对图片进行预处理，划分成块。</p>
 <h2 id="model-architecture-1">Model Architecture</h2>
-<p><img src="/2024/08/26/Transformer/vit.jpg?400x300"></p>
-<p>如Figure 1所示，首先将原始图片划分为<span class="math inline">\(3
-\times 3 = 9\)</span>个patch，然后按照顺序组成一个序列，通过一个linear
-layer得到patch
-embedding。为了表示每个patch在原始图片中的位置信息，类似于transformer，添加了一个position
+<p><img src="/2024/08/26/Transformer/vit.jpg"></p>
+<p>如 Figure 1所示，首先将原始图片划分为 <span class="math inline">\(3
+\times 3 = 9\)</span> 个patch，然后按照顺序组成一个序列，通过一个 linear
+layer得到patch embedding。为了表示每个 patch
+在原始图片中的位置信息，类似于transformer，添加了一个 position
 embedding。然后通过一个标准的transformer encoder
-得到输出。对于分类任务，仿照BERT，在序列的开头添加一个特殊标记[CLS]，
-<strong>位置信息为
-0</strong>。因为使用的transformer架构，该token可以注意到序列中其他pathch的信息，所以可以根据该token的输出进行判断得到有效信息。</p>
+得到输出。对于分类任务，仿照 BERT，在序列的开头添加一个特殊标记[CLS]，
+<strong>位置信息为 0</strong>。因为使用的 transformer 架构，该 token
+可以注意到序列中其他 patch 的信息，所以可以根据该 token
+的输出进行判断得到有效信息。</p>
 <p>具体来说，</p>
 <h1 id="swin-transformer">Swin Transformer</h1>
 <h1 id="references">References:</h1>
