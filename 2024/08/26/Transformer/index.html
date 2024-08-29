@@ -119,6 +119,7 @@ R^d\)</span>, <span class="math inline">\(d\)</span>
 为隐藏向量维度。对于encoder输出的 <span class="math inline">\(\mathbf
 z\)</span>，decoder <strong>依次</strong> 生成输出序列 <span class="math inline">\((y_1, ..., y_m)\)</span>。</p>
 <p>注意，对于encoder而言，可以看到整个输入句子。但是，对于decoder而言，无法观察到序列后面的词，因此词是按照自回归模式一个一个生成的，<strong>过去时刻的输出也作为当前时刻的输入</strong>。</p>
+<p><img src="https://github.com/xueyu-ubc/xueyu-ubc.github.io/tree/master/images/wechat.jpg" alt="描述" width="50%" height="50%"></p>
 <p><img src="./Transformer/architecture.jpg" alt="Description" width="400" height="310"></p>
 <h3 id="encoder-and-decoder-stacks">Encoder and Decoder Stacks</h3>
 <p>Encoder: 包含 <span class="math inline">\(N=6\)</span>
