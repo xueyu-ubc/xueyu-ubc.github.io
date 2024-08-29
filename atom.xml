@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2024-08-28T14:07:11.788Z</updated>
+  <updated>2024-08-29T08:38:39.182Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -21,14 +21,16 @@
     <link href="https://xueyu-ubc.github.io/2024/08/26/Transformer/"/>
     <id>https://xueyu-ubc.github.io/2024/08/26/Transformer/</id>
     <published>2024-08-25T23:30:00.000Z</published>
-    <updated>2024-08-28T14:07:11.788Z</updated>
+    <updated>2024-08-29T08:38:39.182Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1&gt;Attention is all you need&lt;/h1&gt;
+&lt;h2 id=&quot;comparison-with-rnn-and-cnn&quot;&gt;Comparison with RNN and CNN&lt;/h2&gt;
+&lt;p&gt;RNN: 对于给定一个序列，从左向右进行计算。对于第&lt;span</summary>
         
       
     
@@ -53,9 +55,8 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;generative-models&quot;&gt;Generative Models&lt;/h1&gt;
-&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive
-Models, GAN,</summary>
+    <summary type="html">&lt;h1&gt;Generative Models&lt;/h1&gt;
+&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive Models, GAN, Flow-based Models,</summary>
         
       
     
@@ -80,8 +81,7 @@ Models, GAN,</summary>
       
         
         
-    <summary type="html">&lt;p&gt;A common misconception in PCA is that PC 1 is the mean of the data
-when the data are not centered. It was shown in this paper that PC 1</summary>
+    <summary type="html">&lt;p&gt;A common misconception in PCA is that PC 1 is the mean of the data when the data are not centered. It was shown in this paper that PC 1</summary>
         
       
     
@@ -106,9 +106,9 @@ when the data are not centered. It was shown in this paper that PC 1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;monte-carlo-methods-and-stochastic-optimisation&quot;&gt;Monte Carlo
-Methods and Stochastic Optimisation&lt;/h1&gt;
-&lt;p&gt;The mean-value analysis</summary>
+    <summary type="html">&lt;h1&gt;Monte Carlo Methods and Stochastic Optimisation&lt;/h1&gt;
+&lt;p&gt;The mean-value analysis problem:&lt;/p&gt;
+&lt;p class=&quot;katex-block&quot;&gt;&lt;span</summary>
         
       
     
@@ -134,7 +134,9 @@ Methods and Stochastic Optimisation&lt;/h1&gt;
         
         
     <summary type="html">&lt;h2 id=&quot;brief-intro-to-deep-learning&quot;&gt;Brief Intro to Deep Learning&lt;/h2&gt;
-&lt;p&gt;Deep learning: - Data: large datasets, e.g., ImageNet, etc.; -</summary>
+&lt;p&gt;Deep learning:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Data: large datasets, e.g.,</summary>
         
       
     
@@ -159,8 +161,7 @@ Methods and Stochastic Optimisation&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h2 id=&quot;graph-convolutional-autoencoders-with-co-learning-of-graph-structure-and-node-attributes&quot;&gt;Graph
-convolutional autoencoders with</summary>
+    <summary type="html">&lt;h2 id=&quot;graph-convolutional-autoencoders-with-co-learning-of-graph-structure-and-node-attributes&quot;&gt;Graph convolutional autoencoders with</summary>
         
       
     
@@ -170,32 +171,6 @@ convolutional autoencoders with</summary>
     
     
     <category term="Graph" scheme="https://xueyu-ubc.github.io/tags/Graph/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kolmogorov-Smirnov statistic</title>
-    <link href="https://xueyu-ubc.github.io/2023/08/27/KS_test/"/>
-    <id>https://xueyu-ubc.github.io/2023/08/27/KS_test/</id>
-    <published>2023-08-27T11:00:00.000Z</published>
-    <updated>2024-08-25T23:52:26.364Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kolmogorov-smirnov-statistic&quot;&gt;Kolmogorov-Smirnov statistic&lt;/h1&gt;
-&lt;p&gt;Consider any distribution &lt;span class=&quot;math inline&quot;&gt;&#92;(D&#92;)&lt;/span&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Statistic" scheme="https://xueyu-ubc.github.io/categories/Statistic/"/>
-    
-    
-    <category term="Statistic" scheme="https://xueyu-ubc.github.io/tags/Statistic/"/>
     
   </entry>
   
@@ -211,8 +186,8 @@ convolutional autoencoders with</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;排序&quot;&gt;排序&lt;/h1&gt;
-&lt;p&gt;Q 1, Why does sorting a collection have (at least) &lt;span class=&quot;math inline&quot;&gt;&#92;(O(n log n)&#92;)&lt;/span&gt; complexity? n is</summary>
+    <summary type="html">&lt;h1&gt;排序&lt;/h1&gt;
+&lt;p&gt;Q 1, Why does sorting a collection have (at least) &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math</summary>
         
       
     
@@ -220,6 +195,32 @@ convolutional autoencoders with</summary>
     
     <category term="Basic" scheme="https://xueyu-ubc.github.io/categories/Basic/"/>
     
+    
+  </entry>
+  
+  <entry>
+    <title>Kolmogorov-Smirnov statistic</title>
+    <link href="https://xueyu-ubc.github.io/2023/08/27/KS_test/"/>
+    <id>https://xueyu-ubc.github.io/2023/08/27/KS_test/</id>
+    <published>2023-08-27T11:00:00.000Z</published>
+    <updated>2024-08-25T23:52:26.364Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Kolmogorov-Smirnov statistic&lt;/h1&gt;
+&lt;p&gt;Consider any distribution &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math</summary>
+        
+      
+    
+    
+    
+    <category term="Statistic" scheme="https://xueyu-ubc.github.io/categories/Statistic/"/>
+    
+    
+    <category term="Statistic" scheme="https://xueyu-ubc.github.io/tags/Statistic/"/>
     
   </entry>
   
@@ -235,9 +236,8 @@ convolutional autoencoders with</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;the-stochastic-integral-of-itô&quot;&gt;The Stochastic Integral of
-Itô&lt;/h1&gt;
-&lt;p&gt;A stochastic differential equation can be transformed into a</summary>
+    <summary type="html">&lt;h1&gt;The Stochastic Integral of Itô&lt;/h1&gt;
+&lt;p&gt;A stochastic differential equation can be transformed into a vector differential equation of the</summary>
         
       
     
@@ -262,9 +262,8 @@ Itô&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;jointly-gaussian-random-variables&quot;&gt;Jointly Gaussian random
-variables&lt;/h1&gt;
-&lt;p&gt;Definition: Random variables (RV) &lt;span class=&quot;math</summary>
+    <summary type="html">&lt;h1&gt;Jointly Gaussian random variables&lt;/h1&gt;
+&lt;p&gt;Definition: Random variables (RV) &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math</summary>
         
       
     
@@ -289,9 +288,9 @@ variables&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;ordinary-differential-equation-ode&quot;&gt;Ordinary Differential
-Equation (ODE)&lt;/h1&gt;
-&lt;h2 id=&quot;the-defination-of-ode&quot;&gt;The defination of</summary>
+    <summary type="html">&lt;h1&gt;Ordinary Differential Equation (ODE)&lt;/h1&gt;
+&lt;h2 id=&quot;the-defination-of-ode&quot;&gt;The defination of ODE&lt;/h2&gt;
+&lt;p&gt;An ODE is an equation in which</summary>
         
       
     
@@ -316,8 +315,9 @@ Equation (ODE)&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;total-variation-distance&quot;&gt;Total Variation Distance&lt;/h1&gt;
-&lt;p&gt;Define Total Variation Distance: &lt;span class=&quot;math</summary>
+    <summary type="html">&lt;h1&gt;Total Variation Distance&lt;/h1&gt;
+&lt;p&gt;Define Total Variation Distance:&lt;/p&gt;
+&lt;p class=&quot;katex-block&quot;&gt;&lt;span class=&quot;katex-display&quot;&gt;&lt;span</summary>
         
       
     
@@ -342,9 +342,8 @@ Equation (ODE)&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;The first MCMC algorithm is the Metropolis algorithm, published by
-Metropolis et al. (1953). It</summary>
+    <summary type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;The first MCMC algorithm is the Metropolis algorithm, published by Metropolis et al. (1953). It was generalized by</summary>
         
       
     
@@ -369,9 +368,8 @@ Metropolis et al. (1953). It</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;markov-chains-definitions-and-representations&quot;&gt;Markov Chains:
-Definitions and Representations&lt;/h1&gt;
-&lt;p&gt;A stochastic process &lt;span</summary>
+    <summary type="html">&lt;h1&gt;Markov Chains: Definitions and Representations&lt;/h1&gt;
+&lt;p&gt;A stochastic process &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math</summary>
         
       
     
@@ -396,8 +394,8 @@ Definitions and Representations&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
-Accelerating Stochastic Gradient</summary>
+    <summary type="html">&lt;h1&gt;[SVRG2013] Accelerating Stochastic Gradient Descent using Predictive Variance Reduction&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -506,8 +504,9 @@ Accelerating Stochastic Gradient</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;aaai21-personalized-cross-silo-federated-learning-on-non-iid-data&quot;&gt;[AAAI21]
-Personalized Cross-Silo Federated Learning on Non-IID</summary>
+    <summary type="html">&lt;h1&gt;[AAAI21] Personalized Cross-Silo Federated Learning on Non-IID Data&lt;/h1&gt;
+&lt;p&gt;该算法的目标函数为：&lt;br&gt;
+&lt;img</summary>
         
       
     
