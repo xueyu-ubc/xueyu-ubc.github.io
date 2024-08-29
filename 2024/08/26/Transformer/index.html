@@ -119,8 +119,7 @@ R^d\)</span>, <span class="math inline">\(d\)</span>
 为隐藏向量维度。对于encoder输出的 <span class="math inline">\(\mathbf
 z\)</span>，decoder <strong>依次</strong> 生成输出序列 <span class="math inline">\((y_1, ..., y_m)\)</span>。</p>
 <p>注意，对于encoder而言，可以看到整个输入句子。但是，对于decoder而言，无法观察到序列后面的词，因此词是按照自回归模式一个一个生成的，<strong>过去时刻的输出也作为当前时刻的输入</strong>。</p>
-<p><img src="https://github.com/xueyu-ubc/xueyu-ubc.github.io/tree/master/images/wechat.jpg" alt="描述" width="50%" height="50%"></p>
-<p><img src="./Transformer/architecture.jpg" alt="Description" width="400" height="310"></p>
+<p><img src="/2024/08/26/Transformer/architecture.jpg?400x310"></p>
 <h3 id="encoder-and-decoder-stacks">Encoder and Decoder Stacks</h3>
 <p>Encoder: 包含 <span class="math inline">\(N=6\)</span>
 个layer，每个layer具有两个 sub-layers，其中第一个子层是一个 multi-head
@@ -166,7 +165,7 @@ dimensionality <span class="math inline">\(d_{ff}=2048\)</span>，输出也是�
 <p>为了不看到 <span class="math inline">\(t\)</span>
 时刻之后的内容，对于点积矩阵的上半部分添加一个较小的数字，比如 <span class="math inline">\(-1e10\)</span>，这样经过softmax函数后对应位置会变成零。</p>
 <h2 id="mha">MHA</h2>
-<p><img src="./Transformer/mha.jpg" alt="Description" width="400" height="170"></p>
+<p><img src="/2024/08/26/Transformer/mha.jpg?400x200"></p>
 <p>对原始的Q,K，V，先通过一个linear layer映射到低维向量，然后进行scaled
 dot-product
 attention操作，得到h个输出向量，再将h个输出向量进行拼接，最后再通过一个linear
@@ -211,7 +210,7 @@ positional encoding could be same for different tokens.</p>
 positional encodings be the same?? yes.</li>
 </ul>
 <h2 id="complexity">Complexity</h2>
-<p><img src="/2024/08/26/Transformer/complexity.jpg?200x"></p>
+<p><img src="/2024/08/26/Transformer/complexity.jpg"></p>
 <h1 id="bert-bidirectional-encoder-representations-from-transformers">BERT:
 Bidirectional Encoder Representations from Transformers</h1>
 <ul>
@@ -296,7 +295,7 @@ task。该任务可以从任何语料库中生成。具体来说，每个预训�
 A 和 B，<span class="math inline">\(50\%\)</span> 的情况下, B 是 A
 后面的实际下一句（标记为 IsNext），<span class="math inline">\(50\%\)</span> 的情况下，B
 是语料库中的随机句子（标记为 NotNext）。如下图所示。</p>
-<p><img src="./Transformer/bert3.jpg" alt="Description" width="400" height="220"></p>
+<p><img src="/2024/08/26/Transformer/bert3.jpg"></p>
 <p>其中，‘flight ##less’
 是一个词，但是该词出现的概率较低，所以WordPiece中被划分为两个词，
 '##'表示与前面词相连。 如图 1 所示，特殊标记[CLS]对应的输出向量 <span class="math inline">\(C\)</span> 用来进行下一个句子预测。</p>
@@ -325,7 +324,7 @@ g(f(x))\)</span>。在卷积神经网络中，无论是对图片中物体先进�
 transformer不具备归纳偏置能力，依旧具有很好的表现，且可以扩展到下游任务中。</p>
 <p>以往的工作要么是将卷积神经网络和自注意力结合，要么直接用自注意力取代卷积神经网络。但是没有工作直接只用transformer到图像领域。因此，本文直接使用标准的transformer结构，只是对图片进行预处理，划分成块。</p>
 <h2 id="model-architecture-1">Model Architecture</h2>
-<p><img src="./Transformer/vit.jpg" alt="Description" width="400" height="200"></p>
+<p><img src="/2024/08/26/Transformer/vit.jpg?400x300"></p>
 <p>如Figure 1所示，首先将原始图片划分为<span class="math inline">\(3
 \times 3 = 9\)</span>个patch，然后按照顺序组成一个序列，通过一个linear
 layer得到patch
