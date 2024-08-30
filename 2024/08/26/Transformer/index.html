@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">4.2k</span>
+            <span class="post-count">4.8k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">16 min</span>
+            <span class="post-count">19 min</span>
         </span>
     </span>
 </div>
@@ -103,7 +103,8 @@
 的输入词决定的。因此，历史信息可以通过隐藏状态 <span class="math inline">\(h_{t-1}\)</span> 传送到当下。</p>
 <ul>
 <li><p>优点：可以处理时序信息。</p></li>
-<li><p>缺点：（1）由于是序列计算，无法进行并行计算，计算性能较差。（2）如果时序很长，历史信息可以无法有效传输到后面。虽然可以设置较大的<span class="math inline">\(h_{t}\)</span>缓解该问题，但是存储<span class="math inline">\(h_t\)</span>会提升内存的需求。</p></li>
+<li><p>缺点：（1）由于是序列计算，无法进行并行计算，计算性能较差。（2）如果时序很长，历史信息可以无法有效传输到后面。虽然可以设置较大的
+<span class="math inline">\(h_{t}\)</span> 缓解该问题，但是存储 <span class="math inline">\(h_t\)</span> 会提升内存的需求。</p></li>
 </ul>
 <p>CNN:</p>
 <ul>
@@ -231,13 +232,19 @@ task。在fine-tuning阶段，用同一个Bert模型，但是模型首先被初�
 <p>Model architecture: a multi-layer bidirectional transformer
 encoder.</p>
 <p><strong>主要包括三个参数</strong> 1. number of layers/ transformer
-blocks, i.e., <span class="math inline">\(L\)</span>. 2. hidden
-dimension, i.e., <span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>). 3. the number of attention
-heads, i.e., <span class="math inline">\(A\)</span>.</p>
+blocks, i.e., <span class="math inline">\(L\)</span>.</p>
+<ol start="2" type="1">
+<li><p>hidden dimension, i.e., <span class="math inline">\(H\)</span>
+(<span class="math inline">\(d_{model}\)</span>).</p></li>
+<li><p>the number of attention heads, i.e., <span class="math inline">\(A\)</span>.</p></li>
+</ol>
 <p>两个模型： 1. Bert <span class="math inline">\(_{base}\)</span>:
 <span class="math inline">\(L=12, H=768, A=12\)</span>, total parameters
-is <span class="math inline">\(110M\)</span>. 2. Bert <span class="math inline">\(_{large}\)</span>: <span class="math inline">\(L=24, H=1024, A=16\)</span>, total parameters is
-<span class="math inline">\(340M\)</span>.</p>
+is <span class="math inline">\(110M\)</span>.</p>
+<ol start="2" type="1">
+<li>Bert <span class="math inline">\(_{large}\)</span>: <span class="math inline">\(L=24, H=1024, A=16\)</span>, total parameters is
+<span class="math inline">\(340M\)</span>.</li>
+</ol>
 <p><strong>如何根据超参数设置计算所需要训练的参数量？</strong></p>
 <p>对于transformer架构，输入是字典（句子）的大小，这里假设为<span class="math inline">\(30k\)</span>。通过嵌入层得到输出，输出维度为 <span class="math inline">\(H\)</span> (<span class="math inline">\(d_{model}\)</span>)。输出的embedding会喂给
 transformer blocks，transformer block中包括两部分，分别是self-attention
@@ -271,7 +278,8 @@ classification。这个词的作用是用来表示整个序列层面的信息。
 <p>由于两个句子被连接到一起作为一个序列进行输入，有两种方式来区分不同的句子。一种是在句子后面添加一个特殊的标记token
 [SEP]。其次，添加一个可学习的嵌入层来表示每个token所属于的句子id。具体来说，如下图所示，对于一个输入的序列，共有三个嵌入层。首先第一个嵌入层token
 embedding 是对每个词元输出一个向量；第二个是 segment
-embedding层，该层的输入是 2，表示该词元属于哪个句子。第三个是position
+embedding层，该层的输入是 2，表示该词元属于哪个句子。第三个是
+<strong><em>可学习的</em></strong> position
 embedding层，输入的是每个词元在该序列里的位置信息，从 0
 开始。最终得到的输出是词元本身的嵌入+所属句子的嵌入+位置嵌入。</p>
 <p><img src="/2024/08/26/Transformer/bert1.jpg"></p>
@@ -282,12 +290,12 @@ unsupervised tasks, described in this section.</p>
 <h3 id="task-1-masked-lm">Task #1: Masked LM</h3>
 <p>如果一个词元是由WordPiece生成，那么该词元有<span class="math inline">\(15\%\)</span>的概率被随机替换为掩码
 [Mask]。对于特殊词元，比如第一个词元[CLS]和中间分割词元[SEP]，就不进行替换。但是这种操作会带来一个问题，在训练的时候会有序列中的词元被替换为特殊token
-[Mask]，但是在fine-tuning的时候，输入的序列不会包含[Mask]这种
+[Mask]，但是在 fine-tune 的时候，输入的序列不会包含 [Mask] 这种
 token，从而导致两个输入数据的分布不一致。</p>
 <p>为了减少这种情况，预训练时并不总是用实际的 [MASK]
-标记来替换被掩码的词。训练数据生成器会随机选择 <span class="math inline">\(15\%\)</span> 的词元位置进行预测。如果第 <span class="math inline">\(i\)</span> 个标记被选中，那么该词元 (1) 有 <span class="math inline">\(80\%\)</span> 的概率被替换为[MASK]；（2）<span class="math inline">\(10\%\)</span>
-的概率替换为字典中的随机词元；（3）<span class="math inline">\(10\%\)</span> 的概率保持不变。模型会预测这<span class="math inline">\(15\%\)</span>的词元，而不是构建整个输入序列。用
-<span class="math inline">\(T_i\)</span>表示预测原始标记的<span class="math inline">\(15\%\)</span>词元的交叉熵损失。</p>
+标记来替换被掩码的词。训练数据生成器会随机选择 <span class="math inline">\(15\%\)</span> 的词元位置进行预测。如果第 <span class="math inline">\(i\)</span> 个标记被选中，那么该词元 (1) 有 <span class="math inline">\(80\%\)</span> 的概率被替换为 [MASK]；（2）<span class="math inline">\(10\%\)</span>
+的概率替换为字典中的随机词元；（3）<span class="math inline">\(10\%\)</span> 的概率保持不变。模型会预测这 <span class="math inline">\(15\%\)</span> 的词元，而不是构建整个输入序列。用
+<span class="math inline">\(T_i\)</span> 表示预测原始标记的<span class="math inline">\(15\%\)</span>词元的交叉熵损失。</p>
 <h3 id="task-2-next-sentence-prediction-nsp">Task #2: Next Sentence
 Prediction (NSP)</h3>
 <p>许多重要的下游任务，如问题解答（QA）和自然语言推断（NLI），都是基于对两个句子之间关系的理解。为了训练一个能理解句子关系的模型，本文预先训练了一个binarized
@@ -307,7 +315,10 @@ A 和句子 B 类似于：(1) 解析中的句子对；(2) 推断中的假设-前
 <p>输出：对于token-level tasks，比如问题解答。将每个词元的embedding fed
 into 一个输出层；对于分类任务，[CLS] 表示被fed into
 一个输出层。然后end-to-end进行调参。</p>
-<h1 id="vit">ViT</h1>
+<h2 id="transformer-位置编码的几种方式">Transformer
+位置编码的几种方式</h2>
+<p><a target="_blank" rel="noopener" href="https://www.kexue.fm/archives/8130">苏剑林：让研究人员绞尽脑汁的Transformer位置编码</a></p>
+<h1 id="vit-iclr-2021">ViT (ICLR 2021)</h1>
 <p>paper: AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE
 RECOGNITION AT SCALE</p>
 <h2 id="introduction">Introduction</h2>
@@ -329,15 +340,60 @@ transformer不具备归纳偏置能力，依旧具有很好的表现，且可以
 <h2 id="model-architecture-1">Model Architecture</h2>
 <p><img src="/2024/08/26/Transformer/vit.jpg"></p>
 <p>如 Figure 1所示，首先将原始图片划分为 <span class="math inline">\(3
-\times 3 = 9\)</span> 个patch，然后按照顺序组成一个序列，通过一个 linear
-layer得到patch embedding。为了表示每个 patch
+\times 3 = 9\)</span> 个patch
+(token)，然后按照顺序组成一个序列，通过一个 linear layer得到patch
+embedding。为了表示每个 patch
 在原始图片中的位置信息，类似于transformer，添加了一个 position
 embedding。然后通过一个标准的transformer encoder
 得到输出。对于分类任务，仿照 BERT，在序列的开头添加一个特殊标记[CLS]，
-<strong>位置信息为 0</strong>。因为使用的 transformer 架构，该 token
+<strong>位置为 0</strong>。因为使用的 transformer 架构，该 token
 可以注意到序列中其他 patch 的信息，所以可以根据该 token
 的输出进行判断得到有效信息。</p>
-<p>具体来说，</p>
+<p>具体来说，对于大小为 <span class="math inline">\(224 \times 224
+\times 3\)</span> 的图片，将其划分为 $16 $ 大小的 patch，那么可以得到
+<span class="math inline">\(224^2/16^2 = 196\)</span> 个 patch，每个
+patch 的大小为 <span class="math inline">\(16 \times 16 \times 3 =
+768\)</span>。<span class="math inline">\(196\)</span> 个维度为 <span class="math inline">\(768\)</span> 的 token 通过 linear projection 得到
+<span class="math inline">\(196\)</span> 个 patch
+embeddings。再加上特殊字符 [CLS] 对应的embedding，共有 <span class="math inline">\(197\)</span> 个 embeddings。通过将 patch
+embeddings 和 position embeddings 相加，得到的 transformer encoder
+输入大小为 <span class="math inline">\(197 \times 768\)</span>。</p>
+<p>对于 transformer block，假设有 <span class="math inline">\(12\)</span> 个 head。通过将输入进行投影得到的
+<span class="math inline">\(Q\)</span>, <span class="math inline">\(K\)</span>, <span class="math inline">\(V\)</span>
+的大小为 <span class="math inline">\(197 \times 64\)</span> (<span class="math inline">\(768/12 = 64\)</span>)。最后将 <span class="math inline">\(12\)</span> 个头的输出向量进行拼接得到 <span class="math inline">\(197 \times 768\)</span>。过一层 layernorm 后将输出
+fed into MLP layer。在 MLP 这层，会将维度放大 <span class="math inline">\(4\)</span> 倍，然后缩小投射回去。即 <span class="math inline">\(197 \times 3012\)</span> --&gt; <span class="math inline">\(197 \times 768\)</span>。</p>
+<p>具体计算公式如下： <img src="/2024/08/26/Transformer/vit1.jpg"></p>
+<p><strong><em>How can I use ViT with a different resolution
+?</em></strong></p>
+<p>当输入更高分辨率的图像时 (e.g., <span class="math inline">\(512
+\times 512\)</span>)，论文会保持 patch size
+不变，这将导致分割后得到的序列长度增加。尽管理论上 ViT
+可以处理任意长度的序列，但是，位置编码会不同，预训练时的位置编码就没有用。针对这种情况，作者对预训练好的位置编码进行
+2D 插值来扩充序列。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/issues/12167">github
+ref</a></p>
+<p><strong><em>为什么不直接对 transformer 的 <span class="math inline">\(n\)</span> 个输出embeddings 进行 global average
+pooling，然后基于得到的特征进行分类预测？</em></strong></p>
+<p>作者通过实验表示， global average pooling 方式和加 class token [CLS]
+两种方式都可以。</p>
+<h2 id="position-embedding">Position Embedding</h2>
+<p>在本文中，作者对比了四种对2D图像使用 position embedding
+进行编码的方式：</p>
+<ol type="1">
+<li><p>不提供位置信息；</p></li>
+<li><p>一维positional embedding：将输入的patch 按照栅格顺序
+（从左到右按行读取） 进行编码。</p></li>
+<li><p>二维positional embedding：将输入视为二维的 patch
+网格。在这种情况下，需要学习两组嵌入，每组嵌入的大小为 D/2 (<span class="math inline">\(D = d_{model}\)</span>)，分别针对 X 轴和 Y
+轴。然后，根据输入路径上的坐标，我们将 X 嵌入和 Y 嵌入拼接起来，得到该
+patch 的最终位置嵌入 <span class="math inline">\(D\)</span>
+维。</p></li>
+<li><p>Relative positional embeddings：详见 <a target="_blank" rel="noopener" href="https://www.kexue.fm/archives/8130">苏剑林：让研究人员绞尽脑汁的Transformer位置编码</a>。</p></li>
+</ol>
+<h2 id="模型参数量以及显存间的计算">模型参数量以及显存间的计算</h2>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OfgEoh5UXSqNBTMuTSC12w">现在 LLM
+的大小为什都设计成 6/7B、13B 和 130B 几个档次？</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/bhPo3FO_3AFQpgff-wmDoQ">如何根据模型参数量估计大模型微调和推理所需显存?</a></p>
 <h1 id="swin-transformer">Swin Transformer</h1>
 <h1 id="references">References:</h1>
 <ul>
