@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, Swin Transformer |  Welcome to XueYu&#39;s Blog
+    Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -60,7 +60,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, Swin Transformer
+  Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer
 </h1>
  
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">4.8k</span>
+            <span class="post-count">5.4k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">19 min</span>
+            <span class="post-count">21 min</span>
         </span>
     </span>
 </div>
@@ -394,7 +394,55 @@ patch 的最终位置嵌入 <span class="math inline">\(D\)</span>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OfgEoh5UXSqNBTMuTSC12w">现在 LLM
 的大小为什都设计成 6/7B、13B 和 130B 几个档次？</a></p>
 <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/bhPo3FO_3AFQpgff-wmDoQ">如何根据模型参数量估计大模型微调和推理所需显存?</a></p>
+<h1 id="mae">MAE</h1>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2111.06377">Masked Autoencoders Are
+Scalable Vision Learners</a></p>
+<p>随机遮住大量的 patches， 然后在 pixel space 重构这些缺失的
+patches，得到原始完整的图片。使用一个非对称的编码器和解码器的架构，非对称的原因是指：编码器只看到未被遮挡的
+patches，这样会提高计算效率，降低内存需要。</p>
+<p><img src="/2024/08/26/Transformer/mae.jpg?300x300"></p>
+<p><strong>Masking:</strong> 将图像划分为一个个不重叠的
+patches，然后进行随机均匀采样少量
+patches，并屏蔽（即去除）剩余的部分。</p>
+<p><strong>Encoder:</strong> Our encoder is a ViT but applied only on
+visible, unmasked patches. Just as in a standard ViT, our encoder embeds
+patches by a linear projection with added positional embeddings, and
+then processes the resulting set via a series of Transformer blocks.
+However, our encoder only operates on a small subset (e.g., 25%) of the
+full set. Masked patches are removed; no mask tokens are used. This
+allows us to train very large encoders with only a frac- tion of compute
+and memory</p>
+<p><strong>Decoder:</strong> The input to the MAE decoder is the full
+set of tokens consisting of (i) encoded visible patches, and (ii) mask
+tokens. See Figure 1. Each mask token is a shared, learned vector that
+indicates the presence of a missing patch to be predicted
+(每一个被盖住的块都被表示为同一个可学习的向量). We add
+<strong>positional embeddings</strong> to all tokens in this full set;
+without this, mask tokens would have no information about their location
+in the image. The decoder has another series of Transformer blocks. The
+MAE decoder is only used during pre-training to perform the image
+reconstruction task (only the encoder is used to produce image
+representations for recognition)</p>
 <h1 id="swin-transformer">Swin Transformer</h1>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2103.14030">Swin Transformer:
+Hierarchical Vision Transformer using Shifted Windows</a></p>
+<h2 id="introduction-1">Introduction</h2>
+<p>ViT
+始终都是在全图上计算自注意力，计算复杂度是图片大小（像素数量）的平方级。Swin
+transformer
+则是在小窗口内计算自注意力，只要窗口大小固定，自注意力的计算复杂度固定。Swin
+Transformer
+的复杂度始终与图像的像素数量（而非图像的边长）成线性关系。</p>
+<p>具体来说，假设图片大小为 <span class="math inline">\(N \times
+N\)</span>，共有 <span class="math inline">\(L = N^2\)</span>
+个像素。标准的 transformer 的计算复杂度为 <span class="math inline">\((N^2)^2 = L^2 = O(L^2)\)</span>。假设 swin
+transformer 的每个窗口固定大小为 <span class="math inline">\(M \times
+M\)</span>，单个窗口的计算复杂度为 <span class="math inline">\((M^2)^2\)</span>。共有 <span class="math inline">\((N/M)^2\)</span> 个窗口，那么总计算复杂度为 <span class="math inline">\((N/M)^2 * (M^2)^2 = N^2 M^2 = L \times M^2 =
+O(L)\)</span>。因此，swin transformer 可以将复杂度降低到 linear
+computation complexity （相较于图片像素数量）。</p>
+<p><img src="/2024/08/26/Transformer/swin1.jpg?300x300"></p>
+<p><img src="/2024/08/26/Transformer/swin2.jpg?300x300"></p>
+<p>捕捉多尺度的特征。</p>
 <h1 id="references">References:</h1>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/mli/paper-reading">沐神,
