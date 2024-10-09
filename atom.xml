@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2024-09-30T09:10:47.274Z</updated>
+  <updated>2024-10-09T12:42:48.763Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Machine Learning</title>
+    <link href="https://xueyu-ubc.github.io/2024/10/08/statistic/"/>
+    <id>https://xueyu-ubc.github.io/2024/10/08/statistic/</id>
+    <published>2024-10-08T02:10:10.000Z</published>
+    <updated>2024-10-09T12:42:48.763Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;参考：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/categories/Machine-Learning/"/>
+    
+    
+    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/tags/Machine-Learning/"/>
+    
+  </entry>
   
   <entry>
     <title>Interview Questions</title>
@@ -519,32 +545,6 @@ Definitions and Representations&lt;/h1&gt;
     
     
     <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
-    <link href="https://xueyu-ubc.github.io/2021/02/27/GD/"/>
-    <id>https://xueyu-ubc.github.io/2021/02/27/GD/</id>
-    <published>2021-02-27T01:53:22.000Z</published>
-    <updated>2024-08-25T23:35:20.383Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
-Accelerating Stochastic Gradient</summary>
-        
-      
-    
-    
-    
-    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/categories/Machine-Learning/"/>
-    
-    
-    <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
     
   </entry>
   
