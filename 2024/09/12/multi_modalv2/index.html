@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Blip, Blip2 (Q-former), InstructBlip, CONCH, PULSE |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+<script src="/js/hexo_resize_image.js"></script>
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-multi_modalv2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Blip, Blip2 (Q-former), InstructBlip, CONCH, PULSE
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/09/12/multi_modalv2/" class="article-date">
+  <time datetime="2024-09-12T07:00:00.000Z" itemprop="datePublished">2024-09-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Foundation-Model/">Foundation Model</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">5.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">18 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="a-very-nice-blog-blip系列文章小结">A very nice blog: <a target="_blank" rel="noopener" href="http://www.myhz0606.com/article/blip_hub">BLIP系列文章小结</a></h2>
+<h1 id="blip">BLIP</h1>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2201.12086">BLIP: Bootstrapping
+Language-Image Pre-training for Unified Vision-Language Understanding
+and Generation</a></p>
+<h2 id="model-architecture">Model Architecture</h2>
+<p><img src="./multi_modalv1/blip1.jpg"></p>
+<p>整体上看，对于图像部分，有一个 <span class="math inline">\(N\)</span>
+层的 ViT。对于文本部分，分别使用三个 text encoder
+去计算三个不同的目标函数。在 blip 中，同种颜色代表同样的共享参数，</p>
+<p>对于第一个 text encoder，具有 <span class="math inline">\(N\)</span>
+层，主要是将文本特征和图像特征进行对比学习，计算 ITC loss
+来进行分类任务。第二个 image-grounded text
+encoder。提取得到的图像特征通过 cross attention 进入模型，文本特征通过
+self-attention 得到，然后进行融合得到多模态的特征，计算 ITM loss 来判断
+image-text pairs 是否匹配。相较于第一个 text encoder，第二个 encoder
+只需要学习额外的 cross attention 层。为了能够执行 生成式 任务，blip
+添加了一个 decoder。由于 decoder 不能看到完整的句子，因此将 causal
+self-attention 替换掉前面 encoder 中的 bi self-attention，不过
+cross-attention 和 feed forward 层依旧和前面的共享参数。这里 decoder
+使用的 language modeling loss (LM
+loss)，根据前面的文本去预测后面的文本，而不是进行文本的完形填空 (i.e.,
+MLM loss)。</p>
+<p>不同 text encoder 使用不同的 token，分别是
+[CLS]，[Encode]，[Decode]。</p>
+<h2 id="capfilt">CapFilt</h2>
+<p><img src="./multi_modalv1/blip2.jpg"></p>
+<p>对于从网络上获取的图文数据质量比较糟糕，图片对应的文本描述往往不够准确。针对这种情况，blip
+finetune 了一个 filter 来筛选图文对，一个 captioner
+来生成合成的文本。<span class="math inline">\(\{I_w, T_w\}\)</span> 是从
+web 上获取的 noisy image-text pairs，<span class="math inline">\(\{I_h,
+T_h\}\)</span> 是人工标注的 image-text
+pairs，通常认为是高质量的。对于预训练好的 blip 模型，首先基于 <span class="math inline">\(\{I_h, T_h\}\)</span>数据对两个预训练好的 text
+encoder 进行 finetune 得到 filter model。然后对 noisy data <span class="math inline">\(\{I_w, T_w\}\)</span> 进行筛选。同时，基于 <span class="math inline">\(\{I_h, T_h\}\)</span>数据对预训练好的 decoder 进行
+finetune，用来生成合成的 caption。由于生成的 caption
+质量并不确定，因此将 <span class="math inline">\(\{I_w, T_s\}\)</span>
+再通过 filter 进行筛选。最终得到数据 <span class="math inline">\(D =
+\{I_w, T_w\} + \{I_w, T_s\} + \{I_h, T_h\}\)</span>。</p>
+<h1 id="conch">CONCH</h1>
+<p><a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41591-024-02856-4">A
+visual-language foundation model for computational pathology</a></p>
+<p>论文介绍了一种视觉-语言基础通用模型-CONCH，利用不同来源的组织病理学图像、生物医学文本和超过
+117 万个图像标题对等数据，通过任务识别进行预训练。CONCH
+以最先进的视觉语言基础预训练框架 CoCa
+为基础，使用一个图像编码器、一个文本编码器和一个多模态融合解码器，并结合使用对齐目标函数和标题目标函数进行训练。其中，对齐目标损失的目的是在模型的表征空间中对齐图像和文本模态，而标题目标则是学习预测与图像相对应的标题。论文总共使用
+14 种不同的基准数据集，研究了 CONCH
+在一系列任务中的能力，包括图像分类、图像到文本和文本到图像检索、图像分割和图像标题生成。</p>
+<h2 id="数据处理">数据处理</h2>
+<p>为便于整理，论文将数据源分为两类：（1）EDU，包含从教育笔记中提取的数据；（2）PMC
+OA，从 PubMed Central Open Access Datase 下载的数据。</p>
+<p>数据整理的挑战有两个： 1.
+筛选组织病理学图像：下载的原始数据包含了组织病理学和非组织病理学的图像。
+2.
+处理图像面板：大量数据以图像面板的形式呈现，面板中的图像由多个子图像组成，图像标题文本中有时同时或分别包含了多个子图像的描述。</p>
+<p>为了应对这些挑战，数据清理分为三个步骤： 1.
+检测组织病理学图像：使用YOLOv5对象检测模型生成边界框 bounding boxes
+以提取检测到的图像。这一步之前，作者首先通过生成合成数据来训练该对象检测模型。
+2. 分割图像标题：作者在整理 EDU
+数据集时收集了一个包含图像标题说明和拆分后标题说明的数据集，对GPT模型进行微调，原始图像标题为输入，拆分后的图像标题为输出，最终使得模型具有实现自动拆分图像标题的能力。
+3.
+子图像和标题进行对齐：首先在干净的EDU数据集上训练一个CLIP模型，将检测到的子图像与拆分后的标题说明进行对齐。使用训练后的模型，给定一组图像面板中的
+<span class="math inline">\(m\)</span> 幅检测到的图像和 <span class="math inline">\(n\)</span> 个分割的文本，得到模型中的图像嵌入表征
+<span class="math inline">\({u0, u1, ..., um}\)</span> 和文本嵌入表征
+<span class="math inline">\({v0, v1, ..., vn}\)</span>
+。然后两两计算余弦相似度，将相似度最高的作为一对图文数据。</p>
+<p>通过以上三步以及进一步数据清理，形成了一个包含<span class="math inline">\(117\)</span>万对人类组织病理学图像-说明的数据集。</p>
+<h2 id="visual-language-pretraining">Visual-language pretraining</h2>
+<p>在训练过程中，作者同时考虑了两种loss，一种是图文对比损失（image-to-text
+and text-to-image contrastive loss)，另一种是针对标题的loss。</p>
+<p><img src="/2024/09/12/multi_modalv2/conch1.jpg"></p>
+<p>模型框架：模型包括一个 image encoder <span class="math inline">\(f(\cdot; \theta)\)</span>，一个 text encoder <span class="math inline">\(g(\cdot; \phi)\)</span> 和一个图文融合的 decoder
+<span class="math inline">\(h(\cdot; \psi)\)</span>。</p>
+<p>Image encoder 包含了一个 backbone (参数为 <span class="math inline">\(\theta_{\text{backbone}}\)</span>) 和 两个
+attention pooler 模块，参数分别为 <span class="math inline">\(\theta_{\text{contrast}}\)</span> 和 <span class="math inline">\(\theta_{\text{caption}}\)</span>。 Backbone
+使用的是标准的 ViT，具有12层的 transformer层，12 个 attention
+heads，embedding 的维度为 <span class="math inline">\(768\)</span>，hidden dimension 是 <span class="math inline">\(3072\)</span>。Image 划分为 <span class="math inline">\(16 \times 16\)</span> 个 image tokens （<span class="math inline">\(256\)</span>个），并在每个token上面添加可学习的绝对位置编码。ViT
+将RGB图像转换为 feature maps. 基于从 ViT最后一层输出的image token
+的特征表示 （其实也是输入decoder cross-attention 中的 quey)，每一个
+attention pooler 从不同数量的 image tokens
+上去学习相应的信息。具体来说，第一个 attention pooler <span class="math inline">\(f_{\text{contrast}(\cdot;
+\theta_{\text{contrast}})}\)</span> 使用一个 query 去学习一个 image
+token，用于捕捉image的全局特征。第二个 attention pooler <span class="math inline">\(f_{\text{caption}(\cdot;
+\theta_{\text{caption}})}\)</span> 使用 <span class="math inline">\(n =
+256\)</span> 个 queries 去生成 <span class="math inline">\(256\)</span>
+个 image tokens，用于获取 image的细颗粒度的局部信息，进而生成
+caption。</p>
+<p>Text encoder 和 multimodal decoder 分别包括 12个 transformer
+layers，embedding dimension 为 768，hidden dimension 为 3072。Text
+encoder
+通过嵌入表将离散的单词token映射为连续的嵌入向量，并添加了可学习的绝对位置embeddings。Text
+encoder 为每个tokenized的 caption 添加了一个&lt;CLS&gt;
+token，用于在Transformer注意力过程中提取文本说明的全局表征。</p>
+<p>Multimodal decoder
+在每个多头自注意力层之后插入了交叉注意力层，以整合来自图像token的信息。最后结合语言模型输出预测下一个token在支持的词汇表中的分布。</p>
+<p>假设有 <span class="math inline">\(M\)</span> 个 image-caption 图文对
+<span class="math inline">\((x_i, w_i)_{i=1}^{M}\)</span>，其中caption $
+w_i = (<bos>, w_{i,1}, ..., w_{i,T}, <eos>)$ 包含 <span class="math inline">\(T\)</span> 个 word tokens。对于一个图文对 <span class="math inline">\((x_i, w_i)\)</span>，假设通过 <span class="math inline">\(f_{\text{contrast}(\cdot;
+\theta_{\text{contrast}})}\)</span> 得到的输出是 <span class="math inline">\(u_i\)</span>，通过 text encoder <span class="math inline">\(g(\cdot;\phi)\)</span> 在 &lt;CLS&gt; token 处经过
+l2 normalization 后得到的输出是 <span class="math inline">\(v_i\)</span>，那么loss是：</eos></bos></p>
+<p><img src="/2024/09/12/multi_modalv2/itc.jpg"></p>
+<p>其中前两项为 image-to-text and text-to-image contrastive loss,
+respectively, to maximize the cosine-similarity scores between paired
+image and text embeddings relative to remaining negative pairings in the
+mini-batch. The last term seeks to maximize the log-likelihood of each
+observed token under the multimodal autoregressive language model (
+jointly parameterized by the image encoder, text encoder and multimodal
+decoder), conditioned on previous tokens in the caption, as well as the
+corresponding image.</p>
+<p>具体训练设置，主要包括以下几点：</p>
+<ul>
+<li>训练轮数：每个视觉-语言预训练实验都运行了 40 个epoch。</li>
+<li>硬件配置：实验分布式运行在 8个NVIDIA A100 80-GB GPU
+上，每个GPU上的本地批量大小为48。</li>
+<li>梯度累积：为了达到更大的有效全局批量大小，使用了 梯度累积，实现了
+1,536 的全局批量大小（48 × 8 GPU × 4次梯度累积）。</li>
+<li>图像大小：输入图像大小为 448 ×
+448像素，其中：对较大的图像，首先将其较短边调整为448像素，并对其进行中心裁剪。对较小的图像，按需进行
+零填充 以达到所需的尺寸。</li>
+</ul>
+<h2 id="evaluation">Evaluation</h2>
+<h1 id="quilt-llava-visual-instruction-tuning-by-extracting-localized-narratives-from-open-source-histopathology-videos">Quilt-LLaVA:
+Visual Instruction Tuning by Extracting Localized Narratives from
+Open-Source Histopathology Videos</h1>
+<h2 id="abstract">Abstract</h2>
+<p>组织病理学诊断需要对整张切片图像（WSI）进行全局分析，这就要求病理学家从不同的
+WSI patch 中复合信息。然而，高分辨率的 WSI
+对组织病理学多模式模型提出了挑战。训练组织病理学多模态模型需要用于微调的数据集，而目前的数据集包含单个图像patch的信息，没有每个
+patch 间的空间概念，也没有更广泛的 WSI
+视图。为了弥补这一不足，本文推出了 QUILT- INSTRUCT，这是一个包含 107,131
+个组织病理学特定指令问/答对的大型数据集，这些指令以构成 WSI
+的诊断相关图像patch为基础。数据集是利用 YouTube
+上的组织病理学教育视频收集的，该视频通过自动提取叙述者的光标位置来提供叙述的局部定位。QUILT-INSTRUCT
+支持上下文推理，从整个 WSI 中提取诊断和支持事实。利用
+QUILT-INSTRUCT，我们训练出了
+QUILT-LLAVA，它的推理能力超越了给定的单个图像patch，能够跨patch进行诊断推理。为了评估
+QUILT-LLAVA，我们提出了一个全面的评估数据集，该数据集由 985 幅图像和
+1283 个人工生成的问题解答组成。我们还使用公开的组织病理学数据集对
+QUILT-LLAVA 进行了全面评估，结果显示 QUILT-LLAVA 在相对 GPT-4
+分数上明显优于 SOTA <span class="math inline">\(10%\)</span>
+以上，在开放集和封闭集 VQA 上分别优于 SOTA <span class="math inline">\(4%\)</span> 和 <span class="math inline">\(9%\)</span>。</p>
+<h2 id="quilt--instruct-数据集构建">QUILT- INSTRUCT 数据集构建</h2>
+<p>从 4149 个 YouTube 教育视频中构建了 QUILT-INSTRUCT，总时长超过 1000
+小时。这些视频是最近组织病理学数据集 QUILT 的一部分。</p>
+<p>在教育视频中，专家在讲述高分辨率 WSI
+时往往会停顿一下，然后再用光标指示重点突出区域。我们通过三个步骤将非结构化视频转换为可用的视觉教学数据：首先，我们在视频中定位叙述者的光标。然后，对光标的位置进行时空聚类，以便在图像中将组织病理学概念视觉化。最后，利用提取的标题，使用
+LLM 生成指令调整数据集 -
+QUILT-INSTRUCT。这一过程涉及提示（prompting）技术，从为每个图像patch
+生成不同 Q/A 对的独立提示，到结合 WSI
+中各patch信息的基于推理的提示，从而生成推理诊断的 Q/A 对。</p>
+<p><img src="/2024/09/12/multi_modalv2/quilt1.jpg"></p>
+<p>论文介绍了两种不同类型的问答生成方法，用于处理基于病理学的 Whole
+Slide Images (WSI，整个切片图像) 的文本生成任务。</p>
+<ul>
+<li><p>Independent Prompts（独立提示）：</p>
+<p>这一方法基于单个切片级别（patch-level）的文本输入进行问答生成。切片级别文本是与病理图像的某一小块相关的描述。这种提示生成的问答对是独立于整个图像或视频的上下文，仅依赖于该切片的内容，类似于文献[17]中的对话式和详细描述的生成方式。因为这些提示不依赖于其他信息源，因此被称为“独立提示”（Independent
+prompts）。</p></li>
+<li><p>Reasoning-based Prompts（推理提示）：</p>
+<p>这种方法利用整个视频中的上下文线索，特别是该视频围绕单个WSI的诊断展开，通过逐步揭示概念和线索。输入不仅包含切片级别的文本，还包括整个WSI的全局信息。因此，模型不仅仅基于当前的切片，还可以考虑到全局的诊断信息。通过这种方法，模型（如GPT-4）可以超越当前上下文进行推理，但仍然依靠从视频或图像中提取的事实信息，这样可以减少生成内容的虚构或不准确（即减少幻觉现象）。</p>
+<p>简单来说，独立提示只基于局部信息生成问答，而推理提示则结合了全局的诊断线索，帮助模型更合理地推理并减少错误。</p></li>
+</ul>
+<h2 id="training-quilt-llava-evaluating-with-quilt-vqa">Training
+QUILT-LLAVA &amp; evaluating with QUILT-VQA</h2>
+<p>论文使用 QUILT-INSTRUCT 来训练 QUILT-LLAVA。在 QUILT-INSTRUCT
+之外单独设计 QUILT-VQA，以评估 QUILT-LLAVA。最后，从 QUILT-VQA
+中生成指令遵循测试集，以评估 QUILT-LLAVA 的指令遵循能力。</p>
+<h3 id="training-quilt-llava">Training QUILT-LLAVA</h3>
+<p>LLAVA 由一个vision
+模块、多层感知机（MLP）和大语言模型（LLM）组成。这个设计允许语言模型处理视觉信息。
+1. 首先，MLP 最初作为一个投影器被训练，直到收敛。在这个阶段，LLM
+和视觉模块都被冻结，不会更新权重。 2. 随后，MLP 和 LLM
+都会结合指令跟随数据进行微调，使模型与人类病理学家的诊断过程保持一致。</p>
+<p>LLAVA 使用预训练的 CLIP
+图像编码器，但在这个特定领域中，使用了在公共病理学数据集（如 QUILT-NET
+[9] 和 PLIP [8]）上训练的预训练 CLIP
+模型。作者还通过不同的图像编码器、训练策略和视觉提示进行消融实验，以测试其效果。</p>
+<p><img src="/2024/09/12/multi_modalv2/quilt2.jpg"></p>
+<p>具体来说， - 对齐视觉和语言模型:</p>
+<p>作者首先在病理学领域内对视觉和语言模型进行对齐。为此，从 QUILT
+数据集中提取了 723K
+图像-文本对，并将描述文本转换为问答格式。问答对的生成方法是随机选择一个预定义的问题（见附录图18），将其添加到图像描述前，形成问答对。问题设计用于描述图像中可见的视觉信息。</p>
+<pre><code>在这一阶段，视觉和语言模型被冻结，仅训练 MLP 层，其任务是将来自图像编码器的嵌入映射到语言模型中，以便语言模型根据问题预测图像的描述。这一阶段的训练将病理学图像的嵌入与相应的文本嵌入对齐，确保了视觉信息能够被语言模型处理。</code></pre>
+<ul>
+<li><p>组织病理学数据集指令微调</p>
+<p>论文使用 QUILT-INSTRUCT
+对模型进行微调。在此阶段，冻结视觉编码器权重，继续训练 MLP
+层和语言模块。</p></li>
+</ul>
+<h3 id="evaluation-data-generation-quilt-vqa">Evaluation Data
+Generation: QUILT-VQA</h3>
+<p>在组织病理学领域，研究人员依靠 PathVQA [7] 和 PMC-VQA [31]
+等评估数据集来评估其模型的性能。然而，这些数据集表现出明显的缺点，包括由于转述相同的问题而造成的严重重复。更糟糕的是，同一个问题经常会有相互矛盾的答案（见附录第
+3.4
+节）。相比之下，教育视频内容提供了一种宝贵的资源：解说员在解说过程中经常提出问题，然后自己给出答案，从而引入了互动元素。例如，解说员会说："你知道我们面对的是哪种器官吗？"然后接着详细说明："是的，这是一个结肠"。视频中的这种问答形式提供了丰富的有机问答数据集，可以提取并重新用于评估。</p>
+<p>PathVQA: 包含从教科书和数字图书馆中的 4998 个病理图像标题对中提取的
+32799 个问题-答案对。问题分为开放式问题和封闭式问题，前者包括
+"什么"、"哪里"、"何时"、"谁的"、"如何"、"多少 "等问题，后者包括 "是"/"否
+"等问题。我们使用了评估集中的 6761 个样本。</p>
+<p>PMC-VQA: 包含一个由 34823 对图像组成的 VQA
+测试集，这些图像涵盖各种模式或病症。该数据集是从 PMC-OA
+文章中的图像标题对中整理出来的，采用多选格式。论文从该数据集中检索到
+PMC-VQA 子集，其中包括 2318 对组织病理学 VQA 对。</p>
+<p>QUILT-VQA: 首先，视频的文字转录内容会被处理，识别出问号 ("?")
+所在的位置。
+如果问号出现在某个稳定文本块（视频中关联图像的描述文本）45秒的时间范围内，作者将扩展该文本块，确保其包含带有问号的完整句子。这种方法确保了问题和视频中的视觉内容相匹配。在数据预处理和问号映射完成后，作者使用GPT-4直接从文本中提取问答对。
+具体地，GPT-4的输入是经过处理的稳定文本块以及其中带有问号的句子，表明这些句子包含提问内容。在GPT-4初步提取完问答对后，作者进行了手动验证，以确保每个问答对不仅在医学上具有相关性，还与该文本块的内容紧密对应。</p>
+<p>在提取完成后，作者将问题分为两类：依赖图像的问答对（Image-dependent
+Q/A
+pairs）：共1055对，这类问题引用了讲述者对特定图像的描述。基于一般医学知识的问答对（General-knowledge
+Q/A
+pairs）：共228对，这类问题与更广泛的医学知识相关，而不仅仅依赖于某一特定图像。</p>
+<p><img src="/2024/09/12/multi_modalv2/quilt3.jpg"></p>
+<h3 id="evaluation-data-generation-instruction-follow--ing-test-set">Evaluation
+data generation: Instruction Follow- ing Test Set</h3>
+<p>QUILT-VQA 的重点是评估 QUILT-LLAVA
+的医学知识，除此之外，我们还旨在评估该模型在多模态对话中遵循指令的能力。为此，我们构建了一组
+326 个问题，其中包括 256 个会话问题和 70 个详细描述问题，所有问题均来自
+QUILT-VQA
+中从未曾看过的视频中提取的图像-文本对话。为了生成这个评估集，我们采用了与生成
+QUILT-INSTRUCT 时相同的基于会话和详细描述的提示。</p>
+<h2 id="experiments">Experiments</h2>
+<p>本节将介绍 QUILT-LLAVA 在组织病理学 VQA 基准测试中与现有 SOTA
+多模态模型的性能对比情况。首先，我们使用 GPT-4
+对生成结果与真实答案进行了比对。其次，执行开放式和封闭式 VQA
+任务。最后，使用视觉提示和不同的训练模型进行消融实验。</p>
+<ul>
+<li><p>使用GPT-4 评估生成结果</p>
+<p>评估的主要维度包括回答的帮助性、相关性、准确性和详细程度。</p>
+<p>评估方法：使用 GPT-4 来对比不同模型的输出：候选模型（QUILT-LLAVA） 和
+GPT-4。GPT-4
+会根据这些维度（帮助性、相关性、准确性和详细程度）对两个模型的回答进行评分，评分范围为1到10分，分数越高表示整体表现越好。
+除了分数外，GPT-4
+还提供详细的解释，以帮助理解每个模型在生成回答时的表现，便于更好地分析模型的优势和不足。</p></li>
+<li><p>可视化问题解答结果</p>
+<p>这些VQA数据集包括开放式和封闭式问答题对。对于封闭式问题，准确率被用来衡量模型给出的正确答案的比例。与此相反，对于开放式问题，我们侧重于召回率，以评估模型的回答中包含真实tokens的频率。</p></li>
+</ul>
+<h2 id="conclusion-and-limitations">Conclusion and Limitations</h2>
+<p>GPT-4 仍然容易生成不准确的信息，导致 QUILT-LLAVA
+产生错误陈述或“幻觉”现象（即模型生成的信息与真实内容不符）。此外，尽管我们明确指示
+GPT-4 不要这样做，但 GPT-4
+有时还是会只从标题中获取信息，而不是从图像中提取信息。</p>
+<h1 id="wsi-roi的提取">WSI ROI的提取</h1>
+<p>划分为多少patch，如何解决position
+encoding，是一维的还是二维的？喂给模型的是什么？</p>
+<h1 id="references">References:</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/mli/paper-reading">沐神,
+论文精读</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.myhz0606.com/article/blip_hub">BLIP系列文章小结</a></li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2024/09/12/multi_modalv2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/multi-modal/" rel="tag">multi-modal</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2024/09/12/ML/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Interview Questions
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2024/09/04/llama3.1/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Llama 3.1</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2024
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>
