@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">42.3k</span>
+            <span class="post-count">46k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">158 min</span>
+            <span class="post-count">170 min</span>
         </span>
     </span>
 </div>
@@ -2405,7 +2405,7 @@ and PPO - RLHF Step 2）：
 的训练流程结合了大规模的自监督学习、基于指令的有监督微调，以及基于人类偏好的强化学习，通过一系列精细的步骤来提升模型的语言理解、输出的帮助性和安全性。</p>
 <h4 id="proximal-policy-optimization-ppo">Proximal Policy Optimization
 (PPO)</h4>
-<p>建议先阅读以下两篇博客： - <a target="_blank" rel="noopener" href="https://www.cnblogs.com/xingzheai/p/15826847.html">详解策略梯度算法</a>
+<p>建议先阅读以下两篇优秀博客： - <a target="_blank" rel="noopener" href="https://www.cnblogs.com/xingzheai/p/15826847.html">详解策略梯度算法</a>
 - <a target="_blank" rel="noopener" href="https://www.cnblogs.com/xingzheai/p/15931681.html">详解近端策略优化</a></p>
 <p><strong>PPO-clip</strong>:
 在PPO（邻近策略优化）中，代理损失函数（surrogate loss）
@@ -2566,10 +2566,10 @@ D}\)</span></strong>：表示对数据集 <span class="math inline">\(D\)</span>
 <h3 id="ppo-dpo-以及-kto-的对比">PPO, DPO 以及 KTO 的对比</h3>
 <table>
 <colgroup>
-<col style="width: 13%">
-<col style="width: 33%">
-<col style="width: 26%">
-<col style="width: 27%">
+<col style="width: 11%">
+<col style="width: 29%">
+<col style="width: 29%">
+<col style="width: 29%">
 </colgroup>
 <thead>
 <tr>
@@ -2638,17 +2638,147 @@ D}\)</span></strong>：表示对数据集 <span class="math inline">\(D\)</span>
 </tr>
 </tbody>
 </table>
-<hr>
+<h3 id="对齐可能引入的偏差以及解决策略">对齐可能引入的偏差以及解决策略</h3>
+<p>在讨论 <strong>强化学习人类反馈（RLHF）</strong> 和
+<strong>强化学习人工反馈（RLAIF）</strong>
+时，一个重要的问题是：这些方法是否会给模型引入偏见？答案是肯定的，正如任何依赖人类输入的机器学习方法，RLHF
+也有引入偏见的潜力。</p>
+<p><strong>可能引入的不同形式的偏见</strong></p>
+<ol type="1">
+<li><p><strong>选择偏见</strong>：RLHF
+依赖于人类评估者的反馈，这些评估者可能会有自己的偏见和偏好，因此他们的反馈可能局限于他们能够关联的主题或情境。这可能导致模型没有接触到其在现实世界中将遇到的行为和结果的真实范围。</p></li>
+<li><p><strong>确认偏见</strong>：人类评估者可能更倾向于提供确认他们已有信念或预期的反馈，而不是根据代理的表现提供客观反馈。这可能导致模型在某些行为或结果上受到强化，而这些行为或结果在长远来看可能并不理想或可取。</p></li>
+<li><p><strong>评分者间的差异</strong>：不同的人类评估者可能对代理表现的质量有不同的看法或判断，导致agent收到的反馈不一致。这使得有效训练agent变得困难，并可能导致次优表现。</p></li>
+<li><p><strong>反馈有限</strong>：人类评估者可能无法对agent表现的所有方面提供反馈，导致
+agent 学习的缺口，可能在某些情况下表现不佳。</p></li>
+</ol>
+<p><strong>缓解策略</strong> 1.
+<strong>多样化评估者选择</strong>：选择具有不同背景和视角的评估者可以帮助减少反馈中的偏见，就像在工作场所中一样。这可以通过从不同的人口群体、地区或行业招募评估者来实现。</p>
+<ol start="2" type="1">
+<li><p><strong>共识评估</strong>：使用共识评估，即多个评估者对同一任务提供反馈，可以减少个体偏见的影响，提高反馈的可靠性。这几乎就像是对评估进行“归一化”。</p></li>
+<li><p><strong>评估者的校准</strong>：通过提供培训和指导来校准评估者，帮助提高反馈的质量和一致性。</p></li>
+<li><p><strong>反馈过程的评估</strong>：定期评估反馈过程，包括反馈质量和培训过程的有效性，可以帮助识别和解决可能存在的偏见。</p></li>
+<li><p><strong>agent 表现的评估</strong>：定期评估 agent
+在各种任务和不同环境中的表现，可以确保其没有过拟合于特定示例，并且能够推广到新的情境。</p></li>
+<li><p><strong>平衡反馈</strong>：将人类评估者的反馈与其他反馈来源（如自我对话或专家演示）进行平衡，有助于减少反馈中的偏见影响，提高训练数据的整体质量。</p></li>
+</ol>
+<h3 id="trl---transformer-reinforcement-learning">TRL - Transformer
+Reinforcement Learning</h3>
+<p><strong>TRL</strong>（Transformer Reinforcement
+Learning）库可用于通过
+<strong>监督微调（SFT）</strong>、<strong>奖励建模（RM）</strong>、<strong>近端策略优化（PPO）</strong>
+以及 <strong>直接偏好优化（DPO）</strong>
+等方法，对转换器语言模型和扩散模型进行微调和对齐。</p>
 <h2 id="mixture-of-experts">5. Mixture of Experts</h2>
 <p><a target="_blank" rel="noopener" href="https://aman.ai/primers/ai/mixture-of-experts/">Mixture of
 Experts</a></p>
+<h2 id="encoder-vs.-decoder-vs.-encoder-decoder">6. Encoder vs. Decoder
+vs. Encoder-Decoder？</h2>
+<p><a target="_blank" rel="noopener" href="https://discuss.huggingface.co/t/suggestions-and-guidance-finetuning-bert-models-for-next-word-prediction/14043">模型总结</a>
+<img src="/2024/10/08/statistic/enc_dec.jpeg"></p>
+<h3 id="编码器模型">编码器模型</h3>
+<p>基于编码器的模型专注于理解输入文本。它们通过在包含重建损坏输入任务的预训练（如掩码部门tokens）中，捕获丰富的上下文信息。<strong>BERT</strong>（双向编码器表示的变换器）是编码器模型的一个重要例子。在
+BERT 中，部分输入标记会被特殊的 [MASK]
+标记替代，模型通过周围的上下文预测这些被掩蔽的标记。这使得 BERT
+能够学习双向表示，从而捕捉标记左侧和右侧的上下文。编码器模型在自然语言理解（NLU）任务中尤其有效，例如文本分类、情感分析和抽取式问答。这些任务受益于模型深刻理解和表示输入文本的能力。</p>
+<p>BERT 可以利用双向语境进行预测 masked
+tokens，相较于自回归模型，使用双向信息可以提高性能。然而，BERT
+在预训练时使用的 [MASK]
+等人工符号在微调时并不存在于真实数据中，这就造成了预训练数据与微调数据分布之间的异质性。此外，由于预测的tokens在输入中被mask，BERT
+无法像自回归那样使用乘积规则建立联合概率模型。换句话说，<strong>BERT
+assumes the predicted tokens are independent of each other given the
+unmasked tokens, which is oversimplified as high-order, long-range
+dependency is prevalent in natural language.
+（在给定其他未被掩码的tokens时，BERT
+对每个被掩盖的单词独立地进行预测，所有需要预测的token之间被假设是相互独立的）</strong></p>
+<p>BERT（及其所有变体，如 RoBERTa、DistilBERT、ALBERT 等）和 XLM
+就是编码器模型的例子。</p>
+<p><img src="/2024/10/08/statistic/bert.jpg"></p>
+<p><strong>优点：</strong></p>
+<ol type="1">
+<li><strong>上下文依赖性：</strong>
+在BERT等Encoder模型中，模型可以同时获取左右两侧的上下文信息（双向上下文）。相比之下，像GPT这样的自回归模型只能访问当前位置之前的内容（单向上下文）。双向上下文对于理解文本中的复杂依赖关系和语义结构至关重要，因此Encoder模型在许多自然语言处理任务上表现优异。</li>
+<li><strong>丰富的上下文理解：</strong>
+Encoder模型擅长捕捉输入数据中的复杂模式和关系，尤其适合需要深入理解和分析的任务，比如命名实体识别、文本分类、阅读理解等。这使得模型能够更好地理解句子的语义和结构，从而在相关任务中表现出色。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol type="1">
+<li><strong>输入噪声：</strong>
+BERT在预训练阶段使用了人工符号（如[MASK]）来掩盖部分输入单词，但这些符号在实际应用和微调时并不存在。这种差异导致了预训练和微调之间数据分布的异质性，影响模型的迁移能力。</li>
+<li><strong>独立性假设：</strong>
+BERT在预测被掩盖的单词时，假设每个掩盖的单词是独立于其他掩盖词的，只与未被掩盖的单词相关。例如，在句子“it
+shows that the housing crisis was turned into a banking
+crisis”中，如果掩盖了“banking”和“crisis”两个词，模型会分别预测它们，而不考虑二者之间的隐含关系。这种独立性假设限制了模型对掩盖词之间复杂依赖关系的捕捉，影响了在需要更精细理解的任务中的表现。</li>
+</ol>
+<h3 id="解码器模型">解码器模型</h3>
+<p>基于解码器的模型（自回归模型）旨在执行文本生成任务。这些模型一次生成一个token，并使用之前生成的token作为上下文来预测下一个token。<strong>GPT</strong>（生成式预训练变换器）、GPT-2
+和 GPT-3
+是解码器模型的典型例子。这些模型在大规模语料库上进行预训练，以预测句子中的下一个词，从而能够生成连贯且语境相关的文本。解码器模型在自然语言生成（NLG）任务中表现出色，例如语言翻译、文本摘要和对话生成。它们生成流利且上下文适当的文本的能力使其成为从头生成内容任务的理想选择。</p>
+<p>自回归语言模型利用上下文中的词来预测下一个词，通过估计文本语料库的概率分布来实现。具体来说，给定一个文本序列
+$ x = (x_1, , x_T) <span class="math inline">\(，自回归语言建模将似然分解为前向积：\)</span>$
+p(x) = <em>{t=1}^{T} p(x_t x</em>{&lt;t}) <span class="math display">\[
+或者反向的形式：
+\]</span> p(x) = <em>{t=1}^{T} p(x_t x</em>{&gt;t}) $$</p>
+<p>通常使用<strong>多项式分布</strong>（Multinomial
+Distribution）来建模下一个词的生成过程。这是因为语言模型的目标是根据先前的词预测当前词的概率，而语言中词汇的生成通常是一个离散事件。因此，给定上下文
+$x_{&lt;t} $，下一个词 $ x_t $ 的条件概率可以表示为： <span class="math display">\[
+p(x_t \mid x_{&lt;t}) = \text{softmax}(z_t),
+\]</span> 其中，$ z_t $
+是通过神经网络计算得到的未归一化的得分，通常代表每个词在词汇表中的相对可能性。通过使用
+softmax
+函数，这些得分被转换为一个有效的概率分布，保证所有可能词的概率和为
+1。</p>
+<p>在这种情况下，模型会学习每个条件分布的参数模型（例如神经网络）。由于自回归语言模型只训练编码单向上下文（要么是前向的，要么是后向的），因此它在建模深层双向上下文方面并不有效。下面的图示展示了前向和后向的方向性。</p>
+<p><img src="/2024/10/08/statistic/auto1.jpg"></p>
+<p><img src="/2024/10/08/statistic/auto2.jpg"></p>
+<p><strong>优点：</strong></p>
+<ol type="1">
+<li><strong>生成能力强</strong>：自回归语言模型非常适合生成式自然语言处理（NLP）任务。由于它们采用因果注意力机制来预测下一个标记，因此在内容生成方面自然适用。它们能够生成流畅且与上下文相关的文本，这使得它们在需要自然语言生成的任务中表现出色。</li>
+<li><strong>训练数据生成简单</strong>：训练这些模型的数据生成相对简单，因为目标只是预测给定序列中的下一个标记。这利用了语言数据的固有结构，使得数据准备过程更加高效。</li>
+</ol>
+<p><strong>缺点：</strong> 1.
+<strong>上下文限制</strong>：自回归语言模型只能使用前向上下文或后向上下文，这意味着它们不能同时利用双向上下文。这种限制可能会影响它们在需要深刻理解双向上下文的任务中的表现。例如，在处理复杂句子结构或含义依赖时，缺乏双向上下文可能导致理解不够准确。</p>
+<h4 id="编码器-解码器模型">编码器-解码器模型</h4>
+<p>编码器-解码器模型（也称为seq2seq
+模型）结合了编码器和解码器架构的优势。这些模型使用编码器处理和理解输入序列，使用解码器生成输出序列。这种架构在输入和输出都是序列的任务中特别有效，这些序列可能具有不同的长度或格式，甚至是不同的语言。
+编码器将输入序列转换为固定长度的上下文向量或中间表示，捕捉输入的含义和上下文。解码器然后接收这个上下文向量，逐个标记地生成输出序列，通常采用类似于解码器模型中的自回归技术。</p>
+<ul>
+<li><strong>T5 (Text-To-Text Transfer
+Transformer)</strong>（文本到文本的迁移变换器）是编码器-解码器模型的一个显著例子。T5
+将每个自然语言处理问题都视为一个文本到文本的问题，其中输入和输出都是文本序列。这种方法使
+T5 能够应用于广泛的任务，包括翻译、摘要和问答。<br>
+</li>
+<li><strong>BART (Bidirectional and Auto-Regressive
+Transformers)</strong>（双向自回归变换器）是另一个强大的编码器-解码器模型。BART
+通过使用任意噪声函数破坏文本并学习重建原始文本进行预训练。这使得它在需要基于对输入的理解生成文本的任务（如摘要和对话生成）中非常有效。<br>
+</li>
+<li><strong>BigBird</strong>
+使用稀疏注意力机制来处理较长的序列。这使得它适合处理长文档的任务，如文档分类和长篇问答。</li>
+</ul>
+<p><strong>优点：</strong></p>
+<p>编码器-解码器模型能够同时处理输入的理解和输出的生成，使它们在以下任务中特别有效：
+- 机器翻译：将一种语言翻译成另一种语言。 -
+文本摘要：生成文本的简要概述。 -
+对话生成：在对话系统中生成合适的回应。</p>
+<p><strong>缺点：</strong> 1.
+<strong>计算资源需求高</strong>：编码器-解码器模型通常参数量庞大，尤其是在处理复杂任务时。它们需要大量的计算资源和内存，训练和推理速度可能较慢。
+2.
+<strong>长序列处理能力有限</strong>：虽然一些模型（如BigBird）专门针对长序列进行了优化，但传统的编码器-解码器模型在处理非常长的输入时仍然面临挑战，因为它们的输入长度受限。
+3.
+<strong>依赖于大量标注数据</strong>：这些模型通常需要大量的高质量标注数据进行训练，这在某些领域可能难以获得。此外，训练过程中数据的多样性和质量直接影响模型的性能。
+4.
+<strong>对输入输出长度不匹配的敏感性</strong>：编码器-解码器模型在处理输入和输出长度差异较大的任务时，可能会表现不佳。例如，当输入很长而输出很短时，模型可能难以有效地提取和生成信息。</p>
+<h3 id="总结">总结</h3>
+<ul>
+<li>编码器模型在需要理解和解释文本的任务中表现出色。由于其能够捕捉双向上下文，这使得它们适用于理解整个句子或文档上下文至关重要的任务。例如，命名实体识别、情感分析和文本分类等任务都依赖于模型对输入文本的深刻理解。</li>
+<li>解码器模型则非常擅长生成文本，因此非常适合创意任务，如故事生成、聊天机器人回复和文本补全等。它们通过利用先前生成的内容作为上下文来预测下一个词，从而能够生成流畅且与上下文相关的文本。</li>
+<li>编码器-解码器模型提供了一种灵活的架构，可以处理广泛的任务，从机器翻译、文本摘要到复杂的问题回答和文档生成。这种模型能够同时理解和生成文本，使其在需要深刻理解和流利文本生成的任务中非常有效。</li>
+</ul>
+<p>例如，在机器翻译中，编码器处理源语言的输入句子，生成一个上下文向量，而解码器则利用这个上下文向量生成目标语言的翻译。类似地，在文本摘要中，编码器阅读并理解原始文本，而解码器则生成一个简洁的摘要。这种架构的优势在于它能够结合理解和生成的能力，适用于多种自然语言处理任务。</p>
 <h2 id="deepspeed-框架">6. Deepspeed 框架</h2>
-<hr>
 <h2 id="decoder-only的模型推理阶段是串行进行计算速度很慢训练的时候实际上是并行训练的介绍训练的细节">6.
 decoder
 only的模型，推理阶段是串行进行计算,速度很慢。训练的时候实际上是并行训练的，介绍训练的细节。</h2>
-<h2 id="encoder-only的结构比如birt如何进行模型训练的">7. encoder
-only的结构，比如birt，如何进行模型训练的？</h2>
 <h2 id="为什么视觉上使用bntransformer上使用ln-几种-normalization-介绍">8.
 为什么视觉上使用BN，transformer上使用LN ？几种 normalization 介绍。</h2>
 <h2 id="overview-of-vision-language-models">9. Overview of
