@@ -100,18 +100,16 @@
   <h1 id="一机器学习相关">一、机器学习相关</h1>
 <h2 id="基本概念">1. 基本概念</h2>
 <h3 id="排序">1.1. 排序</h3>
-<ol type="1">
-<li>Why does sorting a collection have (at least) <span class="math inline">\(O(n log n)\)</span> complexity? n is the length of
-the collection.</li>
-</ol>
+<h4 id="why-does-sorting-a-collection-have-at-least-on-log-n-complexity-n-is-the-length-of-the-collection.">1.
+Why does sorting a collection have (at least) <span class="math inline">\(O(n log n)\)</span> complexity? n is the length of
+the collection.</h4>
 <ul>
 <li><span class="math inline">\(O(n log n)\)</span> is the optimal value
 for a comparison sort.
 [https://theartofmachinery.com/2019/01/05/sorting_is_nlogn.html].</li>
 </ul>
-<ol start="2" type="1">
-<li>几种排序算法介绍以及复杂度分析。</li>
-</ol>
+<h4 id="几种排序算法介绍以及复杂度分析">2.
+几种排序算法介绍以及复杂度分析。</h4>
 <ul>
 <li><p>排序有内部排序和外部排序，内部排序是数据记录在内存中进行排序，而外部排序是因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。</p></li>
 <li><p>排序的稳定性是指：若待排序的序列中，存在多个具有相同元素，经过排序，
@@ -164,7 +162,7 @@ n)\)</span>。因为在二分搜索过程中，算法每次都把查询的区间
 <p>迭代版本的二分查找的空间复杂度为 <span class="math inline">\(O(1)\)</span>。</p>
 <h3 id="回归模型和分类模型常用损失函数有哪些">1.3.
 回归模型和分类模型常用损失函数有哪些？</h3>
-<p><strong>回归模型常用的损失函数</strong></p>
+<h4 id="回归模型常用的损失函数">回归模型常用的损失函数</h4>
 <ol type="1">
 <li><p>0-1损失函数： <span class="math display">\[
 L(\hat{y},y) =
@@ -208,10 +206,12 @@ L_{Huber}(\hat{y}, y) =
 L(\hat{y},y) = \log \cosh(\hat{y}-y)
 \]</span></p></li>
 </ol>
-<p><strong>分类模型中常用的损失函数</strong> 1.
-交叉熵损失。对于二元分类，公式为如下。其中，<span class="math inline">\(y\)</span>是真实标签，<span class="math inline">\(p\)</span>是模型预测的概率。 <span class="math display">\[
+<h4 id="分类模型中常用的损失函数">分类模型中常用的损失函数</h4>
+<ol type="1">
+<li>交叉熵损失。对于二元分类，公式为如下。其中，<span class="math inline">\(y\)</span>是真实标签，<span class="math inline">\(p\)</span>是模型预测的概率。 <span class="math display">\[
   L(p,y) = -[y \log p + (1-y) \log (1-p)].
-  \]</span></p>
+  \]</span></li>
+</ol>
 <ul>
 <li>优点：直接衡量模型预测的概率与真实分类标签之间的差异，适合分类任务。对概率差异敏感，能够较好地区分高概率和低概率的预测。</li>
 <li>缺点：当预测的概率非常接近0或1时，交叉熵的梯度可能变得极端，导致训练不稳定。对于不平衡数据，模型倾向于偏向多数类，需要配合其他技术如加权损失函数或欠采样来处理。</li>
@@ -280,7 +280,7 @@ R_{\rm srm}(f) = \frac{1}{N} \sum_{i=1}^{N}L(y_i,f(x_i))+\lambda J(f).
 <li>FN：False Negative，将样本中的正类样本预测为负类的数量</li>
 <li>TP：True Positive，将样本中的正类样本预测为正类的数量</li>
 </ul>
-<p><strong>分类任务指标</strong></p>
+<h4 id="分类任务指标">分类任务指标</h4>
 <h4 id="accuracy准确率分类正确的样本占总样本个数的比例">Accuracy（准确率）：分类正确的样本占总样本个数的比例</h4>
 <p><span class="math display">\[
 \text{Accuracy} = \frac{n_{correct}}{n_{total}}
@@ -383,14 +383,15 @@ TPR = \frac{TP}{P},
 <p>指标想表达的含义，简单来说其实就是随机抽出一对样本（一个正样本，一个负样本），然后用训练得到的分类器来对这两个样本进行预测，预测得到正样本的概率大于负样本概率的概率。AUC为0.5表明对正例和负例没有区分能力，对于不论真实类别是1还是0，分类器预测为1的概率是相等的。</p>
 <p>我们希望分类器达到的效果：对于真实类别为1的样本，分类器预测为1的概率（TPR）要大于真实类别为0而预测类别为1的概率（FPR），即y&gt;x</p>
 <p>AUC的计算方法同时考虑了分类器对于正例和负例的分类能力，在样本不平衡的情况下，依然能够对分类器作出合理的评价。</p>
-<p><strong>回归任务指标</strong></p>
+<h4 id="回归任务指标">回归任务指标</h4>
 <h4 id="均方根误差rmse计算预测值和实际值的平均误差">均方根误差RMSE：计算预测值和实际值的平均误差</h4>
 <p><span class="math display">\[
 {\rm RMSE} = \sqrt{\frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{n}}
-\]</span> #### 均方误差MSE</p>
+\]</span></p>
+<h4 id="均方误差mse">均方误差MSE</h4>
 <h4 id="平均绝对误差mae">平均绝对误差MAE</h4>
-<h4 id="决定系数-r2表示模型解释变量总方差的比例反映了模型拟合的好坏">决定系数
-<span class="math inline">\(R^2\)</span>：表示模型解释变量总方差的比例，反映了模型拟合的好坏。</h4>
+<h4 id="决定系数-r2">决定系数 <span class="math inline">\(R^2\)</span></h4>
+<p>表示模型解释变量总方差的比例，反映了模型拟合的好坏。</p>
 <p>SST: sum of squares total，总的偏差平方和，表示变量<span class="math inline">\(y\)</span>相对于中心<span class="math inline">\(\bar{y}\)</span>的异动。 <span class="math display">\[
 SST = \sum_{i=1}^n (y_i - \bar{y}_i)^2.
 \]</span></p>
@@ -407,10 +408,9 @@ R^2 = 1 - \frac{\sum_{i=1}^n(y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i -
 \bar{y})^2} = 1 - \frac{SSE}{SSR}.
 \]</span></p>
 <p>决定系数<span class="math inline">\(R^2\)</span>的取值范围为<span class="math inline">\([0,1]\)</span>，0表示没有线性关系，1表示拟合模型可以解释所有变异y。</p>
-<h4 id="调整的决定系数-barr2对于决定系数-r2当解释变量个数增加即模型复杂度提高偏差降低时r2-会不断增加但是随着模型复杂度的提高方差可能会越来越大因此引入了调整的决定系数barr2">调整的决定系数
-<span class="math inline">\(\bar{R}^2\)</span>：对于决定系数 <span class="math inline">\(R^2\)</span>，当解释变量个数增加（即模型复杂度提高，偏差降低）时，<span class="math inline">\(R^2\)</span>
-会不断增加。但是，随着模型复杂度的提高，方差可能会越来越大。因此，引入了调整的决定系数<span class="math inline">\(\bar{R}^2\)</span>：</h4>
-<p><span class="math display">\[
+<h4 id="调整的决定系数-barr2">调整的决定系数 <span class="math inline">\(\bar{R}^2\)</span></h4>
+<p>对于决定系数 <span class="math inline">\(R^2\)</span>，当解释变量个数增加（即模型复杂度提高，偏差降低）时，<span class="math inline">\(R^2\)</span>
+会不断增加。但是，随着模型复杂度的提高，方差可能会越来越大。因此，引入了调整的决定系数<span class="math inline">\(\bar{R}^2\)</span>： <span class="math display">\[
 \bar{R}^2 = 1 - \frac{SSE/df_{err}}{SSR/df_{tot}} = 1 - （1 - R^2)
 \times \frac{n-1}{n-p-1},
 \]</span> 其中，df_{err} 表示残差平方和的自由度，为<span class="math inline">\(n-p-1\)</span>，df_{tot}
@@ -418,10 +418,9 @@ R^2 = 1 - \frac{\sum_{i=1}^n(y_i - \hat{y}_i)^2}{\sum_{i=1}^n(y_i -
 <p>调整后的 <span class="math inline">\(\bar{R}^2\)</span>
 可以是负值，其值总是小于或等于 <span class="math inline">\({R}^2\)</span>。当引入更多解释变量时，决定系数<span class="math inline">\({R}^2\)</span>会增加，导致<span class="math inline">\(\bar{R}^2\)</span>的增加。但是后面的分数项会降低<span class="math inline">\(\bar{R}^2\)</span>。只有当减少的偏差大于引入的方差时，<span class="math inline">\(\bar{R}^2\)</span>才会增加。因此，<span class="math inline">\(\bar{R}^2\)</span> 可以看作是对
 bias-variance间的tradeoff.</p>
-<h4 id="平均绝对百分比误差mean-absolute-percentage-error-mapemape表示预测误差相对于真实值的百分比">平均绝对百分比误差：（Mean
-Absolute Percentage Error,
-MAPE），MAPE表示预测误差相对于真实值的百分比。</h4>
-<p><span class="math display">\[
+<h4 id="平均绝对百分比误差mean-absolute-percentage-error-mape">平均绝对百分比误差：（Mean
+Absolute Percentage Error, MAPE）</h4>
+<p>MAPE表示预测误差相对于真实值的百分比。 <span class="math display">\[
 MAPE = \frac{1}{n}\sum_{1}^{n} |\frac{y_i - \hat{y}_i}{y_i}| \times
 100\%.
 \]</span>
@@ -440,14 +439,22 @@ trade-off，模型过拟合、欠拟合</h3>
 <p><strong>欠拟合</strong>：模型过于简单，没有很好地学习到数据间的关系，训练集效果差。<strong>模型复杂度低，此时模型预测的方差较小，表示预测较稳定。但是模型预测的偏差会较大，表示预测不准确。。</strong></p>
 <p><strong>过拟合</strong>：指学习时选择的模型所包含的参数过多，以至出现这一模型对已知数据预测得很好，但对未知数据预测得很差的现象。训练集效果好，测试集效果差。
 <strong>模型复杂度高，此时模型预测的方差大，偏差小。</strong></p>
-<p><strong>欠拟合解决方法：</strong> 1. 增加特征 2.
-提高模型复杂度：神经网络提高神经元数、增加层数；SVM使用核函数； 3.
-减小正则项的系数</p>
-<p><strong>过拟合解决方法：</strong> 1. 提高样本数量。神经网络：Data
-Augmentation（数据增强） 2. 简化模型。神经网络使用 Dropout、Early
-Stopping；决策树剪枝、限制树的深度。 3.
-加入正则化项（L1或L2）或提高惩罚系数 4. 使用集成学习 5.
-神经网络中使用dropout机制 6. early stopping</p>
+<h4 id="欠拟合解决方法">欠拟合解决方法</h4>
+<ol type="1">
+<li>增加特征</li>
+<li>提高模型复杂度：神经网络提高神经元数、增加层数；SVM使用核函数；</li>
+<li>减小正则项的系数</li>
+</ol>
+<h4 id="过拟合解决方法">过拟合解决方法</h4>
+<ol type="1">
+<li>提高样本数量。神经网络：Data Augmentation（数据增强）</li>
+<li>简化模型。神经网络使用 Dropout、Early
+Stopping；决策树剪枝、限制树的深度。</li>
+<li>加入正则化项（L1或L2）或提高惩罚系数</li>
+<li>使用集成学习</li>
+<li>神经网络中使用dropout机制</li>
+<li>early stopping</li>
+</ol>
 <h3 id="奥卡姆剃刀定律是什么对机器学习模型优化有何启发">1.7.
 奥卡姆剃刀定律是什么？对机器学习模型优化有何启发？</h3>
 <p>奥卡姆剃刀定律：若有多个假设与观察一致，则选最简单的那个。</p>
@@ -488,10 +495,10 @@ model）。参数化模型假设模型参数的维度固定，模型可以由有
 <p>参数化模型：感知机、朴素贝叶斯、逻辑斯蒂回归、k均值、高斯混合模型</p>
 <p>非参数化模型：决策树、支持向量机、AdaBoost、k近邻、潜在语义分析、概率潜在语义分析、潜在狄利克雷分配</p>
 <h3 id="缺失值如何处理">1.9. 缺失值如何处理？</h3>
-<ol type="1">
-<li>缺失值较多.直接将该特征舍弃掉，否则可能反倒会带入较大的噪声，对结果造成不良影响。</li>
-<li>缺失值较少,其余的特征缺失值都在10%以内，我们可以采取很多的方式来处理:（1）把NaN直接作为一个特征，假设用0表示；（离散特征取值k维扩充到k+1维）（2）用均值填充；（连续特征-均值，离散特征-特征取值的众数）（3）用随机森林等算法预测填充。</li>
-</ol>
+<p><strong>1.</strong>
+缺失值较多.直接将该特征舍弃掉，否则可能反倒会带入较大的噪声，对结果造成不良影响。</p>
+<p><strong>2.</strong>
+缺失值较少,其余的特征缺失值都在10%以内，我们可以采取很多的方式来处理:（1）把NaN直接作为一个特征，假设用0表示；（离散特征取值k维扩充到k+1维）（2）用均值填充；（连续特征-均值，离散特征-特征取值的众数）（3）用随机森林等算法预测填充。</p>
 <h3 id="标准化归一化介绍">1.10. 标准化、归一化介绍</h3>
 <p>为了消除数据特征之间的量纲影响，我们需要对特征进行归一化/标准化处理，使得不同指标之间具有可比性。以梯度下降过程为例，如果不做归一化/标准化处理，在学习速率相同的情况下，大量纲变量的更新速度会大于小量纲，需要较多迭代才能找到最优解。如果将其变换到相同的数值区间后，更新速度变得更为一致，容易更快地通过梯度下降找到最优解。</p>
 <p><strong>1. 归一化（Min-Max
@@ -922,9 +929,7 @@ f(X)\right)\right] P\left(c_{k} | X\right)
   \]</span> 即朴素贝叶斯法所采用原理</p>
 <h4 id="朴素贝叶斯的三种常见类型">朴素贝叶斯的三种常见类型</h4>
 <p>根据特征的不同类型，朴素贝叶斯模型可以分为几种常见的变体：</p>
-<ol type="1">
-<li><strong>高斯朴素贝叶斯（Gaussian Naive Bayes）</strong></li>
-</ol>
+<p><strong>1. 高斯朴素贝叶斯（Gaussian Naive Bayes）</strong></p>
 <p>当特征是<strong>连续值</strong>时，假设特征符合正态分布（高斯分布）。对于每个类别
 $ C $，特征的条件概率 $ P(X_i|C) $
 可以用以下正态分布的概率密度函数表示： <span class="math display">\[
@@ -932,18 +937,14 @@ P(X_i|C) = \frac{1}{\sqrt{2\pi\sigma_C^2}} \exp\left( -\frac{(X_i -
 \mu_C)^2}{2\sigma_C^2} \right),
 \]</span> 其中，$ _C $ 和 $ _C $ 是特征 $ X_i $ 在类别 $ C $
 下的均值和标准差。</p>
-<ol start="2" type="1">
-<li><strong>多项式朴素贝叶斯（Multinomial Naive Bayes）</strong></li>
-</ol>
+<p><strong>1. 多项式朴素贝叶斯（Multinomial Naive Bayes）</strong></p>
 <p>用于<strong>离散值特征</strong>，特别适合处理<strong>文本分类</strong>任务。假设每个特征是某个离散事件发生的次数或频率。此时，条件概率
 $ P(X_i|C) $ 被建模为多项式分布： <span class="math display">\[
 P(X_i|C) = \frac{N_{i,C} + 1}{N_C + |V|},
 \]</span> 其中： - $ N_{i,C} $ 是类别 $ C $ 中特征 $ X_i $ 出现的次数；
 - $ N_C $ 是类别 $ C $ 中所有特征的总和； - $ |V| $
 是特征词汇表的大小（加 1 处理为拉普拉斯平滑）。</p>
-<ol start="3" type="1">
-<li><strong>伯努利朴素贝叶斯（Bernoulli Naive Bayes）</strong></li>
-</ol>
+<p><strong>3. 伯努利朴素贝叶斯（Bernoulli Naive Bayes）</strong></p>
 <p>适用于<strong>二元离散特征</strong>，即特征值仅为 0 或
 1（表示特征是否存在）。这在文本分类中常用于二元词袋模型（Binary Bag of
 Words），其中每个词的出现与否作为特征： <span class="math display">\[
@@ -1786,7 +1787,7 @@ _2 $ 是超参数。</p>
 <li><strong>优点</strong>：能够动态调整学习率，对稀疏数据和噪声鲁棒性强。</li>
 <li><strong>缺点</strong>：较为复杂，依赖超参数的设置。</li>
 </ul>
-<h4 id="adamw-adaptive-moment-estimation">8. <strong>AdamW (Adaptive
+<h4 id="adamw-adaptive-moment-estimation">9. <strong>AdamW (Adaptive
 Moment Estimation)</strong></h4>
 <p><strong>AdamW</strong> 是 <strong>Adam</strong>
 优化算法的改进版本，它的主要改进是在 Adam
@@ -1842,7 +1843,7 @@ Adam
 <h2 id="大模型常用微调方法lora和ptuning的原理">1.
 大模型常用微调方法LORA和Ptuning的原理</h2>
 <ul>
-<li>LORA: Low-Rank Adaptation.
+<li><p>LORA: Low-Rank Adaptation.
 核心是在大型语言模型上对指定参数增加额外的低秩矩阵，也就是在原始pre-trained
 LM
 旁边增加一个旁路，做一个降维再升维的操作。假设模型中有一个需要更新的权重矩阵
@@ -1852,8 +1853,8 @@ k}\)</span>，LORA的思想是修改为： <span class="math inline">\(W' = W
 \times B\)</span>, <span class="math inline">\(A \in \mathbb{R}^{d
 \times r}\)</span>, <span class="math inline">\(B \in \mathbb{R}^{r
 \times k}\)</span>, 且 <span class="math inline">\(r &lt;&lt; \min\{d,
-k\}\)</span>。在模型训练过程中，固定PLM的参数，只训练降维矩阵 <span class="math inline">\(A\)</span> 与升维矩阵 <span class="math inline">\(B\)</span>。</li>
-<li><h2 id="ptuning-prompt-tuning.">Ptuning: Prompt Tuning.</h2></li>
+k\}\)</span>。在模型训练过程中，固定PLM的参数，只训练降维矩阵 <span class="math inline">\(A\)</span> 与升维矩阵 <span class="math inline">\(B\)</span>。</p></li>
+<li><p>Ptuning: Prompt Tuning.</p></li>
 </ul>
 <h2 id="diffusion-models-and-stable-diffusion">2. Diffusion models and
 Stable diffusion</h2>
@@ -1869,12 +1870,14 @@ Mitigation</a></p>
 <p>AI文本生成中的<strong>幻觉</strong>现象指的是模型生成的文本虽然在语法上可能是正确的，并且看起来合理，但与输入内容并不一致，甚至可能是事实错误的。这种问题在像GPT-3这样的系统中尤为常见，生成的细节可能会偏离甚至与输入内容相矛盾。</p>
 <h3 id="幻觉产生的原因">幻觉产生的原因</h3>
 <p>造成幻觉的原因可以归结为以下几个方面：</p>
-<ol type="1">
-<li><p><strong>训练数据不足</strong>：如果模型在训练中没有接触到多样化的数据，它可能无法准确地建立输入与合适输出之间的关联，从而导致幻觉内容的产生。</p></li>
-<li><p><strong>模型过拟合</strong>：过拟合于训练数据会导致模型生成的输出过于依赖训练集，但在面对新的或不同的输入时与实际不符。</p></li>
-<li><p><strong>监督不足</strong>：如果没有充分的指导，模型可能会过度依赖其内部逻辑，导致生成的内容出现“幻觉”。</p></li>
-<li><p><strong>知识截止</strong>：像ChatGPT这样的语言模型有知识截止日期，因此对于截止日期之后的信息一无所知。在这种情况下，它可能在不知情的情况下提供过时或不再相关的回答。</p></li>
-</ol>
+<p><strong>1.
+训练数据不足</strong>：如果模型在训练中没有接触到多样化的数据，它可能无法准确地建立输入与合适输出之间的关联，从而导致幻觉内容的产生。</p>
+<p><strong>2.
+模型过拟合</strong>：过拟合于训练数据会导致模型生成的输出过于依赖训练集，但在面对新的或不同的输入时与实际不符。</p>
+<p><strong>3.
+监督不足</strong>：如果没有充分的指导，模型可能会过度依赖其内部逻辑，导致生成的内容出现“幻觉”。</p>
+<p><strong>4.
+知识截止</strong>：像ChatGPT这样的语言模型有知识截止日期，因此对于截止日期之后的信息一无所知。在这种情况下，它可能在不知情的情况下提供过时或不再相关的回答。</p>
 <h3 id="如何解决幻觉">如何解决幻觉</h3>
 <h4 id="训练阶段">训练阶段</h4>
 <p><strong>Reinforcement Learning from Human Feedback
@@ -1882,13 +1885,11 @@ Mitigation</a></p>
 <h4 id="训练之后">训练之后</h4>
 <p>在对 LLM 进行训练之后，可以使用 <strong>Prompting</strong>
 减轻幻觉。</p>
-<ol type="1">
-<li><p><strong>Retrieval Augmented Generation（RAG）</strong>。
-通过在生成过程中提供额外的上下文信息，有助于消除大语言模型中的幻觉问题。幻觉现象通常发生在LLM基于训练数据中的模式生成响应，而不是依赖真实知识时，尤其当模型缺乏特定领域的信息或难以识别其知识边界时更容易出现。RAG通过将外部知识源整合到生成过程中来解决这一问题。它使LLM能够在生成响应时访问来自外部数据库的最新或特定上下文的数据。这种方法为模型注入了更多的上下文信息，帮助其更好地理解主题，降低幻觉出现的概率。例如，在设计用于提供汽车信息的聊天机器人中，RAG可以从外部数据库中检索产品的具体细节和上下文信息，以补充用户的输入。这样，LLM可以接收到更全面和详细的提示，从而生成更准确和相关的响应。</p></li>
-<li><p><strong>Contextual
+<p><strong>1. Retrieval Augmented Generation（RAG）</strong>。
+通过在生成过程中提供额外的上下文信息，有助于消除大语言模型中的幻觉问题。幻觉现象通常发生在LLM基于训练数据中的模式生成响应，而不是依赖真实知识时，尤其当模型缺乏特定领域的信息或难以识别其知识边界时更容易出现。RAG通过将外部知识源整合到生成过程中来解决这一问题。它使LLM能够在生成响应时访问来自外部数据库的最新或特定上下文的数据。这种方法为模型注入了更多的上下文信息，帮助其更好地理解主题，降低幻觉出现的概率。例如，在设计用于提供汽车信息的聊天机器人中，RAG可以从外部数据库中检索产品的具体细节和上下文信息，以补充用户的输入。这样，LLM可以接收到更全面和详细的提示，从而生成更准确和相关的响应。</p>
+<p><strong>2. Contextual
 Prompting</strong>。旨在通过为模型提供明确的上下文或背景信息来改善其生成的输出。这种方法通过在提示（prompt）中包含相关的上下文信息，帮助模型更好地理解任务，并生成更准确、相关性更高的回答或内容。在给大语言模型（LLM）提供问题和上下文时，附加的上下文段落通常是来自维基百科文章、书籍章节等的摘要。这些上下文片段通过在句末插入唯一标识符进行标记，例如“(source
-1234)”或“(source 4567)”。例如：</p></li>
-</ol>
+1234)”或“(source 4567)”。例如：</p>
 <ul>
 <li><p>“巴黎是法国的首都。(source 1234)”</p></li>
 <li><p>“法国位于西欧。(source 4567)”</p>
@@ -1897,15 +1898,13 @@ Prompting
 涉及将一段上下文或背景知识与问题或任务一起输入模型。这段上下文可以是来自外部知识库的文本、前面对话中的信息、或任何与当前任务相关的数据。上下文为模型提供了额外的信息，使其能够更好地理解用户的意图，并在生成内容时参考这些背景知识。在使用这些带标签的上下文提示LLM时，研究方法还会在问题后附加指令，例如“提供细节并在答案中包含来源。”
 通过这种方式，LLM在生成响应时被引导引用这些标记的来源。这些标签为验证LLM的响应是否基于提供的上下文信息提供了参考。如果响应中包含匹配的来源标签，就表明LLM依赖于提供的上下文，而不是凭空生成（幻觉）的内容。</p></li>
 </ul>
-<ol start="3" type="1">
-<li><strong>Chain of Verification
+<p><strong>3. Chain of Verification
 （CoVe）</strong>。CoVe方法让大语言模型（LLM）在生成初始回答后，经过多个步骤来提升准确性：(1).
 生成初始回答，可能包含不准确或幻觉。(2).
 规划验证问题——模型生成一系列验证问题以自我查证。(3).
 执行验证——模型独立回答这些验证问题 (Verification questions are often
 answered more accurately than facts stated in long passages)。(4).
-基于验证结果修正初始回答，生成最终答案。 <img src="/2024/10/08/statistic/cove.png"></li>
-</ol>
+基于验证结果修正初始回答，生成最终答案。 <img src="/2024/10/08/statistic/cove.png"></p>
 <h2 id="llm-alignment">4. LLM Alignment</h2>
 <p>Great thanks to this blog: <a target="_blank" rel="noopener" href="https://aman.ai/primers/ai/llm-alignment/">LLM Alignment</a></p>
 <h3 id="overview">Overview</h3>
