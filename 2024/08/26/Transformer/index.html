@@ -167,7 +167,7 @@ dimensionality <span class="math inline">\(d_{ff}=2048\)</span>，输出也是�
 时刻之后的内容，对于点积矩阵的上半部分添加一个较小的数字，比如 <span class="math inline">\(-1e10\)</span>，这样经过softmax函数后对应位置会变成零。</p>
 <h2 id="mha">MHA</h2>
 <p><img src="/2024/08/26/Transformer/mha.jpg?400x300"></p>
-<p>对原始的Q,K，V，先通过一个linear layer映射到低维向量，然后进行scaled
+<p>对原始的Q, K, V，先通过一个linear layer映射到低维向量，然后进行scaled
 dot-product
 attention操作，得到h个输出向量，再将h个输出向量进行拼接，最后再通过一个linear
 layer回到<span class="math inline">\(d_{model}\)</span>维度。</p>
@@ -176,9 +176,9 @@ layer的投影参数 <span class="math inline">\(W^Q, W^K, W^V\)</span>
 是需要学习的，因此可以学习到不同的模式信息。</p>
 <p>计算公式： <span class="math display">\[
 \begin{aligned}
-\text{MultiHead}(Q,K,V) &amp;= \text{concat}(\text{head}_1,
-\text{head}_2,...,\text{head}_h)W^O,\\
-\text{head}_i &amp;= \text{Attention}(QW_i^Q, KW^K_i, VW^V_i),
+\text{MultiHead}(Q,K,V) &amp;= \text{concat}(\text{head}_{1},
+\text{head}_{2},...,\text{head}_{h})W^O,\\
+\text{head}_{i} &amp;= \text{Attention}(QW_i^Q, KW^K_i, VW^V_i),
 \end{aligned}
 \]</span> 其中, <span class="math inline">\(W_i^Q \in
 \mathbb{R}^{d_{model} \times d_k}\)</span>, <span class="math inline">\(W_i^K \in \mathbb{R}^{d_{model} \times
@@ -226,14 +226,14 @@ Bidirectional Encoder Representations from Transformers</h1>
 <h2 id="framework">Framework</h2>
 <p>Bert主要包括两部分，pre-training and
 fine-tuning。在pre-training阶段，模型在一个没有进行标注的数据上进行训练，是一个
-self-supervised per-training
+self-supervised pre-training
 task。在fine-tuning阶段，用同一个Bert模型，但是模型首先被初始化为预训练的权重，然后再在有标注的数据上进行微调。每一个下游任务都会创建一个不同的模型进行微调。</p>
 <p><img src="/2024/08/26/Transformer/bert.jpg"></p>
 <p>Model architecture: a multi-layer bidirectional transformer
 encoder.</p>
-<p><strong>主要包括三个参数</strong> 1. number of layers/ transformer
-blocks, i.e., <span class="math inline">\(L\)</span>.</p>
-<ol start="2" type="1">
+<p><strong>主要包括三个参数</strong></p>
+<ol type="1">
+<li><p>number of layers/ transformer blocks, i.e., <span class="math inline">\(L\)</span>.</p></li>
 <li><p>hidden dimension, i.e., <span class="math inline">\(H\)</span>
 (<span class="math inline">\(d_{model}\)</span>).</p></li>
 <li><p>the number of attention heads, i.e., <span class="math inline">\(A\)</span>.</p></li>
