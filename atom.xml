@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2024-10-28T07:26:47.432Z</updated>
+  <updated>2024-11-04T11:57:25.426Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>LLM</title>
+    <link href="https://xueyu-ubc.github.io/2024/10/28/VLM/"/>
+    <id>https://xueyu-ubc.github.io/2024/10/28/VLM/</id>
+    <published>2024-10-28T07:00:00.000Z</published>
+    <updated>2024-11-04T11:57:25.426Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;大模型常用微调方法lora和ptuning的原理&quot;&gt;1.
+大模型常用微调方法LORA和Ptuning的原理&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;LORA: Low-Rank</summary>
+        
+      
+    
+    
+    
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
+    
+    
+    <category term="multi-modal" scheme="https://xueyu-ubc.github.io/tags/multi-modal/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Machine Learning</title>
     <link href="https://xueyu-ubc.github.io/2024/10/08/statistic/"/>
     <id>https://xueyu-ubc.github.io/2024/10/08/statistic/</id>
     <published>2024-10-08T02:10:10.000Z</published>
-    <updated>2024-10-28T07:26:47.432Z</updated>
+    <updated>2024-11-04T11:54:21.277Z</updated>
     
     
       
@@ -49,7 +77,7 @@
     <link href="https://xueyu-ubc.github.io/2024/09/12/multi_modalv2/"/>
     <id>https://xueyu-ubc.github.io/2024/09/12/multi_modalv2/</id>
     <published>2024-09-12T07:00:00.000Z</published>
-    <updated>2024-10-21T08:10:36.656Z</updated>
+    <updated>2024-10-29T02:26:43.848Z</updated>
     
     
       
@@ -521,32 +549,6 @@ Definitions and Representations&lt;/h1&gt;
     
     
     <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
-    <link href="https://xueyu-ubc.github.io/2021/02/27/GD/"/>
-    <id>https://xueyu-ubc.github.io/2021/02/27/GD/</id>
-    <published>2021-02-27T01:53:22.000Z</published>
-    <updated>2024-08-25T23:35:20.383Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
-Accelerating Stochastic Gradient</summary>
-        
-      
-    
-    
-    
-    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/categories/Machine-Learning/"/>
-    
-    
-    <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
     
   </entry>
   
