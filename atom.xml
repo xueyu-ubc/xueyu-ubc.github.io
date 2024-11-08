@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2024-11-08T06:30:02.023Z</updated>
+  <updated>2024-11-08T06:30:57.731Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -18,20 +18,20 @@
   
   <entry>
     <title>VLM</title>
-    <link href="https://xueyu-ubc.github.io/2024/10/28/VLM/"/>
-    <id>https://xueyu-ubc.github.io/2024/10/28/VLM/</id>
-    <published>2024-10-28T07:00:00.000Z</published>
-    <updated>2024-11-08T06:30:02.023Z</updated>
+    <link href="https://xueyu-ubc.github.io/2024/11/08/VLM/"/>
+    <id>https://xueyu-ubc.github.io/2024/11/08/VLM/</id>
+    <published>2024-11-08T06:00:00.000Z</published>
+    <updated>2024-11-08T06:30:57.731Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;大模型常用微调方法lora和ptuning的原理&quot;&gt;1.
-大模型常用微调方法LORA和Ptuning的原理&lt;/h2&gt;
+    <summary type="html">&lt;h2 id=&quot;1-大模型常用微调方法lora和ptuning的原理&quot;&gt;1. 大模型常用微调方法LORA和Ptuning的原理&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;LORA: Low-Rank</summary>
+&lt;li&gt;
+&lt;p&gt;LORA:  Low-Rank Adaptation.</summary>
         
       
     
