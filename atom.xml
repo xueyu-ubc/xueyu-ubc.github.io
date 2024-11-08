@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2024-11-08T06:58:25.750Z</updated>
+  <updated>2024-11-08T13:38:51.001Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Model Acceleration</title>
+    <link href="https://xueyu-ubc.github.io/2024/11/08/Model_Acceleration/"/>
+    <id>https://xueyu-ubc.github.io/2024/11/08/Model_Acceleration/</id>
+    <published>2024-11-08T11:00:00.000Z</published>
+    <updated>2024-11-08T13:38:51.001Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;training-optimizations&quot;&gt;Training Optimizations&lt;/h1&gt;
+&lt;h2 id=&quot;flashattention&quot;&gt;FlashAttention&lt;/h2&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
+    
+    
+    <category term="Transformer" scheme="https://xueyu-ubc.github.io/tags/Transformer/"/>
+    
+  </entry>
   
   <entry>
     <title>VLM</title>
@@ -174,33 +201,6 @@ Models&lt;/a&gt;&lt;/p&gt;
     
     
     <category term="gpt" scheme="https://xueyu-ubc.github.io/tags/gpt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Flash Attention</title>
-    <link href="https://xueyu-ubc.github.io/2024/09/01/flash_atttention/"/>
-    <id>https://xueyu-ubc.github.io/2024/09/01/flash_atttention/</id>
-    <published>2024-09-01T02:00:00.000Z</published>
-    <updated>2024-09-01T04:08:48.058Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;clip&quot;&gt;CLIP&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2103.00020&quot;&gt;Learning Transferable
-Visual Models From Natural Language</summary>
-        
-      
-    
-    
-    
-    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
-    
-    
-    <category term="Transformer" scheme="https://xueyu-ubc.github.io/tags/Transformer/"/>
     
   </entry>
   
