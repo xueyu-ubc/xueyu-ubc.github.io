@@ -121,7 +121,7 @@ Transformers 在长序列上运行缓慢且占用内存。
 <p>分块处理的具体步骤包括：</p>
 <ol type="1">
 <li><p><strong>外层循环（红色箭头）</strong>：FlashAttention 在计算时对
-<span class="math inline">\(K\)</span> 和 <span class="math inline">\(V\)</span> 矩阵进行分块处理。首先将 $K$ 和 <span class="math inline">\(V\)</span>
+<span class="math inline">\(K\)</span> 和 <span class="math inline">\(V\)</span> 矩阵进行分块处理。首先将 <span class="math inline">\(K\)</span> 和 <span class="math inline">\(V\)</span>
 矩阵分成小块，每块包含的数据量足够放入片上缓存（SRAM）中。每次处理一块时，将其从
 HBM 加载到 SRAM。</p></li>
 <li><p><strong>内层循环（蓝色箭头）</strong>：对于每个 <span class="math inline">\(K\)</span> 和 <span class="math inline">\(V\)</span> 块，FlashAttention 对 <span class="math inline">\(Q\)</span> 矩阵也进行分块处理。</p>
