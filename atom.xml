@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2024-11-08T06:30:57.731Z</updated>
+  <updated>2024-11-08T06:58:25.750Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -21,17 +21,15 @@
     <link href="https://xueyu-ubc.github.io/2024/11/08/VLM/"/>
     <id>https://xueyu-ubc.github.io/2024/11/08/VLM/</id>
     <published>2024-11-08T06:00:00.000Z</published>
-    <updated>2024-11-08T06:30:57.731Z</updated>
+    <updated>2024-11-08T06:58:25.750Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;1-大模型常用微调方法lora和ptuning的原理&quot;&gt;1. 大模型常用微调方法LORA和Ptuning的原理&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;LORA:  Low-Rank Adaptation.</summary>
+    <summary type="html">&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://aman.ai/primers/ai/&quot;&gt;Distilled</summary>
         
       
     
@@ -41,6 +39,31 @@
     
     
     <category term="multi-modal" scheme="https://xueyu-ubc.github.io/tags/multi-modal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Agents</title>
+    <link href="https://xueyu-ubc.github.io/2024/11/08/agents/"/>
+    <id>https://xueyu-ubc.github.io/2024/11/08/agents/</id>
+    <published>2024-11-08T06:00:00.000Z</published>
+    <updated>2024-11-08T09:35:36.276Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;agent-工作流程&quot;&gt;1. Agent</summary>
+        
+      
+    
+    
+    
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
+    
+    
+    <category term="Agents" scheme="https://xueyu-ubc.github.io/tags/Agents/"/>
     
   </entry>
   
@@ -514,33 +537,6 @@ Equation (ODE)&lt;/h1&gt;
         
     <summary type="html">&lt;h1 id=&quot;total-variation-distance&quot;&gt;Total Variation Distance&lt;/h1&gt;
 &lt;p&gt;Define Total Variation Distance: &lt;span class=&quot;math</summary>
-        
-      
-    
-    
-    
-    <category term="Stochastic Process" scheme="https://xueyu-ubc.github.io/categories/Stochastic-Process/"/>
-    
-    
-    <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Metropolis-Hastings</title>
-    <link href="https://xueyu-ubc.github.io/2023/07/15/Metropolis-Hastings/"/>
-    <id>https://xueyu-ubc.github.io/2023/07/15/Metropolis-Hastings/</id>
-    <published>2023-07-15T02:00:00.000Z</published>
-    <updated>2024-08-25T23:53:49.179Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;The first MCMC algorithm is the Metropolis algorithm, published by
-Metropolis et al. (1953). It</summary>
         
       
     
