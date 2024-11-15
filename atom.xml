@@ -44,32 +44,6 @@
   </entry>
   
   <entry>
-    <title>VLM</title>
-    <link href="https://xueyu-ubc.github.io/2024/11/08/VLM/"/>
-    <id>https://xueyu-ubc.github.io/2024/11/08/VLM/</id>
-    <published>2024-11-08T06:00:00.000Z</published>
-    <updated>2024-11-08T06:58:25.750Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://aman.ai/primers/ai/&quot;&gt;Distilled</summary>
-        
-      
-    
-    
-    
-    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
-    
-    
-    <category term="multi-modal" scheme="https://xueyu-ubc.github.io/tags/multi-modal/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Agents</title>
     <link href="https://xueyu-ubc.github.io/2024/11/08/agents/"/>
     <id>https://xueyu-ubc.github.io/2024/11/08/agents/</id>
@@ -151,19 +125,45 @@
   </entry>
   
   <entry>
-    <title>Blip, Blip2 (Q-former), InstructBlip, CONCH, PULSE</title>
+    <title>Overview of Vision-Language Models</title>
     <link href="https://xueyu-ubc.github.io/2024/09/12/multi_modalv2/"/>
     <id>https://xueyu-ubc.github.io/2024/09/12/multi_modalv2/</id>
     <published>2024-09-12T07:00:00.000Z</published>
-    <updated>2024-10-29T02:26:43.848Z</updated>
+    <updated>2024-11-11T03:27:56.888Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;a-very-nice-blog-blip系列文章小结&quot;&gt;A very nice blog: &lt;a href=&quot;http://www.myhz0606.com/article/blip_hub&quot;&gt;BLIP系列文章小结&lt;/a&gt;&lt;/h2&gt;
-&lt;h1</summary>
+    <summary type="html">&lt;h1 id=&quot;architecture-of-vision-language-models&quot;&gt;Architecture of
+Vision-Language</summary>
+        
+      
+    
+    
+    
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
+    
+    
+    <category term="multi-modal" scheme="https://xueyu-ubc.github.io/tags/multi-modal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VLM</title>
+    <link href="https://xueyu-ubc.github.io/2024/09/12/VLM/"/>
+    <id>https://xueyu-ubc.github.io/2024/09/12/VLM/</id>
+    <published>2024-09-12T07:00:00.000Z</published>
+    <updated>2024-11-15T07:53:00.008Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;architecture-of-vision-language-models&quot;&gt;Architecture of
+Vision-Language</summary>
         
       
     
