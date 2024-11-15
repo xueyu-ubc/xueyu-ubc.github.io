@@ -196,10 +196,10 @@ label 对应的一个单词，此时会出现 distribution gap 的问题。</p><
 <p>优势：适用于图像文本匹配。可以提前对数据库内的图像、文本进行特征抽取。对于新来的文本或者图像，只需要做一个简单的点乘，具有灵活性和高效性。</p>
 <p>缺点：</p>
 <ol type="1">
-<li>如果推理的数据集相较于预训练的数据集 out of
-distribution，Clip的泛化能力也会很差。</li>
-<li>从给定的类别中进行判别选择，而不是生成新的输出。</li>
-<li>...</li>
+<li><p>如果推理的数据集相较于预训练的数据集 out of
+distribution，Clip的泛化能力也会很差。</p></li>
+<li><p>从给定的类别中进行判别选择，而不是生成新的输出。</p></li>
+<li><p>...</p></li>
 </ol>
 <h1 id="how-to-train-really-large-models-on-many-gpus">How to Train
 Really Large Models on Many GPUs?</h1>
@@ -283,19 +283,24 @@ loss：计算文本特征输出和图像特征输出之间的距离。</p></li>
 <h1 id="albef-align-before-fuse">ALBEF, Align before Fuse</h1>
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2107.07651">Align before Fuse: Vision
 and Language Representation Learning with Momentum Distillation</a></p>
-<p>https://blog.salesforceairesearch.com/align-before-fuse/
-https://nancyyanyu.github.io/posts/paper-albef/</p>
+<p>https://blog.salesforceairesearch.com/align-before-fuse/</p>
+<p>https://nancyyanyu.github.io/posts/paper-albef/</p>
 <p>模型设计方面： -
 在多模态学习中，视觉特征远远大于文本特征，因此需要使用较为强大的视觉模型(big
-ViT)。 -
-此外，模态之间的融合也至关重要，因此模态融合模型也需要足够大（big
-modality interaction）。</p>
+ViT)。</p>
+<ul>
+<li>此外，模态之间的融合也至关重要，因此模态融合模型也需要足够大（big
+modality interaction）。</li>
+</ul>
 <p>loss 方面： - Clip 使用的是 image text contrastive (ITC)
-loss，效果不错，可以采用。 - ViLT使用的是 Image Text
-Matching的loss（ITM），word patch alignment (WPA) loss，文本的单词和
-image 的 patch 之间进行对应关系。但是 WPA loss 计算非常慢，因此不考虑。
-- Bert中常用的计算 loss 方式是 Mask Language Modeling (MLM)，mask
-掉某个词然后再去预测这个词。比较常用。</p>
+loss，效果不错，可以采用。</p>
+<ul>
+<li><p>ViLT使用的是 Image Text Matching的loss（ITM），word patch
+alignment (WPA) loss，文本的单词和 image 的 patch 之间进行对应关系。但是
+WPA loss 计算非常慢，因此不考虑。</p></li>
+<li><p>Bert中常用的计算 loss 方式是 Mask Language Modeling (MLM)，mask
+掉某个词然后再去预测这个词。比较常用。</p></li>
+</ul>
 <p>总之，直观上来说，结合 ITC、MLM 和 ITM 的 loss 应该效果不错。</p>
 <p>结合上面的考虑，ALBEF 使用复杂的 image encoder (12 blocks) 和
 multimodal encoder (6 blocks) ，相对轻量的 text encoder (6
@@ -355,8 +360,8 @@ MLM loss)。</p>
 <p>不同 text encoder 使用不同的 token，分别是
 [CLS]，[Encode]，[Decode]。</p>
 <h1 id="blip2">BLIP2</h1>
-<h2 id="capfilt">CapFilt</h2>
 <p><img src="/2024/09/12/VLM/blip2.jpg"></p>
+<h2 id="capfilt">CapFilt</h2>
 <p>对于从网络上获取的图文数据质量比较糟糕，图片对应的文本描述往往不够准确。针对这种情况，blip
 finetune 了一个 filter 来筛选图文对，一个 captioner
 来生成合成的文本。<span class="math inline">\(\{I_w, T_w\}\)</span> 是从
@@ -397,20 +402,22 @@ visual-language foundation model for computational pathology</a></p>
 <p>为便于整理，论文将数据源分为两类：（1）EDU，包含从教育笔记中提取的数据；（2）PMC
 OA，从 PubMed Central Open Access Datase 下载的数据。</p>
 <p>数据整理的挑战有两个： 1.
-筛选组织病理学图像：下载的原始数据包含了组织病理学和非组织病理学的图像。
-2.
-处理图像面板：大量数据以图像面板的形式呈现，面板中的图像由多个子图像组成，图像标题文本中有时同时或分别包含了多个子图像的描述。</p>
+筛选组织病理学图像：下载的原始数据包含了组织病理学和非组织病理学的图像。</p>
+<ol start="2" type="1">
+<li>处理图像面板：大量数据以图像面板的形式呈现，面板中的图像由多个子图像组成，图像标题文本中有时同时或分别包含了多个子图像的描述。</li>
+</ol>
 <p>为了应对这些挑战，数据清理分为三个步骤： 1.
 检测组织病理学图像：使用YOLOv5对象检测模型生成边界框 bounding boxes
-以提取检测到的图像。这一步之前，作者首先通过生成合成数据来训练该对象检测模型。
-2. 分割图像标题：作者在整理 EDU
-数据集时收集了一个包含图像标题说明和拆分后标题说明的数据集，对GPT模型进行微调，原始图像标题为输入，拆分后的图像标题为输出，最终使得模型具有实现自动拆分图像标题的能力。
-3.
-子图像和标题进行对齐：首先在干净的EDU数据集上训练一个CLIP模型，将检测到的子图像与拆分后的标题说明进行对齐。使用训练后的模型，给定一组图像面板中的
+以提取检测到的图像。这一步之前，作者首先通过生成合成数据来训练该对象检测模型。</p>
+<ol start="2" type="1">
+<li><p>分割图像标题：作者在整理 EDU
+数据集时收集了一个包含图像标题说明和拆分后标题说明的数据集，对GPT模型进行微调，原始图像标题为输入，拆分后的图像标题为输出，最终使得模型具有实现自动拆分图像标题的能力。</p></li>
+<li><p>子图像和标题进行对齐：首先在干净的EDU数据集上训练一个CLIP模型，将检测到的子图像与拆分后的标题说明进行对齐。使用训练后的模型，给定一组图像面板中的
 <span class="math inline">\(m\)</span> 幅检测到的图像和 <span class="math inline">\(n\)</span> 个分割的文本，得到模型中的图像嵌入表征
 <span class="math inline">\({u0, u1, ..., um}\)</span> 和文本嵌入表征
 <span class="math inline">\({v0, v1, ..., vn}\)</span>
-。然后两两计算余弦相似度，将相似度最高的作为一对图文数据。</p>
+。然后两两计算余弦相似度，将相似度最高的作为一对图文数据。</p></li>
+</ol>
 <p>通过以上三步以及进一步数据清理，形成了一个包含<span class="math inline">\(117\)</span>万对人类组织病理学图像-说明的数据集。</p>
 <h2 id="visual-language-pretraining">Visual-language pretraining</h2>
 <p>在训练过程中，作者同时考虑了两种loss，一种是图文对比损失（image-to-text
@@ -456,14 +463,14 @@ decoder), conditioned on previous tokens in the caption, as well as the
 corresponding image.</p>
 <p>具体训练设置，主要包括以下几点：</p>
 <ul>
-<li>训练轮数：每个视觉-语言预训练实验都运行了 40 个epoch。</li>
-<li>硬件配置：实验分布式运行在 8个NVIDIA A100 80-GB GPU
-上，每个GPU上的本地批量大小为48。</li>
-<li>梯度累积：为了达到更大的有效全局批量大小，使用了 梯度累积，实现了
-1,536 的全局批量大小（48 × 8 GPU × 4次梯度累积）。</li>
-<li>图像大小：输入图像大小为 448 ×
+<li><p>训练轮数：每个视觉-语言预训练实验都运行了 40 个epoch。</p></li>
+<li><p>硬件配置：实验分布式运行在 8个NVIDIA A100 80-GB GPU
+上，每个GPU上的本地批量大小为48。</p></li>
+<li><p>梯度累积：为了达到更大的有效全局批量大小，使用了 梯度累积，实现了
+1,536 的全局批量大小（48 × 8 GPU × 4次梯度累积）。</p></li>
+<li><p>图像大小：输入图像大小为 448 ×
 448像素，其中：对较大的图像，首先将其较短边调整为448像素，并对其进行中心裁剪。对较小的图像，按需进行
-零填充 以达到所需的尺寸。</li>
+零填充 以达到所需的尺寸。</p></li>
 </ul>
 <h1 id="quilt-llava-visual-instruction-tuning-by-extracting-localized-narratives-from-open-source-histopathology-videos">Quilt-LLaVA:
 Visual Instruction Tuning by Extracting Localized Narratives from
@@ -498,13 +505,13 @@ QUILT-INSTRUCT。这一过程涉及提示（prompting）技术，从为每个图
 <p>论文介绍了两种不同类型的问答生成方法，用于处理基于病理学的 Whole
 Slide Images (WSI，整个切片图像) 的文本生成任务。</p>
 <ul>
-<li><p>Independent Prompts（独立提示）：</p>
-<p>这一方法基于单个切片级别（patch-level）的文本输入进行问答生成。切片级别文本是与病理图像的某一小块相关的描述。这种提示生成的问答对是独立于整个图像或视频的上下文，仅依赖于该切片的内容，类似于文献[17]中的对话式和详细描述的生成方式。因为这些提示不依赖于其他信息源，因此被称为“独立提示”（Independent
+<li><p>Independent
+Prompts（独立提示）。这一方法基于单个切片级别（patch-level）的文本输入进行问答生成。切片级别文本是与病理图像的某一小块相关的描述。这种提示生成的问答对是独立于整个图像或视频的上下文，仅依赖于该切片的内容，类似于文献[17]中的对话式和详细描述的生成方式。因为这些提示不依赖于其他信息源，因此被称为“独立提示”（Independent
 prompts）。</p></li>
-<li><p>Reasoning-based Prompts（推理提示）：</p>
-<p>这种方法利用整个视频中的上下文线索，特别是该视频围绕单个WSI的诊断展开，通过逐步揭示概念和线索。输入不仅包含切片级别的文本，还包括整个WSI的全局信息。因此，模型不仅仅基于当前的切片，还可以考虑到全局的诊断信息。通过这种方法，模型（如GPT-4）可以超越当前上下文进行推理，但仍然依靠从视频或图像中提取的事实信息，这样可以减少生成内容的虚构或不准确（即减少幻觉现象）。</p>
-<p>简单来说，独立提示只基于局部信息生成问答，而推理提示则结合了全局的诊断线索，帮助模型更合理地推理并减少错误。</p></li>
+<li><p>Reasoning-based
+Prompts（推理提示）。这种方法利用整个视频中的上下文线索，特别是该视频围绕单个WSI的诊断展开，通过逐步揭示概念和线索。输入不仅包含切片级别的文本，还包括整个WSI的全局信息。因此，模型不仅仅基于当前的切片，还可以考虑到全局的诊断信息。通过这种方法，模型（如GPT-4）可以超越当前上下文进行推理，但仍然依靠从视频或图像中提取的事实信息，这样可以减少生成内容的虚构或不准确（即减少幻觉现象）。</p></li>
 </ul>
+<p>简单来说，独立提示只基于局部信息生成问答，而推理提示则结合了全局的诊断线索，帮助模型更合理地推理并减少错误。</p>
 <h2 id="training-quilt-llava-evaluating-with-quilt-vqa">Training
 QUILT-LLAVA &amp; evaluating with QUILT-VQA</h2>
 <p>论文使用 QUILT-INSTRUCT 来训练 QUILT-LLAVA。在 QUILT-INSTRUCT
@@ -521,16 +528,16 @@ QUILT-LLAVA &amp; evaluating with QUILT-VQA</h2>
 [9] 和 PLIP [8]）上训练的预训练 CLIP
 模型。作者还通过不同的图像编码器、训练策略和视觉提示进行消融实验，以测试其效果。</p>
 <p><img src="/2024/09/12/VLM/quilt2.jpg"></p>
-<p>具体来说， - 对齐视觉和语言模型:</p>
-<p>作者首先在病理学领域内对视觉和语言模型进行对齐。为此，从 QUILT
-数据集中提取了 723K
-图像-文本对，并将描述文本转换为问答格式。问答对的生成方法是随机选择一个预定义的问题（见附录图18），将其添加到图像描述前，形成问答对。问题设计用于描述图像中可见的视觉信息。</p>
-<pre><code>在这一阶段，视觉和语言模型被冻结，仅训练 MLP 层，其任务是将来自图像编码器的嵌入映射到语言模型中，以便语言模型根据问题预测图像的描述。这一阶段的训练将病理学图像的嵌入与相应的文本嵌入对齐，确保了视觉信息能够被语言模型处理。</code></pre>
+<p>具体来说， -
+对齐视觉和语言模型。作者首先在病理学领域内对视觉和语言模型进行对齐。为此，从
+QUILT 数据集中提取了 723K
+图像-文本对，并将描述文本转换为问答格式。问答对的生成方法是随机选择一个预定义的问题（见附录图18），将其添加到图像描述前，形成问答对。问题设计用于描述图像中可见的视觉信息。在这一阶段，视觉和语言模型被冻结，仅训练
+MLP
+层，其任务是将来自图像编码器的嵌入映射到语言模型中，以便语言模型根据问题预测图像的描述。这一阶段的训练将病理学图像的嵌入与相应的文本嵌入对齐，确保了视觉信息能够被语言模型处理。</p>
 <ul>
-<li><p>组织病理学数据集指令微调</p>
-<p>论文使用 QUILT-INSTRUCT
+<li>组织病理学数据集指令微调。论文使用 QUILT-INSTRUCT
 对模型进行微调。在此阶段，冻结视觉编码器权重，继续训练 MLP
-层和语言模块。</p></li>
+层和语言模块。</li>
 </ul>
 <h3 id="evaluation-data-generation-quilt-vqa">Evaluation Data
 Generation: QUILT-VQA</h3>
@@ -570,15 +577,12 @@ QUILT-INSTRUCT 时相同的基于会话和详细描述的提示。</p>
 对生成结果与真实答案进行了比对。其次，执行开放式和封闭式 VQA
 任务。最后，使用视觉提示和不同的训练模型进行消融实验。</p>
 <ul>
-<li><p>使用GPT-4 评估生成结果</p>
-<p>评估的主要维度包括回答的帮助性、相关性、准确性和详细程度。</p>
-<p>评估方法：使用 GPT-4 来对比不同模型的输出：候选模型（QUILT-LLAVA） 和
-GPT-4。GPT-4
-会根据这些维度（帮助性、相关性、准确性和详细程度）对两个模型的回答进行评分，评分范围为1到10分，分数越高表示整体表现越好。
-除了分数外，GPT-4
+<li><p>使用GPT-4
+评估生成结果。评估的主要维度包括回答的帮助性、相关性、准确性和详细程度。评估方法：使用
+GPT-4 来对比不同模型的输出：候选模型（QUILT-LLAVA） 和 GPT-4。GPT-4
+会根据这些维度（帮助性、相关性、准确性和详细程度）对两个模型的回答进行评分，评分范围为1到10分，分数越高表示整体表现越好。除了分数外，GPT-4
 还提供详细的解释，以帮助理解每个模型在生成回答时的表现，便于更好地分析模型的优势和不足。</p></li>
-<li><p>可视化问题解答结果</p>
-<p>这些VQA数据集包括开放式和封闭式问答题对。对于封闭式问题，准确率被用来衡量模型给出的正确答案的比例。与此相反，对于开放式问题，我们侧重于召回率，以评估模型的回答中包含真实tokens的频率。</p></li>
+<li><p>可视化问题解答结果。这些VQA数据集包括开放式和封闭式问答题对。对于封闭式问题，准确率被用来衡量模型给出的正确答案的比例。与此相反，对于开放式问题，我们侧重于召回率，以评估模型的回答中包含真实tokens的频率。</p></li>
 </ul>
 <h2 id="conclusion-and-limitations">Conclusion and Limitations</h2>
 <p>GPT-4 仍然容易生成不准确的信息，导致 QUILT-LLAVA
