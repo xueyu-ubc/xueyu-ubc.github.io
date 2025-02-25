@@ -102,7 +102,7 @@
     <link href="https://xueyu-ubc.github.io/2024/11/08/agents/"/>
     <id>https://xueyu-ubc.github.io/2024/11/08/agents/</id>
     <published>2024-11-08T06:00:00.000Z</published>
-    <updated>2025-02-22T06:31:02.628Z</updated>
+    <updated>2025-02-25T13:07:18.648Z</updated>
     
     
       
@@ -142,6 +142,28 @@
     
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>LLM Alignment</title>
+    <link href="https://xueyu-ubc.github.io/2024/10/28/LLM%20Alignment/"/>
+    <id>https://xueyu-ubc.github.io/2024/10/28/LLM%20Alignment/</id>
+    <published>2024-10-28T07:00:00.000Z</published>
+    <updated>2025-02-25T13:21:13.319Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;llm的幻觉问题&quot;&gt;LLM的幻觉问题&lt;/h2&gt;
+&lt;p&gt;Great thanks to this blog: &lt;a href=&quot;https://aman.ai/primers/ai/hallucination/&quot;&gt;NLP •</summary>
+        
+      
+    
+    
+    
     <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
     
     
@@ -150,11 +172,11 @@
   </entry>
   
   <entry>
-    <title>Machine Learning</title>
+    <title>机器学习常见算法&amp;数理统计基础知识</title>
     <link href="https://xueyu-ubc.github.io/2024/10/08/statistic/"/>
     <id>https://xueyu-ubc.github.io/2024/10/08/statistic/</id>
     <published>2024-10-08T02:10:10.000Z</published>
-    <updated>2025-02-10T09:29:07.057Z</updated>
+    <updated>2025-02-25T13:04:34.279Z</updated>
     
     
       
@@ -204,39 +226,11 @@ Vision-Language</summary>
   </entry>
   
   <entry>
-    <title>Llama 3.1</title>
-    <link href="https://xueyu-ubc.github.io/2024/09/04/llama3.1/"/>
-    <id>https://xueyu-ubc.github.io/2024/09/04/llama3.1/</id>
-    <published>2024-09-04T05:00:00.000Z</published>
-    <updated>2024-09-04T05:44:36.419Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;llama-3.1&quot;&gt;Llama 3.1&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2407.21783&quot;&gt;The Llama 3 Herd of
-Models&lt;/a&gt;&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="LLM Model" scheme="https://xueyu-ubc.github.io/categories/LLM-Model/"/>
-    
-    
-    <category term="gpt" scheme="https://xueyu-ubc.github.io/tags/gpt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer</title>
+    <title>Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer, 常用评估指标</title>
     <link href="https://xueyu-ubc.github.io/2024/08/26/Transformer/"/>
     <id>https://xueyu-ubc.github.io/2024/08/26/Transformer/</id>
     <published>2024-08-25T23:30:00.000Z</published>
-    <updated>2024-10-12T02:20:59.303Z</updated>
+    <updated>2025-02-25T13:15:18.333Z</updated>
     
     
       
@@ -342,14 +336,15 @@ Methods and Stochastic Optimisation&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2023/09/11/deep-learning-with-structures/"/>
     <id>https://xueyu-ubc.github.io/2023/09/11/deep-learning-with-structures/</id>
     <published>2023-09-11T05:30:00.000Z</published>
-    <updated>2025-02-25T12:33:28.069Z</updated>
+    <updated>2025-02-25T12:57:43.776Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;brief-intro-to-deep-learning&quot;&gt;Brief Intro to Deep Learning&lt;/h2&gt;
+&lt;p&gt;Deep learning: - Data: large datasets, e.g., ImageNet, etc.; -</summary>
         
       
     
@@ -474,16 +469,15 @@ Equation (ODE)&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/"/>
     <id>https://xueyu-ubc.github.io/2023/07/15/Convergence%20of%20MC/</id>
     <published>2023-07-15T06:00:00.000Z</published>
-    <updated>2025-02-25T11:56:28.587Z</updated>
+    <updated>2025-02-25T12:56:16.842Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1&gt;Total Variation Distance&lt;/h1&gt;
-&lt;p&gt;Define Total Variation Distance:&lt;/p&gt;
-&lt;p class=&quot;katex-block&quot;&gt;&lt;span class=&quot;katex-display&quot;&gt;&lt;span</summary>
+    <summary type="html">&lt;h1 id=&quot;total-variation-distance&quot;&gt;Total Variation Distance&lt;/h1&gt;
+&lt;p&gt;Define Total Variation Distance: &lt;span class=&quot;math</summary>
         
       
     

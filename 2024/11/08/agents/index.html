@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">5.3k</span>
+            <span class="post-count">6.9k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">18 min</span>
+            <span class="post-count">23 min</span>
         </span>
     </span>
 </div>
@@ -117,7 +117,7 @@ agent 式、迭代的工作方式通常能带来更为稳健的结果。</p>
 <p>这种结构化的多步骤流程类似于人类作者在完善文本内容时采取的系统性方法。通过多次迭代，AI
 agent
 能够比单次生成的方式更有效地提高结果质量。这一方法在推动更高精度和更高质量的生成任务中具有重要作用。</p>
-<h2 id="the-agent-framework">2. The Agent Framework</h2>
+<h2 id="the-agent-框架">2. The Agent 框架</h2>
 <p><img src="/2024/11/08/agents/coreAI.jpg"> [Image credits to <a target="_blank" rel="noopener" href="https://developer.nvidia.com/blog/introduction-to-llm-agents/">source</a>]</p>
 <h3 id="agent-core-llm">Agent core (LLM)</h3>
 <p>Agent Core 是 agent 的核心部分，充当主要的决策引擎，比如利用 OpenAI
@@ -163,7 +163,7 @@ agents 的功能覆盖范围和操作精度。</p>
 <p>在复杂问题求解中，规划模块提供结构化方法，例如任务分解和反思，以帮助
 agent
 优化解决方案。在此模块中，任务管理系统使用双端队列（deque）数据结构，能够自主生成、管理和优先排序任务。该系统会根据任务完成情况和新生成的任务实时调整优先级，确保任务的执行始终与目标保持一致，推动任务进展更高效、更有条理。</p>
-<h2 id="design-patterns">3. Design Patterns</h2>
+<h2 id="设计模式">3. 设计模式</h2>
 <p>常见agentic设计模式分类框架：</p>
 <h3 id="reflection反思">Reflection（反思）</h3>
 <p>为了提升大语言模型的效果，一个关键方法是在其工作流程中引入反思机制。反思是一种自我评估和迭代改进的方式，使LLM能够自主识别输出中的不足，并基于反馈进行调整，最终提供更加精确、高效且符合用户需求的响应。通过这种结构化的迭代过程，LLM从典型的问答式互动转变为动态的持续改进循环。以下是反思工作流程的主要步骤和具体操作：</p>
@@ -332,6 +332,99 @@ Pinecone 中供未来参考。</li>
 帮助系统进行优先级评估。</li>
 </ul></li>
 </ol>
+<h2 id="智能体和多模态模型的区别">6. 智能体和多模态模型的区别</h2>
+<h3 id="智能体agent"><strong>智能体（Agent）</strong></h3>
+<p>智能体（Agent）是一种能够自主感知环境、做出决策并执行行动的系统，广泛应用于不同领域，如机器人、自动化系统、游戏角色、虚拟助理等。</p>
+<h4 id="主要特点">主要特点：</h4>
+<ul>
+<li><p><strong>自主性</strong>：智能体能够根据感知到的环境信息，独立进行决策和行动，而不需要外部持续的控制。</p></li>
+<li><p><strong>感知-决策-行动循环</strong>：智能体能够感知外部环境（通过传感器或输入），根据某种规则或策略进行决策，并在环境中执行相应的行为。这是智能体的核心特性。</p></li>
+<li><p><strong>持续性</strong>：智能体通常在持续的时间框架中工作，不断与环境互动。</p></li>
+<li><p><strong>适应性与学习</strong>：有些智能体可以通过学习（如强化学习）在复杂的环境中不断优化其行为。</p></li>
+</ul>
+<h4 id="举例">举例：</h4>
+<ul>
+<li><p>机器人智能体通过传感器感知周围环境，规划路径并自主导航。</p></li>
+<li><p>自动驾驶汽车智能体根据道路情况实时调整驾驶策略。</p></li>
+<li><p>游戏中的 AI 角色根据玩家行为做出回应并采取行动。</p></li>
+</ul>
+<h3 id="多模态-gpt"><strong>多模态 GPT</strong></h3>
+<p>多模态 GPT 是基于 <strong>Transformer</strong>
+架构的预训练语言模型（GPT），它能够处理和生成多种模态的数据，如文本、图像、音频等。传统
+GPT 模型专注于自然语言处理，而多模态 GPT
+可以跨越多种模态，将它们结合在一起进行任务处理，如从文本生成图像、理解图文组合等。</p>
+<h4 id="主要特点-1">主要特点：</h4>
+<ul>
+<li><p><strong>多模态输入与输出</strong>：多模态 GPT
+可以处理多种类型的数据。例如，它可以接收图像和文本作为输入，然后生成文本描述，或根据文本输入生成相关图像。</p></li>
+<li><p><strong>基于 Transformer 架构</strong>：多模态 GPT 继承了 GPT 的
+Transformer
+架构，通过大规模的预训练进行自监督学习，从而具备强大的生成和理解能力。</p></li>
+<li><p><strong>生成能力</strong>：多模态 GPT
+强调生成能力，尤其在需要跨模态任务时表现出色，如生成图像、音频或视频，或通过对话生成文本内容。</p></li>
+<li><p><strong>推理与回答</strong>：它可以通过整合不同模态的数据进行复杂的推理和回答，适用于许多生成和理解任务，如图文理解、文本生成等。</p></li>
+</ul>
+<h4 id="举例-1">举例：</h4>
+<ul>
+<li><p><strong>DALL·E</strong>：OpenAI 的 DALL·E 是多模态 GPT
+的一个典型例子，能够根据文字描述生成高质量的图像。</p></li>
+<li><p><strong>CLIP</strong>：CLIP
+是一个多模态模型，可以理解图像和文本之间的关系，通过文本找到相关图像，或通过图像生成对应的文本描述。</p></li>
+</ul>
+<h3 id="智能体-vs-多模态-gpt区别与联系"><strong>智能体 vs 多模态
+GPT：区别与联系</strong></h3>
+<h4 id="区别"><strong>区别</strong></h4>
+<ul>
+<li><strong>核心功能</strong>：
+<ul>
+<li><p><strong>智能体</strong>：侧重于感知环境、决策与行动的闭环循环。智能体可以是物理的（如机器人），也可以是虚拟的（如自动化软件），并且通常需要与动态的环境进行交互。</p></li>
+<li><p><strong>多模态
+GPT</strong>：主要用于处理和生成多种模态的数据（如图像、文本），侧重于模态间的数据理解和生成。它并不具备自主的决策和行动能力。</p></li>
+</ul></li>
+<li><strong>任务性质</strong>：
+<ul>
+<li><p><strong>智能体</strong>：通常任务是交互性的，智能体在动态环境中持续工作，例如自动驾驶、游戏角色
+AI、机器人执行任务等。智能体不仅需要感知，还需要执行行动。</p></li>
+<li><p><strong>多模态
+GPT</strong>：主要任务是生成式或理解式的。例如，生成图像、生成文本回答问题、或理解图文关系。它在一个静态输入的任务上更为强大，但并不在环境中主动采取行动。</p></li>
+</ul></li>
+<li><strong>学习机制</strong>：
+<ul>
+<li><p><strong>智能体</strong>：可能采用强化学习、进化算法等方法来在与环境的互动中学习最优策略。</p></li>
+<li><p><strong>多模态
+GPT</strong>：使用大规模预训练进行自监督学习，主要依赖于大量的跨模态数据进行学习。</p></li>
+</ul></li>
+</ul>
+<h4 id="联系"><strong>联系</strong></h4>
+<ul>
+<li><p><strong>感知能力</strong>：虽然智能体和多模态 GPT
+的主要目标不同，但两者都涉及感知能力。智能体可以使用多模态感知（如视觉、听觉），而多模态
+GPT 直接处理多种模态的数据输入。未来的智能体可能会集成多模态 GPT
+模型，使其在处理复杂多模态数据（如图像、文本）时更加智能。</p></li>
+<li><p><strong>跨模态理解</strong>：多模态 GPT
+可以为智能体提供更强大的理解和生成能力。例如，一个多模态 GPT
+模型可以嵌入到智能体中，使其能够通过文本描述生成视觉信息（如在机器人视觉系统中辅助感知）或根据视觉信息生成文本描述（如在自动驾驶中生成自然语言报告）。</p></li>
+<li><p><strong>语言生成</strong>：某些智能体，例如聊天机器人，可以使用多模态
+GPT 的生成能力来与用户进行自然语言交互，提供图像或文本回答。</p></li>
+</ul>
+<h3 id="总结">总结</h3>
+<ul>
+<li><p><strong>智能体</strong>
+是一个自主的实体，能够感知环境、决策和执行行动，强调的是行动循环和与环境的持续交互。</p></li>
+<li><p><strong>多模态 GPT</strong>
+是一个生成和理解多模态数据的语言模型，强调的是跨模态数据的处理和生成能力。</p></li>
+</ul>
+<p>设计一个 AI
+智能体（Agent）是一个系统化的过程，涉及多个阶段，包括任务定义、感知环境、决策机制、行动执行和学习改进等。以下是详细的步骤来帮助设计一个
+AI 智能体：</p>
+<ul>
+<li><p><strong>明确任务与目标</strong>：清楚智能体的作用和目标。</p></li>
+<li><p><strong>感知模块</strong>：设计感知环境的方式，获取数据。</p></li>
+<li><p><strong>决策模块</strong>：设计如何根据感知的数据做出决策，可以基于规则、规划、机器学习或强化学习。</p></li>
+<li><p><strong>行为执行模块</strong>：设计如何执行智能体的决策。</p></li>
+<li><p><strong>学习与优化</strong>：引入学习机制，让智能体能够根据经验或新数据不断改进。</p></li>
+<li><p><strong>反馈与评估</strong>：持续评估智能体的表现，优化其任务执行效果。</p></li>
+</ul>
 <h1 id="reference">Reference</h1>
 <p><a target="_blank" rel="noopener" href="https://aman.ai/primers/ai/agents/#overview">Distilled
 AI</a></p>

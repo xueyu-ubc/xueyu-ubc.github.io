@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer |  Welcome to XueYu&#39;s Blog
+    Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer, 常用评估指标 |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -60,7 +60,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer
+  Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer, 常用评估指标
 </h1>
  
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">5.4k</span>
+            <span class="post-count">11.8k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">21 min</span>
+            <span class="post-count">44 min</span>
         </span>
     </span>
 </div>
@@ -432,7 +432,6 @@ representations for recognition)</p>
 <h1 id="swin-transformer">Swin Transformer</h1>
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2103.14030">Swin Transformer:
 Hierarchical Vision Transformer using Shifted Windows</a></p>
-<h2 id="introduction-1">Introduction</h2>
 <p>ViT
 始终都是在全图上计算自注意力，计算复杂度是图片大小（像素数量）的平方级。Swin
 transformer
@@ -448,8 +447,318 @@ O(L)\)</span>。因此，swin transformer 可以将复杂度降低到 linear
 computation complexity （相较于图片像素数量）。</p>
 <p><img src="/2024/08/26/Transformer/swin1.jpg?300x300"></p>
 <p><img src="/2024/08/26/Transformer/swin2.jpg?300x300"></p>
-<p>捕捉多尺度的特征。</p>
-<h1 id="references">References:</h1>
+<h1 id="encoder-vs.-decoder-vs.-encoder-decoder">Encoder vs. Decoder vs.
+Encoder-Decoder？</h1>
+<p><a target="_blank" rel="noopener" href="https://discuss.huggingface.co/t/suggestions-and-guidance-finetuning-bert-models-for-next-word-prediction/14043">模型总结</a>
+<img src="./statistic/enc_dec.jpeg"></p>
+<h2 id="编码器模型">编码器模型</h2>
+<p>基于编码器的模型专注于理解输入文本。它们通过在包含重建损坏输入任务的预训练（如掩码部门tokens）中，捕获丰富的上下文信息。<strong>BERT</strong>（双向编码器表示的变换器）是编码器模型的一个重要例子。在
+BERT 中，部分输入标记会被特殊的 [MASK]
+标记替代，模型通过周围的上下文预测这些被掩蔽的标记。这使得 BERT
+能够学习双向表示，从而捕捉标记左侧和右侧的上下文。编码器模型在自然语言理解（NLU）任务中尤其有效，例如文本分类、情感分析和抽取式问答。这些任务受益于模型深刻理解和表示输入文本的能力。</p>
+<p>BERT 可以利用双向语境进行预测 masked
+tokens，相较于自回归模型，使用双向信息可以提高性能。然而，BERT
+在预训练时使用的 [MASK]
+等人工符号在微调时并不存在于真实数据中，这就造成了预训练数据与微调数据分布之间的异质性。此外，由于预测的tokens在输入中被mask，BERT
+无法像自回归那样使用乘积规则建立联合概率模型。换句话说，<strong>BERT
+assumes the predicted tokens are independent of each other given the
+unmasked tokens, which is oversimplified as high-order, long-range
+dependency is prevalent in natural language.
+（在给定其他未被掩码的tokens时，BERT
+对每个被掩盖的单词独立地进行预测，所有需要预测的token之间被假设是相互独立的）</strong></p>
+<p>BERT（及其所有变体，如 RoBERTa、DistilBERT、ALBERT 等）和 XLM
+就是编码器模型的例子。</p>
+<p><img src="./General-Questions-about-LLM/bert.jpg"></p>
+<p><strong>优点：</strong></p>
+<ol type="1">
+<li><strong>上下文依赖性：</strong>
+在BERT等Encoder模型中，模型可以同时获取左右两侧的上下文信息（双向上下文）。相比之下，像GPT这样的自回归模型只能访问当前位置之前的内容（单向上下文）。双向上下文对于理解文本中的复杂依赖关系和语义结构至关重要，因此Encoder模型在许多自然语言处理任务上表现优异。</li>
+<li><strong>丰富的上下文理解：</strong>
+Encoder模型擅长捕捉输入数据中的复杂模式和关系，尤其适合需要深入理解和分析的任务，比如命名实体识别、文本分类、阅读理解等。这使得模型能够更好地理解句子的语义和结构，从而在相关任务中表现出色。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol type="1">
+<li><strong>输入噪声：</strong>
+BERT在预训练阶段使用了人工符号（如[MASK]）来掩盖部分输入单词，但这些符号在实际应用和微调时并不存在。这种差异导致了预训练和微调之间数据分布的异质性，影响模型的迁移能力。</li>
+<li><strong>独立性假设：</strong>
+BERT在预测被掩盖的单词时，假设每个掩盖的单词是独立于其他掩盖词的，只与未被掩盖的单词相关。例如，在句子“it
+shows that the housing crisis was turned into a banking
+crisis”中，如果掩盖了“banking”和“crisis”两个词，模型会分别预测它们，而不考虑二者之间的隐含关系。这种独立性假设限制了模型对掩盖词之间复杂依赖关系的捕捉，影响了在需要更精细理解的任务中的表现。</li>
+</ol>
+<h2 id="解码器模型">解码器模型</h2>
+<p>基于解码器的模型（自回归模型）旨在执行文本生成任务。这些模型一次生成一个token，并使用之前生成的token作为上下文来预测下一个token。<strong>GPT</strong>（生成式预训练变换器）、GPT-2
+和 GPT-3
+是解码器模型的典型例子。这些模型在大规模语料库上进行预训练，以预测句子中的下一个词，从而能够生成连贯且语境相关的文本。解码器模型在自然语言生成（NLG）任务中表现出色，例如语言翻译、文本摘要和对话生成。它们生成流利且上下文适当的文本的能力使其成为从头生成内容任务的理想选择。</p>
+<p>自回归语言模型利用上下文中的词来预测下一个词，通过估计文本语料库的概率分布来实现。具体来说，给定一个文本序列
+$ x = (x_1, , x_T) <span class="math inline">\(，自回归语言建模将似然分解为前向积：\)</span>$
+p(x) = <em>{t=1}^{T} p(x_t | x</em>{&lt;t}) $$</p>
+<p>或者反向的形式： <span class="math display">\[
+p(x) = \prod_{t=1}^{T} p(x_t | x_{&gt;t})
+\]</span></p>
+<p>通常使用<strong>多项式分布</strong>（Multinomial
+Distribution）来建模下一个词的生成过程。这是因为语言模型的目标是根据先前的词预测当前词的概率，而语言中词汇的生成通常是一个离散事件。因此，给定上下文
+$x_{&lt;t} $，下一个词 $ x_t $ 的条件概率可以表示为： <span class="math display">\[
+p(x_t \mid x_{&lt;t}) = \text{softmax}(z_t),
+\]</span> 其中，$ z_t $
+是通过神经网络计算得到的未归一化的得分，通常代表每个词在词汇表中的相对可能性。通过使用
+softmax
+函数，这些得分被转换为一个有效的概率分布，保证所有可能词的概率和为
+1。</p>
+<p>在这种情况下，模型会学习每个条件分布的参数模型（例如神经网络）。由于自回归语言模型只训练编码单向上下文（要么是前向的，要么是后向的），因此它在建模深层双向上下文方面并不有效。下面的图示展示了前向和后向的方向性。</p>
+<p><img src="./General-Questions-about-LLM/auto1.jpg"></p>
+<p><img src="./General-Questions-about-LLM/auto2.jpg"></p>
+<p><strong>优点：</strong></p>
+<ol type="1">
+<li><strong>生成能力强</strong>：自回归语言模型非常适合生成式自然语言处理（NLP）任务。由于它们采用因果注意力机制来预测下一个标记，因此在内容生成方面自然适用。它们能够生成流畅且与上下文相关的文本，这使得它们在需要自然语言生成的任务中表现出色。</li>
+<li><strong>训练数据生成简单</strong>：训练这些模型的数据生成相对简单，因为目标只是预测给定序列中的下一个标记。这利用了语言数据的固有结构，使得数据准备过程更加高效。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol type="1">
+<li><strong>上下文限制</strong>：自回归语言模型只能使用前向上下文或后向上下文，这意味着它们不能同时利用双向上下文。这种限制可能会影响它们在需要深刻理解双向上下文的任务中的表现。例如，在处理复杂句子结构或含义依赖时，缺乏双向上下文可能导致理解不够准确。</li>
+</ol>
+<h3 id="编码器-解码器模型">编码器-解码器模型</h3>
+<p>编码器-解码器模型（也称为seq2seq
+模型）结合了编码器和解码器架构的优势。这些模型使用编码器处理和理解输入序列，使用解码器生成输出序列。这种架构在输入和输出都是序列的任务中特别有效，这些序列可能具有不同的长度或格式，甚至是不同的语言。
+编码器将输入序列转换为固定长度的上下文向量或中间表示，捕捉输入的含义和上下文。解码器然后接收这个上下文向量，逐个标记地生成输出序列，通常采用类似于解码器模型中的自回归技术。</p>
+<ul>
+<li><strong>T5 (Text-To-Text Transfer
+Transformer)</strong>（文本到文本的迁移变换器）是编码器-解码器模型的一个显著例子。T5
+将每个自然语言处理问题都视为一个文本到文本的问题，其中输入和输出都是文本序列。这种方法使
+T5 能够应用于广泛的任务，包括翻译、摘要和问答。<br>
+</li>
+<li><strong>BART (Bidirectional and Auto-Regressive
+Transformers)</strong>（双向自回归变换器）是另一个强大的编码器-解码器模型。BART
+通过使用任意噪声函数破坏文本并学习重建原始文本进行预训练。这使得它在需要基于对输入的理解生成文本的任务（如摘要和对话生成）中非常有效。<br>
+</li>
+<li><strong>BigBird</strong>
+使用稀疏注意力机制来处理较长的序列。这使得它适合处理长文档的任务，如文档分类和长篇问答。</li>
+</ul>
+<p><strong>优点：</strong></p>
+<p>编码器-解码器模型能够同时处理输入的理解和输出的生成，使它们在以下任务中特别有效：</p>
+<ul>
+<li><p>机器翻译：将一种语言翻译成另一种语言。</p></li>
+<li><p>文本摘要：生成文本的简要概述。</p></li>
+<li><p>对话生成：在对话系统中生成合适的回应。</p></li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ol type="1">
+<li><p><strong>计算资源需求高</strong>：编码器-解码器模型通常参数量庞大，尤其是在处理复杂任务时。它们需要大量的计算资源和内存，训练和推理速度可能较慢。</p></li>
+<li><p><strong>长序列处理能力有限</strong>：虽然一些模型（如BigBird）专门针对长序列进行了优化，但传统的编码器-解码器模型在处理非常长的输入时仍然面临挑战，因为它们的输入长度受限。</p></li>
+<li><p><strong>依赖于大量标注数据</strong>：这些模型通常需要大量的高质量标注数据进行训练，这在某些领域可能难以获得。此外，训练过程中数据的多样性和质量直接影响模型的性能。</p></li>
+<li><p><strong>对输入输出长度不匹配的敏感性</strong>：编码器-解码器模型在处理输入和输出长度差异较大的任务时，可能会表现不佳。例如，当输入很长而输出很短时，模型可能难以有效地提取和生成信息。</p></li>
+</ol>
+<h2 id="总结">总结</h2>
+<ul>
+<li>编码器模型在需要理解和解释文本的任务中表现出色。由于其能够捕捉双向上下文，这使得它们适用于理解整个句子或文档上下文至关重要的任务。例如，命名实体识别、情感分析和文本分类等任务都依赖于模型对输入文本的深刻理解。</li>
+<li>解码器模型则非常擅长生成文本，因此非常适合创意任务，如故事生成、聊天机器人回复和文本补全等。它们通过利用先前生成的内容作为上下文来预测下一个词，从而能够生成流畅且与上下文相关的文本。</li>
+<li>编码器-解码器模型提供了一种灵活的架构，可以处理广泛的任务，从机器翻译、文本摘要到复杂的问题回答和文档生成。这种模型能够同时理解和生成文本，使其在需要深刻理解和流利文本生成的任务中非常有效。</li>
+</ul>
+<p>例如，在机器翻译中，编码器处理源语言的输入句子，生成一个上下文向量，而解码器则利用这个上下文向量生成目标语言的翻译。类似地，在文本摘要中，编码器阅读并理解原始文本，而解码器则生成一个简洁的摘要。这种架构的优势在于它能够结合理解和生成的能力，适用于多种自然语言处理任务。</p>
+<h1 id="目标检测的常用评估指标">目标检测的常用评估指标</h1>
+<h2 id="intersection-over-union-iou">Intersection Over Union (IoU)</h2>
+<p><img src="./General-Questions-about-LLM/iou.png"> Image credits to
+<a target="_blank" rel="noopener" href="https://jonathan-hui.medium.com/map-mean-average-precision-for-object-detection-45c121a31173">source.</a></p>
+<p>IoU 越高，拟合效果越好。IoU
+对任何大小和形状的物体都很有效。这一针对每个物体的指标与精确度和召回率共同构成了完整的物体检测指标--平均精确度
+(mAP) 的基础。</p>
+<h3 id="average-precision-ap">Average Precision (AP)</h3>
+<p>目标检测器会生成多个预测结果：每张图片可能包含多个被预测的目标，而需要进行推理的图片也很多。每个预测目标都会被赋予一个置信度，表示检测器对该预测的信心程度。我们可以选择不同的<strong>置信度阈值</strong>，以决定接受哪些预测结果。例如，若将阈值设置为
+0.7，那么只接受置信度大于 0.7
+的预测，低置信度的预测将被舍弃。由于可以选择的阈值很多，使用精确率-召回率曲线进行评估。</p>
+<p>模型越好，其的精确度和召回率就越高：这会将曲线的边界推向顶部和右侧。可以用曲线下的面积来概括模型的性能。这样就得到了一个介于
+0 和 1 之间的数值，数值越大越好。这个指标通常称为平均精度 (AP)。</p>
+<h3 id="mean-average-precision-map">Mean Average Precision (mAP)</h3>
+<p>mAP
+用来衡量模型的整体检测性能。它结合了精确率（precision）和召回率（recall），并对不同类别和不同阈值下的检测结果进行综合评价。这里的类别指的是目标检测任务中模型需要识别的不同目标种类或类型。例如，在物体检测任务中，每个目标物体都属于某个特定类别（如“人”、“车”、“猫”、“狗”等），这些类别就是检测任务中模型需要识别和区分的对象。</p>
+<h4 id="计算过程">计算过程</h4>
+<p>首先，我们只考虑单张图片和单个类别。假设网络在一张图片中预测了 10
+个属于某一类别的目标：每个预测包含一个bounding
+boxes、预测的类别以及预测的置信度（即网络对其预测的信心）。</p>
+<ol type="1">
+<li><p>使用IoU来决定每个预测是否正确。对于每个真实目标和相应的预测，如果同时满足：（1）预测的类别与真实类别匹配；（2）IoU
+大于某个阈值。那么认为该预测是正确的（True
+Positive）。否则，该预测被认为是错误的（False Positive）。</p></li>
+<li><p>将所有的预测按置信度从高到低排序。在表格中，按置信度从高到低排列预测结果，右侧显示累积的精确率和召回率。</p>
+<p><img src="./General-Questions-about-LLM/table1.png"></p></li>
+<li><p>根据这张表格，对于每个置信度（从最大到最小），计算出截至该点的精确度和召回率。将其绘制成图，然后得到该图像和类别的原始精确度-召回率曲线：
+<img src="./General-Questions-about-LLM/graph1.png"></p></li>
+<li><p>将该曲线锯齿平滑化，从而绘制出网络针对该图像和类别的最终精确度-召回曲线。根据平滑后的精确度-召回率曲线计算平均精确度（曲线下的面积）：
+<img src="./General-Questions-about-LLM/graph2.png"> (Images credits
+to <a target="_blank" rel="noopener" href="https://cs230.stanford.edu/section/8/">source</a>)</p></li>
+<li><p>对每张图像和每个类别的 AP
+进行平均，从而得出模型在整个数据集的平均精度 mAP.</p></li>
+</ol>
+<h1 id="文本生成模型的常用评估指标">文本生成模型的常用评估指标</h1>
+<h2 id="困惑度-perplexity">困惑度 Perplexity</h2>
+<p>Perplexity
+衡量语言模型生成文本流畅性和质量的一个常见指标，反映模型对词序预测的准确性。它本质上是模型对给定文本的“不确定性”的度量。困惑度得分越低，说明语言模型在计算给定序列中可能出现的下一个单词时越自信，而困惑度得分越高，说明模型对词的预测较为不确定，生成的文本可能不流畅，或者不符合语言结构。</p>
+<p>熵是随关于机变量的不可预测性或随机性的度量。对于一个离散随机变量
+<span class="math inline">\(x\)</span>，概率分布为 <span class="math inline">\(p(x)\)</span>，其熵定义为 <span class="math display">\[
+H(x) = -\sum_x p(x) \log_2 p(x).
+\]</span>
+基于此，困惑度定义为一个序列的负对数似然的指数平均。具体来说，假设模型为一段文本
+$ (w_1, w_2, ..., w_N)$ 生成概率，困惑度定义为： <span class="math display">\[
+\begin{aligned}
+\text{Perplexity} &amp;= 2^{-\frac{1}{N} \sum_{i=1}^{N} \log_2 P( w_1,
+w_2, ..., w_{i-1}, w_i)} \\
+&amp;= P(w_1, w_2, ..., w_{i-1}, w_i)^{-\frac{1}{N}} = \prod_{i=1}^{N}
+P(w_i | w_1, w_2, ..., w_{i-1})^{-\frac{1}{N}}.
+\end{aligned}
+\]</span> 其中，$ P(w_i | w_1, w_2, ..., w_{i-1}) $ 是模型在前面 <span class="math inline">\(i-1\)</span> 个词的条件下预测第 $ i $
+个词的概率。</p>
+<h2 id="突发性-burstiness">突发性 Burstiness</h2>
+<p>突发性意味着如果一个词在文档中使用了一次，那么它很可能会再次出现。这种现象称为突发性，它表明第二次及之后出现的词的重要性低于第一次出现的词。值得注意的是，词语的突发性与其语义内容呈正相关性：信息量更大的词也往往更加突发。突发性基本上衡量了一段内容的可预测性，体现在句子长度和结构的均一性上。</p>
+<p>通过收集句子长度，将文本中的每个句子按照其包含的单词数计算长度。计算均值（句子长度的平均值）和方差（句子长度的波动程度）。突发性
+<strong>b</strong> 的数学计算公式为：<br>
+<span class="math display">\[
+b = \left( \frac{\sigma_{\tau}}{m_{\tau}} - 1 \right) \left(
+\frac{\sigma_{\tau}}{m_{\tau}} + 1 \right)^{-1}
+\]</span> 其中，<strong>b</strong> 的取值范围在 <span class="math inline">\([-1, 1]\)</span> 之间。</p>
+<p>一般来说，人工智能具有统一有规律的特点。因此可以假设人类作者的突发性高于
+AI 的突发性: <span class="math display">\[
+b_H - b_{AI} \geq 0
+\]</span> 其中，<strong>b_H</strong>
+表示人类作者的平均突发性，<strong>b_{AI}</strong> 表示
+AI（如某个特定的大型语言模型）的平均突发性。</p>
+<p>总之：</p>
+<ul>
+<li><p>Perplexity
+主要用于评估模型的语言流畅性，适合衡量语言模型在生成或预测下一个词时的能力。它衡量的是整个文本的语言建模性能。</p></li>
+<li><p>Burstiness
+则侧重于文本中词语分布的不均匀性，尤其关注某些词或话题在文本中突然集中出现的现象。它更多地用于分析文本结构中的局部特征。</p></li>
+</ul>
+<h2 id="bleu">BLEU</h2>
+<p>BLEU 是双语评估研究（Bilingual Evaluation
+Understudy）的缩写，<strong>主要用于机器翻译</strong>。它通过与一组参考译文进行比较来量化机器翻译文本的质量。BLEU
+分数计算的关键是机器翻译文本中 n-grams （给定文本样本中 n
+个单词的连续序列）的精确度。不过，为了防止因句子较短而高估精确度，BLEU
+包含一个简短度惩罚因子。尽管 BLEU
+被广泛使用，但值得注意的是，<strong>BLEU
+主要关注的是精确度，缺少召回率部分。</strong></p>
+<p>对于 unigram (single word)，精度计算公式为 <span class="math display">\[
+\text{precision} = \frac{Number of correct words in machine
+translation}{Total words in machine translation}.
+\]</span> <strong>Unigram matches tend to measure adequacy while longer
+n-grams matches account for fluency.</strong> 为避免夸大精度，BLEU
+采用修正的精度计算方法。计算方式如下：</p>
+<ol type="1">
+<li><p>对于 n-gram，计算预测序列中所有匹配的 n-gram
+与该序列中所有n-gram的商。 <span class="math display">\[
+p_n = \frac{\sum_{n-gram \in \text{hypothesis}}
+\text{count}_{\text{match}}(n-gram)}{\sum_{n-gram \in \text{hypothesis}}
+\text{count}(n-gram)}.
+\]</span> 示例： <img src="./General-Questions-about-LLM/bleu-unigrams.png"> Image credits
+to <a target="_blank" rel="noopener" href="https://aman.ai/primers/ai/evaluation-metrics/#example-1">source.</a>
+如图所示，对于unigram，计算得到的 <span class="math inline">\(p_n =
+7/9\)</span>.</p></li>
+<li><p>计算得到不同 n-grams 的精度，然后对其对数进行加权平均： <span class="math display">\[
+\text{BLUE}_N = \text{BP} \exp(\sum_{n=1}^{N}w_n \log p_n).
+\]</span></p></li>
+</ol>
+<ul>
+<li>为了防止机器翻译生成的翻译过于简短，增加了简洁性惩罚 BP，BP
+是参考序列和预测训练长度的函数。 <span class="math display">\[
+\text{BP} = \begin{cases}
+1 &amp; \text{if } l_{hyp} &gt; l_{ref} \\
+e^{(1 - \frac{l_{ref}}{l_{hyp}})} &amp; \text{if } l_{hyp} \geq l_{ref}
+\end{cases}
+\]</span> BLEU 分数是一个介于 0 和 1 之间的标量值，0.6 或 0.7
+分是当前可以达到的较好的分数。</li>
+</ul>
+<h2 id="rouge">ROUGE</h2>
+<p>ROUGE 分数代表 <strong>Recall-Oriented Understudy for Gisting
+Evaluation</strong>，最早在《ROUGE: A Package for Automatic Evaluation
+of
+Summaries》中提出，主要用于自动总结的评估，有时也用于机器翻译的评估。</p>
+<p>ROUGE 的关键特征是其对召回率的重视，测量系统生成的摘要中有多少参考
+n-gram 被找出。这使得 ROUGE 尤其适用于需要覆盖关键点的任务。ROUGE
+的变体中，<strong>ROUGE-N</strong> 计算 n-gram
+的重叠情况，<strong>ROUGE-L</strong>
+使用最长公共子序列来衡量句子层级的结构相似性，<strong>ROUGE-S</strong>
+则包含跳跃双字组的统计信息。</p>
+<p><strong>ROUGE-N</strong>: <span class="math display">\[
+\text{ROUGE-N} = \frac{\text{Number of N-grams in both system and
+reference summary}}{\text{Total number of N-grams in reference summary}}
+\]</span></p>
+<p><strong>ROUGE-L</strong>: 或称 <strong>ROUGE-LCS</strong>。
+基于最长公共子序列（LCS）的长度进行评估。为了弥补纯召回率指标（如
+ROUGE-N）的不足，ROUGE-L 通过计算 <span class="math inline">\(F_{\beta}\)</span>
+分数，结合了精确率和召回率。</p>
+<p>ROUGE-LCS的优势在于，它不仅仅关注 n-gram
+的连续词汇重叠，还考虑了序列匹配（即重叠的词不一定需要按照相同顺序出现）。另一个更大的优势是，它自动包含最长的序列内的公共
+n-gram，因此不需要预先定义 n-gram 的长度。 <span class="math display">\[
+\text{ROUGE-LCS} = \frac{(1 + \beta^2) R_{LCS} P_{LCS}}{R_{LCS} +
+\beta^2 P_{LCS}}
+\]</span> 其中： - <strong>LCS(reference,
+hypothesis)</strong>：表示参考文本和生成文本的最长公共子序列。 - <span class="math inline">\(R_{LCS}\)</span>：表示基于参考文本的 LCS
+召回率，公式为 $ $。 - <span class="math inline">\(P_{LCS}\)</span>：表示基于生成文本的 LCS
+精确率，公式为 $ $。</p>
+<p>示例： <img src="./General-Questions-about-LLM/rouge-l.png"> Image
+credits to <a target="_blank" rel="noopener" href="https://aman.ai/primers/ai/evaluation-metrics/#example-1">source.</a>。在该例子中，
+可以计算得到 <span class="math inline">\(R_{LCS} = 7/10\)</span>, <span class="math inline">\(P_{LCS} = 7/9\)</span>, <span class="math inline">\(\text{ROUGE-LCS} = \frac{(1 + \beta^2) 49}{70 +
+\beta^2 63}\)</span></p>
+<h2 id="bertscore">BERTScore</h2>
+<p><strong>BERTScore</strong> 和 <strong>MoverScore</strong>
+是两个用于评估文本生成任务（如机器翻译、文本摘要等）质量的指标，它们基于语义相似性，弥补了传统
+n-gram 匹配方法（如
+BLEU、ROUGE）的不足。这两者通过引入深度学习模型（特别是
+BERT）来捕捉文本的语义信息，更加注重内容的语义一致性。</p>
+<p>BERTScore是一种基于 BERT
+预训练模型的文本评估方法。它通过计算生成文本和参考文本在语义上的相似性，避免了传统
+n-gram 方法忽略语义匹配的不足。BERTScore
+主要是通过比较句子的词嵌入（word embeddings）来衡量语义相似度。</p>
+<h3 id="关键步骤">关键步骤</h3>
+<ol type="1">
+<li><p><strong>词嵌入表示</strong>：使用 BERT
+模型将生成文本和参考文本中的单词转换为高维的向量表示（嵌入表示）。</p></li>
+<li><p><strong>相似性计算</strong>：计算生成文本和参考文本中每个词的嵌入表示的余弦相似度（cosine
+similarity）。</p></li>
+<li><p><strong>匹配</strong>：为每个生成文本中的词找到参考文本中最相似的词，并基于余弦相似度进行匹配。对于候选句子中的每个token，选择与参考句子中任何token的余弦相似度得分最高的token，反之亦然。这些得分用于计算精确度、召回率和
+F1 score。</p></li>
+<li><p><strong>平均相似度</strong>：基于这些匹配，对整个数据集的精确度、召回率和
+F1 分数进行汇总，计算生成文本和参考文本之间的整体相似度分数。</p></li>
+</ol>
+<h3 id="bertscore-的优势">BERTScore 的优势</h3>
+<ul>
+<li><p>能够捕捉到词汇和语义之间的细微差别，特别适合于语义相似但词汇不完全相同的场景。</p></li>
+<li><p>相比于 BLEU 和 ROUGE 等基于 n-gram
+的方法，它更加关注语义层面的匹配，而不仅仅是词汇层面的匹配。</p></li>
+</ul>
+<h2 id="moverscore">MoverScore</h2>
+<p><strong>MoverScore</strong>
+是一种改进的文本相似度评估指标，它将<strong>词移动距离（Word Mover's
+Distance, WMD）</strong>与<strong>BERT
+嵌入</strong>相结合，用来衡量生成文本和参考文本之间的语义差异。MoverScore
+不仅考虑了词汇的相似性，还考虑了将生成文本中的词映射到参考文本中的最小代价。</p>
+<h3 id="关键步骤-1">关键步骤</h3>
+<ol type="1">
+<li><p><strong>词嵌入表示</strong>：与 BERTScore 类似，使用 BERT
+模型将文本中的每个词转换为向量表示。</p></li>
+<li><p><strong>计算词移动距离</strong>：计算生成文本和参考文本之间的词嵌入的最小移动代价，即参考文本中的词映射到生成文本中的词需要“移动”多少距离。</p></li>
+<li><p><strong>匹配得分</strong>：基于词移动距离计算生成文本和参考文本的相似度分数，得分越高表示两者的语义越接近。</p></li>
+</ol>
+<h3 id="moverscore-的优势">MoverScore 的优势</h3>
+<ul>
+<li><p>结合了词嵌入的语义相似度和词移动距离，能有效捕捉句子层次的结构信息和语义变化。</p></li>
+<li><p>对词序、句子结构、语义信息具有更高的鲁棒性，特别适用于更复杂的语言生成任务评估。</p></li>
+</ul>
+<h2 id="对比总结">对比总结</h2>
+<ul>
+<li><p>语义匹配与标记相似性：MoverScore 使用单词移动距离（Word Mover's
+Distance）和预训练嵌入来衡量整体句子级语义相似性。相比之下，BERTScore
+则侧重于使用上下文嵌入的标记级相似性。</p></li>
+<li><p>评估目标：MoverScore
+通过测量词嵌入之间的距离来提供精细的语义评估，而 BERTScore
+则评估标记嵌入的精确度、召回率和 F1 分数。</p></li>
+<li><p>对同义词的鲁棒性：MoverScore
+依赖于嵌入距离，因此对同义词和意译具有固有的鲁棒性，而 BERTScore
+通过上下文嵌入也能很好地处理同义词和意译。</p></li>
+</ul>
+<p>总之，MoverScore 提供了一种sentence-level
+语义相似性测量方法，可以捕捉句子的整体含义和结构，而 BERTScore
+则提供了一种详细的token-level相似性评估方法，重点关注精确度、召回率和 F1
+分数。</p>
+<h1 id="references">References</h1>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://github.com/mli/paper-reading">沐神,
 论文精读</a></p></li>
@@ -539,11 +848,11 @@ Hierarchical Vision Transformer using Shifted Windows</a></p></li>
    
   <nav class="article-nav">
     
-      <a href="/2024/09/04/llama3.1/" class="article-nav-link">
+      <a href="/2024/09/12/VLM/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Llama 3.1
+            VLM
           
         </div>
       </a>
