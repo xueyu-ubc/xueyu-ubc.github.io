@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    LLM Research Papers |  Welcome to XueYu&#39;s Blog
+    AI research works in Feb. 2025 |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -48,58 +48,282 @@
       
     <main class="content on">
       <section class="outer">
-  
-  
-  <article class="articles">
+  <article
+  id="post-AI-papers_202502"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">LLM Research Papers</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2025" class="archive-year">2025</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2025/02/22/ScalingLLMTestTime/" class="archive-article-date">
-  <time datetime="2025-02-22T06:00:00.000Z" itemprop="datePublished">02/22</time>
-</a>
+    <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2025/02/22/ScalingLLMTestTime/"
-    >Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters</a> 
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  AI research works in Feb. 2025
+</h1>
  
 
     </header>
-    
-      
+     
+    <div class="article-meta">
+      <a href="/2025/02/01/AI-papers_202502/" class="article-date">
+  <time datetime="2025-02-01T00:00:00.000Z" itemprop="datePublished">2025-02-01</time>
+</a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/LLM-Research-Papers/">LLM Research Papers</a>
+    <a class="article-category-link" href="/categories/AI-research-works/">AI research works</a>
   </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.2k</span>
+        </span>
+    </span>
 
-    
-    
-  </div>
-</article>
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">5 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
       
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="deepseek-技术路线">DeepSeek 技术路线</h1>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12948">DeepSeek-R1 paper</a></p>
+<p>Blogs:</p>
+<p><a target="_blank" rel="noopener" href="https://hub.baai.ac.cn/view/43236">Sebastian Raschka:
+关于DeepSeek R1和推理模型，我有几点看法</a></p>
+<p><a target="_blank" rel="noopener" href="https://sebastianraschka.com/blog/2025/understanding-reasoning-llms.html">Sebastian
+Raschka: Understanding Reasoning LLMs</a></p>
+<h1 id="googles-ai-white-paper-agents">Google’s AI White Paper
+“Agents”</h1>
+<p><a target="_blank" rel="noopener" href="https://arthurchiao.art/blog/ai-agent-white-paper-zh/#323-tree-of-thoughts-tot">[译]
+AI Agent 白皮书</a></p>
+<h1 id="scaling-llm-test-time-compute-optimally-can-be-more-effective-than-scaling-model-parameters">Scaling
+LLM Test-Time Compute Optimally can be More Effective than Scaling Model
+Parameters</h1>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.03314">paper link</a></p>
+<p>随着 LLMs
+的快速发展，模型的规模（参数量）和计算资源的消耗都在急剧增加。传统上，提升模型性能的主要方法是通过增加模型的参数量（scaling
+model
+parameters）。然而，这种方法不仅需要大量的训练资源，还可能导致推理阶段的计算成本过高。因此，研究者们开始探索如何在推理阶段（test-time）优化计算资源的使用，以在不显著增加模型参数量的情况下提升模型性能。
+这篇论文主要探讨：在不增加模型参数量或训练计算资源的情况下，如何通过合理优化推理阶段的计算资源（scaling
+test-time compute）来提升模型性能。也就是：<strong>If an LLM is allowed
+to use a fixed but non-trivial amount of inference-time compute, how
+much can it improve its performance on a challenging
+prompt?</strong></p>
+<p>作者提出了两种策略来优化推理阶段的计算资源分配，其核心想法是在推理阶段，对于给定的
+prompt，利用额外的计算资源，通过动态调整模型的输出分布，从而生成比直接从
+LLM 中采样更好的结果</p>
+<ul>
+<li><p>Modifying the proposal distribution。对于给定的推理任务，通过 RL
+等微调方法直接优化模型的输出结果。这种方式不会引入额外的 input
+tokens，只是通过 self-critique 和 iterative revision 来改进其输出分布
+proposal distribution。</p></li>
+<li><p>Optimizing the Verifier。Verifier 用于从 proposal distribution
+中选择最优的答案，比如 best-of-N sampling。通过结合训练 process-based
+verifier 或者 process reward model，可以给出更优的方案。</p></li>
+</ul>
+<p>对于每种策略，都有若干种方法来优化推理过程，例如，对于
+Verifier，我们可以选择不同的算法，比如 beam-search, lookahead-search,
+best-of-N。不同方法的有效性可能因具体问题而定。那么对于给定的问题/
+prompt，如何选择最有效的方式来优化推理阶段的计算时间呢？与使用更大规模的预训练模型相比，结果会是怎样？</p>
+<p>针对第一个问题，论文提出了一种推理阶段最优计算策略，旨在为给定的问题和
+test-time compute budget
+下，通过选择最优的超参数，最大化模型在推理阶段的性能。论文给出了优化目标：
+<span class="math display">\[
+\theta^*_{q, y^*(q)}(N) = \arg\max_{\theta} \left( \mathbb{E}_{y \sim
+\text{Target}(\theta, N, q)} [1_{y = y^*(q)}] \right),
+\]</span> 其中，<span class="math inline">\(q\)</span> 为给定的
+prompt，<span class="math inline">\(N\)</span> 为 compute budget，<span class="math inline">\(\theta\)</span> 为超参数，比如 best-of-N sampling
+中的参数 <span class="math inline">\(N\)</span>。<span class="math inline">\(\text{Target}(\theta, N, q)\)</span>
+为语言模型在给定 compute budget <span class="math inline">\(N\)</span>、prompt <span class="math inline">\(q\)</span>下，超参数为 <span class="math inline">\(\theta\)</span> 时的输出分布。 <span class="math inline">\(1_{y = y^*(q)}\)</span> 是指示函数，当模型输出
+<span class="math inline">\(y\)</span> 等于真实答案 <span class="math inline">\(y^*(q)\)</span> 时为1，否则为0。</p>
+<p>直接求解最优策略 <span class="math inline">\(\theta^*_{q,
+y^*(q)}(N)\)</span> 是很难做到的，因此论文引入<strong>问题难度</strong>
+来作为充分统计量，设计一种近似最优策略。在实验环节，通过比较不同方法在不同难度等级问题上的表现，论文进一步说明了可以根据问题难度选择不同的策略来优化推理过程。
+论文通过在验证集上进行难度估计，但是对于一个新的问题，如何估计问题的难度，从而选择针对新问题的计算策略，仍然有待研究。</p>
+<p>一些实验结果发现：</p>
+<ul>
+<li><p><strong><em>The efficacy of any given verifier search method
+depends critically on both the compute budget and the question at hand.
+Specifically, beam-search is more effective on harder questions and at
+lower compute budgets, whereas best-of-N is more effective on easier
+questions and at higher budgets. Moreover, by selecting the best search
+setting for a given question difficulty and test-time compute budget, we
+can nearly outperform best-of-N using up to 4x less test-time
+compute.</em></strong></p></li>
+<li><p><strong><em>There exists a tradeoff between sequential (e.g.
+revisions) and parallel (e.g. standard best-of-N) test-time computation,
+and the ideal ratio of sequential to parallel test-time compute depends
+critially on both the compute budget and the specific question at hand.
+Specifically, easier questions benefit from purely sequential test-time
+compute, whereas harder questions often perform best with some ideal
+ratio of sequential to parallel compute. Moreover, by optimally
+selecting the best setting for a given question difficulty and test-time
+compute budget, we can outperform the parallel best-of-N baseline using
+up to 4x less test-time compute.</em></strong></p></li>
+</ul>
+<p>论文还研究了预训练阶段和推理阶段的计算资源分配问题，给出以下结论：</p>
+<p><strong><em>Test-time and pretraining compute are not 1-to-1
+“exchangeable”. On easy and medium questions, which are within a model’s
+capabilities, or in settings with small inference requirement, test-time
+compute can easily cover up for additional pretraining. However, on
+challenging questions which are outside a given base model’s
+capabilities or under higher inference requirement, pretraining is
+likely more effective for improving performance.</em></strong></p>
+<h1 id="reference">Reference</h1>
+ 
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
+    
 
-  
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2025/02/01/AI-papers_202502/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">推荐系统</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -251,6 +475,23 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">

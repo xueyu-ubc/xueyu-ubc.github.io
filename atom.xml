@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2025-02-22T06:45:51.802Z</updated>
+  <updated>2025-02-25T17:19:01.144Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,29 +17,28 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters</title>
-    <link href="https://xueyu-ubc.github.io/2025/02/22/ScalingLLMTestTime/"/>
-    <id>https://xueyu-ubc.github.io/2025/02/22/ScalingLLMTestTime/</id>
-    <published>2025-02-22T06:00:00.000Z</published>
-    <updated>2025-02-22T06:45:51.802Z</updated>
+    <title>AI research works in Feb. 2025</title>
+    <link href="https://xueyu-ubc.github.io/2025/02/01/AI-papers_202502/"/>
+    <id>https://xueyu-ubc.github.io/2025/02/01/AI-papers_202502/</id>
+    <published>2025-02-01T00:00:00.000Z</published>
+    <updated>2025-02-25T17:19:01.144Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;大模型常用微调方法lora和ptuning的原理&quot;&gt;1.
-大模型常用微调方法LORA和Ptuning的原理&lt;/h2&gt;
-&lt;p&gt;LORA: Low-Rank</summary>
+    <summary type="html">&lt;h1 id=&quot;deepseek-技术路线&quot;&gt;DeepSeek 技术路线&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2501.12948&quot;&gt;DeepSeek-R1 paper&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Blogs:&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
         
       
     
     
     
-    <category term="LLM Research Papers" scheme="https://xueyu-ubc.github.io/categories/LLM-Research-Papers/"/>
+    <category term="AI research works" scheme="https://xueyu-ubc.github.io/categories/AI-research-works/"/>
     
-    
-    <category term="LLM" scheme="https://xueyu-ubc.github.io/tags/LLM/"/>
     
   </entry>
   
