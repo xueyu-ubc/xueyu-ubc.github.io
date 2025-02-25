@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.9k</span>
+            <span class="post-count">1.8k</span>
         </span>
     </span>
 
@@ -99,10 +99,12 @@
        
   <h1 id="aaai21-personalized-cross-silo-federated-learning-on-non-iid-data">[AAAI21]
 Personalized Cross-Silo Federated Learning on Non-IID Data</h1>
-<p>该算法的目标函数为： <img src="/2021/01/21/FLreview/Picbed1613893223.jpg"> 其中，第二项<span class="math inline">\(A(\|\omega_{i} -
+<p>该算法的目标函数为：</p>
+<p><img src="/2021/01/21/FLreview/Picbed1613893223.jpg">
+其中，第二项<span class="math inline">\(A(\|\omega_{i} -
 \omega_{j}\|^{2})\)</span>的作用是使不同节点进行信息交流。该函数的定义如下：
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1614603445(1).png" alt="1614603445(1)"></p>
-<p>作者提出了一个求解上述目标函数的算法-FedAMP，具体如下： <img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893256(1).png" alt="1613893256(1)"></p>
+<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1614603445(1).png"></p>
+<p>作者提出了一个求解上述目标函数的算法-FedAMP，具体如下 ： <img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893256(1).png"></p>
 <p>注意到，函数<span class="math inline">\(A(\cdot)\)</span>中的变量为<span class="math inline">\(\|\omega_{i} -
 \omega_{j}\|^{2}\)</span>，由于是子模型参数距离二范数的平方，在式(3)进行求导时，会出现<span class="math inline">\((\omega_{i} -
 \omega_{j})\)</span>项，进而式(3)可以表示为模型参数 <span class="math inline">\(\omega_{1}^{k-1},...,\omega_{m}^{k-1}\)</span>的线性组合：
@@ -112,19 +114,10 @@ Personalized Cross-Silo Federated Learning on Non-IID Data</h1>
 在云端子模型的参数，可以聚合各个节点的参数<span class="math inline">\(\omega_{1}^{k-1},...,
 \omega_{m}^{k-1}\)</span>信息。计算得到 <span class="math inline">\(u_{i}^{k}\)</span> 后，我们可以根据公式（4）在节点
 <span class="math inline">\(i\)</span> 上更新 <span class="math inline">\(\omega_{i}^{k}\)</span>:</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893769(1).png" alt="1613893769(1)">
-<figcaption aria-hidden="true">1613893769(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893769(1).png"></p>
 <p>借助于<span class="math inline">\(u_{i}\)</span>聚合其他节点的参数，节点<span class="math inline">\(i\)</span>可以获取其他节点的信息。在云端优化完<span class="math inline">\(A(W)\)</span>后，对于每个节点，再利用式(6)优化损失函数<span class="math inline">\(F_{i}(w)\)</span>。</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893796(1).png" alt="1613893796(1)">
-<figcaption aria-hidden="true">1613893796(1)</figcaption>
-</figure>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893828(1).png" alt="1613893828(1)">
-<figcaption aria-hidden="true">1613893828(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893796(1).png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893828(1).png"></p>
 <p>在聚合其他节点参数时，式(5)中不同节点参数的权重为 <span class="math display">\[
 \xi_{i,j} = \alpha_{k}A'(\|\omega_{i}^{k-1} -
 \omega_{j}^{k-1}\|^{2}), \quad (i \ne j)
@@ -175,20 +168,21 @@ for fast federated optimization
 <h1 id="nips20-an-efficient-framework-for-clustered-federated-learning">[NIPS20]
 An Efficient Framework for Clustered Federated Learning</h1>
 <p>作者提出一个迭代的聚类算法，论文假设所有的节点都能够被划分为若干类。由于每个节点所属类别未知，该算法可以交替估计每个节点所属的类别，并且通过梯度下降优化模型参数。论文中的算法可以解决数据分布的异质性问题。但是需要预先给定聚类个数
-<span class="math inline">\(k\)</span>。 <img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613897504(1).png" alt="1613897504(1)"></p>
+<span class="math inline">\(k\)</span>。 <img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613897504(1).png"></p>
 <h1 id="nips20-group-knowledge-transfer-federated-learning-of-large-cnns-at-the-edge">[NIPS20]
 Group Knowledge Transfer: Federated Learning of Large CNNs at the
 Edge</h1>
 <p>作者提出一种新的交替最小化算法，该算法在每个节点上先训练较小的CNN网络，然后通过信息迁移训练一个较大的中心端CNN网络。
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613898317(1).jpg" alt="1613898317(1)"></p>
+<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613898317(1).jpg"></p>
 <p>上图展示了每个节点有一个特征提取器和分类器，可以在单个节点上进行模型训练。进行局部训练后，每个节点生成同样的张量，将其特征输出到中心端进行训练，然后借助于最小化预测标签和真实标签的KD
 损失函数训练参数。为了提升节点模型的表现，中心端会将其预测的标签发送给每个节点，然后每个节点可以基于其预测标签和中心端预测结果的损失函数训练子模型。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613898899(1).png" alt="1613898899(1)"> # [NIPS20] Personalized Federated Learning with
-Moreau Envelopes
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613898899(1).png">
+# [NIPS20] Personalized Federated Learning with Moreau Envelopes
 为了解决异质性问题，作者考虑给每个节点的损失函数添加正则项： <span class="math display">\[
 f_{i}(\theta_{i}) + \frac{\lambda}{2}\|\theta_{i} - w\|^{2}，
 \]</span></p>
-<p>优化问题表示为： <img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613899301(1).jpg" alt="1613899301(1)"></p>
+<p>优化问题表示为：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613899301(1).jpg"></p>
 <h1 id="nips20-tackling-the-objective-inconsistency-problem-in-heterogeneous-federated-optimization">[NIPS20]
 Tackling the Objective Inconsistency Problem in Heterogeneous Federated
 Optimization</h1>
@@ -214,15 +208,9 @@ Distributionally Robust Federated Averaging</h1>
 FAIR RESOURCE ALLOCATION IN FEDERATED LEARNING</h1>
 <p>作者提出 q-FFL
 算法，目的是解决FL中的公平问题：不同节点上的精度均匀。通过最小化一个加权的损失函数，具有较高损失的节点具有较高的权重。</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613901146(1).png" alt="1613901146(1)">
-<figcaption aria-hidden="true">1613901146(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613901146(1).png"></p>
 <p>目标函数：</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613901254(1).png" alt="1613901254(1)">
-<figcaption aria-hidden="true">1613901254(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613901254(1).png"></p>
 <p>具体算法略。 # [ICLR20] DIFFERENTIALLY PRIVATE META-LEARNING</p>
 <h1 id="iclr20-dba-distributed-backdoor-attacks-against-federated-learning">[ICLR20]
 DBA: DISTRIBUTED BACKDOOR ATTACKS AGAINST FEDERATED LEARNING</h1>
