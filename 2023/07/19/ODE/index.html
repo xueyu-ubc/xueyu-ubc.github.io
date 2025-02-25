@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.3k</span>
+            <span class="post-count">2.5k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">14 min</span>
+            <span class="post-count">15 min</span>
         </span>
     </span>
 </div>
@@ -123,12 +123,12 @@ second derivative and doesn't have higher-order terms.</p></li>
 contains forcing term <span class="math inline">\(w(t)\)</span>.</p></li>
 </ul>
 <h2 id="the-solution-to-ode">The solution to ODE</h2>
-<p>It can be divided to two categories: - particular solution: a
-function that satisfies the differential equation and does not contain
-any arbitrary constants.</p>
+<p>It can be divided to two categories:</p>
 <ul>
-<li>general solution: a function that satisfies the differential
-equation and contains free constants.</li>
+<li><p>particular solution: a function that satisfies the differential
+equation and does not contain any arbitrary constants.</p></li>
+<li><p>general solution: a function that satisfies the differential
+equation and contains free constants.</p></li>
 </ul>
 <p>To exactly solve the differential equation, it is necessary to
 combine the general solution with some initial conditions (i.e., <span class="math inline">\(x(t_0)\)</span>, <span class="math inline">\(\frac{d x(t)}{dt} |_{t_0}\)</span>) or some other
@@ -266,37 +266,44 @@ d \tau' d \tau \\
 &amp;=  e^{F t} x(0).  \qquad (\text{Taylor expansion})
 \end{aligned}
 \]</span></p>
-<table style="width:26%;">
-<colgroup>
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr>
-<th style="text-align: left;">For the <strong>multidimensional</strong>
-linear <strong>homogeneous</strong> differential equation with fixed
-initial condition at <span class="math inline">\(t = 0\)</span>: <span class="math display">\[
+<p>For the <strong>multidimensional</strong> linear
+<strong>homogeneous</strong> differential equation with fixed initial
+condition at <span class="math inline">\(t = 0\)</span>: <span class="math display">\[
 \frac{d \vec{x}(t)}{dt} = \mathbf{F} \vec{x}(t),  \vec{x}(0) =
 \text{given}, \qquad (5)
 \]</span> where <span class="math inline">\(\mathbf{F}\)</span> is a
-constant matrix.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Next, let's move to the linear
-<strong>time-invariant</strong> <strong>inhomogeneous</strong>
-differential equations: <span class="math display">\[
+constant matrix.</p>
+<p>We can not use the separation of variables method to solve this
+equation, because the <span class="math inline">\(\vec{x}(t)\)</span> is
+a vector. But we can use the series-based method to solve this equation.
+Similar to the scalar case, we can get a solution of equation (5): <span class="math display">\[
+\vec{x}(t) =  e^{\mathbf{F} t} \vec{x}(0).  \qquad (6)
+\]</span> where the matrix exponential <span class="math inline">\(e^{\mathbf{F} t} = \mathbf{I} + \mathbf{F}t +
+\frac{\mathbf{F}^2 t^2}{2!} + \cdots\)</span>.</p>
+<p>Remark:</p>
+<ul>
+<li><p>The matrix exponential is not the same as the element-wise
+exponential of a matrix. Thus, we can not compute it by using the
+element-wise exponential function.</p></li>
+<li><p>But the matrix exponential function can be found as a built-in
+function in many programming languages, such as MATLAB and
+Python.</p></li>
+<li><p>Another way to compute it analytically, by using the Taylor
+expansion of the matrix exponential function, the Laplace or Fourier
+transform.</p></li>
+</ul>
+<p>Next, let's move to the linear <strong>time-invariant</strong>
+<strong>inhomogeneous</strong> differential equations: <span class="math display">\[
 \frac{d \vec{x}(t)}{dt} = \mathbf{F} \vec{x}(t) + \mathbf{L}
 \vec{w}(t),  \vec{x}(t_0) = \text{given}, \qquad (7)
 \]</span> where <span class="math inline">\(\mathbf{F}\)</span> is a
 constant matrix, <span class="math inline">\(\mathbf{L}\)</span> is a
 constant matrix, and <span class="math inline">\(\vec{w}(t)\)</span> is
-a vector-valued function of time.</td>
-</tr>
-<tr>
-<td style="text-align: left;">First, we can move the <span class="math inline">\(\mathbf{F} \vec{x}(t)\)</span> to the left-hand
-side of the equation and multify both sides with a integrating factor
-<span class="math inline">\(\exp(- \mathbf{F}t)\)</span>, and get <span class="math display">\[
+a vector-valued function of time.</p>
+<p>First, we can move the <span class="math inline">\(\mathbf{F}
+\vec{x}(t)\)</span> to the left-hand side of the equation and multify
+both sides with a integrating factor <span class="math inline">\(\exp(-
+\mathbf{F}t)\)</span>, and get <span class="math display">\[
 \begin{aligned}
 \exp(- \mathbf{F}t) \frac{d \vec{x}(t)}{dt} - \exp(-
 \mathbf{F}t)\mathbf{F} \vec{x}(t) = \exp(- \mathbf{F}t) \mathbf{L}
@@ -314,20 +321,16 @@ above equation as <span class="math display">\[
 \]</span> Then, we can get the solution of equation (7): <span class="math display">\[
 \vec{x}(t) = \exp(\mathbf{F}(t - t_0)) \vec{x}(t_0) + \int_{t_0}^t
 \exp(\mathbf{F}(t - \tau)) \mathbf{L} \vec{w}(\tau) d \tau. \qquad (8)
-\]</span></td>
-</tr>
-<tr>
-<td style="text-align: left;">### Solutions of General Linear ODEs The
-previous section only consider the linear time-invariant differential
-equations(<span class="math inline">\(F\)</span> is a constant). In this
-section, we will consider the general linear differential equations with
-time-varying coefficients.</td>
-</tr>
-<tr>
-<td style="text-align: left;">For the linear
-<strong>homogeneous</strong> <strong>time-varying</strong> differential
-equation with fixed initial condition at <span class="math inline">\(t =
-t_0\)</span>: <span class="math display">\[
+\]</span></p>
+<h3 id="solutions-of-general-linear-odes">Solutions of General Linear
+ODEs</h3>
+<p>The previous section only consider the linear time-invariant
+differential equations(<span class="math inline">\(F\)</span> is a
+constant). In this section, we will consider the general linear
+differential equations with time-varying coefficients.</p>
+<p>For the linear <strong>homogeneous</strong>
+<strong>time-varying</strong> differential equation with fixed initial
+condition at <span class="math inline">\(t = t_0\)</span>: <span class="math display">\[
 \frac{d \vec{x}(t)}{dt} = \mathbf{F}(t) \vec{x}(t), \quad \vec{x}(t_0) =
 \text{given}, \qquad (9)
 \]</span> where <span class="math inline">\(\mathbf{F}(t)\)</span> is a
@@ -350,11 +353,14 @@ following differential properties: <span class="math display">\[
 \mathbf{\Psi}(t, t) &amp;= \mathbf{I}.
 \end{aligned}
 \]</span> In most cases, the transition matrix <span class="math inline">\(\mathbf{\Psi}(t, t_0)\)</span> does not have a
-closed-form solution.</td>
-</tr>
-</tbody>
-</table>
-<p>For the linear <strong>inhomogeneous</strong>
+closed-form solution.</p>
+<table style="width:26%;">
+<colgroup>
+<col style="width: 26%">
+</colgroup>
+<tbody>
+<tr>
+<td>For the linear <strong>inhomogeneous</strong>
 <strong>time-varying</strong> differential equation with fixed initial
 condition at <span class="math inline">\(t = t_0\)</span>: <span class="math display">\[
 \frac{d \vec{x}(t)}{dt} = \mathbf{F}(t) \vec{x}(t) + \mathbf{L}(t)
@@ -367,12 +373,16 @@ general form: <span class="math display">\[
 \vec{x}(t) = \mathbf{\Psi}(t, t_0) \vec{x}(t_0) + \int_{t_0}^t
 \mathbf{\Psi}(t, \tau) \mathbf{L}(\tau) \vec{w}(\tau) d \tau. \qquad
 (13)
-\]</span></p>
-<p>When <span class="math inline">\(\mathbf{F}(t)\)</span> and <span class="math inline">\(\mathbf{L}(t)\)</span> is constant, the solution
+\]</span></td>
+</tr>
+<tr>
+<td>When <span class="math inline">\(\mathbf{F}(t)\)</span> and <span class="math inline">\(\mathbf{L}(t)\)</span> is constant, the solution
 of equation (7) is a special case of (13) and we can verfiy that the
 <span class="math inline">\(\Psi(t, t_0) = \exp(\mathbf{F}(t -
-t_0))\)</span> satisfies properties (10).</p>
-<hr>
+t_0))\)</span> satisfies properties (10).</td>
+</tr>
+</tbody>
+</table>
 <p>Fourier tansforms and Laplace transforms are two useful methods to
 solve inhomogeneous linear time-invariant ODE (Note that
 <strong>time-invariant</strong>).</p>
