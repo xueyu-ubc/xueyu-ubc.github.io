@@ -103,34 +103,7 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <ul>
-<li><a href="#abstract">Abstract</a></li>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#preliminaries">Preliminaries</a>
-<ul>
-<li><a href="#notations-and-problem-setting">Notations and Problem
-Setting</a></li>
-</ul></li>
-<li><a href="#model-propagation">Model Propagation</a>
-<ul>
-<li><a href="#asynchronous-gossip-algorithm">Asynchronous Gossip
-Algorithm</a></li>
-</ul></li>
-<li><a href="#collaborative-learning">Collaborative Learning</a>
-<ul>
-<li><a href="#problem-formulation">Problem Formulation</a></li>
-<li><a href="#asynchronous-gossip-algorithm-1">Asynchronous Gossip
-Algorithm</a></li>
-</ul></li>
-<li><a href="#experiments">Experiments</a>
-<ul>
-<li><a href="#collaborative-linear-classification">Collaborative Linear
-Classification</a></li>
-</ul></li>
-<li><a href="#参考文献">参考文献</a></li>
-</ul>
-<!-- /TOC -->
-<h1 id="abstract">Abstract</h1>
+  <h1 id="abstract">Abstract</h1>
 <p>考虑点对点的协作网络。本文解决的问题是：每个节点如何与具有相似目标的其他节点进行通信来改善本地模型？作者介绍了两种完全去中心化的算法，一种是受标签传播的启发，旨在平滑预先训练好的局部模型；第二种方法，节点基于本地数据核相邻节点进行迭代更新来共同学习和传播。</p>
 <h1 id="introduction">Introduction</h1>
 <p>数据不断产生，当前从数据中提取信息的主要方式是收集所有用户的个人数据于一个服务器上，然后进行数据挖掘。但是，中心化的方式存在一些问题，比如说一些用户拒绝提供个人数据，带宽和设备花费问题。即使一些算法允许数据分布在用户设备上，通常需要中心端来进行聚合和协调。</p>
