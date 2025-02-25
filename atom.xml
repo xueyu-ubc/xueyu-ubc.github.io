@@ -123,34 +123,11 @@
   </entry>
   
   <entry>
-    <title>General Questions about LLM</title>
-    <link href="https://xueyu-ubc.github.io/2024/10/28/General-Questions-about-LLM/"/>
-    <id>https://xueyu-ubc.github.io/2024/10/28/General-Questions-about-LLM/</id>
-    <published>2024-10-28T07:00:00.000Z</published>
-    <updated>2025-02-22T06:35:54.946Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;大模型常用微调方法lora和ptuning的原理&quot;&gt;1.
-大模型常用微调方法LORA和Ptuning的原理&lt;/h2&gt;
-&lt;p&gt;LORA: Low-Rank</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>LLM Alignment</title>
     <link href="https://xueyu-ubc.github.io/2024/10/28/LLM%20Alignment/"/>
     <id>https://xueyu-ubc.github.io/2024/10/28/LLM%20Alignment/</id>
     <published>2024-10-28T07:00:00.000Z</published>
-    <updated>2025-02-25T13:21:13.319Z</updated>
+    <updated>2025-02-25T13:28:50.393Z</updated>
     
     
       
@@ -200,11 +177,11 @@
   </entry>
   
   <entry>
-    <title>VLM</title>
+    <title>Vision-Language Models</title>
     <link href="https://xueyu-ubc.github.io/2024/09/12/VLM/"/>
     <id>https://xueyu-ubc.github.io/2024/09/12/VLM/</id>
     <published>2024-09-12T07:00:00.000Z</published>
-    <updated>2025-02-22T06:38:32.213Z</updated>
+    <updated>2025-02-25T13:26:53.246Z</updated>
     
     
       
@@ -541,6 +518,32 @@ Definitions and Representations&lt;/h1&gt;
     
     
     <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
+    <link href="https://xueyu-ubc.github.io/2021/02/27/GD/"/>
+    <id>https://xueyu-ubc.github.io/2021/02/27/GD/</id>
+    <published>2021-02-27T01:53:22.000Z</published>
+    <updated>2024-08-25T23:35:20.383Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
+Accelerating Stochastic Gradient</summary>
+        
+      
+    
+    
+    
+    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/categories/Machine-Learning/"/>
+    
+    
+    <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
     
   </entry>
   
