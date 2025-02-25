@@ -121,18 +121,18 @@ the future behaviour, given the past and the present, only depends on
 the present and not on the past.</p>
 <p>Markov process is the <strong>continuous-time</strong> version of a
 Markov chain.</p>
-<blockquote>
-<p>Definition 1.[Markov chain] A discrete time stochastic process $ X_0,
-X_1, X_2, <span class="math inline">\(. . . is a Markov chain
-if\)</span>$ P(X_{t} = a_t | X_{t-1} = a_{t-1}, X_{t-2} = a_{t-2}, ...,
-X_0 = a_0) = P(X_{t} = a_t | X_{t-1} = a_{t-1}) = P_{a_{t-1}, a_{t}}
-$$</p>
-</blockquote>
-<p>Remark 1: This is time-homogeneous markov chain, for <span class="math inline">\(\forall t\)</span>, for <span class="math inline">\(\forall a_{t-1}, a_{t} \in \Omega\)</span>, the
+<p><strong>Definition 1. [Markov chain]</strong> A discrete time
+stochastic process $ X_0, X_1, X_2, <span class="math inline">\(. . . is
+a Markov chain if\)</span>$ P(X_{t} = a_t | X_{t-1} = a_{t-1}, X_{t-2} =
+a_{t-2}, ..., X_0 = a_0) = P(X_{t} = a_t | X_{t-1} = a_{t-1}) =
+P_{a_{t-1}, a_{t}} $$</p>
+<p><strong><em>Remark 1</em></strong>: This is time-homogeneous markov
+chain, for <span class="math inline">\(\forall t\)</span>, for <span class="math inline">\(\forall a_{t-1}, a_{t} \in \Omega\)</span>, the
 transition probability <span class="math inline">\(P_{a_{t-1}, a_{t}
 }\)</span> is the same.</p>
-<p>Remark 2: In DDPM, it is not a time-homogeneous chain, as the
-transition probability at t is obtained by a network(t).</p>
+<p><strong><em>Remark 2</em></strong>: In DDPM, it is not a
+time-homogeneous chain, as the transition probability at t is obtained
+by a network(t).</p>
 <p>The state <span class="math inline">\(X_{t}\)</span> depends on the
 previous state <span class="math inline">\(X_{t-1}\)</span> but is
 independent of the particular history <span class="math inline">\(X_{t-2}, X_{t-3},...\)</span>. This is called the
@@ -153,32 +153,26 @@ P_{i,0} &amp; P_{i, 1} &amp; \cdots &amp; P_{i, j} &amp; \cdots\\
 \end{pmatrix}
 \]</span> where <span class="math inline">\(P_{i,j}\)</span> is the
 probability of transition from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span>. <span class="math inline">\(P_{i,j} =
-P(X_{t} = j| X_{t-1} = i), i,j \in \Omega\)</span>. For <span class="math inline">\(i\)</span>, <span class="math inline">\(\sum_{j
-\geq 0} P_{i,j} = 1\)</span>.</p>
+P(X_{t} = j| X_{t-1} = i), i,j \in \Omega\)</span>. For <span class="math inline">\(\forall i\)</span>, <span class="math inline">\(\sum_{j \geq 0} P_{i,j} = 1\)</span>.</p>
 <h1 id="classification-of-states">Classification of States</h1>
 <p>For simplicity, we assume that the state space <span class="math inline">\(\Omega\)</span> is finite. ## Communicating
 class</p>
-<blockquote>
-<p>Definition 2. [Communicating class] A state <span class="math inline">\(j\)</span> is reachable from state <span class="math inline">\(i\)</span> if there exists a positive integer
+<p><strong>Definition 2. [Communicating class]</strong> A state <span class="math inline">\(j\)</span> is reachable from state <span class="math inline">\(i\)</span> if there exists a positive integer
 <span class="math inline">\(n\)</span> such that <span class="math inline">\(P_{i,j}^{(n)} &gt; 0\)</span>. We write <span class="math inline">\(i \rightarrow j\)</span>. If <span class="math inline">\(j\)</span> is reachable from <span class="math inline">\(i\)</span>, and <span class="math inline">\(i\)</span> is reachable from <span class="math inline">\(j\)</span>, then the states <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to
 <strong>communicate</strong>, denoted by <span class="math inline">\(i
 \leftrightarrow j\)</span>. A communicating class <span class="math inline">\(C\)</span> is a <strong>maximal</strong> set of
 states that communicate with each other. <strong>No state in <span class="math inline">\(C\)</span> communicates with any state not in
 <span class="math inline">\(C\)</span>.</strong></p>
-</blockquote>
 <h2 id="irreducible">Irreducible</h2>
-<blockquote>
-<p>Definition 3: A Markov chain is <strong>irreducible</strong> if all
-states belong to <strong>one</strong> communicating class.</p>
-</blockquote>
+<p><strong>Definition 3.</strong> A Markov chain is
+<strong>irreducible</strong> if all states belong to
+<strong>one</strong> communicating class.</p>
 <p>This means that <strong>any state can be reached from any other
 state</strong>. For <span class="math inline">\(\forall i, j \in
 \Omega\)</span>, <span class="math inline">\(P_{i,j} &gt;
 0\)</span>.</p>
-<blockquote>
-<p>Lemma 1. A finite Markov chain is irreducible if and only if its
-graph representation is a strongly connected graph.</p>
-</blockquote>
+<p><strong>Lemma 1.</strong> A finite Markov chain is irreducible if and
+only if its graph representation is a strongly connected graph.</p>
 <h3 id="transient-vs-recurrent-states">Transient vs Recurrent
 states</h3>
 <p>Let <span class="math inline">\(r_{i,j}^{t}\)</span> denote the
@@ -188,12 +182,10 @@ time <span class="math inline">\(t\)</span>. That is, <span class="math display"
 r_{i,j}^{t} = P(X_{t} = j, X_{s} \neq j, \forall 1 \leq s \leq t-1 |
 X_{0} = i)
 \]</span></p>
-<blockquote>
-<p>Definition 4. A state is <strong>recurrent</strong> if <span class="math inline">\(\sum_{t \geq 1} r_{i,i}^{t} = 1\)</span> and it is
-<strong>transient</strong> if <span class="math inline">\(\sum_{t \geq
-1} r_{i,i}^{t} &lt; 1\)</span>. A Markov chain is recurrent if every
-state in the chain is recurrent.</p>
-</blockquote>
+<p><strong>Definition 4.</strong> A state is <strong>recurrent</strong>
+if <span class="math inline">\(\sum_{t \geq 1} r_{i,i}^{t} = 1\)</span>
+and it is <strong>transient</strong> if <span class="math inline">\(\sum_{t \geq 1} r_{i,i}^{t} &lt; 1\)</span>. A
+Markov chain is recurrent if every state in the chain is recurrent.</p>
 <ul>
 <li><p>If state i is recurrent then, once the chain visits that state,
 it will (with probability 1) eventually return to that state. Hence the
@@ -206,20 +198,16 @@ often</strong>, with probability 1.</p></li>
 recurrent) then all states in that class are transient (respectively,
 recurrent).</p></li>
 </ul>
-<blockquote>
-<p>Definition 5. An irreducible Markov chain is called recurrent if at
-least one (equivalently, every) state in this chain is recurrent. An
-irreducible Markov chain is called transient if at least one
-(equivalently, every) state in this chain is transient.</p>
-</blockquote>
+<p><strong>Definition 5.</strong> An irreducible Markov chain is called
+recurrent if at least one (equivalently, every) state in this chain is
+recurrent. An irreducible Markov chain is called transient if at least
+one (equivalently, every) state in this chain is transient.</p>
 <p>Let <span class="math inline">\(\mu_{i} = \sum_{t \geq 1} t \cdot
 r_{i,i}^{t}\)</span> denote the expected time to return to state <span class="math inline">\(i\)</span> when starting at state <span class="math inline">\(i\)</span>.</p>
-<blockquote>
-<p>Definition 6. A state <span class="math inline">\(i\)</span> is
-<strong>positive recurrent</strong> if <span class="math inline">\(\mu_{i} &lt; \infty\)</span> and <strong>null
-recurrent</strong> if <span class="math inline">\(\mu_{i} =
+<p><strong>Definition 6.</strong> A state <span class="math inline">\(i\)</span> is <strong>positive recurrent</strong>
+if <span class="math inline">\(\mu_{i} &lt; \infty\)</span> and
+<strong>null recurrent</strong> if <span class="math inline">\(\mu_{i} =
 \infty\)</span>.</p>
-</blockquote>
 <p>Here we give an example of a Markov chain that has null recurrent
 states. Consider the following markov chain whose states are the
 positive integers.</p>
@@ -241,33 +229,33 @@ when starting at state 1 is <span class="math display">\[
 \mu_{1} = \sum_{t = 1}^{\infty} t \cdot r_{1,1}^{t} = \sum_{t =
 1}^{\infty} \frac{1}{t+1} = \infty.
 \]</span> State 1 is recurrent but null recurrent.</p>
+<p><strong>Lemma 2.</strong> In a finite Markov chain:</p>
 <blockquote>
-<p>Lemma 2. In a finite Markov chain: 1. at least one state is
-recurrent; and 2. all recurrent states are positive recurrent.</p>
+<ol type="1">
+<li>at least one state is recurrent; and</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2" type="1">
+<li>all recurrent states are positive recurrent.</li>
+</ol>
 </blockquote>
 <p>Thus, all states of a finite, irreducible Markov chain are positive
 recurrent.</p>
 <h3 id="periodic-vs-aperiodic-states">Periodic vs Aperiodic states</h3>
-<blockquote>
-<p>Definition 7. A state <span class="math inline">\(j\)</span> in a
-discrete time Markov chain is <strong>periodic</strong> if there exists
-an integer <span class="math inline">\(k&gt;1\)</span> such that <span class="math inline">\(P(X_{t+s}= j | X_t = j) = 0\)</span> unless <span class="math inline">\(s\)</span> is divisible by <span class="math inline">\(k\)</span>. A discrete time Markov chain is
+<p><strong>Definition 7.</strong> A state <span class="math inline">\(j\)</span> in a discrete time Markov chain is
+<strong>periodic</strong> if there exists an integer <span class="math inline">\(k&gt;1\)</span> such that <span class="math inline">\(P(X_{t+s}= j | X_t = j) = 0\)</span> unless <span class="math inline">\(s\)</span> is divisible by <span class="math inline">\(k\)</span>. A discrete time Markov chain is
 periodic if any state in the chain is periodic. A state or chain that is
 not periodic is <strong>aperiodic</strong>.</p>
-</blockquote>
 <p>A state <span class="math inline">\(i\)</span> is periodic means that
 for <span class="math inline">\(s = k, 2k, 3k,...\)</span>, <span class="math inline">\(P(X_{t+s}= j | X_t = j) &gt; 0\)</span>.</p>
 <p><strong>NB: k &gt; 1</strong></p>
 <h3 id="ergodic">Ergodic</h3>
-<blockquote>
-<p>Definition 8. An <strong>aperiodic</strong>, <strong>positive
-recurrent</strong> state is an <strong>ergodic</strong> state. A Markov
-chain is ergodic if all its states are ergodic.</p>
-</blockquote>
-<blockquote>
-<p>Corollary 1. Any finite, irreducible, and aperiodic Markov chain is
-an ergodic chain.</p>
-</blockquote>
+<p><strong>Definition 8.</strong> An <strong>aperiodic</strong>,
+<strong>positive recurrent</strong> state is an <strong>ergodic</strong>
+state. A Markov chain is ergodic if all its states are ergodic.</p>
+<p><strong>Corollary 1.</strong> Any finite, irreducible, and aperiodic
+Markov chain is an ergodic chain.</p>
 <h3 id="stationary-distribution">Stationary distribution</h3>
 <p>Consider the two-state “broken printer” Markov chain:</p>
 <figure>
@@ -297,14 +285,12 @@ distribution. Similarly, we can prove that the distribution of <span class="math
 distribution for any <span class="math inline">\(t\)</span>. Here, <span class="math inline">\(\pi = (\frac{\beta}{\alpha+\beta},
 \frac{\alpha}{\alpha+\beta})\)</span> is called <strong>stationary
 distribution</strong>.</p>
-<blockquote>
-<p>Definition 9. A probability distribution <span class="math inline">\(\pi = (\pi_i)\)</span>, <span class="math inline">\(\sum_{i \in \Omega} \pi_i = 1\)</span>(<strong>row
+<p><strong>Definition 9.</strong> A probability distribution <span class="math inline">\(\pi = (\pi_i)\)</span>, <span class="math inline">\(\sum_{i \in \Omega} \pi_i = 1\)</span>(<strong>row
 vector</strong>) on the state space <span class="math inline">\(\Omega\)</span> is called a <strong>stationary
 distribution</strong> (or an equilibrium distribution) for the Markov
 chain with transition probability matrix <span class="math inline">\(P\)</span> if <span class="math inline">\(\pi =
 \pi P\)</span>, equivalently, <span class="math inline">\(\pi_j =
 \sum_{i \in \Omega}\pi_i P_{i,j}\)</span> for all <span class="math inline">\(j \in \Omega\)</span>.</p>
-</blockquote>
 <ul>
 <li><p>One interpretation of the stationary distribution: if we started
 off a <strong>thousand</strong> Markov chains, choosing each starting
@@ -329,29 +315,28 @@ P =
 \frac{1}{4} &amp; 0 &amp; \frac{3}{4}\\
 0 &amp; \frac{1}{4} &amp; \frac{3}{4}
 \end{pmatrix}
-\]</span></p>
-<ul>
-<li><p>Step 1: Assume $= {_1, _2, _3} $ is a stationary distribution.
-According to the definition 9 of stationary distribution, we need to
-solve the following equations: <span class="math display">\[
+\]</span> - Step 1: Assume $= {_1, _2, _3} $ is a stationary
+distribution. According to the definition 9 of stationary distribution,
+we need to solve the following equations: <span class="math display">\[
 \begin{align*}
 \pi_1 &amp;= \frac{1}{4}\pi_1 + \frac{1}{4}\pi_2, \\
 \pi_2 &amp;= \frac{3}{4}\pi_1 + \frac{1}{4}\pi_3, \\
 \pi_3 &amp;= \frac{3}{4}\pi_2 + \frac{3}{4}\pi_3.
 \end{align*}
 \]</span> Adding the normalising condition <span class="math inline">\(\pi_1 + \pi_2 + \pi_3 = 1\)</span>, we get four
-equations in three unknown parameters.</p></li>
-<li><p>Step 2: Choose one of the parameters, say <span class="math inline">\(\pi_1\)</span>, and solve for the other two
+equations in three unknown parameters.</p>
+<ul>
+<li>Step 2: Choose one of the parameters, say <span class="math inline">\(\pi_1\)</span>, and solve for the other two
 parameters in terms of <span class="math inline">\(\pi_1\)</span>. We
 get <span class="math display">\[
 \pi_1 = \frac{1}{4}\pi_1 + \frac{1}{4}\pi_2 \Rightarrow \pi_2 = 3\pi_1,
 \qquad \pi_3 = 3\pi_2 = 9\pi_1.
-\]</span></p></li>
-<li><p>Step 3: Combining with the normalising condition, we get <span class="math display">\[
+\]</span></li>
+<li>Step 3: Combining with the normalising condition, we get <span class="math display">\[
 \pi_1 + 3\pi_1 + 9\pi_1 = 1 \Rightarrow \pi_1 = \frac{1}{13}, \qquad
 \pi_2 = \frac{3}{13}, \qquad \pi_3 = \frac{9}{13}.
 \]</span> Finally, we get the stationary distribution <span class="math inline">\(\pi = (\frac{1}{13}, \frac{3}{13},
-\frac{9}{13})\)</span>.</p></li>
+\frac{9}{13})\)</span>.</li>
 </ul>
 <h4 id="existence-and-uniqueness">Existence and uniqueness</h4>
 <p>Given a Markov chaine, how can we know whether it has a stationary
@@ -402,57 +387,41 @@ m_{i} = \sum_{j \in \Omega} P_{i,j}h_{j,i},  \qquad \mu_{i} = 1 +
 \sum_{j \in \Omega} P_{i,j}\eta_{j,i}.
 \]</span></li>
 </ul>
-<table style="width:24%;">
-<colgroup>
-<col style="width: 23%">
-</colgroup>
-<tbody>
-<tr>
-<td>&gt; Theorem 1. Consider an irreducible Markov chain (<strong>finite
-or infinite</strong>), &gt; (1) if it is <strong>positive
+<p><strong>Theorem 1.</strong> Consider an irreducible Markov chain
+(<strong>finite or infinite</strong>), (1) if it is <strong>positive
 recurrent</strong>, <span class="math inline">\(\exists\)</span> an
 unique stationary distribution <span class="math inline">\(\pi\)</span>,
 such that <span class="math inline">\(\pi_i =
-\frac{1}{\mu_{i}}\)</span>. &gt; (2) if it is <strong>null
-recurrent</strong> or <strong>transient</strong>, no stationary
-distribution exists.</td>
-</tr>
-<tr>
-<td>Remark: If the chain is <strong>finite</strong> irreducible, it must
-be positive recurrent, thus it has an unique stationary
-distribution.</td>
-</tr>
-<tr>
-<td>Remark: If the Markov chain is not irreducible, we can decompose the
-state space into several communicating classes. Then, we can consider
-each communicating class separately. - If none of the classes are
-positive recurrent, then no stationary distribution exists. - If exactly
-one of the classes is positive recurrent (and therefore closed), then
-there exists a unique stationary distribution, supported only on that
-closed class. - If more the one of the classes are positive recurrent,
-then many stationary distributions will exist.</td>
-</tr>
-<tr>
-<td>Now, we give the proof of Theorem 1. We first prove that if a Markov
+\frac{1}{\mu_{i}}\)</span>. (2) if it is <strong>null recurrent</strong>
+or <strong>transient</strong>, no stationary distribution exists.</p>
+<p><strong><em>Remark</em></strong>: If the chain is
+<strong>finite</strong> irreducible, it must be positive recurrent, thus
+it has an unique stationary distribution.</p>
+<p><strong><em>Remark</em></strong>: If the Markov chain is not
+irreducible, we can decompose the state space into several communicating
+classes. Then, we can consider each communicating class separately. - If
+none of the classes are positive recurrent, then no stationary
+distribution exists. - If exactly one of the classes is positive
+recurrent (and therefore closed), then there exists a unique stationary
+distribution, supported only on that closed class. - If more the one of
+the classes are positive recurrent, then many stationary distributions
+will exist.</p>
+<p>Now, we give the proof of Theorem 1. We first prove that if a Markov
 chain is irreducible and positive recurrent, then there
 <strong>exists</strong> a stationary distribution. Next, we will prove
 the stationary distribution is <strong>unique</strong>. Since the second
 part with the null recurrent or transitive Markov chains is less
 important and more complicated, we will omit it. If you are interested
 in it, you can refer to the book <a target="_blank" rel="noopener" href="https://www.statslab.cam.ac.uk/~james/Markov/">Markov Chains</a>
-by James Norris.</td>
-</tr>
-<tr>
-<td>Proof. (1) Suppose that <span class="math inline">\((X_0, X_1
+by James Norris.</p>
+<p>Proof. (1) Suppose that <span class="math inline">\((X_0, X_1
 ...)\)</span> a recurrent Markov chain, which can be positive recurrent
 or null recurrent. Then we can desigh a stationary distribution as
 follows. (If we can desigh a stationary distribution, then it must be
-existed.)</td>
-</tr>
-<tr>
-<td>Let <span class="math inline">\(\nu_i\)</span> be the expected
-number of visits to <span class="math inline">\(i\)</span> before we
-return back to <span class="math inline">\(k\)</span>, <span class="math display">\[
+existed.)</p>
+<p>Let <span class="math inline">\(\nu_i\)</span> be the expected number
+of visits to <span class="math inline">\(i\)</span> before we return
+back to <span class="math inline">\(k\)</span>, <span class="math display">\[
 \begin{align*}
 \nu_i &amp;= \mathbb{E}(\# \text{visits to $i$ before returning to } k |
 X_0 = k) \\
@@ -460,13 +429,10 @@ X_0 = k) \\
 &amp;= \mathbb{E}\sum_{t = 0}^{M_k - 1} P(X_t = i | X_0 = k)
 \end{align*}
 \]</span> The last equation holds because of $ P(X_0 = i | X_0 = k) = 0$
-and $ P(X_{M_k} = i | X_0 = k) = 0$.</td>
-</tr>
-<tr>
-<td>If we want design a stationary distribution, it must statisfy <span class="math inline">\(\pi P = \pi\)</span> and <span class="math inline">\(\sum_{i \in \Omega}\pi_i = 1\)</span>.</td>
-</tr>
-<tr>
-<td>(a) We first prove that <span class="math inline">\(\nu P =
+and $ P(X_{M_k} = i | X_0 = k) = 0$.</p>
+<p>If we want design a stationary distribution, it must statisfy <span class="math inline">\(\pi P = \pi\)</span> and <span class="math inline">\(\sum_{i \in \Omega}\pi_i = 1\)</span>.</p>
+<ol type="a">
+<li>We first prove that <span class="math inline">\(\nu P =
 \nu\)</span>. <span class="math display">\[
 \begin{align*}
 \sum_{i \in \Omega} \nu_i P_{i,j} &amp;= \mathbb{E}\sum_{i \in \Omega}
@@ -478,7 +444,8 @@ X_{t+1} = j | X_0 = k) \\
 &amp;= \mathbb{E} \sum_{t = 0}^{M_k - 1} \nu_i \\
 &amp;= \nu_j.
 \end{align*}
-\]</span> (b) Next, what we need to do is to normalize <span class="math inline">\(\nu\)</span> to get a stationary distribution. We
+\]</span></li>
+<li>Next, what we need to do is to normalize <span class="math inline">\(\nu\)</span> to get a stationary distribution. We
 have <span class="math display">\[
 \sum_{i \in \Omega} \nu_i = \sum_{i \in \Omega} \mathbb{E} \sum_{t =
 0}^{M_k - 1} P(X_t = i | X_0 = k) =\mathbb{E} \sum_{t = 0}^{M_k -
@@ -486,20 +453,18 @@ have <span class="math display">\[
 \mu_k.
 \]</span> Thus, we can define <span class="math inline">\(\pi_i =
 \nu_i/\mu_k\)</span>, <span class="math inline">\(\pi = \{\pi_i, i \in
-\Omega\}\)</span> is one of the stationary distribution.</td>
-</tr>
-<tr>
-<td>(2) Next, we prove that if a Markov chain is irreducible and
-positive recurrent, then the stationary distribution is
-<strong>unique</strong> and is given by <span class="math inline">\(\pi_j = \frac{1}{\mu_j}\)</span>.</td>
-</tr>
-<tr>
-<td>Given a stationary distribution <span class="math inline">\(\pi\)</span>, if we prove that for all <span class="math inline">\(i\)</span>, <span class="math inline">\(\pi_j ==
+\Omega\}\)</span> is one of the stationary distribution.</li>
+</ol>
+<ol start="2" type="1">
+<li>Next, we prove that if a Markov chain is irreducible and positive
+recurrent, then the stationary distribution is <strong>unique</strong>
+and is given by <span class="math inline">\(\pi_j =
+\frac{1}{\mu_j}\)</span>.</li>
+</ol>
+<p>Given a stationary distribution <span class="math inline">\(\pi\)</span>, if we prove that for all <span class="math inline">\(i\)</span>, <span class="math inline">\(\pi_j ==
 \frac{1}{\mu_j}\)</span>, then we prove that the stationary distribution
-is unique.</td>
-</tr>
-<tr>
-<td>Remember that the expected hitting time: <span class="math display">\[
+is unique.</p>
+<p>Remember that the expected hitting time: <span class="math display">\[
 \eta_{i,j} = 1 + \sum_{k \in \Omega}P_{i,k}\eta_{k,j},  j \ne i  \qquad
 (eq:1)
 \]</span> We multiply both sides of (eq:1) by <span class="math inline">\(\pi_i\)</span> and sum over <span class="math inline">\(i (i \ne j)\)</span> to get <span class="math display">\[
@@ -509,11 +474,9 @@ is unique.</td>
 can rewrite the above equation as <span class="math display">\[
 \sum_{i \in \Omega} \pi_i \eta_{i,j} = \sum_{i \ne j} \pi_i + \sum_{i
 \ne j} \sum_{k \in \Omega} \pi_i P_{i,k}\eta_{k,j}. \qquad (eq:2)
-\]</span></td>
-</tr>
-<tr>
-<td>(The above equality lacks <span class="math inline">\(j\)</span>,
-and we also want to design <span class="math inline">\(\pi_j =
+\]</span></p>
+<p>(The above equality lacks <span class="math inline">\(j\)</span>, and
+we also want to design <span class="math inline">\(\pi_j =
 1/\mu_j\)</span>.) Remember that the expected return time: <span class="math display">\[ \mu_{j} = 1 + \sum_{i \in \Omega}
 P_{j,i}\eta_{i,j}. \qquad (eq:3) \]</span> We multiply both sides of
 (eq:2) by <span class="math inline">\(\pi_j\)</span> to get <span class="math display">\[
@@ -521,12 +484,12 @@ P_{j,i}\eta_{i,j}. \qquad (eq:3) \]</span> We multiply both sides of
 \qquad (eq:4)
 \]</span> Adding (eq:2) and (eq:4), we get <span class="math display">\[
 \begin{align*}
-\sum_{i \in \Omega} \pi_i \eta_{i,j} + \pi_j \mu_{j} &amp;= \sum_{i \in
-\Omega} \pi_i + \sum_{i \in \Omega} \sum_{k \in \Omega} \pi_i
+  \sum_{i \in \Omega} \pi_i \eta_{i,j} + \pi_j \mu_{j} &amp;= \sum_{i
+\in \Omega} \pi_i + \sum_{i \in \Omega} \sum_{k \in \Omega} \pi_i
 P_{i,k}\eta_{k,j} \\
-&amp;= 1 + \sum_{k \in \Omega} \sum_{i \in \Omega}  \pi_i
+  &amp;= 1 + \sum_{k \in \Omega} \sum_{i \in \Omega}  \pi_i
 P_{i,k}\eta_{k,j} \\
-&amp;= 1 +  \sum_{k \in \Omega} \pi_k \eta_{k,j}  \qquad (\text{since}
+  &amp;= 1 +  \sum_{k \in \Omega} \pi_k \eta_{k,j}  \qquad (\text{since}
 \sum_{i \in \Omega} \pi_i P_{i,k} = \pi_k) \\
 \end{align*}
 \]</span> <strong>Since the Markov chain is irreducible and positive
@@ -537,19 +500,16 @@ space.</strong> We can substract <span class="math inline">\(\sum_{k \in
 from both sides of the above equation to get <span class="math display">\[
 \pi_j \mu_{j}=1,
 \]</span> which means <span class="math inline">\(\pi_j =
-1/\mu_j\)</span>. Similarly, we can prove that <span class="math inline">\(\pi_i = 1/\mu_i\)</span> for all <span class="math inline">\(i \in \Omega\)</span>.</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>Theorem 2 (Limit theorem) Consider an irreducible, aperiodic Markov
-chain (maybe infinite), we have <span class="math inline">\(\lim\limits_{t \to \infty} P_{i,j}^{t} =
-\frac{1}{\mu_{j}}\)</span>. Spectially, (1) Suppose the Markov chain is
-positive recurrent. Then <span class="math inline">\(\lim\limits_{t \to
-\infty} P_{i,j}^{t} = \pi_j = \frac{1}{\mu_{j}}\)</span>. (2) Suppose
-the Markov chain is null recurrent or transient. Then there is no limite
-probability.</p>
-</blockquote>
+1/\mu_j\)</span>. Similarly, we can prove that <span class="math inline">\(\pi_i = 1/\mu_i\)</span> for all <span class="math inline">\(i \in \Omega\)</span>.</p>
+<p><strong>Theorem 2. (Limit theorem)</strong> Consider an irreducible,
+aperiodic Markov chain (maybe infinite), we have <span class="math inline">\(\lim\limits_{t \to \infty} P_{i,j}^{t} =
+\frac{1}{\mu_{j}}\)</span>. Spectially,</p>
+<ol type="1">
+<li><p>Suppose the Markov chain is positive recurrent. Then <span class="math inline">\(\lim\limits_{t \to \infty} P_{i,j}^{t} = \pi_j =
+\frac{1}{\mu_{j}}\)</span>.</p></li>
+<li><p>Suppose the Markov chain is null recurrent or transient. Then
+there is no limite probability.</p></li>
+</ol>
 <ul>
 <li>Three conditions for convergence to an equilibrium probability
 distribution: irreducibility, aperiodicity, and positive recurrence. The
@@ -563,52 +523,40 @@ P =
 \end{pmatrix}
 \]</span> where each row is identical.</li>
 </ul>
-<table style="width:7%;">
-<colgroup>
-<col style="width: 6%">
-</colgroup>
-<tbody>
-<tr>
-<td>Define <span class="math inline">\(V_{i,j}^{t} = |\{ n &lt; t | X_n
-= j\}|\)</span>. <span class="math inline">\(V_{i,j}^{t}\)</span> is the
+<p>Define <span class="math inline">\(V_{i,j}^{t} = |\{ n &lt; t | X_n =
+j\}|\)</span>. <span class="math inline">\(V_{i,j}^{t}\)</span> is the
 number of visits to state <span class="math inline">\(j\)</span> before
 time <span class="math inline">\(t\)</span> starting from state <span class="math inline">\(i\)</span>. Then we can interpret <span class="math inline">\(V_{i,j}^{t}/t\)</span> as the proportion of time
-up to time <span class="math inline">\(t\)</span> spent in state <span class="math inline">\(j\)</span>.</td>
-</tr>
-<tr>
-<td>&gt; Theorem 3 [Ergodic theorem] Consider an irreducible Markov
-chain, we have <span class="math inline">\(\lim\limits_{t \to \infty}
-V_{i,j}^{t}/t = \frac{1}{\mu_{j}}\)</span> <strong>almost
-surely</strong>. Spectially, &gt; (1) Suppose the Markov chain is
-positive recurrent. Then <span class="math inline">\(\lim\limits_{t \to
-\infty}  V_{i,j}^{t}/t = \pi_j = \frac{1}{\mu_{j}}\)</span>
-<strong>almost surely</strong>. &gt; (2) Suppose the Markov chain is
-null recurrent or transient. Then $ V_{i,j}^{t}/t $ <strong>almost
-surely</strong> for all <span class="math inline">\(j\)</span>.</td>
-</tr>
-<tr>
-<td><strong>almost surely</strong> means that the convergence
-probability of the event is 1.</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>Theorem 4[Detailed balance condition]. Consider a finite,
-irreducible, and ergodic Markov chain with transition matrix <span class="math inline">\(P\)</span>. If there are nonnegative numbers <span class="math inline">\(\bar{\pi} = (\pi_0, \pi_1, ..., \pi_n)\)</span>
-such that <span class="math inline">\(\sum_{i=0}^{n} \pi_i = 1\)</span>
-and if, for any pair of states <span class="math inline">\(i,
-j\)</span>, <span class="math display">\[
+up to time <span class="math inline">\(t\)</span> spent in state <span class="math inline">\(j\)</span>.</p>
+<p><strong>Theorem 3. [Ergodic theorem]</strong> Consider an irreducible
+Markov chain, we have <span class="math inline">\(\lim\limits_{t \to
+\infty} V_{i,j}^{t}/t = \frac{1}{\mu_{j}}\)</span> <strong>almost
+surely</strong>. Spectially,</p>
+<ol type="1">
+<li><p>Suppose the Markov chain is positive recurrent. Then <span class="math inline">\(\lim\limits_{t \to \infty}  V_{i,j}^{t}/t = \pi_j
+= \frac{1}{\mu_{j}}\)</span> <strong>almost surely</strong>.</p></li>
+<li><p>Suppose the Markov chain is null recurrent or transient. Then $
+V_{i,j}^{t}/t $ <strong>almost surely</strong> for all <span class="math inline">\(j\)</span>.</p></li>
+</ol>
+<p><strong>almost surely</strong> means that the convergence probability
+of the event is 1.</p>
+<p><strong>Theorem 4. [Detailed balance condition]</strong> Consider a
+finite, irreducible, and ergodic Markov chain with transition matrix
+<span class="math inline">\(P\)</span>. If there are nonnegative numbers
+<span class="math inline">\(\bar{\pi} = (\pi_0, \pi_1, ...,
+\pi_n)\)</span> such that <span class="math inline">\(\sum_{i=0}^{n}
+\pi_i = 1\)</span> and if, for any pair of states <span class="math inline">\(i, j\)</span>, <span class="math display">\[
 \pi_i P_{i,j} = \pi_{j} P_{j,i},
 \]</span> then <span class="math inline">\(\bar{\pi}\)</span> is the
 stationary distribution corresponding to <span class="math inline">\(P\)</span>.</p>
-</blockquote>
 <p>Proof. <span class="math display">\[
 \sum_{i} \pi_i P_{i,j} = \sum_{i}\pi_{j} P_{j,i} = \pi_{j}
 \]</span> Thus, <span class="math inline">\(\bar{\pi} =
 \bar{\pi}P\)</span>. Since this is a finite, irreducible, and ergodic
 Markov chain, <span class="math inline">\(\bar{\pi}\)</span> must be the
 unique stationary distribution of the Markov chain.</p>
-<p>Remark: Theorem 2 is a sufficient but not necessary condition.</p>
+<p><strong><em>Remark</em></strong>: Theorem 2 is a sufficient but not
+necessary condition.</p>
 <h2 id="reference">Reference</h2>
 <ul>
 <li>Mitzenmacher, M., &amp; Upfal, E. (2005). Probability and Computing.

@@ -99,16 +99,14 @@
        
   <h1 id="aaai21-personalized-cross-silo-federated-learning-on-non-iid-data">[AAAI21]
 Personalized Cross-Silo Federated Learning on Non-IID Data</h1>
-<p>该算法的目标函数为：</p>
-<p><img src="/2021/01/21/FLreview/Picbed1613893223.jpg">
-其中，第二项<span class="math inline">\(A(\|\omega_{i} -
+<p>该算法的目标函数为： <img src="/2021/01/21/FLreview/Picbed1613893223.jpg"> 其中，第二项<span class="math inline">\(A(\|\omega_{i} -
 \omega_{j}\|^{2})\)</span>的作用是使不同节点进行信息交流。该函数的定义如下：
 <img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1614603445(1).png"></p>
 <p>作者提出了一个求解上述目标函数的算法-FedAMP，具体如下 ： <img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893256(1).png"></p>
 <p>注意到，函数<span class="math inline">\(A(\cdot)\)</span>中的变量为<span class="math inline">\(\|\omega_{i} -
 \omega_{j}\|^{2}\)</span>，由于是子模型参数距离二范数的平方，在式(3)进行求导时，会出现<span class="math inline">\((\omega_{i} -
-\omega_{j})\)</span>项，进而式(3)可以表示为模型参数 <span class="math inline">\(\omega_{1}^{k-1},...,\omega_{m}^{k-1}\)</span>的线性组合：
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893464(1).png"></p>
+\omega_{j})\)</span>项，进而式(3)可以表示为模型参数 <span class="math inline">\(\omega_{1}^{k-1},...,\omega_{m}^{k-1}\)</span>的线性组合：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893464(1).png"></p>
 <p>我们可以将 <span class="math inline">\(u_{i}\)</span> 看作是节点
 <span class="math inline">\(i\)</span>
 在云端子模型的参数，可以聚合各个节点的参数<span class="math inline">\(\omega_{1}^{k-1},...,

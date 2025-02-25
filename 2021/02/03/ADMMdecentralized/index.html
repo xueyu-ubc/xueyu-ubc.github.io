@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.6k</span>
+            <span class="post-count">2.5k</span>
         </span>
     </span>
 
@@ -164,25 +164,16 @@ y_{i}^{j})\}_{j=1}^{m_{i}}\)</span>。允许不同节点的样本量相差很大
 <p>定义 <span class="math inline">\(\Theta = [\theta_{1};
 \theta_{2};...;\theta_{n}] \in \mathbb{R}^{n \times
 p}\)</span>，我们要优化的目标函数为：</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612018569.jpg" alt="1612018569">
-<figcaption aria-hidden="true">1612018569</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612018569.jpg"></p>
 <p>第一项二次函数用来平滑相邻节点的参数，当两个节点间权重越大时，节点间参数越相近；第二项的目的是使具有较高置信度的模型的参数不要太远离各自模型上的参数。具有较低置信度的模型的参数被允许具有较大的偏差，容易被相邻节点影响。<span class="math inline">\(D_{ii}\)</span> 的目的是为了normalization。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612018994(1).png" alt="1612018994(1)"><br>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612019022(1).png" alt="1612019022(1)"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612018994(1).png"><br>
+<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612019022(1).png"></p>
 <p>计算 (4)
 需要知道整个网络的信息以及所有节点的独立模型信息，这对于节点而言是未知的，因为每个节点只知道相邻节点的信息。因此，作者提出下面的迭代形式：</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612019342(1).png" alt="1612019342(1)">
-<figcaption aria-hidden="true">1612019342(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612019342(1).png"></p>
 <p>作者证明，无论初始值 <span class="math inline">\(\Theta(0)\)</span>
 取何值，上述迭代序列收敛到 (4)。(5) 式可以进一步分解为</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612019480(1).png" alt="1612019480(1)">
-<figcaption aria-hidden="true">1612019480(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612019480(1).png"></p>
 <p>考虑一个同步计算：在每一步，每个节点都和其所有相邻节点进行通信，收集它们当前参数，然后使用它们的参数更新上式。同步更新会导致很大的延迟，因为任何节点都必须等剩余节点更新完后才能进行下一步更新。并且，每一步，所有节点都需要和其邻居节点进行通信，降低了算法的效率。所以作者提出一个异步算法。</p>
 <h2 id="asynchronous-gossip-algorithm">Asynchronous Gossip
 Algorithm</h2>
@@ -218,21 +209,15 @@ knowledge. 对于 <span class="math inline">\(j \notin \mathcal{N}_{i}
 \bar{\alpha}c_{l}\theta^{sol}_{l}) \quad(l \in \{i,j\}).
 \]</span></p>
 <p>网络中的其他变量保持不变。作者提出的算法属于 gossip
-algorithms，每个节点每次最多只和一个邻居节点通信。</p>
-<p>作者证明，上述算法可以收敛到使每个节点具有最优参数。</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612340701.jpg" alt="1612340701">
-<figcaption aria-hidden="true">1612340701</figcaption>
-</figure></li>
+algorithms，每个节点每次最多只和一个邻居节点通信。</p></li>
 </ul>
+<p>作者证明，上述算法可以收敛到使每个节点具有最优参数。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612340701.jpg"></p>
 <h1 id="collaborative-learning">Collaborative Learning</h1>
 <p>上述算法先在局部节点上进行学习，然后在进行网络通信。在这部分，作者提出了一个使节点可以同时进行基于局部数据和邻居节点信息更新模型参数的算法。相较于前面的算法，该算法通信成本较高，但是估计精度高于前者。</p>
 <h2 id="problem-formulation">Problem Formulation</h2>
 <p>优化目标：</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612341031(1).png" alt="1612341031(1)">
-<figcaption aria-hidden="true">1612341031(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612341031(1).png"></p>
 <p>注意到，这里的置信度通过 <span class="math inline">\(\mathcal{L}_{i}\)</span> 体现，因为 <span class="math inline">\(\mathcal{L}_{i}\)</span> 为局部节点 <span class="math inline">\(i\)</span> 上所有观测的损失函数和。</p>
 <p>一般情况下，上述问题没有解析解，作者提出一个分散式迭代算法进行求解。</p>
 <h2 id="asynchronous-gossip-algorithm-1">Asynchronous Gossip
@@ -244,34 +229,19 @@ Algorithm</h2>
 <p>令 <span class="math inline">\(\Theta_{i} \in
 \mathbb{R}^{(|\mathcal{N_{i}}|+1)\times p}\)</span> 为变量 <span class="math inline">\(\theta_{j} \in \mathbb{R}^{p}(j \in
 \mathcal{N_{i}} \bigcup \{i\})\)</span> 的集合。定义 <span class="math inline">\(\theta_{j}\)</span> 为 <span class="math inline">\(\Theta_{i}^{j}\)</span>。优化问题(7)重新写为：</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612341938(1).png" alt="1612341938(1)">
-<figcaption aria-hidden="true">1612341938(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612341938(1).png"></p>
 <p>在这个目标函数中，所有的节点相互依赖，因为它们共享一个优化变量 <span class="math inline">\(\in
 \Theta\)</span>。为了使用ADMM，需要将各个节点的优化变量独立，对于每个节点
 <span class="math inline">\(i\)</span>，定义一个local copy <span class="math inline">\(\tilde{\Theta}_{i} \in
 \mathbb{R}^{(|\mathcal{N_{i}}|+1)\times p}\)</span>，添加等式约束：<span class="math inline">\(\tilde{\Theta}_{i}^{i} =
 \tilde{\Theta}_{j}^{i}\)</span>，对于所有的 <span class="math inline">\(i \in [n], j \in \mathcal{N}_{i}\)</span>。</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612342502(1).png" alt="1612342502(1)">
-<figcaption aria-hidden="true">1612342502(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612342502(1).png"></p>
 <p>增广拉格朗日乘子：</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612342580(1).png" alt="1612342580(1)">
-<figcaption aria-hidden="true">1612342580(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612342580(1).png"></p>
 <p>算法如下，假设时刻 <span class="math inline">\(t\)</span> 时节点
 <span class="math inline">\(i\)</span> wakes up，选取邻居节点 <span class="math inline">\(j \in \mathcal{N}_{i}\)</span>，定义 <span class="math inline">\(e = (i,j)\)</span>，</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612342728(1).png" alt="1612342728(1)">
-<figcaption aria-hidden="true">1612342728(1)</figcaption>
-</figure>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612342765(1).png" alt="1612342765(1)">
-<figcaption aria-hidden="true">1612342765(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612342728(1).png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612342765(1).png"></p>
 <h1 id="experiments">Experiments</h1>
 <h2 id="collaborative-linear-classification">Collaborative Linear
 Classification</h2>
@@ -283,10 +253,7 @@ Classification</h2>
 \exp(\cos \phi_{ij} - 1)/\sigma\)</span>，<span class="math inline">\(\sigma =
 0.1\)</span>。权重为负值的将被忽略。每个节点具有随机的训练样本，样本的标签为二元标签，由线性分类模型产生。以概率0.05随机使标签反转，以产生噪音数据。每个节点的损失函数为hinge损失：<span class="math inline">\(l(\theta;(x_{i}, y_{i})) = \max(0,
 1-y_{i}\theta^{T}x_{i})\)</span>。作者评估了模型在100个测试样本上的预测精度。</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612343843(1).png" alt="1612343843(1)">
-<figcaption aria-hidden="true">1612343843(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1612343843(1).png"></p>
 <h1 id="参考文献">参考文献</h1>
 <ul>
 <li>Vanhaesebrouck, P., Bellet, A. &amp; Tommasi, M.. (2017).

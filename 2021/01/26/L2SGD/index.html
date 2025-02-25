@@ -182,10 +182,7 @@ G(\mathbf{x}):= \begin{cases} \frac{\nabla f(\mathbf{x})}{1-p}, &amp;
 每步的更新为: <span class="math display">\[
 \mathbf{x}^{k+1} = \mathbf{x}^{k} - \alpha G(\mathbf{x}).
 \]</span></p>
-<figure>
-<img src="/2021/01/26/L2SGD/l2gd.png" alt="Algorithm 1">
-<figcaption aria-hidden="true">Algorithm 1</figcaption>
-</figure>
+<p><img src="/2021/01/26/L2SGD/l2gd.png"></p>
 <p><span class="math inline">\(\textbf{Lemma 4.2}\)</span> 经过 <span class="math inline">\(k\)</span> 步迭代后，期望的通信次数为 <span class="math inline">\(p(1-p)k\)</span>。</p>
 <h2 id="收敛理论">收敛理论</h2>
 <p>作者首先证明梯度估计量<span class="math inline">\(G(\mathbf{x})\)</span>的期望具有光滑性质，然后证明了算法L2GD的收敛性质。（<span class="math inline">\(\mathbf{x(\lambda)}\)</span>为最优解，定理4.4
