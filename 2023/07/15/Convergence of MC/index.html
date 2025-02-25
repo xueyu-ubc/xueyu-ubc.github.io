@@ -159,8 +159,9 @@ to bound <span class="math inline">\(d_{TV}(P_{x}^{t},
 P_{y}^{t}\)</span>. <span class="math inline">\(x_{t}\)</span> and <span class="math inline">\(y_{t}\)</span> share the same transition
 probability matrix <span class="math inline">\(P\)</span> but start from
 different states. Then we define <span class="math display">\[\bar{d}(t)
-:= \max_{x, y \in \Omega} d_{TV}(P_{x}^{t}, P_{y}^{t})\]</span>.</p>
-<p>Next, we will prove this Lemma: &gt; Lemma 1. &gt; <span class="math display">\[
+:= \max_{x, y \in \Omega} d_{TV}(P_{x}^{t}, P_{y}^{t}).\]</span></p>
+<p>Next, we will prove this Lemma:</p>
+<p><strong>Lemma 1.</strong> <span class="math display">\[
 d(t) \leq \bar{d}(t) \leq 2 d(t).
 \]</span></p>
 <p>Proof: Let's prove the second inequality <span class="math inline">\(\bar{d}(t) \leq 2 d(t)\)</span>. <span class="math display">\[
@@ -193,8 +194,7 @@ P_{y}^{t}(S)）
 <p><span class="math display">\[
 S_{x}^{*} = \arg\max_{S \subset \Omega} \sum_{y \in \Omega}
 \pi(y)（P_{x}^{t}(S) - P_{y}^{t}(S)）
-\]</span></p>
-<p><span class="math display">\[
+\]</span> <span class="math display">\[
 \begin{aligned}
 d(t) &amp;= \max_{x \in \Omega} d_{TV}(P_{x}^{t}, \pi) \\
 &amp;= \max_{x \in \Omega} \max_{S \subset \Omega}|P_{x}^{t}(S) -
@@ -232,23 +232,23 @@ P_{y}^{t}(S))   \qquad (\sum_{y \in \Omega} \pi(y) = 1) \\
 <p><strong>What we have proved is that, <span class="math inline">\(d(t)\)</span> is bounded by <span class="math inline">\(\bar{d}(t)\)</span>, and <span class="math inline">\(\bar{d}(t)\)</span> is controlled by <span class="math inline">\(\max_{x,y \in \Omega} d_{TV}(P_{x}^{t},
 P_{y}^{t})\)</span>. Let's find a way to bound <span class="math inline">\(d_{TV}(P_{x}^{t},
 P_{y}^{t})\)</span>!</strong></p>
-<blockquote>
-<p>Define 1. (Coupling) Assume <span class="math inline">\(x , y \in
-\Omega\)</span>, <span class="math inline">\(x \sim \mu, y \sim
-v\)</span>, <span class="math inline">\(\mu, v\)</span> are two
-distributions. A joint distribution <span class="math inline">\(w(x,
-y)\)</span> on <span class="math inline">\(\Omega \times \Omega\)</span>
-is called <strong>couping</strong> if <span class="math inline">\(\forall x \in \Omega\)</span>, <span class="math inline">\(\sum_{y}w(x, y) = \mu(x)\)</span>, <span class="math inline">\(\forall y \in \Omega\)</span>, <span class="math inline">\(\sum_{x} w(x, y) = v(y)\)</span>.</p>
-</blockquote>
-<blockquote>
-<p>Lemma 2. Consider <span class="math inline">\(\mu, v\)</span> defined
-on <span class="math inline">\(\Omega\)</span>,<br>
-(a) For any coupling <span class="math inline">\(w(x, y)\)</span> of
-<span class="math inline">\(\mu, v\)</span>, <span class="math inline">\(d_{TV}(\mu, v) \leq P(x \ne y)\)</span>.<br>
-(b) There always exists a coupling <span class="math inline">\(w(x,
+<p><strong>Define 1. (Coupling)</strong> Assume <span class="math inline">\(x , y \in \Omega\)</span>, <span class="math inline">\(x \sim \mu, y \sim v\)</span>, <span class="math inline">\(\mu, v\)</span> are two distributions. A joint
+distribution <span class="math inline">\(w(x, y)\)</span> on <span class="math inline">\(\Omega \times \Omega\)</span> is called
+<strong>couping</strong> if <span class="math inline">\(\forall x \in
+\Omega\)</span>, <span class="math inline">\(\sum_{y}w(x, y) =
+\mu(x)\)</span>, <span class="math inline">\(\forall y \in
+\Omega\)</span>, <span class="math inline">\(\sum_{x} w(x, y) =
+v(y)\)</span>.</p>
+<p><strong>Lemma 2.</strong> Consider <span class="math inline">\(\mu,
+v\)</span> defined on <span class="math inline">\(\Omega\)</span>,</p>
+<ol type="a">
+<li><p>For any coupling <span class="math inline">\(w(x, y)\)</span> of
+<span class="math inline">\(\mu, v\)</span>, <span class="math inline">\(d_{TV}(\mu, v) \leq P(x \ne y)\)</span>.</p></li>
+<li><p>There always exists a coupling <span class="math inline">\(w(x,
 y)\)</span> of <span class="math inline">\(\mu, v\)</span> such that
-<span class="math inline">\(d_{TV}(\mu, v) = P(x \ne y)\)</span>.</p>
-</blockquote>
+<span class="math inline">\(d_{TV}(\mu, v) = P(x \ne
+y)\)</span>.</p></li>
+</ol>
 <p>Proof: (a) <span class="math inline">\(\forall z\)</span>, <span class="math inline">\(w(z, z) \leq \sum_{y \in \Omega} w(z, y) =
 \mu(z)\)</span>. Similarly, <span class="math inline">\(w(z, z) \leq
 v(z)\)</span>. Thus, <span class="math inline">\(w(z, z) \leq
@@ -311,17 +311,13 @@ coupling of <span class="math inline">\(\mu, v\)</span>.</p>
 <p>Last but not least, let's begin to prove the nonincreasing property
 of <span class="math inline">\(d(t)\)</span>!! <strong>Almost close to
 the end!! ^o/</strong></p>
-<blockquote>
-<p>Lemma 3. Consider two Markov chains <span class="math inline">\(x^{t}
-\sim P_{x}^{t}\)</span>, <span class="math inline">\(y^{t} \sim
-P_{y}^{t}\)</span>, <span class="math inline">\(x^{t}\)</span> and <span class="math inline">\(y^{t}\)</span> share the same transition
+<p><strong>Lemma 3.</strong> Consider two Markov chains <span class="math inline">\(x^{t} \sim P_{x}^{t}\)</span>, <span class="math inline">\(y^{t} \sim P_{y}^{t}\)</span>, <span class="math inline">\(x^{t}\)</span> and <span class="math inline">\(y^{t}\)</span> share the same transition
 probability matrix <span class="math inline">\(P\)</span> but start from
 different states. If <span class="math inline">\(x^t = y^t\)</span>,
 then <span class="math inline">\(x^{t+1} = y^{t+1}\)</span>, elif <span class="math inline">\(x^t \ne y^t\)</span>, then <span class="math inline">\(x^{t+1} \ne y^{t+1}\)</span>, <span class="math inline">\(x^{t+1}\)</span> and <span class="math inline">\(y^{t+1}\)</span> are independent.</p>
-</blockquote>
-<blockquote>
-<p>Define 2. (Coupling of Markov chains) Consider two Markov chains
-<span class="math inline">\(x^{t} \sim P_{x}^{t}\)</span>, <span class="math inline">\(y^{t} \sim P_{y}^{t}\)</span>, <span class="math inline">\(x^{t}\)</span> and <span class="math inline">\(y^{t}\)</span> share the same transition
+<p><strong>Define 2. (Coupling of Markov chains)</strong> Consider two
+Markov chains <span class="math inline">\(x^{t} \sim P_{x}^{t}\)</span>,
+<span class="math inline">\(y^{t} \sim P_{y}^{t}\)</span>, <span class="math inline">\(x^{t}\)</span> and <span class="math inline">\(y^{t}\)</span> share the same transition
 probability matrix <span class="math inline">\(P\)</span> but start from
 different states. If <span class="math display">\[
 P(y^{t+1} | x^{t}, y^{t}) = P(y^{t+1} | y^{t})
@@ -329,7 +325,6 @@ P(y^{t+1} | x^{t}, y^{t}) = P(y^{t+1} | y^{t})
 P(x^{t+1} | x^{t}, y^{t}) = P(x^{t+1} | x^{t})
 \]</span> then we say <span class="math inline">\(x^{t}\)</span> and
 <span class="math inline">\(y^{t}\)</span> are coupled.</p>
-</blockquote>
 <p>Define <span class="math inline">\(w^{t} := w^{t}(x^t, y^t)\)</span>
 is a coupling of <span class="math inline">\(P_{x}^{t},
 P_{y}^{t}\)</span>, <span class="math inline">\(x^t \sim P_x^t, y \sim
