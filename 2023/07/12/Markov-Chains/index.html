@@ -126,11 +126,11 @@ stochastic process $ X_0, X_1, X_2, <span class="math inline">\(. . . is
 a Markov chain if\)</span>$ P(X_{t} = a_t | X_{t-1} = a_{t-1}, X_{t-2} =
 a_{t-2}, ..., X_0 = a_0) = P(X_{t} = a_t | X_{t-1} = a_{t-1}) =
 P_{a_{t-1}, a_{t}} $$</p>
-<p><strong><em>Remark 1</em></strong>: This is time-homogeneous markov
+<p><strong><em>Remark 1:</em></strong> This is time-homogeneous markov
 chain, for <span class="math inline">\(\forall t\)</span>, for <span class="math inline">\(\forall a_{t-1}, a_{t} \in \Omega\)</span>, the
 transition probability <span class="math inline">\(P_{a_{t-1}, a_{t}
 }\)</span> is the same.</p>
-<p><strong><em>Remark 2</em></strong>: In DDPM, it is not a
+<p><strong><em>Remark 2:</em></strong> In DDPM, it is not a
 time-homogeneous chain, as the transition probability at t is obtained
 by a network(t).</p>
 <p>The state <span class="math inline">\(X_{t}\)</span> depends on the
@@ -361,8 +361,13 @@ h_{i,j} =
 \\
 1 &amp; , &amp; \text{if} \quad  j = i.
 \end{cases}
-\]</span> - Expected hitting time: <span class="math inline">\(\eta_{i,j} = E(H_{j} | X_0 = i) = \sum_{t \geq 0}
-t \cdot r_{i,j}^{t}\)</span>. The expected time until we hit state <span class="math inline">\(j\)</span> starting from state <span class="math inline">\(i\)</span>. We also have <span class="math display">\[
+\]</span></p>
+<ul>
+<li><p>Expected hitting time: <span class="math inline">\(\eta_{i,j} =
+E(H_{j} | X_0 = i) = \sum_{t \geq 0} t \cdot r_{i,j}^{t}\)</span>. The
+expected time until we hit state <span class="math inline">\(j\)</span>
+starting from state <span class="math inline">\(i\)</span>. We also have
+<span class="math display">\[
 \eta_{i,j} =
 \begin{cases}
 1 + \sum_{k \in \Omega}P_{i,k}\eta_{k,j} &amp; , &amp; if j \ne i, \\
@@ -370,22 +375,21 @@ t \cdot r_{i,j}^{t}\)</span>. The expected time until we hit state <span class="
 \end{cases}
 \]</span> (For the first case, we add 1 because we need to consider the
 first step from state <span class="math inline">\(i\)</span> to state
-<span class="math inline">\(k\)</span>.)</p>
-<ul>
-<li>Return time: <span class="math inline">\(M_i = \min \{ t \in \{1,
+<span class="math inline">\(k\)</span>.)</p></li>
+<li><p>Return time: <span class="math inline">\(M_i = \min \{ t \in \{1,
 2,...\}: X_t = i\}\)</span>. It is different from <span class="math inline">\(H_{i}\)</span>, as we exclude time <span class="math inline">\(t = 0\)</span>. It is the first time that the
 chain returns to state <span class="math inline">\(i\)</span> after
-<span class="math inline">\(t = 0\)</span>.</li>
-<li>Return probability: <span class="math inline">\(m_{i} = P(X_t = i  \
-\text{for some} \ n \geq 1 | X_0 = i) = P(M_i &lt; \infty | X_0 = i) =
-\sum_{t&gt;1}r_{i,i}^{t}.\)</span></li>
-<li>Expected return time: <span class="math inline">\(\mu_{i} = E(M_i |
-X_0 = i) = \sum_{t \geq 1} t \cdot r_{i,i}^{t}\)</span>. The expected
+<span class="math inline">\(t = 0\)</span>.</p></li>
+<li><p>Return probability: <span class="math inline">\(m_{i} = P(X_t =
+i  \ \text{for some} \ n \geq 1 | X_0 = i) = P(M_i &lt; \infty | X_0 =
+i) = \sum_{t&gt;1}r_{i,i}^{t}.\)</span></p></li>
+<li><p>Expected return time: <span class="math inline">\(\mu_{i} = E(M_i
+| X_0 = i) = \sum_{t \geq 1} t \cdot r_{i,i}^{t}\)</span>. The expected
 time until we return to state <span class="math inline">\(i\)</span>
 starting from state <span class="math inline">\(i\)</span>. <span class="math display">\[
 m_{i} = \sum_{j \in \Omega} P_{i,j}h_{j,i},  \qquad \mu_{i} = 1 +
 \sum_{j \in \Omega} P_{i,j}\eta_{j,i}.
-\]</span></li>
+\]</span></p></li>
 </ul>
 <p><strong>Theorem 1.</strong> Consider an irreducible Markov chain
 (<strong>finite or infinite</strong>), (1) if it is <strong>positive
@@ -394,10 +398,10 @@ unique stationary distribution <span class="math inline">\(\pi\)</span>,
 such that <span class="math inline">\(\pi_i =
 \frac{1}{\mu_{i}}\)</span>. (2) if it is <strong>null recurrent</strong>
 or <strong>transient</strong>, no stationary distribution exists.</p>
-<p><strong><em>Remark</em></strong>: If the chain is
+<p><strong><em>Remark 3:</em></strong> If the chain is
 <strong>finite</strong> irreducible, it must be positive recurrent, thus
 it has an unique stationary distribution.</p>
-<p><strong><em>Remark</em></strong>: If the Markov chain is not
+<p><strong><em>Remark 4:</em></strong> If the Markov chain is not
 irreducible, we can decompose the state space into several communicating
 classes. Then, we can consider each communicating class separately. - If
 none of the classes are positive recurrent, then no stationary
@@ -555,7 +559,7 @@ stationary distribution corresponding to <span class="math inline">\(P\)</span>.
 \bar{\pi}P\)</span>. Since this is a finite, irreducible, and ergodic
 Markov chain, <span class="math inline">\(\bar{\pi}\)</span> must be the
 unique stationary distribution of the Markov chain.</p>
-<p><strong><em>Remark</em></strong>: Theorem 2 is a sufficient but not
+<p><strong><em>Remark 5:</em></strong> Theorem 2 is a sufficient but not
 necessary condition.</p>
 <h2 id="reference">Reference</h2>
 <ul>
