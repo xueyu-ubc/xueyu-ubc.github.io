@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    FLreview |  Welcome to XueYu&#39;s Blog
+    FL papers |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -60,7 +60,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  FLreview
+  FL papers
 </h1>
  
 
@@ -99,18 +99,10 @@
        
   <h1 id="aaai21-personalized-cross-silo-federated-learning-on-non-iid-data">[AAAI21]
 Personalized Cross-Silo Federated Learning on Non-IID Data</h1>
-<p>该算法的目标函数为： <img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893223.png" alt="1613893223"></p>
-<p>第二项<span class="math inline">\(A(\|\omega_{i} -
-\omega_{j}\|^{2})\)</span>的作用是使不同节点进行信息交流。该函数的定义如下：</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1614603445(1).png" alt="1614603445(1)">
-<figcaption aria-hidden="true">1614603445(1)</figcaption>
-</figure>
-<p>作者提出了一个求解上述目标函数的算法-FedAMP，具体如下：</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893256(1).png" alt="1613893256(1)">
-<figcaption aria-hidden="true">1613893256(1)</figcaption>
-</figure>
+<p>该算法的目标函数为： <img src="/2021/01/21/FLreview/Picbed1613893223.jpg"> 其中，第二项<span class="math inline">\(A(\|\omega_{i} -
+\omega_{j}\|^{2})\)</span>的作用是使不同节点进行信息交流。该函数的定义如下：
+<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1614603445(1).png" alt="1614603445(1)"></p>
+<p>作者提出了一个求解上述目标函数的算法-FedAMP，具体如下： <img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613893256(1).png" alt="1613893256(1)"></p>
 <p>注意到，函数<span class="math inline">\(A(\cdot)\)</span>中的变量为<span class="math inline">\(\|\omega_{i} -
 \omega_{j}\|^{2}\)</span>，由于是子模型参数距离二范数的平方，在式(3)进行求导时，会出现<span class="math inline">\((\omega_{i} -
 \omega_{j})\)</span>项，进而式(3)可以表示为模型参数 <span class="math inline">\(\omega_{1}^{k-1},...,\omega_{m}^{k-1}\)</span>的线性组合：
@@ -145,10 +137,7 @@ non-increasing 函数，所以<span class="math inline">\(A'(\|\omega_{i}^{k-1} 
 TornadoAggregate: Accurate and Scalable Federated Learning via the
 Ring-Based Architecture</h1>
 <p>在这篇文章中，作者提出一种可以提高精度和稳定性的聚合方式，并且讨论了当前已有的各种聚合方式。</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613894143.png" alt="1613894143">
-<figcaption aria-hidden="true">1613894143</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613894143.png"></p>
 <p>作者指出STAR 这种全局聚合结构的稳定性差，相较而言，RING
 结构通过移除全局聚合，解决了STAR稳定性差的问题。但是，RING
 结构在FL中不切实际，假设共 <span class="math inline">\(|N|\)</span>
@@ -163,10 +152,7 @@ FedBoost: Communication-Efficient Algorithms for Federated Learning</h1>
 (h_{1},...,h_{q})\)</span>，本文的目标是学习组合权重 <span class="math inline">\(\alpha = \{ \alpha_{1}, ...,
 \alpha_{q}\}\)</span>，从而得到 <span class="math inline">\(\sum_{k=1}^{q} \alpha_{k}h_{k}\)</span>
 使得损失最小化。</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613895221(1).png" alt="1613895221(1)">
-<figcaption aria-hidden="true">1613895221(1)</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613895221(1).png"></p>
 <h1 id="icml20-fetchsgd-communication-efficient-federated-learning-with-sketching">[ICML20]
 FetchSGD: Communication-Efficient Federated Learning with Sketching</h1>
 <p>作者提出一个新的算法，算法思想为：
@@ -185,10 +171,7 @@ learning</h1>
 Multi-Task Learning MOCHA # [NIPS20] FedSplit: An algorithmic framework
 for fast federated optimization
 作者首先讨论了两种已有算法FedSGD和FedProx算法，作者证明这两种算法都不具有可行的收敛理论保证，因为它们得到的稳定点都不是它们预先要求解的目标函数的解。因此，作者提出FedSplit算法，该算法得到的稳定点是优化问题的最优解。</p>
-<figure>
-<img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613897029.png" alt="1613897029">
-<figcaption aria-hidden="true">1613897029</figcaption>
-</figure>
+<p><img src="https://cdn.jsdelivr.net/gh/sugar-xue/BlogImages@main/Picbed1613897029.png"></p>
 <h1 id="nips20-an-efficient-framework-for-clustered-federated-learning">[NIPS20]
 An Efficient Framework for Clustered Federated Learning</h1>
 <p>作者提出一个迭代的聚类算法，论文假设所有的节点都能够被划分为若干类。由于每个节点所属类别未知，该算法可以交替估计每个节点所属的类别，并且通过梯度下降优化模型参数。论文中的算法可以解决数据分布的异质性问题。但是需要预先给定聚类个数
@@ -396,7 +379,7 @@ ATTACK-RESISTANT FEDERATED LEARNING WITH RESIDUAL-BASED REWEIGHTING</h1>
     <ul>
       <li>
         Copyrights &copy;
-        2021-2024
+        2021-2025
         <i class="ri-heart-fill heart_icon"></i> Xue Yu
       </li>
     </ul>

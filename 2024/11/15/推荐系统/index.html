@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    行测 |  Welcome to XueYu&#39;s Blog
+    推荐系统 |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -49,7 +49,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-行测-言语理解"
+  id="post-推荐系统"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -60,18 +60,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  行测
+  推荐系统
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2024/08/26/%E8%A1%8C%E6%B5%8B-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/" class="article-date">
-  <time datetime="2024-08-25T23:30:00.000Z" itemprop="datePublished">2024-08-26</time>
+      <a href="/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="article-date">
+  <time datetime="2024-11-15T08:00:00.000Z" itemprop="datePublished">2024-11-15</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%A1%8C%E6%B5%8B/">行测</a>
+    <a class="article-category-link" href="/categories/%E7%94%B5%E5%95%86/">电商</a>
   </div>
   
 <div class="word_count">
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.7k</span>
+            <span class="post-count">2.3k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">9 min</span>
+            <span class="post-count">7 min</span>
         </span>
     </span>
 </div>
@@ -97,244 +97,110 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="言语理解">言语理解</h1>
-<p>题型：</p>
+  <h1 id="基本概念">基本概念</h1>
+<h3 id="短期消费指标">短期消费指标</h3>
 <ol type="1">
-<li>中心理解，包括概括中心和文段中心有关。</li>
-<li>细节判断。</li>
-<li>语句连贯，语句排序、语句填空、接语选择</li>
-<li>逻辑填空</li>
+<li>点击率：点击次数/曝光次数。</li>
+<li>点赞率：点赞次数/点击次数。</li>
+<li>收藏率：收藏次数/点击次数。</li>
+<li>转发率：转发次数/点击次数。</li>
+<li>阅读完成率：滑动到底次数/点击次数 <span class="math inline">\(\times\)</span>
+f(笔记长度)，其中使用归一化函数f的原因是长度越长的笔记的阅读完成难度更高。</li>
 </ol>
-<h2 id="中心理解">中心理解</h2>
+<h3 id="北极星指标根本标准线上指标">北极星指标（根本标准，线上指标）</h3>
 <ol type="1">
-<li>提问方式：</li>
+<li>用户规模：日活用户数（DAU)，月活用户数（MAU)。</li>
+<li>消费：人均使用推荐的时长、人均阅读笔记的数量。</li>
+<li>发布：发布渗透率，人均发布量。</li>
 </ol>
+<h3 id="实验流程">实验流程</h3>
+<ol type="1">
+<li>离线实验：收集历史数据，在历史数据上做训练、测试。算法没有部署到产品中，没有跟用户交互，未必可靠，不占用线上资源，</li>
+<li>小流量AB测试：把算法部署到实际产品中，将用户分为实验组和对照组，实验组用新策略，对照组使用旧策略，对比两者的业务指标。</li>
+<li>全流量上线：如果新策略显著优于旧策略，可以加大流量，全面部署。</li>
+</ol>
+<h3 id="推荐系统架构基本概念">推荐系统架构基本概念</h3>
+<ol type="1">
+<li>item：代表信息的容器，可以是一个视频、文章、商品、广告等等。</li>
+<li>消费：用户浏览item所承载的信息，然后发生一系列的消费行为，比如播放、点赞、收藏、关注、转发、购买等等。</li>
+<li>分发：决定将哪些item与用户匹配，展示给用户进行消费的过程。</li>
+<li>打包：将用户能够浏览的信息拼接封装到item这个容器中展示给用户的过程。</li>
+<li>user：消费或者生产item的用户。</li>
+<li>候选：准备推荐给用户消费的item数据索引集合。</li>
+<li>预估：深度学习模型的前向传播过程，计算概率值等信息。</li>
+<li>召回：信息检索的一个过程，通过一个key获得一堆相关的id。</li>
+<li>排序：对召回的id，按照某种分值进行排序。</li>
+<li>数据流：数据整个生命周期的处理过程。</li>
+<li>特征：物理上客观事物所蕴含信息的数学表达。</li>
+<li>样本：用于机器学习模型训练的数据。</li>
+</ol>
+<h1 id="推荐系统架构">推荐系统架构</h1>
+<p>推荐系统的链路：从上亿物品中进行召回得到几千个物品，然后进行粗排得到几百个物品，再经过精排对几百个物品进行打分，最后重排得到几十个物品。</p>
+<h2 id="构建过程">构建过程</h2>
+<h3 id="候选构建">候选构建</h3>
+<p>当文章、视频等内容(item)在发布平台(item
+DB)发布时，经过一些审核与处理后需要将item存储为易于推荐系统查询等格式，通常包括正排索引+倒排索引两种方式。</p>
 <ul>
-<li>这段文字主要/旨在/重在/意在...</li>
-<li>这段文字想要说明/论述/强调的是...</li>
-<li>这段文字的主旨/主题/观点是... ...</li>
+<li>正排索引：以itemID为key，然后将一些相关的属性进行序列化后，存储为key-value形式。</li>
+<li>倒排索引：以某个属性或者计算的tag为key，value是itemID，存储为key-value形式。</li>
 </ul>
-<ol start="2" type="1">
-<li><p>解决思路：<strong><em>寻找中心句 (谁做了什么？)
-注意表述扩大范围、无中生有的不要选择。</em></strong></p></li>
-<li><p>解决技巧：关键词；关键句。</p></li>
-</ol>
-<h3 id="关键词">关键词</h3>
-<p>关联词帮助快速理顺文段脉络、分清句子主次。
-<strong><em>谁做了什么</em></strong></p>
+<p>候选集合本质上是一个易于推荐引擎查询数据的索引结构，提供基础的数据支撑。</p>
+<h3 id="特征工程">特征工程</h3>
+<p>从复杂数据中提取的数学化信息。通过进行特征抽取，可以选择对模型有贡献的属性，并对其进行预处理等，得到最终的特征后持久化地存储到专用的特征存储服务中，并更新一部分正排信息，用于对外提供特征的在线查询。</p>
+<h3 id="召回系统">召回系统</h3>
+<p>如果用户特征和item特征在同一空间，基于用户的兴趣特征与item特征之间的相关性，比如余弦相似度等，选取最有可能排序在前面的item，返回top
+k 的结果。
+真实的召回系统通常要多种召回通道，不同通道关注不同的层面，并行使用，然后将结果统一合并（比如使用蛇形合并）。</p>
+<p>召回通道：协同过滤、双塔模型、关注的作者等等。</p>
+<h3 id="排序系统">排序系统</h3>
+<p>每次召回通常会返回上千条内容（具体数字看具体场景），如果将每条内容都放到大规模模型中进行预估，这会导致推荐的延迟性。因此，会将排序阶段分为粗排和精排两部分。
+首先，在粗排阶段，会使用一些小规模模型进行快速预估打分，将上千条内容在短时间内过滤为几百条。
+然后，在精排阶段，这几百条item会通过一个较大的模型进行预估。这些item特征会组成模型的输入，通过前向传播得到一个输出。比如输出一个分值，该分值表示用户观看该内容后会使得使用时长得到增长。</p>
+<p>粗排筛选+精排打分的搭配，可以使得排序结果在毫秒内返回。</p>
+<h3 id="重排混排系统">重排（混排）系统</h3>
+<p>推荐系统需要考虑推荐内容的多样性，并且需要满足一定的运营能力。为了降低推荐内容的相似性，需要有一定的打散模型，能够在精排阶段选出的几百条内容中得到使得整体收益最大的一个排列组合。</p>
+<p>具体做法有：通过规则系统（比如选取top
+k个item）和精排打分作为剪枝依据，使用dfs遍历每一种可能的排序组合形式。将每一种排序组合作为输入，通过一个重排模型，得到对该排序list的打分。最终选择得分最高的一个list进行返回。</p>
+<p>混排：根据一定的规则，插入广告等，然后遍历所有可能的排序方式（比如广告数量、插入顺序等），最后返回得分最高的一个排序方式。</p>
+<p>总之，先进行多样性抽样（MMR,DPP等），从几百篇中选取几十篇。然后用规则打散相似笔记。再插入广告、运营推广等内容，根据生态要求调整排序。</p>
+<h3 id="消重系统">消重系统</h3>
+<p>用户在一段时间内不能看到相同的内容，因此需要一个系统记录当前用户已浏览过的内容，并在召回后将其过滤掉。进而保证了送入排序阶段的内容都是用户没有浏览过的新内容。</p>
+<h2 id="召回">召回</h2>
+<h3 id="基于物品等协同过滤itemcf">基于物品等协同过滤（ItemCF)</h3>
+<p>ItemCF:
+在给用户推荐item时，综合考虑新item与用户已使用item之间的相似度以及用户对已使用item的喜好程度。</p>
+<p>已知用户user对物品 <span class="math inline">\(item_j(j =
+1,...,n)\)</span>的喜好打分 <span class="math inline">\(like(user,
+item_j)\)</span>，并且可以计算得到新的item与 <span class="math inline">\(item_j(j = 1,...,n)\)</span> 之间的相似度 <span class="math inline">\(sim(item_j, item)\)</span>，简单的预估计算公式为：
+<span class="math display">\[
+\sum_j like(user, item_j) \times sim(item_j, item).
+\]</span></p>
+<p>关于物品的相似度，可以根据受众用户相似度（交集）等计算得到。</p>
+<p>事先离线计算（需要维护两个索引，计算量大）：</p>
 <ol type="1">
-<li>转折关联词 -
-<strong><em>转折之后是重点，转折之前不能选。</em></strong></li>
+<li><p>用户-物品索引：记录每个用户最近点击、交互过的物品id（格式为：用户-物品id+喜好分数列表）。对于给定的任意用户id,可以找到他最近感兴趣的物品列表。</p></li>
+<li><p>物品-物品索引：计算物品之间两两相似度，对于任意物品，可以快速返回与它最相似的k个物品。格式为：物品-物品id+相似度列表）</p></li>
 </ol>
-<p>虽然...,但是/然而/事实上/不过/其实/可是/却...;</p>
-<ol start="2" type="1">
-<li>关键词之主题词</li>
-</ol>
-<ul>
-<li><p>主题词是文段的切入点和叙述的核心话题，抓住主题词就能快速、准确找到文段中心，对应正确选项。</p></li>
-<li><p>如何找主题词：所围绕的词；高频出现的词。</p></li>
-<li><p>偏离主题的不能选择。</p></li>
-</ul>
-<ol start="3" type="1">
-<li>因果关联词 - <strong><em>结果是重点</em></strong></li>
-</ol>
-<p>标志词包括： - 因果：因为...,所以...。因此，因而，故而，于是等等。 -
-指代词：对此、这，这种、在这个意义上等。 -
-同意替换：换而言之、换句话说。</p>
-<p>以上后面的关联词表示结果关系，结果是重点！</p>
-<ol start="4" type="1">
-<li>递进关联词 - <strong><em>递进之后内容是重点</em></strong></li>
-</ol>
-<p>不但...,
-而且...。更，特别是，尤其，致命，核心，突出，根本的是等常见词。</p>
-<ol start="5" type="1">
-<li>并列关联词 - <strong><em>识别并列，归纳概括总结</em></strong></li>
-</ol>
-<ul>
-<li><p>有标志词：标点符号（；，、）；
-和、与、也、同时、另外、此外、加上等。一方面、另一方面等等。</p></li>
-<li><p>无标志词：句式相同，排比句，</p></li>
-</ul>
-<h2 id="句子成分">句子成分</h2>
+<p>线上召回（利用两个索引，计算量相对较小）：</p>
 <ol type="1">
-<li><p>背景铺垫，交代事件事物发生的背景，通过背景引出话题。<strong><em>围绕背景的选项不用选择</em></strong></p></li>
-<li><p>概念类，对文段中的概念进行解释说明。</p></li>
-<li><p>举例类，通过列举具体实例来论证自己的观点。常见表述：（1）标志词：比如/譬如/例如/拿什么来说；（2）
-非标志词：人名、专业术语、数据等。<strong><em>举例子解释的是观点，围绕举例子的选项不选。</em></strong></p></li>
-<li><p>原因解释。对某个结果或者某个现象进行具体的解释。<strong><em>所解释的结果/对象是重点。原因解释内的选项，一般不能选择。</em></strong></p></li>
-<li><p>问题类，指出某些不足或矛盾，是需要解决的对象。</p></li>
-<li><p>对策类。描述中有问题，如果有对策选项，那么选对策，否则选问题。</p></li>
+<li><p>对于给定的用户id，通过用户-物品索引，找到用户近似感兴趣的物品列表。</p></li>
+<li><p>对于列表中的每个物品，通过物品-物品的索引，找到top-<span class="math inline">\(k\)</span>相似物品。</p></li>
+<li><p>假设列表中有<span class="math inline">\(n\)</span>个物品，那么取回的相似物品最多有 <span class="math inline">\(nk\)</span>个，通过上述公式预估用户对物品的兴趣分数。</p></li>
+<li><p>返回分数最高的top-<span class="math inline">\(k\)</span>的物品，作为推荐结果。</p></li>
 </ol>
-<h2 id="细节判断题">细节判断题</h2>
-<ol type="1">
-<li>看清提问，选是还是选非；</li>
-<li>勾画文段句子主体；</li>
-<li>勾画选项主体；</li>
-<li>文选对比。</li>
-</ol>
-<p>有可能出现： 1. 无中生有。某个话题未提及。 2.
-偷换概念。包括扩大、缩小、替换、混搭。 3.
-偷换/强加逻辑。将某一逻辑关系偷换为另一逻辑关系。 4.
-偷换时态。时态词。过去时、完成时、将来时。 5.
-偷换语气、程度。可能/必须，一定/或许。</p>
-<p>细节判断，如果出现中心句，属于中心理解式细节判断。</p>
-<h2 id="语句填空">语句填空</h2>
-<p>要保证文段核心话题的一致性，内容的一致性。 1. 横线开头，总领全文。 2.
-横线在中间，承上启下。 3. 横线在结尾，总结全文。</p>
-<h2 id="接语选择">接语选择</h2>
-<p>围绕尾句话题展开的为正确选项。</p>
-<p>最不可能讲述的是。。， 选择文中已经讲述过的。</p>
-<ol type="1">
-<li>尾句有关联标志词的，比如转折、递进、结果。直接围绕尾句话题展开即可。</li>
-<li>尾句无关联标志词的，如果为对策性表述，则围绕对策展开；如果是问题性表述，则围绕问题展开。</li>
-</ol>
-<h2 id="语句排序">语句排序</h2>
-<ol type="1">
-<li>先观察选项布局。</li>
-<li>确定、对比首句：背景引入、下定义、话题概念范围（概念范围大者比小者更适合做首句）</li>
-<li>尾句对比。</li>
-<li>代入验证。</li>
-</ol>
-<h2 id="逻辑填空">逻辑填空</h2>
-<ol type="1">
-<li>尊重语义，尊重文段。</li>
-<li>关注搭配主体。比如，成绩不断<strong>逼近</strong>人体能力的极限。</li>
-</ol>
-<h1 id="资料分析">资料分析</h1>
-<h2 id="速算技巧">速算技巧</h2>
-<h3 id="估算的原则">估算的原则</h3>
-<p>保留三位有效数字的误差上限为 <span class="math inline">\(5‰\)</span>，保留两位有效数字的误差上限为 <span class="math inline">\(5\%\)</span>。</p>
-<p>判断原则： 1. 首位均不同，保留两位即可；首位有相同的，保留三位。 2.
-看选项。选项之间误差在 <span class="math inline">\(10\%\)</span>以上，保留两位即可；选项之间误差在
-<span class="math inline">\(10\%\)</span>以内，保留三位。 3.
-看选项。如果选项首位都不同，只关注首位是什么即可。</p>
-<h3 id="截位直除法">截位直除法</h3>
-<p>一步除法：<strong>只估算分母</strong>即可。</p>
-<p>多步连除：分子分母同时截位。比如 <span class="math inline">\((a/b)/(c/d)\)</span>.</p>
-<h3 id="估算法">估算法</h3>
-<p>乘法估算：乘法一大一小，按照比例增加或减少。</p>
-<p>特殊分数：<span class="math inline">\(1/6=16.7\%, 1/7=14.3\%,
-1/8=12.5\%, 1/9=11.1\%\)</span>.</p>
-<h1 id="判断推理">判断推理</h1>
-<h2 id="图形推理">图形推理</h2>
-<p>图像推理的考点：位置规律，样式规律，属性规律，数量规律，特殊规律，空间重构，立体图形。</p>
-<h3 id="位置规律">位置规律</h3>
-<p><strong>元素组成相同，优先考虑位置规律。</strong></p>
-<p>位置主要有两种： 1.
-平移。方向（直线（上下、左右、斜对角线）、绕圈（顺逆时针））。常见步数（恒定、等差递增）。
-2.
-旋转（顺时针、逆时针，常见角度：45，90，180）、翻转（左右翻转、上下翻转）。</p>
-<p>上下、左右翻转属于转动。</p>
-<h3 id="样式规律">样式规律</h3>
-<p><strong>元素组成相似时，比如相同线条重复出现。</strong></p>
-<ol type="1">
-<li>加减同异</li>
-</ol>
-<ul>
-<li>相加、相减；</li>
-<li>去同存异；（重点，主要是线的变化，“消消乐”）</li>
-<li>去异求同；</li>
-</ul>
-<p>先横着看，没有规律的话再竖着看，再从下往上看或者米字形/s型开。</p>
-<ol start="2" type="1">
-<li>黑白运算</li>
-</ol>
-<ul>
-<li>特征：图形轮廓和分割区域相同，内部的颜色不同</li>
-<li>方法：相同位置运算</li>
-</ul>
-<p>同颜色方块数量相同，优先考虑平移；同颜色方块数量不同，优先考虑黑白运算。比如
-黑块+白块=白块，黑块+黑块=黑块等类似定义运算。</p>
-<h3 id="属性规律">属性规律</h3>
-<p><strong>元素组成不相同、不相似时，优先考虑属性规律。先看是否具有对称性，如果没有看曲直性、开闭性。</strong></p>
-<ol type="1">
-<li>对称性。（对称轴方向（依次旋转）和数量），轴对称，中心对称。</li>
-</ol>
-<p>中心对称：把一个图形绕着某个点旋转180度，如果图形重合，那么该图形叫做中心对称图形，旋转点叫做对称中心。</p>
-<p>有可能需要注意对称轴和图形有没有重合，是否自带对称轴。</p>
-<p>如果有一个不是对称图形，那么该题不考察对称性。</p>
-<ol start="2" type="1">
-<li>曲直性。</li>
-</ol>
-<p>全部由曲线构成、全部由直线构成、全部由直线+曲线构成，外直内曲、外曲内直。</p>
-<ol start="3" type="1">
-<li>开闭性。</li>
-</ol>
-<p>图形全部封闭、全部开放、半开放半封闭</p>
-<p>如果完整的图形留了小开口，可以考虑开闭性。</p>
-<p>线面连接：几个面由线进行连接。</p>
-<h3 id="数量规律">数量规律</h3>
-<p>元素组成不相同、不相似时，优先考虑属性规律。如果数量规律明显，那么考虑。</p>
-<p>考点包括：点、线、面、素、角。</p>
-<ol type="1">
-<li>点：线与线的交点，切点也是交点。直线与直线、曲线与曲线、直线与曲线的交点。图形特征：（1）线条交叉明显；（2）一团线比较乱；（3）相切较多时。</li>
-<li>线：</li>
-</ol>
-<ul>
-<li>直线数特征图看直线数量：多边形、单一直线（不考虑射线 ）。</li>
-<li>曲线数特征图看曲线：全曲线图、圆、弧（一条平滑的曲线、没有折点）。</li>
-<li>直线和曲线数量的差。第一条直线和最后一条直线之间的垂直或者平行或者相对或者相向关系。</li>
-<li>数笔画数目，是否一笔画（图形由一笔画成，线条不能重复来回画），
-可以观察线条之间是否连通。奇点数为0或者2时为一笔画。奇点：由一个点发射出奇数条线。<strong>端点属于奇点，奇点数一定是偶数个。笔画数=奇点数/2；非联通图，分开数。</strong>
-常见的笔画特征图及其变形：五角星、‘日’及其变形、‘田’及其变形、圆和相切/相交。</li>
-</ul>
-<ol start="3" type="1">
-<li><p>面：<strong>封闭</strong>空间。面是白色的，黑色不是。
-适用场景：（1）图形被分割、封闭面明显；（2）生活化图形、粗线条图形中留空白区域。</p></li>
-<li><p>素：元素的种类；元素的个数；元素替换；适用场景：多个独立小图形。</p></li>
-<li><p>角：考虑内角（0-180度之间的角）。钝角，锐角，直角的数量。适用场景：扇形图、改造图、折线图。</p></li>
-</ol>
-<h2 id="类比推理">类比推理</h2>
-<h2 id="定义判断">定义判断</h2>
-<h2 id="逻辑推理">逻辑推理</h2>
-<h1 id="数量关系">数量关系</h1>
-<h2 id="代入排除法">代入排除法</h2>
-<p>可以用于：固定题型如年龄问题、余数问题、多位数、不定方程以及不会的题目。</p>
-<h2 id="数字特性">数字特性</h2>
-<ol type="1">
-<li>奇偶特性。</li>
-</ol>
-<p>奇数+-奇数=偶数，偶数+-偶数=偶数，奇数+-偶数=奇数。
-<strong>和差同性（无论是差还是和，得到的数字性质一样）</strong></p>
-<p>奇数 <span class="math inline">\(\times\)</span> 奇数=奇数，偶数
-<span class="math inline">\(\times\)</span> 偶数=偶数，奇数 <span class="math inline">\(\times\)</span> 偶数=偶数。</p>
-<p>适用于 知差求和，知和求差，2倍类，平均分，不定方程。</p>
-<p>例题：y =
-8x-15，那么y一定是奇数。直接看选项。可以进一步代入选项，x一定是正整数。</p>
-<p>例题：x+y=50，那么x-y一定是偶数。</p>
-<ol start="2" type="1">
-<li>整除特性。</li>
-</ol>
-<p>一个数能被 2（5）整除，末一位能被 2（5）整除。</p>
-<p>一个数能被 4 （25）整除，末两位能被 4（25）整除。</p>
-<p>一个数能被 8（125）整除，末三位能被 8（125）整除。</p>
-<p>一个数能被 3（9）整除，其各位数字之和能被 3（9）整除。</p>
-<ol start="3" type="1">
-<li>倍数特性。</li>
-</ol>
-<p>普通倍数，因子倍数，比例倍数。适用于倍数、百分数、分数、比例等题型。</p>
-<p>因子倍数： <span class="math inline">\(x = a \times b \times
-c\)</span>.</p>
-<p>比例倍数：<span class="math inline">\(a:b = m:n\)</span>
-(m和n互质)，那么 <span class="math inline">\(a\)</span> 是 <span class="math inline">\(m\)</span> 的倍数， <span class="math inline">\(b\)</span> 是 <span class="math inline">\(n\)</span> 的倍数， <span class="math inline">\(a-b\)</span> 是 <span class="math inline">\(m-n\)</span> 的倍数， <span class="math inline">\(a+b\)</span> 是 <span class="math inline">\(m+n\)</span> 的倍数。<span class="math inline">\(a/(a+b) = m/(m+n)\)</span>.</p>
-<h2 id="方程法">方程法</h2>
-<p>原则：1. 优先设所求量； 2. 设小不设大； 3. 设中间变量。</p>
-<p>对于不定方程组，具有无数组解。但是要根据具体问题考虑可行解。可以利用奇偶特性、因子倍数、尾数法等。</p>
-<p>例题： <span class="math inline">\(3x+10y=41\)</span>，那么可行解包括$x = 7, y = 2
-$。</p>
-<p><strong>先看尾数，其次看倍数，再看奇偶特性，最后考虑代入。</strong></p>
-<h2 id="工程问题">工程问题</h2>
-<p>工程总量 = 效率 x 时间</p>
-<h2 id="行程问题">行程问题</h2>
-<h2 id="排列组合">排列组合</h2>
-<h2 id="概率问题">概率问题</h2>
-<h2 id="经济利润">经济利润</h2>
-<h1 id="references">References:</h1>
-<ul>
-<li><p>B站 老闻言语基础精讲班</p></li>
-<li><p>李梦娇 常识判断</p></li>
-<li><p>刘文超 资料分析/判断推理/数量关系</p></li>
-</ul>
+<h3 id="swing-模型">Swing 模型</h3>
+<h3 id="基于用户的协同过滤usercf">基于用户的协同过滤（UserCF)</h3>
+<h3 id="离散特征处理">离散特征处理</h3>
+<h3 id="矩阵补充最近邻查找">矩阵补充、最近邻查找</h3>
+<h3 id="双塔模型">双塔模型</h3>
+<h3 id="地理位置召回位置召回缓存召回">地理位置召回、位置召回、缓存召回</h3>
+<h2 id="实时样本拼接">实时样本拼接</h2>
+<p>样本拼接是用来生成模型必须的样本数据集，供实时和离线训练/验证使用。对于推荐来说，需要将用户对item的发生事件进行上报（埋点），用于数据分析和样本拼接。</p>
+<p>埋点事件：客户端或者服务端在特定时机上报特定参数组成的结构化数据，通常包括事件以及事件的属性，即用户-item-事件。</p>
+<p>用户行为：客户端上报的埋点数据经过数据平台转化为用户行为日志，通常称之为useraction。埋点事件和用户行为是多对多的关系。</p>
+<!-- ![](./VLM/blip2.jpg) -->
+<h1 id="reference">Reference</h1>
+<p><a target="_blank" rel="noopener" href="https://hardcore.feishu.cn/wiki/wikcn9i4sfdTkxVX0DYrMMbNBpd">硬核课堂</a></p>
  
       <!-- reward -->
       
@@ -399,12 +265,12 @@ $。</p>
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2024/08/26/%E8%A1%8C%E6%B5%8B-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A1%8C%E6%B5%8B/" rel="tag">行测</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/" rel="tag">搜广推</a></li></ul>
 
     </footer>
   </div>
@@ -412,19 +278,19 @@ $。</p>
    
   <nav class="article-nav">
     
-      <a href="/2024/08/26/Transformer/" class="article-nav-link">
+      <a href="/2025/02/22/ScalingLLMTestTime/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer
+            Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters
           
         </div>
       </a>
     
     
-      <a href="/2023/11/29/Generative-Models/" class="article-nav-link">
+      <a href="/2024/11/08/Model_Acceleration/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Generative Models</div>
+        <div class="article-nav-title">Model Acceleration</div>
       </a>
     
   </nav>
@@ -488,7 +354,7 @@ $。</p>
     <ul>
       <li>
         Copyrights &copy;
-        2021-2024
+        2021-2025
         <i class="ri-heart-fill heart_icon"></i> Xue Yu
       </li>
     </ul>

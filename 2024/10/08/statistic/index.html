@@ -1369,10 +1369,10 @@ $，其中 $ n $ 是数据点数，$ K $ 是簇的数量，$ d $ 是特征维度
 <li><p><strong>适用于凸形簇</strong>：对于形状规则、分布较为均匀的数据，K-means
 能很好地分离不同的簇。</p></li>
 </ol>
-<p><strong>缺点：</strong> 1. <strong>需要预先指定 K
-值</strong>：K-means 需要事先确定聚类数 $ K
-$，但是在实际应用中，往往无法确定数据集的簇数量。</p>
-<ol start="2" type="1">
+<p><strong>缺点：</strong></p>
+<ol type="1">
+<li><p><strong>需要预先指定 K 值</strong>：K-means 需要事先确定聚类数 $
+K $，但是在实际应用中，往往无法确定数据集的簇数量。</p></li>
 <li><p><strong>对初始质心敏感</strong>：K-means
 的结果依赖于初始质心的选择，可能会陷入局部最优解。为了解决这个问题，可以使用<strong>K-means++</strong>，通过一种巧妙的质心初始化方法来改进初始质心的选择。
 kmeans聚类属于启发式方法，不能保证收敛到全局最优，初始中心的选择会直接影响聚类结果。</p></li>
@@ -1385,11 +1385,14 @@ kmeans聚类属于启发式方法，不能保证收敛到全局最优，初始�
 </ol>
 <h4 id="k-means-1">K-means++</h4>
 <p><strong>K-means++</strong> 是 K-means
-算法的一种改进版本，主要针对<strong>初始质心选择</strong>问题。K-means++
-的初始化步骤如下： 1. 随机选择一个数据点作为第一个质心。 2.
-对于每一个剩下的数据点，计算它与最近质心的距离平方。 3.
-按照距离平方的概率，随机选择下一个质心。距离较大的数据点有更大的概率被选为质心。
-4. 重复第 2 和第 3 步，直到选出 $ K $ 个质心。</p>
+算法的一种改进版本，主要针对<strong>初始质心选择</strong>问题。
+K-means++ 的初始化步骤如下：</p>
+<ol type="1">
+<li>随机选择一个数据点作为第一个质心。</li>
+<li>对于每一个剩下的数据点，计算它与最近质心的距离平方。</li>
+<li>按照距离平方的概率，随机选择下一个质心。距离较大的数据点有更大的概率被选为质心。</li>
+<li>重复第 2 和第 3 步，直到选出 $ K $ 个质心。</li>
+</ol>
 <p>通过这种初始化方法，K-means++ 可以有效避免 K-means
 对初始质心的敏感性，减少迭代次数，并提高聚类效果。</p>
 <h4 id="常用聚类评估指标">常用聚类评估指标</h4>
@@ -1438,7 +1441,8 @@ d(_i, _j) $ 是簇 $ i $ 和 $ j $ 质心之间的距离。</p>
 <p>外部评估指标用于在有真实标签的情况下评估聚类结果的效果。它通过将聚类结果与真实的类别标签进行对比，计算聚类效果的准确性。这类指标适用于有标注的数据集，常见的外部评估指标有：</p>
 <p><strong>1. 调整兰德指数（Adjusted Rand Index, ARI）</strong></p>
 <p><strong>调整兰德指数</strong>是基于<strong>兰德指数（Rand
-Index）</strong>的一种改进，用来衡量聚类结果与真实标签之间的一致性。其计算依据是聚类结果中的点对是否被正确地分配到同一簇或不同簇。</p>
+Index）</strong>
+的一种改进，用来衡量聚类结果与真实标签之间的一致性。其计算依据是聚类结果中的点对是否被正确地分配到同一簇或不同簇。</p>
 <p><strong>Rand
 Index</strong>计算所有点对之间的组合，统计两点是否被正确地分配到同一簇或不同簇：
 <span class="math display">\[
@@ -1450,8 +1454,8 @@ $：属于不同簇，但真实标签相同的点对数。</p>
 <p>兰德指数的取值范围是<span class="math inline">\([0,1]\)</span>。兰德指数的一个主要问题是，即使聚类结果是随机的，RI
 也往往会得到一个较高的值，而不是真正反映聚类效果。</p>
 <p>由于 Rand Index
-没有考虑随机聚类可能带来的效果，<strong>调整兰德指数（ARI）</strong>引入了随机化校正：
-<span class="math display">\[
+没有考虑随机聚类可能带来的效果，<strong>调整兰德指数（ARI）</strong>
+引入了随机化校正： <span class="math display">\[
 ARI = \frac{RI - E[RI]}{\max(RI) - E[RI]}
 \]</span></p>
 <p><strong>2. 互信息（Mutual Information, MI）与归一化互信息（Normalized
@@ -1923,11 +1927,11 @@ Adam
    
   <nav class="article-nav">
     
-      <a href="/2024/10/28/LLM/" class="article-nav-link">
+      <a href="/2024/10/28/General-Questions-about-LLM/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            LLM
+            General Questions about LLM
           
         </div>
       </a>
@@ -1999,7 +2003,7 @@ Adam
     <ul>
       <li>
         Copyrights &copy;
-        2021-2024
+        2021-2025
         <i class="ri-heart-fill heart_icon"></i> Xue Yu
       </li>
     </ul>
