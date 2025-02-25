@@ -315,40 +315,42 @@ P =
 \frac{1}{4} &amp; 0 &amp; \frac{3}{4}\\
 0 &amp; \frac{1}{4} &amp; \frac{3}{4}
 \end{pmatrix}
-\]</span> - Step 1: Assume $= {_1, _2, _3} $ is a stationary
-distribution. According to the definition 9 of stationary distribution,
-we need to solve the following equations: <span class="math display">\[
+\]</span></p>
+<ul>
+<li><p>Step 1: Assume $= {_1, _2, _3} $ is a stationary distribution.
+According to the definition 9 of stationary distribution, we need to
+solve the following equations: <span class="math display">\[
 \begin{align*}
 \pi_1 &amp;= \frac{1}{4}\pi_1 + \frac{1}{4}\pi_2, \\
 \pi_2 &amp;= \frac{3}{4}\pi_1 + \frac{1}{4}\pi_3, \\
 \pi_3 &amp;= \frac{3}{4}\pi_2 + \frac{3}{4}\pi_3.
 \end{align*}
 \]</span> Adding the normalising condition <span class="math inline">\(\pi_1 + \pi_2 + \pi_3 = 1\)</span>, we get four
-equations in three unknown parameters.</p>
-<ul>
-<li>Step 2: Choose one of the parameters, say <span class="math inline">\(\pi_1\)</span>, and solve for the other two
+equations in three unknown parameters.</p></li>
+<li><p>Step 2: Choose one of the parameters, say <span class="math inline">\(\pi_1\)</span>, and solve for the other two
 parameters in terms of <span class="math inline">\(\pi_1\)</span>. We
 get <span class="math display">\[
 \pi_1 = \frac{1}{4}\pi_1 + \frac{1}{4}\pi_2 \Rightarrow \pi_2 = 3\pi_1,
 \qquad \pi_3 = 3\pi_2 = 9\pi_1.
-\]</span></li>
-<li>Step 3: Combining with the normalising condition, we get <span class="math display">\[
+\]</span></p></li>
+<li><p>Step 3: Combining with the normalising condition, we get <span class="math display">\[
 \pi_1 + 3\pi_1 + 9\pi_1 = 1 \Rightarrow \pi_1 = \frac{1}{13}, \qquad
 \pi_2 = \frac{3}{13}, \qquad \pi_3 = \frac{9}{13}.
 \]</span> Finally, we get the stationary distribution <span class="math inline">\(\pi = (\frac{1}{13}, \frac{3}{13},
-\frac{9}{13})\)</span>.</li>
+\frac{9}{13})\)</span>.</p></li>
 </ul>
 <h4 id="existence-and-uniqueness">Existence and uniqueness</h4>
 <p>Given a Markov chaine, how can we know whether it has a stationary
 distribution? If it has, is it unique? At this part, we will answer
 these questions.</p>
-<p>Some notations: - Hitting time to hit the state <span class="math inline">\(j\)</span>: <span class="math inline">\(H_{j} =
-\min \{ t \in \{0, 1, 2,...\}: X_t = j\}\)</span>. Note that here we
-include time <span class="math inline">\(t = 0\)</span>.</p>
+<p>Some notations:</p>
 <ul>
-<li>Hitting probability to hit the state <span class="math inline">\(j\)</span> staring from state <span class="math inline">\(i\)</span>: <span class="math inline">\(h_{i,j} =
+<li><p>Hitting time to hit the state <span class="math inline">\(j\)</span>: <span class="math inline">\(H_{j} =
+\min \{ t \in \{0, 1, 2,...\}: X_t = j\}\)</span>. Note that here we
+include time <span class="math inline">\(t = 0\)</span>.</p></li>
+<li><p>Hitting probability to hit the state <span class="math inline">\(j\)</span> staring from state <span class="math inline">\(i\)</span>: <span class="math inline">\(h_{i,j} =
 P(X_t = j, \text{for some} \ t \geq 0 | X_0 = i) = P(H_{j} &lt; \infty |
-X_0 = i) = \sum_{t \geq 0} r_{i,j}^{t}\)</span>.</li>
+X_0 = i) = \sum_{t \geq 0} r_{i,j}^{t}\)</span>.</p></li>
 </ul>
 <p>Note that this is different from <span class="math inline">\(r_{i,j}^{t}\)</span>, which denotes the
 probability that the chain, starting at state <span class="math inline">\(i\)</span>, the <strong>first</strong> time
@@ -403,13 +405,16 @@ or <strong>transient</strong>, no stationary distribution exists.</p>
 it has an unique stationary distribution.</p>
 <p><strong><em>Remark 4:</em></strong> If the Markov chain is not
 irreducible, we can decompose the state space into several communicating
-classes. Then, we can consider each communicating class separately. - If
-none of the classes are positive recurrent, then no stationary
-distribution exists. - If exactly one of the classes is positive
-recurrent (and therefore closed), then there exists a unique stationary
-distribution, supported only on that closed class. - If more the one of
-the classes are positive recurrent, then many stationary distributions
-will exist.</p>
+classes. Then, we can consider each communicating class separately.</p>
+<ul>
+<li><p>If none of the classes are positive recurrent, then no stationary
+distribution exists.</p></li>
+<li><p>If exactly one of the classes is positive recurrent (and
+therefore closed), then there exists a unique stationary distribution,
+supported only on that closed class.</p></li>
+<li><p>If more the one of the classes are positive recurrent, then many
+stationary distributions will exist.</p></li>
+</ul>
 <p>Now, we give the proof of Theorem 1. We first prove that if a Markov
 chain is irreducible and positive recurrent, then there
 <strong>exists</strong> a stationary distribution. Next, we will prove
@@ -418,11 +423,13 @@ part with the null recurrent or transitive Markov chains is less
 important and more complicated, we will omit it. If you are interested
 in it, you can refer to the book <a target="_blank" rel="noopener" href="https://www.statslab.cam.ac.uk/~james/Markov/">Markov Chains</a>
 by James Norris.</p>
-<p>Proof. (1) Suppose that <span class="math inline">\((X_0, X_1
-...)\)</span> a recurrent Markov chain, which can be positive recurrent
-or null recurrent. Then we can desigh a stationary distribution as
-follows. (If we can desigh a stationary distribution, then it must be
-existed.)</p>
+<p>Proof.</p>
+<ol type="1">
+<li>Suppose that <span class="math inline">\((X_0, X_1 ...)\)</span> is
+a recurrent Markov chain, which can be positive recurrent or null
+recurrent. Then we can desigh a stationary distribution as follows. (If
+we can desigh a stationary distribution, then it must be existed.)</li>
+</ol>
 <p>Let <span class="math inline">\(\nu_i\)</span> be the expected number
 of visits to <span class="math inline">\(i\)</span> before we return
 back to <span class="math inline">\(k\)</span>, <span class="math display">\[
@@ -463,11 +470,10 @@ have <span class="math display">\[
 <li>Next, we prove that if a Markov chain is irreducible and positive
 recurrent, then the stationary distribution is <strong>unique</strong>
 and is given by <span class="math inline">\(\pi_j =
-\frac{1}{\mu_j}\)</span>.</li>
-</ol>
-<p>Given a stationary distribution <span class="math inline">\(\pi\)</span>, if we prove that for all <span class="math inline">\(i\)</span>, <span class="math inline">\(\pi_j ==
+\frac{1}{\mu_j}\)</span>. Given a stationary distribution <span class="math inline">\(\pi\)</span>, if we prove that for all <span class="math inline">\(i\)</span>, <span class="math inline">\(\pi_j ==
 \frac{1}{\mu_j}\)</span>, then we prove that the stationary distribution
-is unique.</p>
+is unique.</li>
+</ol>
 <p>Remember that the expected hitting time: <span class="math display">\[
 \eta_{i,j} = 1 + \sum_{k \in \Omega}P_{i,k}\eta_{k,j},  j \ne i  \qquad
 (eq:1)
@@ -506,8 +512,8 @@ from both sides of the above equation to get <span class="math display">\[
 \]</span> which means <span class="math inline">\(\pi_j =
 1/\mu_j\)</span>. Similarly, we can prove that <span class="math inline">\(\pi_i = 1/\mu_i\)</span> for all <span class="math inline">\(i \in \Omega\)</span>.</p>
 <p><strong>Theorem 2. (Limit theorem)</strong> Consider an irreducible,
-aperiodic Markov chain (maybe infinite), we have <span class="math inline">\(\lim\limits_{t \to \infty} P_{i,j}^{t} =
-\frac{1}{\mu_{j}}\)</span>. Spectially,</p>
+aperiodic Markov chain (maybe infinite), we have <span class="math inline">\(\lim\limits_{t \to \infty} P_{i,j}^{t} s=
+\frac{1}{\mu_{j}}\)</span>. Specially,</p>
 <ol type="1">
 <li><p>Suppose the Markov chain is positive recurrent. Then <span class="math inline">\(\lim\limits_{t \to \infty} P_{i,j}^{t} = \pi_j =
 \frac{1}{\mu_{j}}\)</span>.</p></li>
