@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2025-02-25T17:25:35.616Z</updated>
+  <updated>2025-03-24T10:03:38.639Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,24 +17,79 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>AI research works in Feb. 2025</title>
-    <link href="https://xueyu-ubc.github.io/2025/02/01/AI-papers_202502/"/>
-    <id>https://xueyu-ubc.github.io/2025/02/01/AI-papers_202502/</id>
-    <published>2025-02-01T00:00:00.000Z</published>
-    <updated>2025-02-25T17:25:35.616Z</updated>
+    <title>The State of LLM Reasoning Models (Part 1)</title>
+    <link href="https://xueyu-ubc.github.io/2025/03/21/The_State_of_LLM_Reasoning_Models/"/>
+    <id>https://xueyu-ubc.github.io/2025/03/21/The_State_of_LLM_Reasoning_Models/</id>
+    <published>2025-03-21T09:00:00.000Z</published>
+    <updated>2025-03-24T10:03:38.639Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;the-state-of-llm-reasoning-models-part-1-inference-time-compute-scaling-methods&quot;&gt;The
+State of LLM Reasoning Models (Part 1:</summary>
         
       
     
     
     
     <category term="AI research works" scheme="https://xueyu-ubc.github.io/categories/AI-research-works/"/>
+    
+    
+    <category term="LLM" scheme="https://xueyu-ubc.github.io/tags/LLM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Diffusion Models (LDM, DiT, SiT, REPA, STF, KNN score estimator)</title>
+    <link href="https://xueyu-ubc.github.io/2025/03/19/DiffusionModels/"/>
+    <id>https://xueyu-ubc.github.io/2025/03/19/DiffusionModels/</id>
+    <published>2025-03-19T03:00:00.000Z</published>
+    <updated>2025-03-20T13:43:16.106Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;latent-diffusion-models&quot;&gt;Latent Diffusion Models&lt;/h1&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Generative Model" scheme="https://xueyu-ubc.github.io/categories/Generative-Model/"/>
+    
+    
+    <category term="Diffusion" scheme="https://xueyu-ubc.github.io/tags/Diffusion/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Research works in Feb. 2025</title>
+    <link href="https://xueyu-ubc.github.io/2025/02/01/papers_202502/"/>
+    <id>https://xueyu-ubc.github.io/2025/02/01/papers_202502/</id>
+    <published>2025-02-01T00:00:00.000Z</published>
+    <updated>2025-03-06T07:25:33.051Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;deepseek-技术路线&quot;&gt;DeepSeek 技术路线&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2501.12948&quot;&gt;DeepSeek-R1 paper&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Blogs:&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
     
     
   </entry>
@@ -487,59 +542,6 @@ Metropolis et al. (1953). It</summary>
     
     
     <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Discrete Markov Chains</title>
-    <link href="https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/"/>
-    <id>https://xueyu-ubc.github.io/2023/07/12/Markov-Chains/</id>
-    <published>2023-07-12T10:00:00.000Z</published>
-    <updated>2025-02-25T11:47:14.673Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;markov-chains-definitions-and-representations&quot;&gt;Markov Chains:
-Definitions and Representations&lt;/h1&gt;
-&lt;p&gt;A stochastic process &lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="Stochastic Process" scheme="https://xueyu-ubc.github.io/categories/Stochastic-Process/"/>
-    
-    
-    <category term="Markov Chains" scheme="https://xueyu-ubc.github.io/tags/Markov-Chains/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gradient Descent, Stochastic Gradient Descent, Variance Reduction</title>
-    <link href="https://xueyu-ubc.github.io/2021/02/27/GD/"/>
-    <id>https://xueyu-ubc.github.io/2021/02/27/GD/</id>
-    <published>2021-02-27T01:53:22.000Z</published>
-    <updated>2024-08-25T23:35:20.383Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;svrg2013-accelerating-stochastic-gradient-descent-using-predictive-variance-reduction&quot;&gt;[SVRG2013]
-Accelerating Stochastic Gradient</summary>
-        
-      
-    
-    
-    
-    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/categories/Machine-Learning/"/>
-    
-    
-    <category term="GD" scheme="https://xueyu-ubc.github.io/tags/GD/"/>
     
   </entry>
   

@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    推荐系统 |  Welcome to XueYu&#39;s Blog
+    Research works in Feb. 2025 |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -49,7 +49,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-推荐系统"
+  id="post-papers_202502"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -60,18 +60,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  推荐系统
+  Research works in Feb. 2025
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="article-date">
-  <time datetime="2024-11-15T08:00:00.000Z" itemprop="datePublished">2024-11-15</time>
+      <a href="/2025/02/01/papers_202502/" class="article-date">
+  <time datetime="2025-02-01T00:00:00.000Z" itemprop="datePublished">2025-02-01</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%B5%E5%95%86/">电商</a>
+    <a class="article-category-link" href="/categories/research-works/">research works</a>
   </div>
   
 <div class="word_count">
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.3k</span>
+            <span class="post-count">1.8k</span>
         </span>
     </span>
 
@@ -103,110 +103,121 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="基本概念">基本概念</h1>
-<h3 id="短期消费指标">短期消费指标</h3>
-<ol type="1">
-<li>点击率：点击次数/曝光次数。</li>
-<li>点赞率：点赞次数/点击次数。</li>
-<li>收藏率：收藏次数/点击次数。</li>
-<li>转发率：转发次数/点击次数。</li>
-<li>阅读完成率：滑动到底次数/点击次数 <span class="math inline">\(\times\)</span>
-f(笔记长度)，其中使用归一化函数f的原因是长度越长的笔记的阅读完成难度更高。</li>
-</ol>
-<h3 id="北极星指标根本标准线上指标">北极星指标（根本标准，线上指标）</h3>
-<ol type="1">
-<li>用户规模：日活用户数（DAU)，月活用户数（MAU)。</li>
-<li>消费：人均使用推荐的时长、人均阅读笔记的数量。</li>
-<li>发布：发布渗透率，人均发布量。</li>
-</ol>
-<h3 id="实验流程">实验流程</h3>
-<ol type="1">
-<li>离线实验：收集历史数据，在历史数据上做训练、测试。算法没有部署到产品中，没有跟用户交互，未必可靠，不占用线上资源，</li>
-<li>小流量AB测试：把算法部署到实际产品中，将用户分为实验组和对照组，实验组用新策略，对照组使用旧策略，对比两者的业务指标。</li>
-<li>全流量上线：如果新策略显著优于旧策略，可以加大流量，全面部署。</li>
-</ol>
-<h3 id="推荐系统架构基本概念">推荐系统架构基本概念</h3>
-<ol type="1">
-<li>item：代表信息的容器，可以是一个视频、文章、商品、广告等等。</li>
-<li>消费：用户浏览item所承载的信息，然后发生一系列的消费行为，比如播放、点赞、收藏、关注、转发、购买等等。</li>
-<li>分发：决定将哪些item与用户匹配，展示给用户进行消费的过程。</li>
-<li>打包：将用户能够浏览的信息拼接封装到item这个容器中展示给用户的过程。</li>
-<li>user：消费或者生产item的用户。</li>
-<li>候选：准备推荐给用户消费的item数据索引集合。</li>
-<li>预估：深度学习模型的前向传播过程，计算概率值等信息。</li>
-<li>召回：信息检索的一个过程，通过一个key获得一堆相关的id。</li>
-<li>排序：对召回的id，按照某种分值进行排序。</li>
-<li>数据流：数据整个生命周期的处理过程。</li>
-<li>特征：物理上客观事物所蕴含信息的数学表达。</li>
-<li>样本：用于机器学习模型训练的数据。</li>
-</ol>
-<h1 id="推荐系统架构">推荐系统架构</h1>
-<p>推荐系统的链路：从上亿物品中进行召回得到几千个物品，然后进行粗排得到几百个物品，再经过精排对几百个物品进行打分，最后重排得到几十个物品。</p>
-<h2 id="构建过程">构建过程</h2>
-<h3 id="候选构建">候选构建</h3>
-<p>当文章、视频等内容(item)在发布平台(item
-DB)发布时，经过一些审核与处理后需要将item存储为易于推荐系统查询等格式，通常包括正排索引+倒排索引两种方式。</p>
+  <h1 id="deepseek-技术路线">DeepSeek 技术路线</h1>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12948">DeepSeek-R1 paper</a></p>
+<p>Blogs:</p>
+<p><a target="_blank" rel="noopener" href="https://hub.baai.ac.cn/view/43236">Sebastian Raschka:
+关于DeepSeek R1和推理模型，我有几点看法</a></p>
+<p><a target="_blank" rel="noopener" href="https://sebastianraschka.com/blog/2025/understanding-reasoning-llms.html">Sebastian
+Raschka: Understanding Reasoning LLMs</a></p>
+<h1 id="googles-ai-white-paper-agents">Google’s AI White Paper
+“Agents”</h1>
+<p><a target="_blank" rel="noopener" href="https://arthurchiao.art/blog/ai-agent-white-paper-zh/#323-tree-of-thoughts-tot">[译]
+AI Agent 白皮书</a></p>
+<h1 id="scaling-llm-test-time-compute-optimally-can-be-more-effective-than-scaling-model-parameters-google-deepmind">Scaling
+LLM Test-Time Compute Optimally can be More Effective than Scaling Model
+Parameters (Google DeepMind)</h1>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.03314">paper link</a></p>
+<p>随着 LLMs
+的快速发展，模型的规模（参数量）和计算资源的消耗都在急剧增加。传统上，提升模型性能的主要方法是通过增加模型的参数量（scaling
+model
+parameters）。然而，这种方法不仅需要大量的训练资源，还可能导致推理阶段的计算成本过高。因此，研究者们开始探索如何在推理阶段（test-time）优化计算资源的使用，以在不显著增加模型参数量的情况下提升模型性能。
+这篇论文主要探讨：在不增加模型参数量或训练计算资源的情况下，如何通过合理优化推理阶段的计算资源（scaling
+test-time compute）来提升模型性能，也就是：</p>
+<p><strong>If an LLM is allowed to use a fixed but non-trivial amount of
+inference-time compute, how much can it improve its performance on a
+challenging prompt?</strong></p>
+<p>作者提出了两种策略来优化推理阶段的计算资源分配，其核心想法是在推理阶段，对于给定的
+prompt，利用额外的计算资源，通过动态调整模型的输出分布，从而生成比直接从
+LLM 中采样更好的结果。</p>
 <ul>
-<li>正排索引：以itemID为key，然后将一些相关的属性进行序列化后，存储为key-value形式。</li>
-<li>倒排索引：以某个属性或者计算的tag为key，value是itemID，存储为key-value形式。</li>
+<li><p>Modifying the proposal distribution。对于给定的推理任务，通过 RL
+等微调方法直接优化模型的输出结果。这种方式不会引入额外的 input
+tokens，只是通过 self-critique 和 iterative revision 来改进其输出分布
+proposal distribution。</p></li>
+<li><p>Optimizing the Verifier。Verifier 用于从 proposal distribution
+中选择最优的答案，比如 best-of-N sampling。通过结合训练 process-based
+verifier 或者 process reward model，可以给出更优的方案。</p></li>
 </ul>
-<p>候选集合本质上是一个易于推荐引擎查询数据的索引结构，提供基础的数据支撑。</p>
-<h3 id="特征工程">特征工程</h3>
-<p>从复杂数据中提取的数学化信息。通过进行特征抽取，可以选择对模型有贡献的属性，并对其进行预处理等，得到最终的特征后持久化地存储到专用的特征存储服务中，并更新一部分正排信息，用于对外提供特征的在线查询。</p>
-<h3 id="召回系统">召回系统</h3>
-<p>如果用户特征和item特征在同一空间，基于用户的兴趣特征与item特征之间的相关性，比如余弦相似度等，选取最有可能排序在前面的item，返回top
-k 的结果。
-真实的召回系统通常要多种召回通道，不同通道关注不同的层面，并行使用，然后将结果统一合并（比如使用蛇形合并）。</p>
-<p>召回通道：协同过滤、双塔模型、关注的作者等等。</p>
-<h3 id="排序系统">排序系统</h3>
-<p>每次召回通常会返回上千条内容（具体数字看具体场景），如果将每条内容都放到大规模模型中进行预估，这会导致推荐的延迟性。因此，会将排序阶段分为粗排和精排两部分。
-首先，在粗排阶段，会使用一些小规模模型进行快速预估打分，将上千条内容在短时间内过滤为几百条。
-然后，在精排阶段，这几百条item会通过一个较大的模型进行预估。这些item特征会组成模型的输入，通过前向传播得到一个输出。比如输出一个分值，该分值表示用户观看该内容后会使得使用时长得到增长。</p>
-<p>粗排筛选+精排打分的搭配，可以使得排序结果在毫秒内返回。</p>
-<h3 id="重排混排系统">重排（混排）系统</h3>
-<p>推荐系统需要考虑推荐内容的多样性，并且需要满足一定的运营能力。为了降低推荐内容的相似性，需要有一定的打散模型，能够在精排阶段选出的几百条内容中得到使得整体收益最大的一个排列组合。</p>
-<p>具体做法有：通过规则系统（比如选取top
-k个item）和精排打分作为剪枝依据，使用dfs遍历每一种可能的排序组合形式。将每一种排序组合作为输入，通过一个重排模型，得到对该排序list的打分。最终选择得分最高的一个list进行返回。</p>
-<p>混排：根据一定的规则，插入广告等，然后遍历所有可能的排序方式（比如广告数量、插入顺序等），最后返回得分最高的一个排序方式。</p>
-<p>总之，先进行多样性抽样（MMR,DPP等），从几百篇中选取几十篇。然后用规则打散相似笔记。再插入广告、运营推广等内容，根据生态要求调整排序。</p>
-<h3 id="消重系统">消重系统</h3>
-<p>用户在一段时间内不能看到相同的内容，因此需要一个系统记录当前用户已浏览过的内容，并在召回后将其过滤掉。进而保证了送入排序阶段的内容都是用户没有浏览过的新内容。</p>
-<h2 id="召回">召回</h2>
-<h3 id="基于物品等协同过滤itemcf">基于物品等协同过滤（ItemCF)</h3>
-<p>ItemCF:
-在给用户推荐item时，综合考虑新item与用户已使用item之间的相似度以及用户对已使用item的喜好程度。</p>
-<p>已知用户user对物品 <span class="math inline">\(item_j(j =
-1,...,n)\)</span>的喜好打分 <span class="math inline">\(like(user,
-item_j)\)</span>，并且可以计算得到新的item与 <span class="math inline">\(item_j(j = 1,...,n)\)</span> 之间的相似度 <span class="math inline">\(sim(item_j, item)\)</span>，简单的预估计算公式为：
+<p>对于每种策略，都有若干种方法来优化推理过程，例如，对于
+Verifier，我们可以选择不同的算法，如 beam-search, lookahead-search,
+best-of-N。不同方法的有效性可能因具体问题而定。那么对于给定的问题/
+prompt，如何选择最有效的方式来优化推理阶段的计算时间呢？与使用更大规模的预训练模型相比，结果会是怎样？</p>
+<p>针对第一个问题，论文提出了一种推理阶段最优计算策略，旨在为给定的问题和
+test-time compute budget
+下，通过选择最优的超参数，最大化模型在推理阶段的性能。论文给出了优化目标：
 <span class="math display">\[
-\sum_j like(user, item_j) \times sim(item_j, item).
-\]</span></p>
-<p>关于物品的相似度，可以根据受众用户相似度（交集）等计算得到。</p>
-<p>事先离线计算（需要维护两个索引，计算量大）：</p>
-<ol type="1">
-<li><p>用户-物品索引：记录每个用户最近点击、交互过的物品id（格式为：用户-物品id+喜好分数列表）。对于给定的任意用户id,可以找到他最近感兴趣的物品列表。</p></li>
-<li><p>物品-物品索引：计算物品之间两两相似度，对于任意物品，可以快速返回与它最相似的k个物品。格式为：物品-物品id+相似度列表）</p></li>
-</ol>
-<p>线上召回（利用两个索引，计算量相对较小）：</p>
-<ol type="1">
-<li><p>对于给定的用户id，通过用户-物品索引，找到用户近似感兴趣的物品列表。</p></li>
-<li><p>对于列表中的每个物品，通过物品-物品的索引，找到top-<span class="math inline">\(k\)</span>相似物品。</p></li>
-<li><p>假设列表中有<span class="math inline">\(n\)</span>个物品，那么取回的相似物品最多有 <span class="math inline">\(nk\)</span>个，通过上述公式预估用户对物品的兴趣分数。</p></li>
-<li><p>返回分数最高的top-<span class="math inline">\(k\)</span>的物品，作为推荐结果。</p></li>
-</ol>
-<h3 id="swing-模型">Swing 模型</h3>
-<h3 id="基于用户的协同过滤usercf">基于用户的协同过滤（UserCF)</h3>
-<h3 id="离散特征处理">离散特征处理</h3>
-<h3 id="矩阵补充最近邻查找">矩阵补充、最近邻查找</h3>
-<h3 id="双塔模型">双塔模型</h3>
-<h3 id="地理位置召回位置召回缓存召回">地理位置召回、位置召回、缓存召回</h3>
-<h2 id="实时样本拼接">实时样本拼接</h2>
-<p>样本拼接是用来生成模型必须的样本数据集，供实时和离线训练/验证使用。对于推荐来说，需要将用户对item的发生事件进行上报（埋点），用于数据分析和样本拼接。</p>
-<p>埋点事件：客户端或者服务端在特定时机上报特定参数组成的结构化数据，通常包括事件以及事件的属性，即用户-item-事件。</p>
-<p>用户行为：客户端上报的埋点数据经过数据平台转化为用户行为日志，通常称之为useraction。埋点事件和用户行为是多对多的关系。</p>
-<!-- ![](./VLM/blip2.jpg) -->
-<h1 id="reference">Reference</h1>
-<p><a target="_blank" rel="noopener" href="https://hardcore.feishu.cn/wiki/wikcn9i4sfdTkxVX0DYrMMbNBpd">硬核课堂</a></p>
+\theta^*_{q, y^*(q)}(N) = \arg\max_{\theta} \left( \mathbb{E}_{y \sim
+\text{Target}(\theta, N, q)} [1_{y = y^*(q)}] \right),
+\]</span> 其中，<span class="math inline">\(q\)</span> 为给定的
+prompt，<span class="math inline">\(N\)</span> 为 compute budget，<span class="math inline">\(\theta\)</span> 为超参数，比如 best-of-N sampling
+中的参数 <span class="math inline">\(N\)</span>。<span class="math inline">\(\text{Target}(\theta, N, q)\)</span>
+为语言模型在给定 compute budget <span class="math inline">\(N\)</span>、prompt <span class="math inline">\(q\)</span>下，超参数为 <span class="math inline">\(\theta\)</span> 时的输出分布。 <span class="math inline">\(1_{y = y^*(q)}\)</span> 是指示函数，当模型输出
+<span class="math inline">\(y\)</span> 等于真实答案 <span class="math inline">\(y^*(q)\)</span> 时为1，否则为0。</p>
+<p>直接求解最优策略 <span class="math inline">\(\theta^*_{q,
+y^*(q)}(N)\)</span> 是很难做到的，因此论文引入<strong>问题难度</strong>
+来作为充分统计量，设计一种近似最优策略。在实验环节，通过比较不同方法在不同难度等级问题上的表现，论文进一步说明了可以根据问题难度选择不同的策略来优化推理过程。
+论文通过在验证集上进行难度估计，但是对于一个新的问题，如何估计问题的难度，从而选择针对新问题的计算策略，仍然有待研究。</p>
+<p>一些实验结果发现：</p>
+<ul>
+<li><p><strong><em>The efficacy of any given verifier search method
+depends critically on both the compute budget and the question at hand.
+Specifically, beam-search is more effective on harder questions and at
+lower compute budgets, whereas best-of-N is more effective on easier
+questions and at higher budgets. Moreover, by selecting the best search
+setting for a given question difficulty and test-time compute budget, we
+can nearly outperform best-of-N using up to 4x less test-time
+compute.</em></strong></p></li>
+<li><p><strong><em>There exists a tradeoff between sequential (e.g.
+revisions) and parallel (e.g. standard best-of-N) test-time computation,
+and the ideal ratio of sequential to parallel test-time compute depends
+critially on both the compute budget and the specific question at hand.
+Specifically, easier questions benefit from purely sequential test-time
+compute, whereas harder questions often perform best with some ideal
+ratio of sequential to parallel compute. Moreover, by optimally
+selecting the best setting for a given question difficulty and test-time
+compute budget, we can outperform the parallel best-of-N baseline using
+up to 4x less test-time compute.</em></strong></p></li>
+</ul>
+<p>论文还研究了预训练阶段和推理阶段的计算资源分配问题，给出以下结论：</p>
+<p><strong><em>Test-time and pretraining compute are not 1-to-1
+“exchangeable”. On easy and medium questions, which are within a model’s
+capabilities, or in settings with small inference requirement, test-time
+compute can easily cover up for additional pretraining. However, on
+challenging questions which are outside a given base model’s
+capabilities or under higher inference requirement, pretraining is
+likely more effective for improving performance.</em></strong></p>
+<h1 id="inference-time-scaling-for-diffusion-models-beyond-scaling-denoising-steps">Inference-Time
+Scaling for Diffusion Models beyond Scaling Denoising Steps</h1>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2501.09732">paper link</a></p>
+<p>近期工作发现，通过在推理阶段（inference-time）分配更多的计算资源，LLM可以产生更高质量的输出。因此，推理阶段计算资源的分配问题成为提高模型性能的研究路径之一。在
+diffusion models中，基于 pure noise 不断去噪得到 clean
+data，因而可以通过控制去噪的步数来调整图像的质量，这使得 diffusion
+models 在推理阶段可以更灵活的分配计算资源。生成模型的 computation budget
+通常使用 NFE (number of function evaluations)
+进行评估。经验发现，如果仅仅通过提升去噪步数增加推理时间，在经过一定的
+NFE
+后，算法性能提升会趋于平稳，从而增加推理时间无法进一步带来性能增益。因此，以往关于
+diffusion models
+的研究工作主要聚焦于高性能输出，同时希望推理阶段的效率较高，也就是 NFE
+越小越好。与已有工作不同，本文聚焦于如何在推理阶段通过搜索有效的计算方法来提高模型的性能。</p>
+<p>Diffusion models
+中采样的随机性主要来自于几个方面，比如初始噪声的选取，在去噪过程中再次引入的额外噪声等。不同的噪声会影响样本的生成质量，因此本文探索如何通过选择最优的噪声来提升模型的采样质量和效率。总之可以概括为两个问题：一是如何知道哪些采样噪声是好的？二是如何搜索采样噪声？基于这两个问题，论文考虑了设计一个
+Verifiers 用于评估候选采样噪声的好坏，以及一个 Algorithms，Algorithms
+基于 Verifiers 的评分找到最优的初始采样噪声。</p>
+<h1 id="ddim-简明讲解与-pytorch-实现加速扩散模型采样的通用方法">DDIM
+简明讲解与 PyTorch 实现：加速扩散模型采样的通用方法</h1>
+<p>优质博客：</p>
+<p><a target="_blank" rel="noopener" href="https://zhouyifan.net/2023/07/07/20230702-DDIM/">DDIM
+简明讲解与 PyTorch 实现：加速扩散模型采样的通用方法</a></p>
+<h1 id="flow-matching">Flow Matching</h1>
+<p>优质博客：</p>
+<p><a target="_blank" rel="noopener" href="https://littlenyima.github.io/posts/51-flow-matching-for-diffusion-models/">Flow
+Matching 理论详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/685921518">深入解析Flow
+Matching技术</a></p>
+<p><a target="_blank" rel="noopener" href="https://lilianweng.github.io/posts/2018-10-13-flow-models/">Flow-based
+Deep Generative Models</a></p>
  
       <!-- reward -->
       
@@ -271,32 +282,30 @@ item_j)\)</span>，并且可以计算得到新的item与 <span class="math inlin
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2025/02/01/papers_202502/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/" rel="tag">搜广推</a></li></ul>
-
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/2025/02/01/papers_202502/" class="article-nav-link">
+      <a href="/2025/03/19/DiffusionModels/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Research works in Feb. 2025
+            Diffusion Models (LDM, DiT, SiT, REPA, STF, KNN score estimator)
           
         </div>
       </a>
     
     
-      <a href="/2024/11/08/Model_Acceleration/" class="article-nav-link">
+      <a href="/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Model Acceleration</div>
+        <div class="article-nav-title">推荐系统</div>
       </a>
     
   </nav>
