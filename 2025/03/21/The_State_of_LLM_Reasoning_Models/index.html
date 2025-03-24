@@ -36,9 +36,9 @@
   
 
 <link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
-
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" />
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+</head>
 
 </html>
 <script src="/js/hexo_resize_image.js"></script>
@@ -103,9 +103,8 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="the-state-of-llm-reasoning-models-part-1-inference-time-compute-scaling-methods">The
-State of LLM Reasoning Models (Part 1: Inference-Time Compute Scaling
-Methods)</h1>
+  <h1 id="part-1-inference-time-compute-scaling-methods">Part 1:
+Inference-Time Compute Scaling Methods</h1>
 <p>在 2025 年，提高 LLM
 的推理能力已成为最热门的话题之一，更强的推理能力使 LLM
 能够处理更复杂的问题，从而在用户关心的各种任务上表现得更加出色。在过去几周，研究人员分享了大量新的策略来提升推理能力，包括
@@ -123,7 +122,7 @@ DeepSeek R1 发布以来兴起的推理时计算扩展方法。</p>
 的推理能力。一是提升训练时间；二是提升推理时间/算力 ( increasing
 inference compute, inference-time scaling or test-time
 scaling)。推理阶段是指模型在训练结束后，进行用户问题答案需要的资源（算力、时间等）。下图给出在数学问题解答方面，o1
-的解答准确率可以通过提升其训练时间或者推理时间得到提升。图片来源：https://openai.com/index/learning-to-reason-with-llms/</p>
+的解答准确率可以通过提升其训练时间或者推理时间得到提升。<a target="_blank" rel="noopener" href="https://openai.com/index/learning-to-reason-with-llms/">图片来源</a></p>
 <p><img src="/2025/03/21/The_State_of_LLM_Reasoning_Models/o1.jpg"></p>
 <p>为了更好地理解如何提升模型的推理能力，作者总结了四种常见的策略，如下图所示。具体介绍可见其这篇博客：<a target="_blank" rel="noopener" href="https://magazine.sebastianraschka.com/p/understanding-reasoning-llms">Understanding
 Reasoning LLMs</a>。</p>
