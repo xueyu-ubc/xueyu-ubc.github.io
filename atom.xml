@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2025-04-22T09:34:42.494Z</updated>
+  <updated>2025-04-25T10:38:59.633Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Reinforcement Learning for LLM Reasoning</title>
+    <link href="https://xueyu-ubc.github.io/2025/04/23/LLM-Alignment/"/>
+    <id>https://xueyu-ubc.github.io/2025/04/23/LLM-Alignment/</id>
+    <published>2025-04-23T02:00:00.000Z</published>
+    <updated>2025-04-25T10:38:59.633Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
+    
+    
+    <category term="LLM" scheme="https://xueyu-ubc.github.io/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>UI-TARS</title>
@@ -217,32 +242,6 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
     
     
     <category term="Agents" scheme="https://xueyu-ubc.github.io/tags/Agents/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LLM Alignment</title>
-    <link href="https://xueyu-ubc.github.io/2024/10/28/LLM-Alignment/"/>
-    <id>https://xueyu-ubc.github.io/2024/10/28/LLM-Alignment/</id>
-    <published>2024-10-28T07:00:00.000Z</published>
-    <updated>2025-02-25T13:28:50.393Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;llm的幻觉问题&quot;&gt;LLM的幻觉问题&lt;/h2&gt;
-&lt;p&gt;Great thanks to this blog: &lt;a href=&quot;https://aman.ai/primers/ai/hallucination/&quot;&gt;NLP • Hallucination</summary>
-        
-      
-    
-    
-    
-    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
-    
-    
-    <category term="LLM" scheme="https://xueyu-ubc.github.io/tags/LLM/"/>
     
   </entry>
   
