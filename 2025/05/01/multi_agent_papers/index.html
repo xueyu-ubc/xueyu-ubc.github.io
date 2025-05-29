@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Multi-Agent Paper |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+<script src="/js/hexo_resize_image.js"></script>
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-multi_agent_papers"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Multi-Agent Paper
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/05/01/multi_agent_papers/" class="article-date">
+  <time datetime="2025-05-01T00:00:00.000Z" itemprop="datePublished">2025-05-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/research-works/">research works</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">3.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">13 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="benchmark-gaia-a-benchmark-for-general-ai-assistants"><a target="_blank" rel="noopener" href="https://huggingface.co/gaia-benchmark">(20231121)（Benchmark）
+GAIA: A Benchmark for General AI Assistants</a></h1>
+<p>本文提出了 GAIA，这是一个面向通用人工智能助手（General AI
+Assistants）的全新评测基准，其目标是评估人工智能系统在迈向通用人工智能（AGI）过程中的关键能力。如果一个系统能够高质量地完成
+GAIA 所设定的任务，将标志着 AI
+研究在通用性方面迈出具有里程碑意义的一步。GAIA
+所提出的问题来源于现实世界，涵盖推理、多模态理解、网页浏览和通用工具使用等基础能力。这些任务对人类而言直观简单，但对目前最先进的
+AI 模型依然具有很大挑战。例如，GPT-4 搭配插件仅能在 GAIA 上达到 15%
+的正确率，而普通人类答题者则达到
+92%，这与当前大型语言模型在法律、化学等专业领域超越人类的趋势形成鲜明对比。GAIA
+的设计理念不同于当前主流 AI
+基准测试趋向设定对人类愈加困难的任务，而是强调系统应在类似人类的常识性和现实任务中展现出稳健性和泛化能力。作者认为，<strong>通用人工智能的出现不取决于模型是否能在专业领域胜过专家，而是取决于它是否具备像普通人一样解决广泛日常任务的能力</strong>。为此，作者依据
+GAIA 的方法论设计了包含 466
+个高质量问题的数据集，题目内容注重多模态融合、跨领域知识和真实世界任务的复杂性，均附有标准答案以便训练与评估。</p>
+<h1 id="agentstore-scalable-integration-of-heterogeneous-agents-as-specialized-generalist-computer-assistant"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.18603">(202412) AgentStore: Scalable
+Integration of Heterogeneous Agents As Specialized Generalist Computer
+Assistant</a></h1>
+<p>近年来，针对多智能体系统（Multi-Agent
+Systems），研究者提出了多种方法（Park 等人，2023；Sun 等人，2023；Wu
+等人，2023；Hong
+等人，2023）以促进多智能体间的有效协作与通信，从而克服幻觉问题并确保结果的确定性和可信度。这些方法在自动化编码等领域已展现出良好效果，但仍存在两大局限性：</p>
+<ol type="1">
+<li><p><strong>智能体数量固定与角色预先定义</strong>：现有方法采用固定数量的智能体且角色预先设定，缺乏对智能体动态集成的支持；</p></li>
+<li><p><strong>智能体同质性</strong>：智能体通常为同种类型，限制了多样性，进而约束了系统能力范围。</p></li>
+</ol>
+<p>为此，本文提出 AgentStore——
+一种可扩展平台，旨在通过动态集成异构代理实现计算机任务自动化。该平台支持用户集成第三方代理，使系统能够持续丰富功能并适应快速演进的操作系统。</p>
+<h2 id="framework-overview">FRAMEWORK OVERVIEW</h2>
+<p>AgentStore
+主要由三个核心组件构成：智能体池（AgentPool）、智能体注册模块（AgentEnroll）和元智能体（MetaAgent）。智能体池存储所有具备特定功能的智能体；智能体注册模块定义了将新智能体添加到智能体池的集成协议；元智能体则从智能体池中选择最合适的一个或多个智能体，独立或协同完成任务。</p>
+<p><img src="/2025/05/01/multi_agent_papers/agentstore1.png"></p>
+<ul>
+<li><p>智能体池（AgentPool）：智能体池是 AgentStore
+内所有可用智能体的集合。为构建 AgentStore，作者在智能体池中整合了 20
+多个功能不同的智能体。这些智能体涵盖单模态到多模态类型，包括开源和闭源模型，交互形式既有命令行界面（CLI），也有图形用户界面（GUI）。其多样化的能力覆盖了日常生活和专业工作中的常见应用与任务。</p></li>
+<li><p>智能体注册模块（AgentEnroll）：当开发者创建新的操作系统智能体并希望将其集成到
+AgentStore
+时，必须以标准化格式注册智能体信息。为确保集成过程的一致性，作者制定了智能体集成协议。在注册过程中，开发者需填写预定义表格，详细说明智能体的功能、局限性、交互应用以及功能演示（见上图）。形式上，所有已注册智能体的集合表示为
+<span class="math inline">\(A = {(a_1, d_1),(a_2, d_2), ...,(a_n,
+d_n)}\)</span>，其中每个智能体<span class="math inline">\(a_i\)</span>的完整注册表格构成文档<span class="math inline">\(d_i\)</span>。</p></li>
+<li><p>元智能体（MetaAgent）：作为 AgentStore
+的核心，元智能体充当平台管理者。如图右侧所示，当用户提出任务时，元智能体将任务描述与系统状态（包括屏幕截图、终端输出、无障碍树等）相结合，从智能体池中选择合适的智能体来完成任务。这主要涉及两项功能：其一，当单个智能体可处理任务时，元智能体会选择最合适的智能体；其二，当需要多个智能体协作时，元智能体将任务拆分为子任务，并分配给相应智能体，以确保任务高效完成。</p></li>
+</ul>
+<h2 id="metaagent-with-agenttoken">METAAGENT WITH AGENTTOKEN</h2>
+<p>作者采用功能强大的开源多模态大语言模型（MLLM）作为元智能体 M
+的基础，使其能够处理涵盖任务描述和操作系统截图的多模态信息。给定所有已注册智能体集合
+<span class="math inline">\(A\)</span>，元智能体的目标是调用其中的子智能体集合以实现计算机任务自动化。由于
+AgentStore
+中的智能体数量动态增长并可能达到大规模，传统方法如上下文学习（ICL，In-Context
+Learning）和全量微调（FT，Fine-Tuning）分别因上下文长度超限和再训练成本过高而不再适用。为此，作者提出**
+AgentToken
+策略**，该策略无需冗长上下文，并显著降低新增智能体时元智能体的再训练成本。</p>
+<p>在元智能体的词汇表中，将已注册智能体编码为特殊
+token。具体而言，<strong>智能体 token </strong>被参数化为嵌入矩阵 $W_A
+^{|A| d} $，并拼接到原始<strong>词 token</strong> <span class="math inline">\(W_V \in \mathbb{R}^{|V| \times d}\)</span>
+上。假设智能体 token <span class="math inline">\(W_A\)</span>
+已训练完成，两者的拼接结果构成元智能体新的 language modeling
+head。此时，元智能体通过以下概率预测下一个 token：<br>
+<span class="math display">\[
+P_M(t_i | t_{&lt;i}) = \text{softmax}([W_V; W_A] \cdot h_{i-1}),
+\]</span><br>
+其中下一个 token $t_i $ 可以是词 token 或智能体 token（即 $t_i V A <span class="math inline">\(），\)</span>h_{i-1} ^d $ 为最后一个隐藏状态。</p>
+<p>在此框架下，AgentToken 策略使元智能体能够实现两大核心功能：</p>
+<ol type="1">
+<li><p><strong>元智能体作为
+Router</strong>：通过最大化条件概率获取最可能的下一个 token：<br>
+<span class="math display">\[
+t_i^* = \arg \max_{t \in V \cup A} P_M(t_i | t_{&lt;i}).
+\]</span><br>
+若预测为智能体 token（$t_i^* A
+$），元智能体将停止解码并调用对应智能体执行任务。该方法使元智能体在单个智能体可完成任务时，能够预测最合适的智能体。</p></li>
+<li><p><strong>任务拆分与多智能体协作（Manager
+模式）</strong>：当任务需要多个智能体时，<strong>已训练的智能体 token
+常出现在下一个 token
+预测的高概率候选集中</strong>。基于此观察，作者将元智能体的预测从单
+token 扩展为多 token 模式：<br>
+<span class="math display">\[
+T_i^* = \text{TopK}_{t \in A} ( P_M(t_i | t_{&lt;i}), K),
+\]</span><br>
+其中，<span class="math display">\[\text{TopK}(\cdot)\]</span>
+函数从智能体 token 集合 <span class="math inline">\(A\)</span>
+中返回概率最高的 <span class="math inline">\(K\)</span> 个
+token，对应与任务最相关的 <span class="math inline">\(K\)</span>
+个智能体。</p></li>
+</ol>
+<p>元智能体在获取 <span class="math inline">\(K\)</span>
+个候选智能体后，将切换至<strong>管理器模式</strong>，通过以下步骤实现任务拆解与分配：</p>
+<ul>
+<li><p><strong>上下文提示生成</strong>：利用所选智能体的注册文档（即
+<span class="math inline">\(d_i\)</span>，包含功能描述、局限性、交互示例等）构建新的上下文提示，明确如何为复杂任务生成子任务并分配给对应智能体。</p></li>
+<li><p><strong>任务拆解逻辑</strong>：通过提示引导智能体协作，例如将“批量处理图像并生成报告”任务拆分为“图像裁剪智能体”“色彩调整智能体”和“文档生成智能体”的子任务链。</p></li>
+</ul>
+<p><strong>这种先选择智能体再根据智能体文档进行任务划分的方式，将任意规模的输入（任务描述）映射为固定大小的输出（<span class="math inline">\(K\)</span> 个智能体 token）。</strong></p>
+<h3 id="模式切换策略">模式切换策略</h3>
+<p>元智能体的 Router 模式与 Manager
+模式可通过<strong>手动或自动方式</strong>切换：</p>
+<ul>
+<li><p><strong>自动切换</strong>：基于思维链（CoT, Wei et al.,
+2022）分析任务复杂度：</p>
+<ul>
+<li><p>若任务可由单一智能体完成（如“打开计算器”），保持路由器模式，直接调用对应智能体
+token；</p></li>
+<li><p>若任务需多步骤协作（如“使用 Excel 处理数据并生成 PPT
+图表”），触发管理器模式，选择并协调多个智能体。</p></li>
+</ul></li>
+<li><p><strong>手动切换</strong>：支持用户通过指令（如“请使用协作模式”）强制指定模式。</p></li>
+</ul>
+<p>实验表明，基础元智能体无需额外训练即可通过任务语义分析实现模式切换的二分类决策，且准确率满足实际应用需求。</p>
+<h2 id="training-agenttoken-with-self-instruct">TRAINING AGENTTOKEN WITH
+SELF-INSTRUCT</h2>
+<h3 id="数据生成">数据生成</h3>
+<p>智能体 token 对应的嵌入矩阵 <span class="math inline">\(W_A\)</span>
+是唯一的可调参数，仅引入极小的额外训练开销。然而，训练这些 token
+需要大量包含<strong>任务描述</strong>和<strong>初始操作系统状态</strong>的智能体演示数据。作者提出基于<strong>自指令学习（self-instruct）</strong>的自动化流程，利用元智能体自身生成的演示数据对
+<span class="math inline">\(W_A\)</span> 进行调优。</p>
+<p>整体流程采用迭代算法，从有限的原始演示集合 <span class="math inline">\(S_i = {(y_k)}_{k=1}^{n_i}\)</span> 和智能体文档
+<span class="math inline">\(c_i\)</span>
+出发，逐步扩展高质量演示数据。核心步骤如下：</p>
+<h4 id="初始演示数据生成">1. 初始演示数据生成</h4>
+<p>使用现有演示数据 $ S_i $ 和智能体描述 $ c_i $ 向元智能体 $ M $ 发起
+prompt，生成新的演示数据：<br>
+$ S'_i = M(S_i, c_i), $<br>
+其中 $ S'_i $
+包含元智能体基于文档语义和现有演示逻辑生成的新任务-状态对。</p>
+<h4 id="演示质量过滤与优化">2. 演示质量过滤与优化</h4>
+<p>为确保生成演示的<strong>一致性</strong>和<strong>多样性</strong>，采用
+BERTScore 对所有新生成的演示 $ y' S'_i $
+进行评估，并通过贪心算法迭代过滤元素，得到精炼集合 $ S^{}_i S'_i <span class="math inline">\(。过滤条件为：\)</span> _1 (y_k, y_j) _2, y_k, y_j
+S_i S^{}_i &nbsp; &nbsp;k j, $<br>
+- **下限 $ _1 $**：避免生成与现有演示语义无关的输出；</p>
+<ul>
+<li>**上限 $ _2
+$**：确保演示之间具有足够的多样性，覆盖不同任务场景。</li>
+</ul>
+<h4 id="数据增强与迭代引导">3. 数据增强与迭代引导</h4>
+<p>将过滤后的演示数据集合 $ S^{}_i $ 合并到原始集合中（即 $ S_i = S_i
+S^{}_i $），形成增强后的演示数据集。元智能体基于新的 <span class="math inline">\(S_i\)</span> 进一步生成更多示例，重复上述
+BERTScore 引导的过滤过程，直至生成足够数量的演示数据以满足 <span class="math inline">\(W_A\)</span> 的训练需求。</p>
+<h3 id="基于自生成数据的训练机制">基于自生成数据的训练机制</h3>
+<p>在训练过程中，演示集合 <span class="math inline">\(S_i\)</span>
+中的每个任务描述和初始状态作为输入前缀，其后附加智能体token <span class="math inline">\(\text{Agent} i\)</span>
+作为下一个token预测的真实标签。具体而言，AgentToken的训练目标为：<br>
+<span class="math display">\[
+\mathcal{L}(W_A) = \sum_{i=1}^{|A|} \sum_{y_j \in S_i} -\log P(\langle
+\text{Agent } i \rangle | y_j),
+\]</span><br>
+其中嵌入矩阵 <span class="math inline">\(W_A\)</span> 是智能体池 <span class="math inline">\(A\)</span> 中所有智能体唯一的可调参数。</p>
+<table style="width:36%;">
+<colgroup>
+<col style="width: 36%">
+</colgroup>
+<tbody>
+<tr>
+<td>[question:
+当需要多个智能体时，先选择固定数目的agents，然后将任务进行分解再划分。如何选择k个agents？这k个agents一定和任务相关吗？在进行选择时，为什么不基于任务进行选择？]</td>
+</tr>
+</tbody>
+</table>
+<h1 id="iclr-2025多智能体-inverse-attention-agents-for-multi-agent-systems"><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=OaoDVZntGe">（ICLR
+2025）（多智能体） Inverse Attention Agents for Multi-Agent
+Systems</a></h1>
+<p>多智能体强化学习（MARL）目前存在的一个局限性为：虽然通过一起训练后的多智能体展现出熟练的协调能力，但在与不熟悉的
+agent 合作时，它们的性能会明显下降。传统的 Theory of Mind (ToM)
+研究关注的是智能体对他人“信念、欲望”等心理状态的推理，该研究将其“注意力”机制引入
+MARL
+中，通过端到端的注意力识别网络，提升多智能体系统中的认知建模能力与协作效果。</p>
+<h2 id="马尔可夫博弈">马尔可夫博弈</h2>
+<p>多智能体马尔可夫决策过程（Multi-Agent MDPs，Littman,
+1994）的状态转移与奖励依赖于所有智能体的联合动作。一个包含 <span class="math inline">\(N\)</span>
+个智能体的马尔可夫博弈形式上定义为：</p>
+<ul>
+<li><p>状态集合：<span class="math inline">\(\mathcal{S}\)</span></p></li>
+<li><p>每个智能体 <span class="math inline">\(i\)</span>
+的动作集合：<span class="math inline">\(\mathcal{A}_i\)</span></p></li>
+<li><p>状态转移函数： <span class="math display">\[
+T: \mathcal{S} \times \mathcal{A}_1 \times \cdots \times \mathcal{A}_N
+\rightarrow \Delta(\mathcal{S}).
+\]</span> 其中，<span class="math inline">\(\Delta(\mathcal{S})\)</span>
+表示在状态集合上的概率分布。</p></li>
+<li><p>每个智能体 <span class="math inline">\(i\)</span> 的奖励函数：
+<span class="math display">\[
+R_i: \mathcal{S} \times \mathcal{A}_1 \times \cdots \times \mathcal{A}_N
+\rightarrow \mathbb{R}.
+\]</span> 每个智能体的目标是通过最大化其期望的累积折扣奖励： <span class="math display">\[
+\mathbb{E} [ \sum_{t=0}^{\infty} \gamma^t R_i(s_t, a_{1,t}, \ldots,
+a_{N,t}) ].
+\]</span> 来学习一个策略： <span class="math display">\[
+\pi_i : \mathcal{S} \rightarrow \Delta(\mathcal{A}_i).
+\]</span>
+该策略定义了在当前状态下，智能体采取各个动作的概率分布，旨在优化其在当前环境下的长期收益。</p></li>
+</ul>
+<h2 id="方法介绍">方法介绍</h2>
+<p><img src="/2025/05/01/multi_agent_papers/inverse.png"></p>
+<ul>
+<li><p>阶段一：自注意力策略建模（Self-Attention Policy）。使用
+Transformer 中的 <strong>self-attention</strong>
+机制构建策略函数；每个智能体通过计算自身对多个目标的注意力权重（attention
+weights）决定采取的动作；目的是让智能体能够在内部根据对不同任务或目标的关注度进行行为决策。在这一步，通过优化历史行动策略，来获取每个智能体对多个目标的注意力权重数据。</p></li>
+<li><p>阶段二：推理他人注意力（Inverse Attention Inference）。使用
+<strong>逆注意力网络（Inverse Attention Network）</strong>
+推理其它智能体的注意力：通过换位思考，智能体设想自己处于其他同种类型智能体的位置，依据观察到的行为和环境状态，反推出它们对不同目标的注意力权重；这是模仿“心智理论”（Theory
+of
+Mind）的关键步骤。在这一步，根据上一步获得的（目标、注意力权重）数据，去训练一个
+attention 网络。然后基于训练后的 attention
+网络，代入其他智能体的观测结果/环境状态，得到它们对不同目标的注意力权重。</p></li>
+<li><p>阶段三：更新自身注意力权重。将第二阶段推理出的其他智能体对不同目标的注意力权重作为输入；智能体据此
+<strong>更新自身的注意力权重</strong>，从而调整其对各个目标的重视程度；更新后的注意力权重将影响最终动作选择，实现更高层次的协作或对抗行为。</p></li>
+</ul>
+<p><img src="/2025/05/01/multi_agent_papers/inverse1.png"></p>
+<h1 id="ecoagent-an-efficient-edge-cloud-collaborative-multi-agent-framework-for-mobile-automation"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.05440">(202505) EcoAgent: An Efficient
+Edge-Cloud Collaborative Multi-Agent Framework for Mobile
+Automation</a></h1>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2025/05/01/multi_agent_papers/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/05/01/GUIagent-with-RL-papers/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            (GUI) Agent with RL Papers
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2025/05/01/World-model/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">World model</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2025
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

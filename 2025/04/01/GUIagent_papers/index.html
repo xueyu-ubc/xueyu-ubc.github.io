@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    (GUI) Agent Paper |  Welcome to XueYu&#39;s Blog
+    (GUI) Agent Papers |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -60,7 +60,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  (GUI) Agent Paper
+  (GUI) Agent Papers
 </h1>
  
 
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">13k</span>
+            <span class="post-count">14.1k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">48 min</span>
+            <span class="post-count">52 min</span>
         </span>
     </span>
 </div>
@@ -310,7 +310,7 @@ grounding 的 backbone 模型。作者使用 CLIP-ViT-L-14 (224px)
 作为图像编码器，并在训练过程中保持其冻结状态。作者使用 Vicuna-1.5-7b-16k
 作为 language backbone。</p>
 <h1 id="iclr-2025指导动态调整-discriminator-guided-embodied-planning-for-llm-agent"><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=TjP1d8PP8l">（ICLR
-2025）(指导、动态调整) Discriminator-Guided Embodied Planning for LLM
+2025）（指导、动态调整） Discriminator-Guided Embodied Planning for LLM
 Agent</a></h1>
 <p>目前的方法通常只在整个行为轨迹完成后，才接收到一个总体性的反馈信号（trajectory-level
 feedback），例如任务成功或失败的最终结果。这种反馈方式是非主动的（non-proactive），也就是说，模型在执行过程中无法及时获得逐步的指导或修正信号。因此，它难以及时调整策略，从而限制了模型在复杂、动态的具身环境中的效果和泛化能力。</p>
@@ -349,14 +349,15 @@ regression）被认为是一个有效的方法。但是存在一个关键问题�
 <h1 id="iclr-2025-任务分解轨迹反思经验积累奖励机制-agent-s-an-open-agentic-framework-that-uses-computers-like-a-human"><a target="_blank" rel="noopener" href="https://github.com/simular-ai/Agent-S">(ICLR 2025)
 （任务分解、轨迹反思、经验积累、奖励机制） Agent S: An Open Agentic
 Framework that Uses Computers Like a Human</a></h1>
-<p>论文介绍了 Agent
-S，这是一个开放的代理框架，通过图形用户界面（GUI）实现与计算机的自主交互，旨在通过自动化复杂的多步骤任务来改变人机交互。Agent
+<p>论文介绍了 Agent S，这是一个开放的 agent
+框架，通过图形用户界面（GUI）实现与计算机的自主交互，旨在通过自动化复杂的多步骤任务来改变人机交互。Agent
 S
 旨在解决自动化计算机任务的三个关键挑战：获取特定领域的知识，规划长期任务，以及处理动态的、非统一的界面。为此，Agent
 S
-引入了经验增强的分层规划，它从外部知识搜索和内部经验检索中学习多层次的知识，从而促进了任务规划和子任务执行的高效性。此外，它采用了基于多模式大语言模型（MLLMs）的代理计算机界面（ACI），以更好地引出
-GUI 代理的推理和控制能力。在 OSWorld 基准测试中的评估表明，Agent S
-在成功率上比基准测试高出 9.37%（相对改进
+引入了经验增强的分层规划，它从外部知识搜索和内部经验检索中学习多层次的知识，从而促进了任务规划和子任务执行的高效性。此外，它采用了基于多模式大语言模型（MLLMs）的
+agent 计算机界面（ACI），以更好地引出 GUI agent 的推理和控制能力。在
+OSWorld 基准测试中的评估表明，Agent S 在成功率上比基准测试高出
+9.37%（相对改进
 83.6%），并实现了新的最先进技术。全面的分析突出了各个组件的有效性，并为未来的改进提供了见解。此外，Agent
 S 在新发布的 WindowsAgentArena 基准测试中展示了广泛的普适性。</p>
 <p><img src="/2025/04/01/GUIagent_papers/agents1.png"></p>
@@ -399,15 +400,16 @@ a self-evaluator before being stored in memory.</strong></p>
 通过经验增强的分层规划，将复杂任务拆解为可管理的子任务，结合外部经验库与内部经验库，实现
 high level 规划与 low level
 执行协同推进；同时，它不断将自我评估的经验存储在 narrative 和 episodic
-记忆库中，并在后续任务中检索利用，从而随着时间推移不断优化表现并适应开放式桌面环境的变化；此外，借助视觉增强的可访问性树观察机制，代理–计算机接口（ACI）为
+记忆库中，并在后续任务中检索利用，从而随着时间推移不断优化表现并适应开放式桌面环境的变化；此外，借助视觉增强的可访问性树观察机制，agent–计算机接口（ACI）为
 agent 提供所有有效 GUI
 元素的结构化视图，并将其动作限定在受约束的离散有效动作空间内，确保对图形界面的精准感知与操作。</p>
 <h3 id="experience-augmented-hierarchical-planning">EXPERIENCE-AUGMENTED
 HIERARCHICAL PLANNING</h3>
 <h4 id="manager-fusing-external-knowledge-and-internal-experience-for-planning">MANAGER:
 FUSING EXTERNAL KNOWLEDGE AND INTERNAL EXPERIENCE FOR PLANNING</h4>
-<p>Manager G 是本系统中的主要计划生成模块。它接收来自用户的任务 <span class="math inline">\(T_u\)</span> 以及由代理-计算机接口（Agent-Computer
-Interface, ACI）提供的初始环境观测 <span class="math inline">\(O_0\)</span>（包含带注释的可访问性树和屏幕截图）作为输入。</p>
+<p>Manager G 是本系统中的主要计划生成模块。它接收来自用户的任务 <span class="math inline">\(T_u\)</span> 以及由
+agent-计算机接口（Agent-Computer Interface, ACI）提供的初始环境观测
+<span class="math inline">\(O_0\)</span>（包含带注释的可访问性树和屏幕截图）作为输入。</p>
 <p>管理器根据用户指令和环境观测，生成一个具备观测感知能力的查询 <span class="math inline">\(Q\)</span>，格式为“How to do
 X”。该查询被用于两类检索操作：</p>
 <ul>
@@ -448,13 +450,14 @@ E_{s_i} = \text{Retrieve}(M_e, &lt;T_u, s_i, C_{s_i} &gt;)
 \]</span></p>
 <p>此外，每个工作模块还包含一个<strong>轨迹反思子模块（Trajectory
 Reflector）<span class="math inline">\(TR_i\)</span></strong>，该模块在子任务执行期间对整个
-episode
-进行实时观察，提供反思性建议，以帮助代理重新思考策略、避免重复无效动作，从而提升效率和鲁棒性。</p>
+episode 进行实时观察，提供反思性建议，以帮助 agent
+重新思考策略、避免重复无效动作，从而提升效率和鲁棒性。</p>
 <p>检索到的子任务经验 <span class="math inline">\(E_{s_i}\)</span> 与
 <span class="math inline">\(TR_i\)</span> 提供的反思性建议将被送入该
 Worker 内部的动作生成子模块（Action
 Generator），用于生成结构化响应。该响应包括以下组成部分：上一动作的执行状态检查，当前观测的语义分析，下一个语义动作的推理，与图形界面绑定的下一个有效动作。最终，该过程生成一个明确的绑定动作
-<span class="math inline">\(a_j\)</span>，并由代理-计算机接口（ACI）在桌面环境中实际执行。一旦工作模块判断当前子任务已完成，它将生成一个特殊的绑定动作
+<span class="math inline">\(a_j\)</span>，并由
+agent-计算机接口（ACI）在桌面环境中实际执行。一旦工作模块判断当前子任务已完成，它将生成一个特殊的绑定动作
 <span class="math inline">\(\text{DONE}\)</span>，作为子任务成功结束的信号。若子任务不可完成，也可生成
 <span class="math inline">\(\text{FAIL}\)</span>
 信号，触发整个分层流程的重置，此时 Manager G
@@ -518,7 +521,7 @@ key 为三元组 <span class="math inline">\(&lt; Q, s_i, C_{s_i}
 将持续更新。对于每个新任务，无论成功或失败，系统都将自动总结经验并存入相应的记忆模块。这种机制使得
 Agent S
 不仅在训练阶段学习，也能在推理（inference）阶段持续积累经验。</p>
-<h3 id="代理-计算机接口">代理-计算机接口</h3>
+<h3 id="agent-计算机接口">agent-计算机接口</h3>
 <p>Agent S 利用图像输入理解环境状态，通过增强后的辅助访问树实现对具体 UI
 元素的精准锚定，并依赖唯一标签引用元素。所有操作限制在离散、可控的基础动作原语（如点击、输入、快捷键）中，确保每一步都有明确反馈，从而在保持安全性和解释性的同时，实现高效、稳健的桌面自动化能力。</p>
 <h1 id="任务分解动态规划经验回溯多个-grounding-专家-agent-s2-a-compositional-generalist-specialist-framework-for-computer-use-agents"><a target="_blank" rel="noopener" href="https://www.simular.ai/articles/agent-s2-technical-review">(202504)
@@ -580,7 +583,7 @@ g''_n}\)</span>。接着，Worker 继续执行新的子目标 <span class="math 
 g''_2\)</span>，重复上述流程，直到整个用户请求 <span class="math inline">\(I\)</span> 被完成。</p>
 <p>通过这种方式，Agent S2
 实现了任务执行过程中的持续上下文维护与动态规划，既能适应环境噪声变化，也提升了处理复杂、长时任务的鲁棒性与灵活性。</p>
-<h1 id="经验回溯-rap-retrieval-augmented-planning-with-contextual-memory-for-multimodal-llm-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2402.03610">(202402) (经验回溯) RAP:
+<h1 id="经验回溯-rap-retrieval-augmented-planning-with-contextual-memory-for-multimodal-llm-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2402.03610">(202402) （经验回溯） RAP:
 Retrieval-Augmented Planning with Contextual Memory for Multimodal LLM
 Agents</a></h1>
 <p>RAP（检索增强规划）旨在增强大语言模型（LLM）智能体的规划能力。它通过存储过往经验，并根据当前情境与历史任务的相似性进行智能检索，从而优化决策过程。</p>
@@ -597,28 +600,29 @@ AUTOGUIDE，能够自动从离线经验中生成上下文感知的自然语言�
 <p><img src="/2025/04/01/GUIagent_papers/autoguide2.png"></p>
 <h1 id="历史动作回溯-scaletrack-scaling-and-back-tracking-automated-gui-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2505.00416">(202503) （历史动作回溯）
 ScaleTrack: Scaling and back-tracking Automated GUI Agents</a></h1>
-<p>自动 GUI
-代理致力于在网页、移动或桌面等数字环境中自动完成复杂任务。它通常接收文本指令和
-GUI 描述，逐步生成可执行操作（如点击、输入等）。传统 GUI
-代理的训练面临两个关键问题：一是 GUI
+<p>自动 GUI agent
+致力于在网页、移动或桌面等数字环境中自动完成复杂任务。它通常接收文本指令和
+GUI 描述，逐步生成可执行操作（如点击、输入等）。传统 GUI agent
+的训练面临两个关键问题：一是 GUI
 锚定数据稀缺，难以准确定位执行坐标；二是任务规划阶段缺乏对历史行为的回溯，难以建模界面状态随操作演化的过程。</p>
 <p>为解决这些挑战，ScaleTrack
-提出了一种训练框架，通过<strong>扩展锚定数据规模</strong>与<strong>引入回溯式规划策略</strong>提升代理性能。具体来说，ScaleTrack
-收集并统一了来自多个来源的大量 GUI 样本，用于训练 GUI grounding
+提出了一种训练框架，通过<strong>扩展锚定数据规模</strong>与<strong>引入回溯式规划策略</strong>提升
+agent 性能。具体来说，ScaleTrack 收集并统一了来自多个来源的大量 GUI
+样本，用于训练 GUI grounding
 模型；同时，在训练中不仅预测当前图像下的下一步操作，还<strong>回溯导致当前界面的历史动作</strong>，从而显式建模
 GUI 状态的变化轨迹。实验表明，ScaleTrack
 在多个任务上显著提升了性能，展示了该方法在数据利用与行为建模上的强大潜力。</p>
 <p><img src="/2025/04/01/GUIagent_papers/scaletrack.png"></p>
 <h1 id="任务分解反思纠正奖励机制-infigui-r1-advancing-multimodal-gui-agents-from-reactive-actors-to-deliberative-reasoners"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.14239">(202504)
-(任务分解、反思纠正、奖励机制) InfiGUI-R1: Advancing Multimodal GUI
+（任务分解、反思纠正、奖励机制） InfiGUI-R1: Advancing Multimodal GUI
 Agents from Reactive Actors to Deliberative Reasoners</a></h1>
 <p>近年来，多模态大模型（MLLMs）在自动化图形用户界面（GUI）任务中展现出强大潜力。然而，现有方法大多依赖手工设计的推理模板或基于隐式逻辑的反应式执行方式，难以应对复杂
 GUI 环境中对计划与容错能力的需求。为此，InfiGUI-R1
-引入了一种全新的训练框架 —— Actor2Reasoner，旨在将 GUI
-代理从“反应型执行者”演化为“推理型行动者”。该框架分为两个阶段：推理注入（Reasoning
+引入了一种全新的训练框架 —— Actor2Reasoner，旨在将 GUI agent
+从“反应型执行者”演化为“推理型行动者”。该框架分为两个阶段：推理注入（Reasoning
 Injection） 和 推理增强（Deliberation Enhancement）。</p>
 <p><img src="/2025/04/01/GUIagent_papers/actor2reasoner1.png"></p>
-<h2 id="阶段1推理注入">阶段1:推理注入</h2>
+<h2 id="阶段-1-推理注入">阶段 1: 推理注入</h2>
 <p>第 1 阶段的主要目标是让 agent 从反应型行动者（Perception <span class="math inline">\(\rightarrow\)</span> Action）到基础推理者
 （Perception <span class="math inline">\(\rightarrow\)</span> Reasoning
 <span class="math inline">\(\rightarrow\)</span> Action）过渡。Stage 1
@@ -662,10 +666,10 @@ a_{\text{teacher}})\)</span>
 \]</span></p>
 <p>通过学习显式生成或隐式模拟这些推理步骤，学生模型逐步内化“感知 <span class="math inline">\(\rightarrow\)</span> 推理 <span class="math inline">\(\rightarrow\)</span>
 动作”的处理流程，摆脱以往直接从感知到动作的反应式模式。</p>
-<h2 id="阶段2推理增强">阶段2:推理增强</h2>
-<p>阶段2以基于规则的奖励机制强化学习（Reinforcement Learning with
-Rule-Based
-Rewards）作为主要优化手段，系统性地增强代理在复杂任务中的推理能力。本阶段在强化学习过程中引入了两项关键机制：</p>
+<h2 id="阶段-2-推理增强">阶段 2: 推理增强</h2>
+<p>阶段 2 以基于规则的奖励机制强化学习（Reinforcement Learning with
+Rule-Based Rewards）作为主要优化手段，系统性地增强 agent
+在复杂任务中的推理能力。本阶段在强化学习过程中引入了两项关键机制：</p>
 <ul>
 <li><p>子目标引导（Sub-goal
 Guidance）：通过评估和激励模型在推理过程中隐含的中间目标设定质量，提升其任务分解与计划能力；</p></li>
@@ -709,60 +713,88 @@ OS-Genesis，一种图形用户界面数据合成方法。与以往依赖预定�
 操作序列（即点击、滑动、输入等轨迹），系统需自动生成该用户执行任务的明确意图描述（goal
 intent），从而更好地理解其真实目标和行为动机。</p>
 <p><img src="/2025/04/01/GUIagent_papers/gs.png"></p>
-<h1 id="iclr-2025多智能体-inverse-attention-agents-for-multi-agent-systems"><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=OaoDVZntGe">（ICLR
-2025）（多智能体） Inverse Attention Agents for Multi-Agent
-Systems</a></h1>
-<p>多智能体强化学习（MARL）目前存在的一个局限性为：虽然通过一起训练后的多智能体展现出熟练的协调能力，但在与不熟悉的
-agent 合作时，它们的性能会明显下降。传统的 Theory of Mind (ToM)
-研究关注的是智能体对他人“信念、欲望”等心理状态的推理，该研究将其“注意力”机制引入
-MARL
-中，通过端到端的注意力识别网络，提升多智能体系统中的认知建模能力与协作效果。</p>
-<h2 id="马尔可夫博弈">马尔可夫博弈</h2>
-<p>多智能体马尔可夫决策过程（Multi-Agent MDPs，Littman,
-1994）的状态转移与奖励依赖于所有智能体的联合动作。一个包含 <span class="math inline">\(N\)</span>
-个智能体的马尔可夫博弈形式上定义为：</p>
-<ul>
-<li><p>状态集合：<span class="math inline">\(\mathcal{S}\)</span></p></li>
-<li><p>每个智能体 <span class="math inline">\(i\)</span>
-的动作集合：<span class="math inline">\(\mathcal{A}_i\)</span></p></li>
-<li><p>状态转移函数： <span class="math display">\[
-T: \mathcal{S} \times \mathcal{A}_1 \times \cdots \times \mathcal{A}_N
-\rightarrow \Delta(\mathcal{S}).
-\]</span> 其中，<span class="math inline">\(\Delta(\mathcal{S})\)</span>
-表示在状态集合上的概率分布。</p></li>
-<li><p>每个智能体 <span class="math inline">\(i\)</span> 的奖励函数：
-<span class="math display">\[
-R_i: \mathcal{S} \times \mathcal{A}_1 \times \cdots \times \mathcal{A}_N
-\rightarrow \mathbb{R}.
-\]</span> 每个智能体的目标是通过最大化其期望的累积折扣奖励： <span class="math display">\[
-\mathbb{E} [ \sum_{t=0}^{\infty} \gamma^t R_i(s_t, a_{1,t}, \ldots,
-a_{N,t}) ].
-\]</span> 来学习一个策略： <span class="math display">\[
-\pi_i : \mathcal{S} \rightarrow \Delta(\mathcal{A}_i).
-\]</span>
-该策略定义了在当前状态下，智能体采取各个动作的概率分布，旨在优化其在当前环境下的长期收益。</p></li>
-</ul>
-<h2 id="方法介绍">方法介绍</h2>
-<p><img src="/2025/04/01/GUIagent_papers/inverse.png"></p>
-<ul>
-<li><p>阶段一：自注意力策略建模（Self-Attention Policy）。使用
-Transformer 中的 <strong>self-attention</strong>
-机制构建策略函数；每个智能体通过计算自身对多个目标的注意力权重（attention
-weights）决定采取的动作；目的是让智能体能够在内部根据对不同任务或目标的关注度进行行为决策。在这一步，通过优化历史行动策略，来获取每个智能体对多个目标的注意力权重数据。</p></li>
-<li><p>阶段二：推理他人注意力（Inverse Attention Inference）。使用
-<strong>逆注意力网络（Inverse Attention Network）</strong>
-推理其它智能体的注意力：通过换位思考，智能体设想自己处于其他同种类型智能体的位置，依据观察到的行为和环境状态，反推出它们对不同目标的注意力权重；这是模仿“心智理论”（Theory
-of
-Mind）的关键步骤。在这一步，根据上一步获得的（目标、注意力权重）数据，去训练一个
-attention 网络。然后基于训练后的 attention
-网络，代入其他智能体的观测结果/环境状态，得到它们对不同目标的注意力权重。</p></li>
-<li><p>阶段三：更新自身注意力权重。将第二阶段推理出的其他智能体对不同目标的注意力权重作为输入；智能体据此
-<strong>更新自身的注意力权重</strong>，从而调整其对各个目标的重视程度；更新后的注意力权重将影响最终动作选择，实现更高层次的协作或对抗行为。</p></li>
-</ul>
-<p><img src="/2025/04/01/GUIagent_papers/inverse1.png"></p>
-<h1 id="多智能体-agentstore-scalable-integration-of-heterogeneous-agents-as-specialized-generalist-computer-assistant"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.18603">(202412) （多智能体）
-AgentStore: Scalable Integration of Heterogeneous Agents As Specialized
-Generalist Computer Assistant</a></h1>
+<h1 id="benchmark-mobile-bench-v2-a-more-realistic-and-comprehensive-benchmark-for-vlm-based-mobile-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2505.11891">(20250517) (benchmark)
+Mobile-Bench-v2: A More Realistic and Comprehensive Benchmark for
+VLM-based Mobile Agents</a></h1>
+<p>现有的在线 benchmarks
+由于环境变化动态性大，难以获得稳定的奖励信号；离线 benchmarks
+通常使用单路径轨迹对 agent 进行评估，这与 GUI
+任务本质上的多解特性不符。此外，这两类 benchmarks 均无法有效评估移动
+agent
+处理噪声或进行主动交互的能力，因为评估过程中缺乏包含弹窗广告等噪声干扰的应用程序，或提供了过于完整的操作指令。为了解决上述问题，作者采用
+slot-based 的指令生成方法，构建了一个更全面性的 benchmark:
+Mobile-Bench-v2。Mobile-Bench-v2
+包含了一个通用任务划分，并引入了离线多路径评估机制，用于测试 agent
+在任务执行过程中的逐步奖励获取能力。该基准还包含一个基于广告弹窗等应用构建的噪声任务子集（noisy
+split），以及一个名为 AITZ-Noise
+的污染任务子集，用以模拟真实复杂的噪声环境。</p>
+<p><img src="/2025/04/01/GUIagent_papers/mobilebench1.png"></p>
+<p>Mobile-Bench-v2 在原有基准的基础上进行了如下改进：</p>
+<p>（1）<strong>指令生成方法</strong>：基于 Mobile3M
+的随机游走图结构语料库，采用 GIAS（Generating Instructions From GUI
+Action Sequences）方法生成了共计 1.2
+万条指令。每条指令由任务模板与对应轨迹中的插槽信息生成，插槽信息源于轨迹中的关键节点动作（keynode
+actions），可在评估阶段作为稳定的步骤奖励信号使用，从而解决在线环境中奖励不稳定的问题。</p>
+<p>（2）<strong>离线多路径评估机制</strong>：融合在线与离线评估的优点，提出多路径评估方法。agent可选择以单路径方式执行并与标准轨迹（golden
+path）对比；也可在图语料中进行动作搜索，并逐步积累步骤奖励，模拟在线行为搜索模式。两种方式联合使用，以更全面评估agent的任务执行能力和路径泛化能力。</p>
+<p>（3）<strong>真实噪声环境构建</strong>：收集了一个名为
+Mobile-Bench-Noisy
+的子数据集，用于构建更具现实性的噪声评估环境。该数据集选取了多个广告弹窗频繁的应用，通过实际交互收集包含广告干扰的轨迹。同时，还对原始正常轨迹集
+AITZ 进行污染处理，通过插入广告元素生成 AITZ-Noise
+子集，用以模拟真实复杂的噪声场景。</p>
+<p>（4）<strong>主动交互能力评估</strong>：构建 Mobile-Bench-Ambiguous
+子数据集，用于测试agent在执行过程中是否具备主动提问与交互的能力。该数据集基于完整指令进行插槽提取，逐步简化为模糊指令，同时构建对应的问答内容并绑定至相应
+GUI
+元素。由于现有agent框架普遍未包含显式提问机制，允许agent在决策前自主选择是否提出问题。为了确保评估公平性，问题类型限制为指令理解相关内容，禁止与动作决策或界面元素功能直接相关的问题。</p>
+<p><img src="/2025/04/01/GUIagent_papers/mobilebench2.png"></p>
+<h2 id="giasgenerating-instructions-from-mobile-ui-action-sequences">GIAS（Generating
+Instructions From Mobile UI Action Sequences）</h2>
+<p>（1）<strong>多路径采样</strong>：在固定的起始 GUI 与目标 GUI
+之间进行多路径采样。路径起始于 Mobile3M
+中名称相同的节点，结束于与起点同构（Homogeneous）但名称不同的节点。所谓同构节点，是指页面相似度或相同
+UI 元素数量超过设定阈值的 GUI
+页面。为确保路径多样性，每条轨迹至少包含两种不同类型的用户操作，并尽可能减少中间过程出现同构页面的比例。</p>
+<p>（2）<strong>GUI 内容标注</strong>：对路径中的每一个 GUI
+页面进行内容结构解析，提取元素层级、文本内容、功能组件等元信息，为后续插槽提取做准备。</p>
+<p>（3）<strong>动作意图推理</strong>：结合轨迹中的用户动作与界面变化，使用模型对每一步操作的意图进行预测，从而明确各步操作的目标及其在任务中的作用。</p>
+<p>（4）<strong>slot 信息提取</strong>：通过比较前后两个 GUI
+状态的变化，自动抽取可用于指令构造的关键 slot
+信息，如点击的按钮名、输入的关键词、跳转的页面类型等。</p>
+<p>（5）<strong>填充指令模板</strong>：将提取出的 slot
+信息填入预先设计的任务指令模板中（比如：“请在 App
+中搜索【关键词】，然后点击【商品名称】，并将其加入购物车。”），自动生成自然语言指令。</p>
+<p>（6）<strong>去重与简化</strong>：对生成的指令进行语义去重和语言简化，过滤重复或语义冗余的指令，提升指令数据质量与表达多样性。</p>
+<p><img src="/2025/04/01/GUIagent_papers/mobilebench3.png"></p>
+<h1 id="benchmark-tongui-building-generalized-gui-agents-by-learning-from-multimodal-web-tutorials"><a target="_blank" rel="noopener" href="https://github.com/TongUI-agent/TongUI-agent?tab=readme-ov-file">(20250521
+(benchmark)) TongUI: Building Generalized GUI Agents by Learning from
+Multimodal Web Tutorials</a></h1>
+<p>本文提出了一个名为 TongUI
+的框架，通过学习丰富的多模态网页教程，构建通用的 GUI
+agent。具体而言，TongUI 通过抓取和处理来自网络的 GUI
+教程（如视频和图文文章），自动转换为 GUI
+agent的轨迹数据。基于此，本文构建了包含 100 万条轨迹、覆盖 五大操作系统
+与 超过 280 个应用程序 的大型数据集 ——
+GUI-Net-1M。在此数据集基础上，作者对 Qwen2.5-VL-3B/7B
+多模态模型进行了微调，训练得到了 TongUI agent。该agent在常用的 grounding
+与导航类基准测试中表现优异。</p>
+<p>本文提出了 <strong>TongUI
+框架</strong>，用于构建具备泛化能力的图形用户界面（GUI）智能代理。其中
+“Tong”
+在中文中意为“通用、泛化”。我们的核心观点是：互联网上广泛存在着关于如何操作电脑与智能手机的<strong>多模态教学资源</strong>，如图文教程与教学视频，这些教程涵盖了与多种操作系统和应用程序交互的详细过程，具有易获取、信息丰富和质量较高等优势。相较于传统的人工收集或合成轨迹数据，这类网络教程提供了更高效且更广覆盖的数据来源。因此，我们设计了一个系统框架，能够将这类多模态网络教程转化为可用于GUI代理训练的任务轨迹数据。</p>
+<h3 id="四个核心步骤">四个核心步骤</h3>
+<ol type="1">
+<li><p><strong>教程爬取（Tutorial Crawling）</strong>
+先由研究人员编写部分“种子任务”，再借助大型语言模型扩展生成更多相关任务，形成任务集合。这些任务关键词随后用于在网络平台（如
+WikiHow、YouTube）上检索并获取对应的图文或视频教程。</p></li>
+<li><p><strong>教程处理（Tutorial Processing）</strong>
+对于视频教程，使用自动语音识别（ASR）或字幕提取获取文本内容；对于图文教程，直接提取正文描述。之后通过LLM对文本内容生成任务查询和任务计划。同时，从视频中提取关键帧作为每一步的截图，文章中的配图则直接作为步骤图像使用。</p></li>
+<li><p><strong>轨迹生成（Trajectory Generation）</strong>
+使用一个零样本GUI代理，对上述步骤对之间的动作与推理过程进行识别，生成完整的
+GUI 操作轨迹，包括每一步的思考逻辑与对应动作。</p></li>
+<li><p><strong>数据过滤（Data Filtering）</strong>
+为确保数据质量与相关性，构建了多阶段过滤流程，包括教程去重、基于LLM的内容过滤、以及利用GUI代理进行轨迹级筛选。最终保留与GUI任务强相关、结构清晰的数据实例。</p></li>
+</ol>
+<p><img src="/2025/04/01/GUIagent_papers/tongui1.png"></p>
  
       <!-- reward -->
       

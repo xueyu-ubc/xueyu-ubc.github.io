@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2025-04-29T16:06:51.441Z</updated>
+  <updated>2025-05-27T06:18:32.330Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,11 +17,81 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>(GUI) Agent with RL Papers</title>
+    <link href="https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/"/>
+    <id>https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/</id>
+    <published>2025-05-01T00:00:00.000Z</published>
+    <updated>2025-05-27T06:18:32.330Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;hrl-data-efficient-hierarchical-reinforcement-learning&quot;&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.08296&quot;&gt;(201805)(HRL)</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Multi-Agent Paper</title>
+    <link href="https://xueyu-ubc.github.io/2025/05/01/multi_agent_papers/"/>
+    <id>https://xueyu-ubc.github.io/2025/05/01/multi_agent_papers/</id>
+    <published>2025-05-01T00:00:00.000Z</published>
+    <updated>2025-05-28T06:38:30.544Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;benchmark-gaia-a-benchmark-for-general-ai-assistants&quot;&gt;&lt;a href=&quot;https://huggingface.co/gaia-benchmark&quot;&gt;(20231121)（Benchmark）
+GAIA: A</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>World model</title>
+    <link href="https://xueyu-ubc.github.io/2025/05/01/World-model/"/>
+    <id>https://xueyu-ubc.github.io/2025/05/01/World-model/</id>
+    <published>2025-05-01T00:00:00.000Z</published>
+    <updated>2025-05-28T06:13:19.702Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;is-a-picture-worth-a-thousand-words-delving-into-spatial-reasoning-for-vision-language-models&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Trustworthy GUI Agents</title>
     <link href="https://xueyu-ubc.github.io/2025/04/28/trustworthy_agent/"/>
     <id>https://xueyu-ubc.github.io/2025/04/28/trustworthy_agent/</id>
     <published>2025-04-28T09:00:00.000Z</published>
-    <updated>2025-04-29T16:06:51.441Z</updated>
+    <updated>2025-05-28T09:08:36.023Z</updated>
     
     
       
@@ -91,11 +161,11 @@
   </entry>
   
   <entry>
-    <title>(GUI) Agent Paper</title>
+    <title>(GUI) Agent Papers</title>
     <link href="https://xueyu-ubc.github.io/2025/04/01/GUIagent_papers/"/>
     <id>https://xueyu-ubc.github.io/2025/04/01/GUIagent_papers/</id>
     <published>2025-04-01T00:00:00.000Z</published>
-    <updated>2025-05-14T08:45:25.865Z</updated>
+    <updated>2025-05-26T08:38:54.384Z</updated>
     
     
       
@@ -145,15 +215,15 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2025/03/19/DiffusionModels/"/>
     <id>https://xueyu-ubc.github.io/2025/03/19/DiffusionModels/</id>
     <published>2025-03-19T03:00:00.000Z</published>
-    <updated>2025-03-25T09:19:33.955Z</updated>
+    <updated>2025-05-26T15:30:10.899Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1&gt;Latent Diffusion Models&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/CompVis/latent-diffusion?tab=readme-ov-file&quot;&gt;Official PyTorch</summary>
+    <summary type="html">&lt;h1 id=&quot;latent-diffusion-models&quot;&gt;Latent Diffusion Models&lt;/h1&gt;
+&lt;p&gt;&lt;a</summary>
         
       
     
@@ -248,8 +318,8 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
   
   <entry>
     <title>AI Agents Framework</title>
-    <link href="https://xueyu-ubc.github.io/2024/11/08/agents/"/>
-    <id>https://xueyu-ubc.github.io/2024/11/08/agents/</id>
+    <link href="https://xueyu-ubc.github.io/2024/11/08/agents_framework/"/>
+    <id>https://xueyu-ubc.github.io/2024/11/08/agents_framework/</id>
     <published>2024-11-08T06:00:00.000Z</published>
     <updated>2025-05-07T06:09:15.009Z</updated>
     
@@ -304,7 +374,7 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2024/09/12/VLM/"/>
     <id>https://xueyu-ubc.github.io/2024/09/12/VLM/</id>
     <published>2024-09-12T07:00:00.000Z</published>
-    <updated>2025-02-25T13:26:53.246Z</updated>
+    <updated>2025-05-27T06:14:32.368Z</updated>
     
     
       
@@ -454,86 +524,6 @@ Methods and Stochastic Optimisation&lt;/h1&gt;
     
     
     <category term="Deep Learning with Structures" scheme="https://xueyu-ubc.github.io/tags/Deep-Learning-with-Structures/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kolmogorov-Smirnov statistic</title>
-    <link href="https://xueyu-ubc.github.io/2023/08/27/KS_test/"/>
-    <id>https://xueyu-ubc.github.io/2023/08/27/KS_test/</id>
-    <published>2023-08-27T11:00:00.000Z</published>
-    <updated>2024-08-25T23:52:26.364Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kolmogorov-smirnov-statistic&quot;&gt;Kolmogorov-Smirnov statistic&lt;/h1&gt;
-&lt;p&gt;Consider any distribution &lt;span class=&quot;math inline&quot;&gt;&#92;(D&#92;)&lt;/span&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="Statistic" scheme="https://xueyu-ubc.github.io/categories/Statistic/"/>
-    
-    
-    <category term="Statistic" scheme="https://xueyu-ubc.github.io/tags/Statistic/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Itô Calculus and Stochastic Differential Equations</title>
-    <link href="https://xueyu-ubc.github.io/2023/08/24/Heuristic%20Solutions%20of%20SDEs/"/>
-    <id>https://xueyu-ubc.github.io/2023/08/24/Heuristic%20Solutions%20of%20SDEs/</id>
-    <published>2023-08-24T03:00:00.000Z</published>
-    <updated>2024-08-25T23:35:59.029Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;the-stochastic-integral-of-itô&quot;&gt;The Stochastic Integral of
-Itô&lt;/h1&gt;
-&lt;p&gt;A stochastic differential equation can be transformed into a</summary>
-        
-      
-    
-    
-    
-    <category term="Generative Model" scheme="https://xueyu-ubc.github.io/categories/Generative-Model/"/>
-    
-    
-    <category term="SDE" scheme="https://xueyu-ubc.github.io/tags/SDE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gaussian processes</title>
-    <link href="https://xueyu-ubc.github.io/2023/08/06/gaussianprocess/"/>
-    <id>https://xueyu-ubc.github.io/2023/08/06/gaussianprocess/</id>
-    <published>2023-08-06T08:00:00.000Z</published>
-    <updated>2024-08-25T23:53:30.554Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;jointly-gaussian-random-variables&quot;&gt;Jointly Gaussian random
-variables&lt;/h1&gt;
-&lt;p&gt;Definition: Random variables (RV) &lt;span class=&quot;math</summary>
-        
-      
-    
-    
-    
-    <category term="Stochastic Process" scheme="https://xueyu-ubc.github.io/categories/Stochastic-Process/"/>
-    
-    
-    <category term="SDE" scheme="https://xueyu-ubc.github.io/tags/SDE/"/>
     
   </entry>
   

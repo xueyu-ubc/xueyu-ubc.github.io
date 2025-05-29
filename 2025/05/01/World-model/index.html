@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    World model |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+<script src="/js/hexo_resize_image.js"></script>
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-World-model"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  World model
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/05/01/World-model/" class="article-date">
+  <time datetime="2025-05-01T00:00:00.000Z" itemprop="datePublished">2025-05-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/research-works/">research works</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">15 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="is-a-picture-worth-a-thousand-words-delving-into-spatial-reasoning-for-vision-language-models"><a href="​​https://arxiv.org/pdf/2406.14852​">(202411) Is A Picture Worth A
+Thousand Words? Delving Into Spatial Reasoning for Vision Language
+Models</a></h1>
+<p>参考：https://www.51cto.com/aigc/1434.html</p>
+<h1 id="works-of-danijar-hafner-httpsscholar.google.decitationsuservinmgpyaaaajhlen">Works
+of [Danijar Hafner]
+(https://scholar.google.de/citations?user=VINmGpYAAAAJ&amp;hl=en)</h1>
+<h2 id="iclr-2020-dream-to-control-learning-behaviors-by-latent-imagination"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1912.01603">(201912) (ICLR 2020) Dream to
+Control: Learning Behaviors by Latent Imagination</a></h2>
+<p>Dreamer
+是一种强化学习（RL）智能体，其核心思想是通过“世界模型”来学习并解决长期任务，特别是从图像等高维感知输入中学习。它学习并压缩环境的高维观察（如图像），构建一个紧凑的潜在空间，与直接在环境中试错不同，Dreamer
+在学习过程中通过在潜在状态空间中“想象”未来轨迹来预测后果和训练策略，避免大量真实环境交互，从而显著提升数据效率。</p>
+<h2 id="planning-to-explore-via-self-supervised-world-models"><a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v119/sekar20a/sekar20a.pdf">(202005)
+Planning to Explore via Self-Supervised World Models</a></h2>
+<h2 id="discovering-and-achieving-goals-via-world-models"><a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2021/hash/cc4af25fa9d2d5c953496579b75f6f6c-Abstract.html">(202107)
+Discovering and Achieving Goals via World Models</a></h2>
+<h2 id="masked-world-models-for-visual-control"><a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v205/seo23a.html">(202206) Masked
+World Models for Visual Control</a></h2>
+<h2 id="mastering-diverse-control-tasks-through-world-models"><a target="_blank" rel="noopener" href="https://www.nature.com/articles/s41586-025-08744-2">(202504)
+Mastering diverse control tasks through world models</a></h2>
+<h1 id="language-guided-world-models-a-model-based-approach-to-ai-control"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.01695">(202401) Language-Guided World
+Models: A Model-Based Approach to AI Control</a></h1>
+<h1 id="web-agents-iclr2025-web-agents-with-world-models-learning-and-leveraging-environment-dynamics-in-web-navigation"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2410.13232">(202410, Web Agents) (ICLR2025)
+Web Agents with World Models: Learning and Leveraging Environment
+Dynamics in Web Navigation</a></h1>
+<p>当前基于 LLM
+的网页智能体在执行长程任务时表现仍不理想，常常犯下如重复购买不可退票等不可逆错误。相比之下，人类能够避免此类错误，是因为我们<strong>具备对行为后果的预判能力</strong>，即“世界模型”（world
+model）。基于这一观察，本文首先通过实证分析验证了当前主流 LLM（如
+GPT-4o、Claude-3.5-Sonnet
+等）缺乏内在世界模型的能力。作者通过实验分析，得到以下结论：</p>
+<ul>
+<li><p>当前的大型语言模型（LLMs）无法有效预测其动作所导致的下一状态。这表明，<strong>“世界模型”这一能力——即预见所采取动作可能产生的后果——在现有
+LLM 中是缺失的</strong>。换句话说，虽然 LLMs
+擅长语言生成和知识问答，但它们并不具备像人类那样的“因果预判”能力，难以在复杂环境中做出具备长期规划意识的决策。</p></li>
+<li><p>当前最先进的大型语言模型（SOTA
+LLMs）在仅依赖当前观察状态（即当前界面或页面信息）进行动作选择时表现不佳，平均准确率仅为
+49%。然而，当这些模型被<strong>增强以获取每个候选动作对应的“下一状态”信息</strong>后，它们在动作选择任务上表现出显著提升，准确率最高可提升
+<strong>38%</strong>。这表明，LLMs
+在具备预测未来状态（即拥有“世界模型”能力）的情况下，能够做出更合理、前瞻性的决策，从而大幅改善任务表现。</p></li>
+</ul>
+<p>为此，本文提出了一种<strong>引入世界模型的增强型 Web
+智能体（WMA）</strong>，该智能体通过模拟动作可能带来的后果，从而做出更优的决策。作者认为，<strong>直接训练世界模型去预测下一个完整的观察状态（即整个网页）往往会导致大量重复的元素反复出现，同时
+HTML 输入内容冗长，这些都会严重影响模型的性能</strong>。为了克服将 LLM
+训练为世界模型所面临的挑战——如连续网页状态间的大量重复元素以及 HTML
+输入过长等问题，因此研究引入了<strong>以状态转变为核心的观察抽象方法</strong>。具体而言，<strong>模型不再预测完整下一步状态，而是以自然语言的形式仅描述关键的状态变化</strong>，从而简化建模目标，增强推理效率。在推理阶段，智能体会利用世界模型分别<strong>模拟策略模型提供的每个候选动作</strong>所带来的后果（即下一观察状态的变化描述），接着使用一个<strong>价值函数</strong>对所有模拟结果进行奖励估计，最终选择<strong>预期奖励最高的动作</strong>来执行。该方法有效避免了冗余状态建模，提高了世界模型的效率与实用性。</p>
+<p>"While some world models are trained with <strong>raw
+observations</strong> (Oh et al., 2015; Chiappa et al., 2017), others
+are built on <strong>latent representations</strong> (Hafner et al.,
+2019a; 2020; Kipf et al., 2020)."</p>
+<h2 id="world-model-augmented-web-agents">WORLD-MODEL-AUGMENTED WEB
+AGENTS</h2>
+<p><img src="/2025/05/01/World-model/wma1.png"></p>
+<p>由于 Web Agent
+只能访问网页视口中可见的信息（即用户当前看到的区域），因此将网页导航任务建模为<strong>部分可观马尔可夫决策过程（POMDP）</strong>。具体来说，定义一个
+Web 环境 <span class="math inline">\(E\)</span>，包含以下几个组成部分：</p>
+<ol type="1">
+<li><p><strong>隐藏状态空间 <span class="math inline">\(S\)</span></strong>：网页的完整状态，包括用户当前看不到的部分；</p></li>
+<li><p><strong>动作空间 <span class="math inline">\(A\)</span></strong>：包括语言引导的操作，如点击（CLICK）、输入（TYPE）、悬停（HOVER）等，每个动作都有对应的自然语言描述；</p></li>
+<li><p><strong>观测空间 <span class="math inline">\(O\)</span></strong>：由页面的可访问性树构成，是对
+DOM 树的一种简化表示。</p></li>
+</ol>
+<p>在这个 POMDP 框架下，Agent 在时刻 <span class="math inline">\(t\)</span> 基于当前的部分观察 <span class="math inline">\(o_t \in O\)</span> 选择一个动作 <span class="math inline">\(a_t \in A\)</span>。随后，环境 <span class="math inline">\(E\)</span> 会根据真实的（隐藏）状态转移函数 <span class="math inline">\(T: S \times A \rightarrow S\)</span>，更新内部状态
+<span class="math inline">\(s_t \rightarrow s_{t+1}\)</span>，并向 Agent
+返回新的部分观察 <span class="math inline">\(o_{t+1} \in
+O\)</span>。</p>
+<h3 id="采集-agent-与环境的交互数据">采集 Agent 与环境的交互数据</h3>
+<p>首先从环境 <span class="math inline">\(E\)</span>
+中收集用于训练世界模型的数据集 <span class="math inline">\(D =
+\sum_{t=1}^{n} \{I, o_t, a_t, o_{t+1}\}\)</span>。具体步骤如下：</p>
+<ol type="1">
+<li><p><strong>初始化任务指令 <span class="math inline">\(I\)</span></strong>：该指令由用户提供，描述了需要完成的目标（如填写表单、预订机票等）。</p></li>
+<li><p><strong>Agent 执行任务</strong>：使用大语言模型（LLM）作为 Web
+Agent，在每一个时间步 <span class="math inline">\(t\)</span>，基于当前观察 <span class="math inline">\(o_t\)</span> 来预测下一个动作 <span class="math inline">\(a_t\)</span>，并与网页环境交互。</p></li>
+<li><p><strong>轨迹记录</strong>：通过执行一整个交互过程，形成一个轨迹
+<span class="math inline">\(\tau = \{o_1, a_1, o_2, ..., a_n,
+o_{n+1}\}\)</span>，即从初始观察出发，在每一步采取动作并获得下一个观察。</p></li>
+<li><p><strong>记录隐藏状态序列</strong>：同时，也记录每一步所处的环境隐藏状态
+<span class="math inline">\(\{s_1, ..., s_{n+1}\} \subset
+S\)</span>，这些状态是通过真实的状态转移函数 <span class="math inline">\(T\)</span> 获得的。</p></li>
+</ol>
+<p>最终得到了包含用户指令、每一步观察、采取的动作以及环境反馈（下一观察）的训练数据集
+<span class="math inline">\(D\)</span>，可用于训练世界模型。该模型的目标是能够在未来预测动作所带来的状态变化，从而更好地辅助
+Agent 进行规划与决策。</p>
+<h3 id="面向状态转移的观察抽象transition-focused-observation-abstraction">面向状态转移的观察抽象（Transition-Focused
+Observation Abstraction）</h3>
+<p>在步骤 I 中，已收集了数据集 <span class="math inline">\(D =
+\sum_{t=1}^{n} \{I, o_t, a_t,
+o_{t+1}\}\)</span>，现在直观的做法是训练基于大语言模型（LLM）的世界模型来预测下一个观察
+<span class="math inline">\(o_{t+1}\)</span>，这些观察一般以文本形式表达（如
+HTML
+或可访问性树）。但直接使用这种方式作为训练目标存在两个主要问题：</p>
+<ol type="1">
+<li><p><strong>信息增益低</strong>：网页中的状态变化往往只是局部的（例如点击了下拉菜单），导致
+<span class="math inline">\(o_{t+1}\)</span> 与 <span class="math inline">\(o_t\)</span>
+的大部分内容重复。如果强行让模型从头预测整个 <span class="math inline">\(o_{t+1}\)</span>，会导致模型学习效率低下。</p></li>
+<li><p><strong>序列过长，计算开销高</strong>：即便使用相对简化的可访问性树（替代原始
+HTML），单条输入的平均长度仍高达 4,000 个
+token，增加了训练成本。如下图所示。</p></li>
+</ol>
+<p><img src="/2025/05/01/World-model/wma3.png"></p>
+<p>为解决这两个问题，作者通过抽象表达观测值的变化，仅关注“状态转移”的差异部分，以提高训练效率和效果。具体做法如下：</p>
+<ol type="1">
+<li><p><strong>识别状态差异</strong>：不采用简单摘要，而是通过
+<strong>匈牙利算法</strong> 比较 <span class="math inline">\(o_t\)</span> 和 <span class="math inline">\(o_{t+1}\)</span>
+中的元素，生成匹配代价矩阵，从而精准识别新增（ADDED）、删除（DELETED）、更新（UPDATED）等元素变更，构造出状态转移集合
+<span class="math inline">\(\Delta(o_t,
+o_{t+1})\)</span>。(计算成本很高呀)</p></li>
+<li><p><strong>转换为自然语言描述</strong>：将上述结构化的差异信息 <span class="math inline">\(\Delta(o_t, o_{t+1})\)</span> 输入给一个
+LLM，将其转化为自由形式的自然语言文本 <span class="math inline">\(\tilde{o}_{t+1}\)</span>，该文本专注于描述观察变化的关键信息，而不是完整网页内容。</p></li>
+<li><p><strong>构建新数据集</strong>：用新生成的 <span class="math inline">\(\tilde{o}_{t+1}\)</span> 替换原始数据中的 <span class="math inline">\(o_{t+1}\)</span>，最终得到更精炼、有效的信息训练集：</p>
+<p><span class="math display">\[
+\tilde{D} = \sum_{t=1}^{n} \{I, o_t, a_t, \tilde{o}_{t+1}\}
+\]</span></p></li>
+</ol>
+<p>这个步骤有效提升了训练效率，避免了冗余信息干扰，并使得模型更专注于学习因动作引起的状态变化，从而更好地模拟世界模型能力。</p>
+<p><img src="/2025/05/01/World-model/wma2.png"></p>
+<h3 id="学习动态环境learning-environment-dynamics">学习动态环境（Learning
+Environment Dynamics）</h3>
+<p>在构建了精炼的数据集 <span class="math inline">\(\tilde{D} =
+\sum_{t=1}^{n} \{I, o_t, a_t, \tilde{o}_{t+1}\}\)</span>
+之后，下一步是训练内部的世界模型 <span class="math inline">\(\phi\)</span>，使 Web Agent
+能够学习环境动态。将一个大语言模型（LLM）作为世界模型，它的任务是预测下一步状态的抽象观察结果
+<span class="math inline">\(\tilde{o}_{t+1}\)</span>。该预测是基于以下三个输入：用户指令
+<span class="math inline">\(I\)</span>；当前观察 <span class="math inline">\(o_t\)</span>；当前采取的动作 <span class="math inline">\(a_t\)</span>。训练目标是通过标准的“下一词预测”目标函数最小化损失：
+<span class="math display">\[
+\mathcal{L}_{\phi} = - \log \sum_{(\tilde{o}, o, a, I) \in \tilde{D}}
+p(\tilde{o}_{t+1} \mid o_t, a_t, I)
+\]</span>
+即，模型要学会根据当前观察、当前动作和用户目标，预测接下来状态的差异性摘要（即下一步抽象观察）。</p>
+<h3 id="推理阶段的策略优化">推理阶段的策略优化</h3>
+<p>本节介绍如何在推理阶段利用已训练的世界模型 <span class="math inline">\(\phi\)</span> 来优化基于大语言模型（LLM）的 Web
+智能体的决策表现。整个系统由三个核心组件组成：</p>
+<ol type="1">
+<li><p>策略模型 <span class="math inline">\(\theta\)</span>：负责生成动作候选，<strong>在推理阶段被冻结</strong>（即不更新其参数）。</p></li>
+<li><p>世界模型 <span class="math inline">\(\phi\)</span>：预测动作带来的下一步状态。</p></li>
+<li><p>价值函数 <span class="math inline">\(V\)</span>：评估每个动作产生的未来状态的价值（即“好坏”）。</p></li>
+</ol>
+<p>推理流程如下：</p>
+<ul>
+<li><p>Step 1: 策略模型采样动作候选。在时间步 <span class="math inline">\(t\)</span>，智能体首先从策略模型 <span class="math inline">\(\theta\)</span> 中基于当前观察 <span class="math inline">\(o_t\)</span> 和用户目标 <span class="math inline">\(I\)</span>，通过 top-p sampling 方法生成 <span class="math inline">\(k\)</span> 个动作候选： <span class="math display">\[
+\{a^1_t, a^2_t, ..., a^k_t\}
+\]</span></p></li>
+<li><p>Step 2: 世界模型预测未来状态。对于每个动作候选 <span class="math inline">\(a^i_t\)</span>，利用世界模型 <span class="math inline">\(\phi\)</span> 来“模拟”该动作将导致的下一观察 <span class="math inline">\(\tilde{o}^i_{t+1}\)</span>，即：</p></li>
+</ul>
+<p><span class="math display">\[
+\{\tilde{o}^i_{t+1}\}_{i=1}^k = \{\phi(o_t, a^i_t, I)\}_{i=1}^k
+\]</span> 注意：每个 <span class="math inline">\(\tilde{o}^i_{t+1}\)</span>
+是自由形式的自然语言描述，仅强调新旧状态之间的变化，便于推理。</p>
+<ul>
+<li>Step 3:
+价值函数评估并选择动作。使用一个预训练的大语言模型作为价值函数 <span class="math inline">\(V\)</span>，对每个候选动作和对应的预测状态进行评估：</li>
+</ul>
+<p><span class="math display">\[
+\hat{a}_t = \arg\max_{a_t \in \{a^1_t, ..., a^k_t\}} V(I, o_t, a_t,
+\tilde{o}_{t+1})
+\]</span> 最终选择最优动作 <span class="math inline">\(\hat{a}_t\)</span> 来执行。</p>
+<h2 id="与树搜索tree-search智能体的对比">与树搜索（Tree
+Search）智能体的对比</h2>
+<p>作者将 WMA（World-Model-Augmented）网页智能体与树搜索（Tree
+Search）智能体在<strong>时间效率</strong>和 <strong>API
+成本效率</strong>方面进行了对比。</p>
+<ul>
+<li><p><strong>执行一条用户指令时</strong>，树搜索智能体平均耗时约
+<strong>748.3
+秒</strong>，因为它需要实际与环境交互，探索多个未来状态，并在需要回溯时<strong>重新执行一整套先前动作序列</strong>。相比之下，WMA
+智能体仅耗时约 <strong>140.3
+秒</strong>，因为它通过<strong>模拟</strong>而非实际执行各个动作候选的后果来完成决策，这使得其运行速度比树搜索智能体<strong>快了
+5.3 倍</strong>。</p></li>
+<li><p>在 API 成本上，树搜索智能体因使用多模态输入，开销更大，平均是 WMA
+智能体的 <strong>6.8 倍</strong>。</p></li>
+</ul>
+<p>总结来看，在 CMS、Reddit、Gitlab 和 Map 等多个任务环境中，WMA
+智能体在保持与树搜索智能体<strong>相近性能</strong>的同时，展现出显著的<strong>时间与成本优势</strong>。</p>
+<h1 id="web-agents-is-your-llm-secretly-a-world-model-of-the-internet-model-based-planning-for-web-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2411.06559">(202411, Web Agents) Is Your LLM
+Secretly a World Model of the Internet? Model-Based Planning for Web
+Agents</a></h1>
+<p>近期研究发现，将规划算法（如树搜索）引入网页智能体中，相比于仅根据当前状态做出反应的策略（reactive
+planning），具有明显优势。然而，与可控的仿真环境不同，现实中的网页环境充满了不可逆的操作，例如点击购买不可退款的商品等，这使得树搜索依赖的“回溯”机制变得不可行。此外，过度依赖测试时搜索也会显著降低执行效率。为此，作者提出了一种新的思路：基于模型的网页智能体规划方法（model-based
+planning）。这种方法利用世界模型预测各候选动作的未来结果，在执行动作前先进行“模拟与思考”，从而实现更稳健的决策。
+算法框架同上篇论文WMA。</p>
+<p><img src="/2025/05/01/World-model/webdreamer1.png"></p>
+<h1 id="gui-agents世界模型-a-generative-visual-gui-world-model-for-app-agents"><a target="_blank" rel="noopener" href="https://ai-agents-2030.github.io/ViMo/">（202504, GUI
+Agents(世界模型) A Generative Visual GUI World Model for App
+Agents</a></h1>
+<p>ViMo 是首个专为移动应用智能体（App
+Agents）设计的视觉世界模型，旨在解决现有世界模型在处理长程任务规划时缺乏视觉预测能力的问题。<strong>传统模型主要依赖文本描述来预测界面状态</strong>，难以还原包含丰富图像信息的
+GUI，尤其在涉及界面布局和文字展示等细节时容易出现偏差。为此，ViMo
+引入了一种新的图文分离建模方式，通过符号化文本表示（Symbolic Text
+Representation,
+STR）将图像中的文本内容以符号占位的方式进行编码，从而保留图形信息的同时降低对像素精度的依赖。ViMo
+模型由两个部分组成：STR 预测器用于生成未来界面的图形结构，GUI-text
+预测器则负责生成与符号对应的具体文本内容。通过这样的设计，ViMo
+能够模拟智能体执行不同动作后界面可能呈现的视觉状态，有效提升其长程规划能力和任务成功率。实验结果表明，ViMo
+能生成既真实可信又功能完备的 GUI 图像，显著增强 App
+智能体在复杂任务中的决策效果与执行表现。该模型为移动智能体在现实环境中的广泛应用提供了重要技术支撑。</p>
+<p>ViMo为首个视觉 GUI 世界模型，通过引入名为 符号化文本表示（Symbolic
+Text Representation，STR）
+的新型数据表示方式，<strong>将图形内容与文本内容的生成解耦，分别建模</strong>，从而有效降低了文本生成过程中对图像精度的敏感性。在
+STR 表示中，GUI
+中的每段文本都被替换为一个文本符号，即一个具有特定边框和填充颜色的矩形占位符，将其作为
+GUI
+的一种特殊元素。这一设计将原本复杂的文本生成问题转化为“文本位置定位”问题，使文本生成简化为对文本位置和占位符的预测。基于
+STR，ViMo 分别使用两个模块完成图形与文本的生成任务：<strong>STR
+预测器</strong>和 <strong>GUI-text 预测器</strong>。其中，STR
+预测器采用扩散模型架构，根据当前 GUI 提取的 STR
+和用户动作信息，预测下一个界面的 STR；而 GUI-text
+预测器基于大语言模型（LLM）实现，利用 STR
+预测器生成的文本符号，对应输出每个文本符号所代表的具体文本内容。最后，ViMo
+将预测得到的 STR 与生成的文本融合，合成出完整的下一个 GUI 界面。</p>
+<p><img src="/2025/05/01/World-model/vimo1.png"></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2025/05/01/World-model/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/05/01/multi_agent_papers/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Multi-Agent Paper
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2025/04/28/trustworthy_agent/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Trustworthy GUI Agents</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2025
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

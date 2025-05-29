@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">20.2k</span>
+            <span class="post-count">20.9k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">69 min</span>
+            <span class="post-count">72 min</span>
         </span>
     </span>
 </div>
@@ -229,14 +229,14 @@ VirusTotal）几乎无法检测出这类攻击。</p>
 攻击的防御，作者提出了部署前与部署后的双重策略。部署前建议对网页内容进行安全扫描和审计，防止恶意内容上线；部署后则需要通过行为监测和异常识别机制，及时发现
 agent 被引导泄露信息的风险。此外，还建议在 agent
 设计时强化其对网页内容的理解与判断能力，提升对异常内容的抵抗力。</p>
-<h2 id="to-do-20250324-safeguarding-mobile-gui-agent-via-logic-based-action-verification"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.18492">TO-DO (20250324) Safeguarding
-Mobile GUI Agent via Logic-based Action Verification</a></h2>
+<h2 id="safeguarding-mobile-gui-agent-via-logic-based-action-verification"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.18492">(20250324) Safeguarding Mobile
+GUI Agent via Logic-based Action Verification</a></h2>
 <p>在移动设备控制领域，基于大型语言模型（LLMs）的图形用户界面（GUI）代理正逐渐成为自动化任务的关键工具。然而，由于
 LLMs
 的概率性推理特性，这些代理在执行任务时可能出现不可预测的行为，尤其是在处理模糊或上下文依赖性强的指令时，可能导致错误操作甚至安全风险。</p>
 <p>在目前的 GUI 智能体保护实践中，通常使用反思智能体（Reflection
 Agents）来审查由主 GUI
-智能体生成的操作。基于反射的方法大致可以分为两类：<strong>预执行验证（pre-action
+智能体生成的操作。基于反思的方法大致可以分为两类：<strong>预执行验证（pre-action
 verification）</strong> 和 <strong>事后验证（post-action
 verification）</strong>。</p>
 <ol type="1">
@@ -724,6 +724,40 @@ GUI agents
 开发中嵌入。在基于提示的方法中，<strong>数据保护应通过明确的指令</strong>、限制数据保留和在访问敏感信息之前要求用户同意来强制执行。为应对过度信任
 AI，应采取<strong>限制记忆保留</strong>等约束，以减少不当依赖。在基于训练的方法中，<strong>隐私保护应在整个开发过程中进行整合：通过隐私关注的数据集进行预训练，通过微调防止泄露，利用强化学习奖励保护行为，同时惩罚未经授权的数据暴露。</strong></p></li>
 </ul>
+<h2 id="towards-trustworthy-gui-agents-a-survey"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.23434">(202503) Towards Trustworthy GUI
+Agents: A Survey</a></h2>
+<p><img src="/2025/04/28/trustworthy_agent/trust1.png"></p>
+<p>如上图所示，论文将 GUI
+智能体的可信性研究工作（trustworthiness）划分为五个关键维度：</p>
+<ol type="1">
+<li><p><strong>安全性（Security）</strong>：防止智能体遭受对抗性攻击、执行未经授权的指令或引发数据泄露。例如，WebPI
+展示了隐藏 HTML 元素如何诱导智能体执行错误操作，带来安全风险。</p></li>
+<li><p><strong>可靠性（Reliability）</strong>：确保智能体在动态界面中稳定运行并正确响应。例如，Liu
+等人（2023b）关于多模态智能体安全性的研究指出，GUI
+智能体可能错误解读视觉信息，导致不安全或意外行为。</p></li>
+<li><p><strong>可解释性（Explainability）</strong>：增强智能体的决策过程的可解释性与用户友好性。例如，EBC-LLMAgent
+系统通过学习用户演示生成清晰、可解释的操作序列和 UI
+映射，提升透明度。</p></li>
+<li><p><strong>伦理对齐（Ethical
+Alignment）</strong>：确保智能体遵循人类价值观和文化规范。CASA 框架（Qiu
+等，2024）评估智能体在社会与伦理层面的表现，强调在多样用户群体中做出公平决策的重要性。</p></li>
+<li><p><strong>评估机制（Evaluation）</strong>：建立严谨的测试方法，以真实世界条件下评估智能体行为。ST-WebAgentBench（Levy
+等，2024）通过衡量策略合规性和风险缓解策略，系统性评估 web
+智能体的表现。</p></li>
+</ol>
+<h2 id="aeia-mn-evaluating-the-robustness-of-multimodal-llm-powered-mobile-agents-against-active-environmental-injection-attacks"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.13053">(202504) AEIA-MN: Evaluating the
+Robustness of Multimodal LLM-Powered Mobile Agents Against Active
+Environmental Injection Attacks</a></h2>
+<p>在优化操作系统中 AI
+智能体任务执行效率的过程中，研究者往往忽视了一个关键的安全隐患：智能体是否具备识别环境中“伪装者”的能力。通过对智能体运行环境的分析，研究者识别出一种重大威胁——攻击者可以将恶意行为伪装为环境元素，向智能体的执行流程中注入主动干扰，从而操控其决策过程。该新型威胁被定义为<strong>主动环境注入攻击（Active
+Environment Injection Attack, AEIA）</strong>。本研究聚焦于 Android
+操作系统中的交互机制，对 AEIA
+风险进行了评估，并发现两个关键的安全漏洞：（1）<strong>多模态交互界面中的对抗性内容注入</strong>：攻击者可将对抗性指令嵌入界面元素中，误导智能体做出错误决策；（2）<strong>任务执行过程中的推理缺陷漏洞</strong>：智能体在进行任务推理时存在推理漏洞，易受到
+AEIA 攻击的干扰。为评估这类漏洞的实际影响，研究者提出了 AEIA-MN
+攻击方案，利用移动操作系统中的交互脆弱性测试基于多模态大模型（MLLM）的智能体鲁棒性。实验结果表明，即使是先进的
+MLLM 智能体，在该攻击下也表现出极高的脆弱性，在 AndroidWorld
+基准测试中，攻击成功率最高可达
+93%。这凸显了当前智能体系统在复杂环境中面临的严峻安全挑战。</p>
  
       <!-- reward -->
       
@@ -800,6 +834,15 @@ AI，应采取<strong>限制记忆保留</strong>等约束，以减少不当依�
 
    
   <nav class="article-nav">
+    
+      <a href="/2025/05/01/World-model/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            World model
+          
+        </div>
+      </a>
     
     
       <a href="/2025/04/23/LLM-Alignment/" class="article-nav-link">
