@@ -36,9 +36,9 @@
   
 
 <link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
-
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" />
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+</head>
 
 </html>
 <script src="/js/hexo_resize_image.js"></script>
@@ -103,111 +103,213 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="201805-HRL-Data-Efficient-Hierarchical-Reinforcement-Learning"><a href="#201805-HRL-Data-Efficient-Hierarchical-Reinforcement-Learning" class="headerlink" title="(201805)(HRL) Data-Efficient Hierarchical Reinforcement Learning"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1805.08296">(201805)(HRL) Data-Efficient Hierarchical Reinforcement Learning</a></h1><h1 id="RL-单步决策）-UI-R1-Enhancing-Efficient-Action-Prediction-of-GUI-Agents-by-Reinforcement-Learning"><a href="#RL-单步决策）-UI-R1-Enhancing-Efficient-Action-Prediction-of-GUI-Agents-by-Reinforcement-Learning" class="headerlink" title="(RL, 单步决策） UI-R1: Enhancing Efficient Action Prediction of GUI Agents by Reinforcement Learning"></a><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2503.21620">(RL, 单步决策） UI-R1: Enhancing Efficient Action Prediction of GUI Agents by Reinforcement Learning</a></h1><p>近期，DeepSeek-R1 展示了通过基于规则的强化学习（RL）训练大语言模型（LLMs）后推理能力的显著提升。尽管其在语言任务中取得了成功，其在多模态领域，特别是图形用户界面（GUI）代理任务中的应用仍鲜有探索。为了填补这一空白，本文提出了 UI-R1 ——首个探索基于规则的强化学习如何提升多模态大语言模型（MLLMs）在 GUI 动作预测任务中推理能力的框架。UI-R1 引入了一种新颖的规则型动作奖励机制，用以指导模型在执行预测时更具推理能力和策略性。该奖励系统基于预定义的 GUI 操作规则，可明确判断模型动作的合理性与有效性。采用 <strong>Group Relative Policy Optimization（GRPO）</strong> 策略优化算法，通过对比学习方式强化正确操作序列，提升多模态模型的决策能力。构建了一个包含 <strong>136 个具有挑战性的任务</strong>的小规模数据集，涵盖移动设备中常见的五种操作类型，用于训练和验证 UI-R1 的有效性。</p>
-<p><img src="/2025/05/01/GUIagent-with-RL-papers/u1r11.png" alt=""></p>
-<h1 id="RL-复杂任务）-DigiRL-Training-In-The-Wild-Device-Control-Agents-with-Autonomous-Reinforcement-Learning"><a href="#RL-复杂任务）-DigiRL-Training-In-The-Wild-Device-Control-Agents-with-Autonomous-Reinforcement-Learning" class="headerlink" title="(RL, 复杂任务） DigiRL: Training In-The-Wild Device-Control Agents with Autonomous Reinforcement Learning"></a><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2406.11896">(RL, 复杂任务） DigiRL: Training In-The-Wild Device-Control Agents with Autonomous Reinforcement Learning</a></h1><p>即使是最强大的专有视觉语言模型（VLM），如 GPT-4V 和 Gemini 1.5 Pro，在设备上完成复杂任务时仍难以生成正确的操作。因此，大多数构建设备 agent 的前期工作通过将专有 VLM 与提示、搜索或工具使用相结合，围绕其构建了复杂的封装层。虽然构建提示或检索封装层以提升现有 VLM 的决策性能在短期内有效，但由于不更新模型权重，<strong>所得 agent 的有效性本质上受限于基础模型的能力</strong>。另一种解决方案是通过模仿学习在演示数据上对模型进行微调。然而，网络和设备具有动态特性，训练过时数据中操作的模型会随着生态系统的变化而表现不佳。</p>
-<p>若能构建一种交互式方法，使视觉语言模型（VLM）通过在设备和互联网上的自身经验直接适应与学习，则无需依赖专有模型的封装层即可打造鲁棒可靠的设备控制 agent。这种基于学习的方法需满足以下核心需求：</p>
+  <h1 id="hrl-data-efficient-hierarchical-reinforcement-learning"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1805.08296">(201805)(HRL) Data-Efficient
+Hierarchical Reinforcement Learning</a></h1>
+<h1 id="rl-单步决策-ui-r1-enhancing-efficient-action-prediction-of-gui-agents-by-reinforcement-learning"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2503.21620">(RL, 单步决策） UI-R1: Enhancing
+Efficient Action Prediction of GUI Agents by Reinforcement
+Learning</a></h1>
+<p>近期，DeepSeek-R1
+展示了通过基于规则的强化学习（RL）训练大语言模型（LLMs）后推理能力的显著提升。尽管其在语言任务中取得了成功，其在多模态领域，特别是图形用户界面（GUI）代理任务中的应用仍鲜有探索。为了填补这一空白，本文提出了
+UI-R1 ——首个探索基于规则的强化学习如何提升多模态大语言模型（MLLMs）在
+GUI 动作预测任务中推理能力的框架。UI-R1
+引入了一种新颖的规则型动作奖励机制，用以指导模型在执行预测时更具推理能力和策略性。该奖励系统基于预定义的
+GUI 操作规则，可明确判断模型动作的合理性与有效性。采用 <strong>Group
+Relative Policy Optimization（GRPO）</strong>
+策略优化算法，通过对比学习方式强化正确操作序列，提升多模态模型的决策能力。构建了一个包含
+<strong>136
+个具有挑战性的任务</strong>的小规模数据集，涵盖移动设备中常见的五种操作类型，用于训练和验证
+UI-R1 的有效性。</p>
+<p><img src="/2025/05/01/GUIagent-with-RL-papers/u1r11.png"></p>
+<h1 id="rl-复杂任务-digirl-training-in-the-wild-device-control-agents-with-autonomous-reinforcement-learning"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2406.11896">(RL, 复杂任务） DigiRL: Training
+In-The-Wild Device-Control Agents with Autonomous Reinforcement
+Learning</a></h1>
+<p>即使是最强大的专有视觉语言模型（VLM），如 GPT-4V 和 Gemini 1.5
+Pro，在设备上完成复杂任务时仍难以生成正确的操作。因此，大多数构建设备
+agent 的前期工作通过将专有 VLM
+与提示、搜索或工具使用相结合，围绕其构建了复杂的封装层。虽然构建提示或检索封装层以提升现有
+VLM 的决策性能在短期内有效，但由于不更新模型权重，<strong>所得 agent
+的有效性本质上受限于基础模型的能力</strong>。另一种解决方案是通过模仿学习在演示数据上对模型进行微调。然而，网络和设备具有动态特性，训练过时数据中操作的模型会随着生态系统的变化而表现不佳。</p>
+<p>若能构建一种交互式方法，使视觉语言模型（VLM）通过在设备和互联网上的自身经验直接适应与学习，则无需依赖专有模型的封装层即可打造鲁棒可靠的设备控制
+agent。这种基于学习的方法需满足以下核心需求：</p>
 <ul>
-<li><p>在线交互数据驱动：静态演示数据无法覆盖部署后的真实任务场景。例如，仅在网页导航场景中，野外网站的动态特性就意味着 agent 会频繁遇到与训练数据差异显著的页面版本，需在视觉外观变化和干扰因素存在的情况下保持可靠行为。</p>
-</li>
-<li><p>动态错误过滤与学习：实时学习依赖模型自身的多轮交互数据（其中包含大量失败案例），需设计机制自动筛选正确操作并过滤错误行为。</p>
-</li>
+<li><p>在线交互数据驱动：静态演示数据无法覆盖部署后的真实任务场景。例如，仅在网页导航场景中，野外网站的动态特性就意味着
+agent
+会频繁遇到与训练数据差异显著的页面版本，需在视觉外观变化和干扰因素存在的情况下保持可靠行为。</p></li>
+<li><p>动态错误过滤与学习：实时学习依赖模型自身的多轮交互数据（其中包含大量失败案例），需设计机制自动筛选正确操作并过滤错误行为。</p></li>
 </ul>
-<p><img src="/2025/05/01/GUIagent-with-RL-papers/digirl1.png" alt=""></p>
-<p>如图 1 所示，本文提出自主强化学习方法 DigiRL（RL for Digital Agents），用于训练设备控制 agent，在多项安卓设备控制任务中实现 SOTA 性能。其训练流程分为两个阶段：</p>
+<p><img src="/2025/05/01/GUIagent-with-RL-papers/digirl1.png"></p>
+<p>如图 1 所示，本文提出自主强化学习方法 DigiRL（RL for Digital
+Agents），用于训练设备控制 agent，在多项安卓设备控制任务中实现 SOTA
+性能。其训练流程分为两个阶段：</p>
 <ul>
-<li><p>离线 RL 初始化阶段：利用现有数据预训练 agent，奠定基础策略；</p>
-</li>
-<li><p>离线 - 在线 RL 优化阶段：基于离线阶段模型，通过在线交互数据进一步微调。</p>
-</li>
+<li><p>离线 RL 初始化阶段：利用现有数据预训练
+agent，奠定基础策略；</p></li>
+<li><p>离线 - 在线 RL
+优化阶段：基于离线阶段模型，通过在线交互数据进一步微调。</p></li>
 </ul>
-<p><img src="/2025/05/01/GUIagent-with-RL-papers/digirl2.png" alt=""></p>
-<h2 id="Problem-Setup-and-Preliminaries"><a href="#Problem-Setup-and-Preliminaries" class="headerlink" title="Problem Setup and Preliminaries"></a>Problem Setup and Preliminaries</h2><h3 id="问题定义与研究范围"><a href="#问题定义与研究范围" class="headerlink" title="问题定义与研究范围"></a>问题定义与研究范围</h3><p>本文聚焦于<strong>基于像素级交互的虚拟设备控制</strong>，以安卓设备为研究对象。相较于仅关注网页导航的传统学习环境，安卓环境更具挑战性与通用性——网页浏览器仅是其中一个应用。</p>
+<p><img src="/2025/05/01/GUIagent-with-RL-papers/digirl2.png"></p>
+<h2 id="problem-setup-and-preliminaries">Problem Setup and
+Preliminaries</h2>
+<h3 id="问题定义与研究范围">问题定义与研究范围</h3>
+<p>本文聚焦于<strong>基于像素级交互的虚拟设备控制</strong>，以安卓设备为研究对象。相较于仅关注网页导航的传统学习环境，安卓环境更具挑战性与通用性——网页浏览器仅是其中一个应用。</p>
 <p><strong>任务流程</strong>：</p>
-<ol>
-<li><p><strong>初始化</strong>：每次训练从模拟器 home screen 开始；  </p>
-</li>
-<li><p><strong>任务输入</strong>：从预定义语言指令集中选取任务，例如 “What’s on the menu of In-n-Out?” 或 “Go to newegg.com, search for razer kraken, and select the first entry”；  </p>
-</li>
+<ol type="1">
+<li><p><strong>初始化</strong>：每次训练从模拟器 home screen
+开始；</p></li>
+<li><p><strong>任务输入</strong>：从预定义语言指令集中选取任务，例如
+“What’s on the menu of In-n-Out?” 或 “Go to newegg.com, search for razer
+kraken, and select the first entry”；</p></li>
 <li><p><strong>交互动作</strong>：agent 可以通过以下操作控制模拟器：</p>
 <ul>
-<li><p><strong>坐标操作</strong>：基于归一化坐标（0-1）的点击（Tap）和滑动（Swipe）； </p>
-</li>
-<li><p><strong>文本输入</strong>：可变长度的文本输入； </p>
-</li>
-<li><p><strong>系统按钮</strong>：HOME、BACK、ENTER 等特殊按键（如图 3 所示）。  </p>
-</li>
-</ul>
-</li>
+<li><p><strong>坐标操作</strong>：基于归一化坐标（0-1）的点击（Tap）和滑动（Swipe）；</p></li>
+<li><p><strong>文本输入</strong>：可变长度的文本输入；</p></li>
+<li><p><strong>系统按钮</strong>：HOME、BACK、ENTER 等特殊按键（如图 3
+所示）。</p></li>
+</ul></li>
 </ol>
-<p><strong>数据来源</strong>：训练与测试指令来自 AitW 数据集的“通用”和“网络购物”子集，涵盖信息查询、电商购物等多类任务。  </p>
-<p><img src="/2025/05/01/GUIagent-with-RL-papers/digirl3.png" alt=""></p>
-<h3 id="真实环境中的随机性挑战"><a href="#真实环境中的随机性挑战" class="headerlink" title="真实环境中的随机性挑战"></a>真实环境中的随机性挑战</h3><p>与模拟环境相比，真实设备会面临三类独特随机性挑战：  </p>
-<ol>
-<li><p><strong>应用与网站的非平稳性</strong>：频繁更新导致在线观测与离线数据存在显著差异（如界面布局变化、功能按钮位置调整）；例：某购物应用更新后，“搜索栏”从屏幕顶部移至底部，静态训练数据无法覆盖此类变化。  </p>
-</li>
-<li><p><strong>不可预测的干扰因素</strong>：弹出广告、登录请求、搜索结果顺序随机变化等动态干扰；例：网页加载时随机出现的验证码或权限请求，可能阻断 agent 的预设操作流程。  </p>
-</li>
-<li><p><strong>技术故障与延迟</strong>：网页加载不完整、特定站点临时访问限制等偶发问题；例：因网络延迟导致按钮点击无响应，需 agent 重复尝试或调整策略。  </p>
-</li>
+<p><strong>数据来源</strong>：训练与测试指令来自 AitW
+数据集的“通用”和“网络购物”子集，涵盖信息查询、电商购物等多类任务。</p>
+<p><img src="/2025/05/01/GUIagent-with-RL-papers/digirl3.png"></p>
+<h3 id="真实环境中的随机性挑战">真实环境中的随机性挑战</h3>
+<p>与模拟环境相比，真实设备会面临三类独特随机性挑战：</p>
+<ol type="1">
+<li><p><strong>应用与网站的非平稳性</strong>：频繁更新导致在线观测与离线数据存在显著差异（如界面布局变化、功能按钮位置调整）；例：某购物应用更新后，“搜索栏”从屏幕顶部移至底部，静态训练数据无法覆盖此类变化。</p></li>
+<li><p><strong>不可预测的干扰因素</strong>：弹出广告、登录请求、搜索结果顺序随机变化等动态干扰；例：网页加载时随机出现的验证码或权限请求，可能阻断
+agent 的预设操作流程。</p></li>
+<li><p><strong>技术故障与延迟</strong>：网页加载不完整、特定站点临时访问限制等偶发问题；例：因网络延迟导致按钮点击无响应，需
+agent 重复尝试或调整策略。</p></li>
 </ol>
-<h3 id="可靠且可扩展的在线强化学习（RL）设置"><a href="#可靠且可扩展的在线强化学习（RL）设置" class="headerlink" title="可靠且可扩展的在线强化学习（RL）设置"></a>可靠且可扩展的在线强化学习（RL）设置</h3><p>由于自主强化学习需要将数据收集与训练过程交织进行，为了在随机性环境中最大化学习效率，构建实时数据收集管道以获取足够经验用于梯度更新至关重要。然而，受限于单线程安卓模拟器环境的延迟问题，传统方法难以实现这一目标。为此，作者通过<strong>并行化安卓模拟器</strong>并结合了错误处理机制。  </p>
-<h4 id="并行化环境架构"><a href="#并行化环境架构" class="headerlink" title="并行化环境架构"></a>并行化环境架构</h4><ul>
-<li><p><strong>多实例并发</strong>：支持同时运行<strong> 64 个安卓模拟器实例</strong>，通过分布式计算框架实现数据收集的并行化，将单位时间内的交互样本量提升 64 倍；  </p>
-</li>
-<li><p><strong>实时错误处理</strong>：集成自动重启机制，当某个模拟器实例出现崩溃或无响应时，系统自动重启该实例并恢复任务，确保数据收集的连续性。  </p>
-</li>
-</ul>
-<h4 id="基于-Gemini-1-5-Pro-的自主评估器"><a href="#基于-Gemini-1-5-Pro-的自主评估器" class="headerlink" title="基于 Gemini 1.5 Pro 的自主评估器"></a>基于 Gemini 1.5 Pro 的自主评估器</h4><p>环境需通过判断当前观测是否表明 agent 成功完成任务来提供奖励信号。为使评估器适用于广泛任务，作者扩展了 Pan 等人 [26] 提出的端到端自主评估框架，无需访问模拟器的内部状态或为每个任务手动编写验证规则，突破了传统方法依赖人工定义执行函数的局限；采用 Gemini 1.5 Pro 作为评估器主干，通过<strong>少样本演示（few-shot rollouts）</strong>和人工标注的成功指标对模型进行初始化，使其能够基于屏幕截图、任务指令等多模态输入，自主判断任务完成状态。  </p>
-<h4 id="评估流程与泛化能力"><a href="#评估流程与泛化能力" class="headerlink" title="评估流程与泛化能力"></a>评估流程与泛化能力</h4><ol>
-<li><p><strong>输入数据</strong>：  </p>
+<h3 id="可靠且可扩展的在线强化学习rl设置">可靠且可扩展的在线强化学习（RL）设置</h3>
+<p>由于自主强化学习需要将数据收集与训练过程交织进行，为了在随机性环境中最大化学习效率，构建实时数据收集管道以获取足够经验用于梯度更新至关重要。然而，受限于单线程安卓模拟器环境的延迟问题，传统方法难以实现这一目标。为此，作者通过<strong>并行化安卓模拟器</strong>并结合了错误处理机制。</p>
+<h4 id="并行化环境架构">并行化环境架构</h4>
 <ul>
-<li><p>agent 当前交互的屏幕截图；  </p>
-</li>
-<li><p>任务原始指令（如“在亚马逊搜索笔记本电脑”）； </p>
-</li>
-<li><p>可选的中间操作日志（如已执行的点击坐标序列）。  </p>
-</li>
+<li><p><strong>多实例并发</strong>：支持同时运行** 64
+个安卓模拟器实例**，通过分布式计算框架实现数据收集的并行化，将单位时间内的交互样本量提升
+64 倍；</p></li>
+<li><p><strong>实时错误处理</strong>：集成自动重启机制，当某个模拟器实例出现崩溃或无响应时，系统自动重启该实例并恢复任务，确保数据收集的连续性。</p></li>
 </ul>
-</li>
-<li><p><strong>评估逻辑</strong>：  </p>
+<h4 id="基于-gemini-1.5-pro-的自主评估器">基于 Gemini 1.5 Pro
+的自主评估器</h4>
+<p>环境需通过判断当前观测是否表明 agent
+成功完成任务来提供奖励信号。为使评估器适用于广泛任务，作者扩展了 Pan
+等人 [26]
+提出的端到端自主评估框架，无需访问模拟器的内部状态或为每个任务手动编写验证规则，突破了传统方法依赖人工定义执行函数的局限；采用
+Gemini 1.5 Pro 作为评估器主干，通过<strong>少样本演示（few-shot
+rollouts）</strong>和人工标注的成功指标对模型进行初始化，使其能够基于屏幕截图、任务指令等多模态输入，自主判断任务完成状态。</p>
+<h4 id="评估流程与泛化能力">评估流程与泛化能力</h4>
+<ol type="1">
+<li><p><strong>输入数据</strong>：</p>
 <ul>
-<li><p>Gemini 1.5 Pro 通过视觉-语言联合推理，判断截图内容是否满足任务目标（如截图显示亚马逊搜索结果页且首条为笔记本电脑）；</p>
-</li>
-<li><p>输出二值奖励信号（成功=+1，失败=0），或连续值奖励（如根据任务完成进度打分）。  </p>
-</li>
-</ul>
-</li>
-<li><p><strong>泛化优势</strong>：单一评估器可覆盖 AitW 数据集中的所有任务类型（包括信息查询、购物、应用操作等），避免了传统方法中为每个任务定制评估规则的繁琐流程，显著提升系统扩展性。  </p>
-</li>
+<li><p>agent 当前交互的屏幕截图；</p></li>
+<li><p>任务原始指令（如“在亚马逊搜索笔记本电脑”）；</p></li>
+<li><p>可选的中间操作日志（如已执行的点击坐标序列）。</p></li>
+</ul></li>
+<li><p><strong>评估逻辑</strong>：</p>
+<ul>
+<li><p>Gemini 1.5 Pro
+通过视觉-语言联合推理，判断截图内容是否满足任务目标（如截图显示亚马逊搜索结果页且首条为笔记本电脑）；</p></li>
+<li><p>输出二值奖励信号（成功=+1，失败=0），或连续值奖励（如根据任务完成进度打分）。</p></li>
+</ul></li>
+<li><p><strong>泛化优势</strong>：单一评估器可覆盖 AitW
+数据集中的所有任务类型（包括信息查询、购物、应用操作等），避免了传统方法中为每个任务定制评估规则的繁琐流程，显著提升系统扩展性。</p></li>
 </ol>
-<h2 id="DigiRL-Autonomous-RL-for-Building-a-Strong-Device-Control-Agent"><a href="#DigiRL-Autonomous-RL-for-Building-a-Strong-Device-Control-Agent" class="headerlink" title="DigiRL: Autonomous RL for Building a Strong Device-Control Agent"></a>DigiRL: Autonomous RL for Building a Strong Device-Control Agent</h2><h3 id="Device-control-and-GUI-navigation-as-a-MDP"><a href="#Device-control-and-GUI-navigation-as-a-MDP" class="headerlink" title="Device control and GUI navigation as a MDP"></a>Device control and GUI navigation as a MDP</h3><p>将自然语言指令引导的设备控制任务抽象为有限时域马尔可夫决策过程（MDP），表示为 $M = {S, A, T, \mu_0, R, H}$，并通过策略梯度算法求解该 MDP。初始状态 $s_0$ 和自然语言指令 $c$ 从初始状态分布 $\mu_0$ 中采样得到。若 agent 最终通过评估器判定成功完成任务，则获得奖励 $1$，否则为 $0$。轨迹在 agent 完成任务或达到最大交互步数 $H$ 时终止。状态由最近两帧屏幕截图表示。为详细说明方法，引入强化学习中的标准定义：策略 $\pi$ 的 $Q$ 函数表示在当前步骤执行特定动作 $a_h$ 并遵循策略 $\pi$ 后的期望长期回报：  </p>
-<script type="math/tex; mode=display">
-Q^\pi(s_h, a_h, c) = \mathbb{E}_\pi [ \sum_{t=h}^H r(s_t, a_t, c) ],</script><p>价值函数 $V^\pi(s_h, c)$ 是策略 $\pi$ 下动作 $a_h$ 的 $Q$ 值均值，优势函数 $A^\pi(s_h, a_h, c)$ 则通过 $Q$ 值与值函数的差值计算：  </p>
-<script type="math/tex; mode=display">
-A^\pi(s_h, a_h, c) = Q^\pi(s_h, a_h, c) - V^\pi(s_h, c).</script><h3 id="Backbone-of-Our-Approach-Off-Policy-RL-via-Advantage-Weighted-Regression"><a href="#Backbone-of-Our-Approach-Off-Policy-RL-via-Advantage-Weighted-Regression" class="headerlink" title="Backbone of Our Approach: Off-Policy RL via Advantage-Weighted Regression"></a>Backbone of Our Approach: Off-Policy RL via Advantage-Weighted Regression</h3><p>作者选择以优势加权回归（AWR）算法作为方法的起点。该算法表明，通过将策略向奖励函数诱导的指数化优势方向回归，可在可靠优化策略梯度的同时保持与先前策略的接近性，其优化目标为：  </p>
-<script type="math/tex; mode=display">
-\arg\max_\pi  \mathbb{E}_\nu [\log \pi(a|s, c) \cdot \exp ( \frac{A(s, a, c)}{\beta} ) ], \tag{4.1}</script><p>其中，$\beta$ 为正参数，$\nu$ 为历史经验分布，$A(s, a, c)$ 表示给定上下文 $c$ 时状态-动作对 $(s, a)$ 的优势。为避免调优超参数 $\beta$，借鉴先前研究，采用对优势进行“硬过滤”而非计算指数的替代方法，得到用于模型微调的损失函数：  </p>
-<script type="math/tex; mode=display">
-\mathcal{L}(\pi) = -\mathbb{E}_{\text{filter}(\nu)} [ \log \pi(a|s, c) ]. \tag{4.2}</script><p>通常，这些优势通过在环境中运行蒙特卡洛（MC）展开来估计给定状态-动作对的价值，并从中减去由学习到的值估计器单独提供的状态价值估计。然而，鉴于设备生态系统的随机性会影响 MC 展开，该方法可能产生高方差的优势估计。</p>
-<h3 id="Obtaining-Reliable-Advantage-Estimates-from-Doubly-Robust-Estimators"><a href="#Obtaining-Reliable-Advantage-Estimates-from-Doubly-Robust-Estimators" class="headerlink" title="Obtaining Reliable Advantage Estimates from Doubly-Robust Estimators"></a>Obtaining Reliable Advantage Estimates from Doubly-Robust Estimators</h3><p>为在显著的环境随机性中可靠识别有利动作，作者受双稳健估计器启发，构建了单步优势估计器：  </p>
-<script type="math/tex; mode=display">
-A_{\text{step}}(s_h, a_h, c) := \lambda^{H-h} r(s_H, a_H, c) + (1 - \lambda^{H-h} r(s_H, a_H, c)) ( V_{\text{step}}(s_{h+1}, c) + r(s_h, a_h, c) - V_{\text{step}}(s_h, c) ), \tag{4.3}</script><p>其中，$\lambda$ 为加权超参数。该优势估计器是广义优势估计（GAE）的简化版本，因问题中无中间奖励，故仅使用下一步优势估计与最终步优势估计。此构造平衡了两类估计器：</p>
-<ol>
-<li><p>高方差蒙特卡洛估计项 $\lambda^{H-h} r(s_H, a_H, c)$：受环境随机性影响，依赖最终奖励的估计具有高方差；  </p>
-</li>
-<li><p>高偏差值函数估计项 $V<em>{\text{step}}(s</em>{h+1}, c) + r(s<em>h, a_h, c) - V</em>{\text{step}}(s_h, c)$：因值函数拟合不完美，基于相邻状态值差的估计存在偏差。  </p>
-</li>
+<h2 id="digirl-autonomous-rl-for-building-a-strong-device-control-agent">DigiRL:
+Autonomous RL for Building a Strong Device-Control Agent</h2>
+<h3 id="device-control-and-gui-navigation-as-a-mdp">Device control and
+GUI navigation as a MDP</h3>
+<p>将自然语言指令引导的设备控制任务抽象为有限时域马尔可夫决策过程（MDP），表示为
+<span class="math inline">\(M = \{S, A, T, \mu_0, R,
+H\}\)</span>，并通过策略梯度算法求解该 MDP。初始状态 <span class="math inline">\(s_0\)</span> 和自然语言指令 <span class="math inline">\(c\)</span> 从初始状态分布 <span class="math inline">\(\mu_0\)</span> 中采样得到。若 agent
+最终通过评估器判定成功完成任务，则获得奖励 <span class="math inline">\(1\)</span>，否则为 <span class="math inline">\(0\)</span>。轨迹在 agent
+完成任务或达到最大交互步数 <span class="math inline">\(H\)</span>
+时终止。状态由最近两帧屏幕截图表示。为详细说明方法，引入强化学习中的标准定义：策略
+<span class="math inline">\(\pi\)</span> 的 <span class="math inline">\(Q\)</span> 函数表示在当前步骤执行特定动作 <span class="math inline">\(a_h\)</span> 并遵循策略 <span class="math inline">\(\pi\)</span> 后的期望长期回报：<br>
+<span class="math display">\[
+Q^\pi(s_h, a_h, c) = \mathbb{E}_\pi [ \sum_{t=h}^H r(s_t, a_t, c) ],
+\]</span><br>
+价值函数 <span class="math inline">\(V^\pi(s_h, c)\)</span> 是策略 <span class="math inline">\(\pi\)</span> 下动作 <span class="math inline">\(a_h\)</span> 的 <span class="math inline">\(Q\)</span> 值均值，优势函数 <span class="math inline">\(A^\pi(s_h, a_h, c)\)</span> 则通过 <span class="math inline">\(Q\)</span> 值与值函数的差值计算：<br>
+<span class="math display">\[
+A^\pi(s_h, a_h, c) = Q^\pi(s_h, a_h, c) - V^\pi(s_h, c).
+\]</span></p>
+<h3 id="backbone-of-our-approach-off-policy-rl-via-advantage-weighted-regression">Backbone
+of Our Approach: Off-Policy RL via Advantage-Weighted Regression</h3>
+<p>作者选择以优势加权回归（AWR）算法作为方法的起点。该算法表明，通过将策略向奖励函数诱导的指数化优势方向回归，可在可靠优化策略梯度的同时保持与先前策略的接近性，其优化目标为：<br>
+<span class="math display">\[
+\arg\max_\pi  \mathbb{E}_\nu [\log \pi(a|s, c) \cdot \exp ( \frac{A(s,
+a, c)}{\beta} ) ], \tag{4.1}
+\]</span><br>
+其中，<span class="math inline">\(\beta\)</span> 为正参数，<span class="math inline">\(\nu\)</span> 为历史经验分布，<span class="math inline">\(A(s, a, c)\)</span> 表示给定上下文 <span class="math inline">\(c\)</span> 时状态-动作对 <span class="math inline">\((s, a)\)</span> 的优势。为避免调优超参数 <span class="math inline">\(\beta\)</span>，借鉴先前研究，采用对优势进行“硬过滤”而非计算指数的替代方法，得到用于模型微调的损失函数：<br>
+<span class="math display">\[
+L(\pi) = -\mathbb{E}_{\text{filter}(\nu)} [ \log \pi(a|s, c) ].
+\tag{4.2}
+\]</span><br>
+通常，这些优势通过在环境中运行蒙特卡洛（MC）展开来估计给定状态-动作对的价值，并从中减去由学习到的值估计器单独提供的状态价值估计。然而，鉴于设备生态系统的随机性会影响
+MC 展开，该方法可能产生高方差的优势估计。</p>
+<h3 id="obtaining-reliable-advantage-estimates-from-doubly-robust-estimators">Obtaining
+Reliable Advantage Estimates from Doubly-Robust Estimators</h3>
+<p>为在显著的环境随机性中可靠识别有利动作，作者受双稳健估计器启发，构建了单步优势估计器：<br>
+<span class="math display">\[
+A_{\text{step}}(s_h, a_h, c) := \lambda^{H-h} r(s_H, a_H, c) + (1 -
+\lambda^{H-h} r(s_H, a_H, c)) ( V_{\text{step}}(s_{h+1}, c) + r(s_h,
+a_h, c) - V_{\text{step}}(s_h, c) ), \tag{4.3}
+\]</span><br>
+其中，<span class="math inline">\(\lambda\)</span>
+为加权超参数。该优势估计器是广义优势估计（GAE）的简化版本，因问题中无中间奖励，故仅使用下一步优势估计与最终步优势估计。此构造平衡了两类估计器：</p>
+<ol type="1">
+<li><p>高方差蒙特卡洛估计项 <span class="math inline">\(\lambda^{H-h}
+r(s_H, a_H,
+c)\)</span>：受环境随机性影响，依赖最终奖励的估计具有高方差；</p></li>
+<li><p>高偏差值函数估计项 <span class="math inline">\(V_{\text{step}}(s_{h+1}, c) + r(s_h, a_h, c) -
+V_{\text{step}}(s_h,
+c)\)</span>：因值函数拟合不完美，基于相邻状态值差的估计存在偏差。</p></li>
 </ol>
-<p>实验表明，结合高方差与高偏差估计器可在性能上取得平衡。为实现单步硬过滤，仅需对双稳健估计器设置阈值 $A_{\text{step}}(s_h, a_h, c) &gt; 1/H$，以判断哪些动作有助于目标推进。</p>
-<h3 id="Automatic-Curriculum-using-an-Instruction-Level-Value-Function"><a href="#Automatic-Curriculum-using-an-Instruction-Level-Value-Function" class="headerlink" title="Automatic Curriculum using an Instruction-Level Value Function"></a>Automatic Curriculum using an Instruction-Level Value Function</h3><p>尽管优势加权回归（AWR，公式 4.1）结合稳健优势估计器（公式 4.3）在标准强化学习任务中已足够有效，但在初步实验中，作者发现其对设备控制任务的效果不足。这通常是由于任务集包含难度高度可变的任务，导致 agent 在已熟练的任务上收集过多数据，负面地影响了样本效率。相反，通过在训练中让 agent 体验最具信息价值的任务，可以获取最大的学习信号。为此，设计了<strong>指令级价值函数</strong> $V^{\text{instruct}}(c)$，以评估给定的轨迹是否能提供有效的学习信号：  </p>
-<script type="math/tex; mode=display">
-A^{\text{instruct}}(s_h, a_h, c) := \sum_{t=h}^H r(s_t, a_t, c) - V^{\text{instruct}}(c) = r(s_H, a_H, c) - V^{\text{instruct}}(c), \tag{4.4}</script><p>其中，$\sum_{t=h}^H r(s_t, a_t, c)$ 是 $Q(s_h, a_h, c)$ 的蒙特卡洛估计。由于 MDP 建模仅在轨迹结束时提供奖励，上述等式成立。直观而言，若某轨迹的 $A^{\text{instruct}}(s_h, a_h, c)$ 值较高，表明价值函数 $V^{\text{instruct}}$ 较小，即该轨迹代表 agent 完成困难任务的宝贵经验，因此应优先处理，这与优先经验回放 [32] 或层级回放 [11] 的思想类似。在使用历史离策略数据缓冲区训练策略时，我们首先通过过滤步骤筛选出 $A^{\text{instruct}}$ 最高的前 $p\%$ 数据点，然后将其与双稳健优势估计器（公式 4.3）结合用于 AWR 更新（公式 4.1）。  </p>
-<p><strong>实现细节</strong>：作者使用基于轨迹奖励蒙特卡洛估计的交叉熵目标函数训练两类价值函数：  </p>
-<script type="math/tex; mode=display">
-\mathcal{L}(V^{\text{traj}}) = -\mathbb{E}_\nu [ r(s_H, a_H, c) \log V^{\text{traj}}(c) + (1 - r(s_H, a_H, c)) \log(1 - V^{\text{traj}}(c)) ], \tag{4.5}</script><script type="math/tex; mode=display">
-\mathcal{L}(V^{\text{step}}) = -\mathbb{E}_\nu [ r(s_H, a_H, c) \log V^{\text{step}}(s_h, a_h, c) + (1 - r(s_H, a_H, c)) \log(1 - V^{\text{step}}(s_h, a_h, c)) ]. \tag{4.6}</script><p><strong>最终算法</strong>：如图 5 所示，指令级价值函数通过公式 4.5 的损失训练，用于估计轨迹价值；单步价值函数通过公式 4.6 的损失训练，用于估计状态价值。训练策略时，首先利用公式 4.4 和公式 4.3 的价值函数过滤轨迹和状态，然后在过滤后的数据上使用公式 4.2 的最大似然估计（MLE）损失更新策略。该方法通过动态 prioritization 困难任务与稳健优势估计的结合，显著提升了设备控制 agent 在高随机性环境中的样本效率与决策可靠性。</p>
-<p><img src="/2025/05/01/GUIagent-with-RL-papers/digirl4.png" alt=""></p>
+<p>实验表明，结合高方差与高偏差估计器可在性能上取得平衡。为实现单步硬过滤，仅需对双稳健估计器设置阈值
+<span class="math inline">\(A_{\text{step}}(s_h, a_h, c) &gt;
+1/H\)</span>，以判断哪些动作有助于目标推进。</p>
+<h3 id="automatic-curriculum-using-an-instruction-level-value-function">Automatic
+Curriculum using an Instruction-Level Value Function</h3>
+<p>尽管优势加权回归（AWR，公式 4.1）结合稳健优势估计器（公式
+4.3）在标准强化学习任务中已足够有效，但在初步实验中，作者发现其对设备控制任务的效果不足。这通常是由于任务集包含难度高度可变的任务，导致
+agent
+在已熟练的任务上收集过多数据，负面地影响了样本效率。相反，通过在训练中让
+agent
+体验最具信息价值的任务，可以获取最大的学习信号。为此，设计了<strong>指令级价值函数</strong>
+<span class="math inline">\(V^{\text{instruct}}(c)\)</span>，以评估给定的轨迹是否能提供有效的学习信号：<br>
+<span class="math display">\[
+A^{\text{instruct}}(s_h, a_h, c) := \sum_{t=h}^H r(s_t, a_t, c) -
+V^{\text{instruct}}(c) = r(s_H, a_H, c) - V^{\text{instruct}}(c),
+\tag{4.4}
+\]</span><br>
+其中，<span class="math inline">\(\sum_{t=h}^H r(s_t, a_t, c)\)</span>
+是 <span class="math inline">\(Q(s_h, a_h, c)\)</span>
+的蒙特卡洛估计。由于 MDP
+建模仅在轨迹结束时提供奖励，上述等式成立。直观而言，若某轨迹的 <span class="math inline">\(A^{\text{instruct}}(s_h, a_h, c)\)</span>
+值较高，表明价值函数 <span class="math inline">\(V^{\text{instruct}}\)</span> 较小，即该轨迹代表
+agent 完成困难任务的宝贵经验，因此应优先处理，这与优先经验回放 [32]
+或层级回放 [11]
+的思想类似。在使用历史离策略数据缓冲区训练策略时，我们首先通过过滤步骤筛选出
+<span class="math inline">\(A^{\text{instruct}}\)</span> 最高的前 <span class="math inline">\(p\%\)</span>
+数据点，然后将其与双稳健优势估计器（公式 4.3）结合用于 AWR 更新（公式
+4.1）。</p>
+<p><strong>实现细节</strong>：作者使用基于轨迹奖励蒙特卡洛估计的交叉熵目标函数训练两类价值函数：<br>
+<span class="math display">\[
+L(V^{\text{traj}}) = -\mathbb{E}_\nu [ r(s_H, a_H, c) \log
+V^{\text{traj}}(c) + (1 - r(s_H, a_H, c)) \log(1 - V^{\text{traj}}(c))
+], \tag{4.5}
+\]</span><br>
+<span class="math display">\[
+L(V^{\text{step}}) = -\mathbb{E}_\nu [ r(s_H, a_H, c) \log
+V^{\text{step}}(s_h, a_h, c) + (1 - r(s_H, a_H, c)) \log(1 -
+V^{\text{step}}(s_h, a_h, c)) ]. \tag{4.6}
+\]</span></p>
+<p><strong>最终算法</strong>：如图 5 所示，指令级价值函数通过公式 4.5
+的损失训练，用于估计轨迹价值；单步价值函数通过公式 4.6
+的损失训练，用于估计状态价值。训练策略时，首先利用公式 4.4 和公式 4.3
+的价值函数过滤轨迹和状态，然后在过滤后的数据上使用公式 4.2
+的最大似然估计（MLE）损失更新策略。该方法通过动态 prioritization
+困难任务与稳健优势估计的结合，显著提升了设备控制 agent
+在高随机性环境中的样本效率与决策可靠性。</p>
+<p><img src="/2025/05/01/GUIagent-with-RL-papers/digirl4.png"></p>
  
       <!-- reward -->
       
@@ -282,6 +384,15 @@ A^{\text{instruct}}(s_h, a_h, c) := \sum_{t=h}^H r(s_t, a_t, c) - V^{\text{instr
 
    
   <nav class="article-nav">
+    
+      <a href="/2025/06/01/GUIagent_papers/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            (GUI) Agent Papers
+          
+        </div>
+      </a>
     
     
       <a href="/2025/05/01/multi_agent_papers/" class="article-nav-link">

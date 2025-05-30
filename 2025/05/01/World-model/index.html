@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    World model |  Welcome to XueYu&#39;s Blog
+    World Model |  Welcome to XueYu&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -36,9 +36,9 @@
   
 
 <link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
-
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" />
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+</head>
 
 </html>
 <script src="/js/hexo_resize_image.js"></script>
@@ -60,7 +60,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  World model
+  World Model
 </h1>
  
 
@@ -227,10 +227,10 @@ Environment Dynamics）</h3>
 <span class="math inline">\(\tilde{o}_{t+1}\)</span>。该预测是基于以下三个输入：用户指令
 <span class="math inline">\(I\)</span>；当前观察 <span class="math inline">\(o_t\)</span>；当前采取的动作 <span class="math inline">\(a_t\)</span>。训练目标是通过标准的“下一词预测”目标函数最小化损失：
 <span class="math display">\[
-\mathcal{L}_{\phi} = - \log \sum_{(\tilde{o}, o, a, I) \in \tilde{D}}
+L_{\phi} = - \log \sum_{(\tilde{o}, o, a, I) \in \tilde{D}}
 p(\tilde{o}_{t+1} \mid o_t, a_t, I)
 \]</span>
-即，模型要学会根据当前观察、当前动作和用户目标，预测接下来状态的差异性摘要（即下一步抽象观察）。</p>
+即模型要学会根据当前观察、当前动作和用户目标，预测接下来状态的差异性摘要（即下一步抽象观察）。</p>
 <h3 id="推理阶段的策略优化">推理阶段的策略优化</h3>
 <p>本节介绍如何在推理阶段利用已训练的世界模型 <span class="math inline">\(\phi\)</span> 来优化基于大语言模型（LLM）的 Web
 智能体的决策表现。整个系统由三个核心组件组成：</p>
@@ -242,13 +242,13 @@ p(\tilde{o}_{t+1} \mid o_t, a_t, I)
 <p>推理流程如下：</p>
 <ul>
 <li><p>Step 1: 策略模型采样动作候选。在时间步 <span class="math inline">\(t\)</span>，智能体首先从策略模型 <span class="math inline">\(\theta\)</span> 中基于当前观察 <span class="math inline">\(o_t\)</span> 和用户目标 <span class="math inline">\(I\)</span>，通过 top-p sampling 方法生成 <span class="math inline">\(k\)</span> 个动作候选： <span class="math display">\[
-\{a^1_t, a^2_t, ..., a^k_t\}
+\{a^1_t, a^2_t, ..., a^k_t\}.
 \]</span></p></li>
-<li><p>Step 2: 世界模型预测未来状态。对于每个动作候选 <span class="math inline">\(a^i_t\)</span>，利用世界模型 <span class="math inline">\(\phi\)</span> 来“模拟”该动作将导致的下一观察 <span class="math inline">\(\tilde{o}^i_{t+1}\)</span>，即：</p></li>
+<li><p>Step 2: 世界模型预测未来状态。对于每个动作候选 <span class="math inline">\(a^i_t\)</span>，利用世界模型 <span class="math inline">\(\phi\)</span> 来“模拟”该动作将导致的下一观察 <span class="math inline">\(\tilde{o}^{i}_{t+1}\)</span>，即：</p></li>
 </ul>
 <p><span class="math display">\[
-\{\tilde{o}^i_{t+1}\}_{i=1}^k = \{\phi(o_t, a^i_t, I)\}_{i=1}^k
-\]</span> 注意：每个 <span class="math inline">\(\tilde{o}^i_{t+1}\)</span>
+\{\tilde{o}^i_{t+1}\}_{i=1}^k = \{\phi(o_t, a^i_t, I)\}_{i=1}^k.
+\]</span> 注意：每个 <span class="math inline">\(\tilde{o}^{i}_{t+1}\)</span>
 是自由形式的自然语言描述，仅强调新旧状态之间的变化，便于推理。</p>
 <ul>
 <li>Step 3:
@@ -256,7 +256,7 @@ p(\tilde{o}_{t+1} \mid o_t, a_t, I)
 </ul>
 <p><span class="math display">\[
 \hat{a}_t = \arg\max_{a_t \in \{a^1_t, ..., a^k_t\}} V(I, o_t, a_t,
-\tilde{o}_{t+1})
+\tilde{o}_{t+1}).
 \]</span> 最终选择最优动作 <span class="math inline">\(\hat{a}_t\)</span> 来执行。</p>
 <h2 id="与树搜索tree-search智能体的对比">与树搜索（Tree
 Search）智能体的对比</h2>

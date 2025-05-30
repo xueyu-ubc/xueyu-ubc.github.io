@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2025-05-30T04:54:16.573Z</updated>
+  <updated>2025-05-30T05:18:32.841Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,18 +17,41 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>(GUI) Agent Papers</title>
+    <link href="https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/"/>
+    <id>https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/</id>
+    <published>2025-05-31T16:00:00.000Z</published>
+    <updated>2025-05-30T05:18:32.841Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;seeclick-harnessing-gui-grounding-for-advanced-visual-gui-agents&quot;&gt;&lt;a href=&quot;https://arxiv.org/abs/2401.10935&quot;&gt;（202402）SeeClick:</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>(GUI) Agent with RL Papers</title>
     <link href="https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/"/>
     <id>https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/</id>
     <published>2025-05-01T00:00:00.000Z</published>
-    <updated>2025-05-30T04:54:16.573Z</updated>
+    <updated>2025-05-30T04:59:45.146Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;201805-HRL-Data-Efficient-Hierarchical-Reinforcement-Learning&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;hrl-data-efficient-hierarchical-reinforcement-learning&quot;&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.08296&quot;&gt;(201805)(HRL)</summary>
         
       
     
@@ -64,11 +87,11 @@
   </entry>
   
   <entry>
-    <title>World model</title>
+    <title>World Model</title>
     <link href="https://xueyu-ubc.github.io/2025/05/01/World-model/"/>
     <id>https://xueyu-ubc.github.io/2025/05/01/World-model/</id>
     <published>2025-05-01T00:00:00.000Z</published>
-    <updated>2025-05-29T01:33:11.496Z</updated>
+    <updated>2025-05-30T05:21:32.962Z</updated>
     
     
       
@@ -141,7 +164,7 @@
     <link href="https://xueyu-ubc.github.io/2025/04/18/UI_TARS/"/>
     <id>https://xueyu-ubc.github.io/2025/04/18/UI_TARS/</id>
     <published>2025-04-17T16:00:00.000Z</published>
-    <updated>2025-04-22T09:34:42.494Z</updated>
+    <updated>2025-05-30T05:23:43.498Z</updated>
     
     
       
@@ -155,29 +178,6 @@
     
     
     <category term="GUI" scheme="https://xueyu-ubc.github.io/categories/GUI/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>(GUI) Agent Papers</title>
-    <link href="https://xueyu-ubc.github.io/2025/04/01/GUIagent_papers/"/>
-    <id>https://xueyu-ubc.github.io/2025/04/01/GUIagent_papers/</id>
-    <published>2025-04-01T00:00:00.000Z</published>
-    <updated>2025-05-26T08:38:54.384Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;seeclick-harnessing-gui-grounding-for-advanced-visual-gui-agents&quot;&gt;&lt;a href=&quot;https://arxiv.org/abs/2401.10935&quot;&gt;（202402）SeeClick:</summary>
-        
-      
-    
-    
-    
-    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
     
     
   </entry>

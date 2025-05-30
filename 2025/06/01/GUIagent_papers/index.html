@@ -36,9 +36,9 @@
   
 
 <link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
-
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" />
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+</head>
 
 </html>
 <script src="/js/hexo_resize_image.js"></script>
@@ -67,8 +67,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2025/04/01/GUIagent_papers/" class="article-date">
-  <time datetime="2025-04-01T00:00:00.000Z" itemprop="datePublished">2025-04-01</time>
+      <a href="/2025/06/01/GUIagent_papers/" class="article-date">
+  <time datetime="2025-05-31T16:00:00.000Z" itemprop="datePublished">2025-06-01</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/research-works/">research works</a>
@@ -119,7 +119,7 @@ GUI Grounding for Advanced Visual GUI Agents</a></h1>
 <p>针对上述问题，作者提出了一种基于大型视觉语言模型 (Large
 Vision-Language Models, LVLMs) 的 视觉 GUI
 智能体。它可以根据指令定位截图上的元素，进而执行任务，无需结构化文本。具体对比如
-Figure 1 所示。 <img src="/2025/04/01/GUIagent_papers/seeclick1.png"></p>
+Figure 1 所示。 <img src="/2025/06/01/GUIagent_papers/seeclick1.png"></p>
 <p>尽管目前 LVLMs 具有在自然图像中定位元素的能力，但是 GUI
 的截图和自然图像存在显著差异，比如 GUI
 图像包含大量密集文本，图标、控件较多。这些特点使得视觉 GUI
@@ -144,12 +144,11 @@ album of Jony J?”，ground truth 为：“click (0.49,
 万个网页。对于每个网页 <span class="math inline">\(s\)</span>，作者从其
 HTML 中收集两类元素，分别是（1）可见文本元素，（2）带有 title
 属性的元素，即该属性在鼠标悬停时会显示描述性文字。具体示例可见 Figure
-3。通过这种方式，作者构建了大量的训练数据：（文本描述 x, 目标位置
-y)。除了基本的 grounding 任务 <span class="math inline">\(p(y∣s,x)\)</span>（给文本找位置），作者还引入了
+3。通过这种方式，作者构建了大量的训练数据：（文本描述 <span class="math inline">\(x\)</span>, 目标位置 <span class="math inline">\(y\)</span>)。除了基本的 grounding 任务 <span class="math inline">\(p(y∣s,x)\)</span>（给文本找位置），作者还引入了
 Web OCR 任务 <span class="math inline">\(p(x∣s,y)\)</span>
 （根据坐标位置预测对应的文本内容）。这样可以让模型从两种方向理解网页
 UI，提升对界面内容的理解能力。</p>
-<p><img src="/2025/04/01/GUIagent_papers/seeclick3.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/seeclick3.png"></p>
 <p><strong><em>忽视全局信息</em></strong></p>
 <h3 id="mobile-data">Mobile Data</h3>
 <p>对于移动端 UI，作者考虑了三类数据，分别是 - 控件描述：Widget
@@ -203,7 +202,7 @@ Interface Design</h2>
 根据描述在图像中找到目标元素坐标（即 GUI
 上的具体位置）。这样做的好处：规划与执行可以分别训练优化；错误定位更明确，可以知道是“指令理解错”还是“坐标找错”；更容易构造训练数据：通过环境中的自动观测，可以自动生成大量
 Grounding 数据，提升 Grounder 的表现。</p>
-<p><img src="/2025/04/01/GUIagent_papers/autoglm.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/autoglm.png"></p>
 <h2 id="insight-2-self-evolving-online-curriculum-rl">Insight 2:
 Self-Evolving Online Curriculum RL</h2>
 <p>尽管通过中间接口可以缓解执行（grounding）过程中的准确性问题，但在规划（planning）阶段，问题仍然突出。特别是目前很多智能体系统依赖于闭源的
@@ -244,8 +243,8 @@ Windows、Linux、macOS、Android 和 Web 等多个平台的开源 GUI grounding
 1300 万个 GUI 元素。结合先进的模型训练方法，OS-Atlas 能够有效理解 GUI
 截图，并具备良好的泛化能力，适应此前未见的界面。通过在移动端、桌面端和网页端的六项基准测试中广泛评估，OS-Atlas
 在多个任务上显著超越现有最先进模型。</p>
-<p><img src="/2025/04/01/GUIagent_papers/osatlas.png"></p>
-<p><img src="/2025/04/01/GUIagent_papers/osatlas2.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/osatlas.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/osatlas2.png"></p>
 <p>研究的训练流程分为两个阶段：</p>
 <ul>
 <li><p>（1）GUI grounding 预训练，旨在使视觉语言模型具备理解 GUI
@@ -272,7 +271,7 @@ click、type 和 scroll
 open app（打开指定应用）和
 drag（拖动物体至另一位置）。自定义动作的设计对于 OS-Atlas
 在分布外任务中的表现尤为关键，因为它们支持用户按需扩展新任务与操作能力，从而提升模型的泛化能力。</p>
-<p><img src="/2025/04/01/GUIagent_papers/osatlas3.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/osatlas3.png"></p>
 <h1 id="iclr-2025navigating-the-digital-world-as-humans-do-universal-visual-grounding-for-gui-agents"><a target="_blank" rel="noopener" href="https://github.com/OSU-NLP-Group/UGround">（ICLR 2025）Navigating
 the Digital World as Humans Do: UNIVERSAL VISUAL GROUNDING FOR GUI
 AGENTS</a></h1>
@@ -294,7 +293,7 @@ grounding，这两个过程均由一个多模态大语言模型（MLLM）完成�
 目标。相比之下，SeeAct-V 则完全依赖截图进行环境感知。在 grounding
 阶段，SeeAct-V 引入了一个专门用于视觉 grounding 的独立模型，直接输出
 agent 应在当前屏幕上执行操作的具体坐标。</p>
-<p><img src="/2025/04/01/GUIagent_papers/seeactv.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/seeactv.png"></p>
 <p>用户在指代 GUI
 元素时，使用了多种不同方式，这种表达的多样性在以往的视觉 grounding
 研究中（如 Hong 等人 2024；Cheng 等人 2024）尚未被充分重视。作者将 GUI
@@ -304,7 +303,7 @@ X 右边”），这类指代有时还包含语境信息（如“属于商品 A 
 部分下方”），这类上下文关联更具挑战性，因为它要求理解元素之间的空间关系与语义关系（例如“点赞按钮”通常与某个商品有关联）；3）<strong>功能类指代</strong>，即通过元素的主要功能来表达（如“跳转到首页”，“前往购物车”）。此外，在用户表达需要更强消歧能力时，还常出现<strong>组合型表达</strong>，将上述两种或三种方式结合使用，例如：“点击
 Pokemon T
 恤下面的心形按钮添加收藏”，同时融合了视觉、位置和功能线索。</p>
-<p><img src="/2025/04/01/GUIagent_papers/seeactv2.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/seeactv2.png"></p>
 <p>基于构建的数据集，作者使用开源模型架构 7B LLaVA-NeXT 作为视觉
 grounding 的 backbone 模型。作者使用 CLIP-ViT-L-14 (224px)
 作为图像编码器，并在训练过程中保持其冻结状态。作者使用 Vicuna-1.5-7b-16k
@@ -326,7 +325,7 @@ switching），从而优化最终结果。但这种方法需要大量的探索�
 方法</strong>：依赖于大量高质量、覆盖广泛场景的示范轨迹来学习策略，才能实现良好的泛化。但这类数据难以获得、成本高。</p></li>
 </ul>
 <p>这些方法都面临<strong>反馈滞后、高探索成本或数据依赖强的问题</strong>，限制了它们在动态任务中的实用性。</p>
-<p><img src="/2025/04/01/GUIagent_papers/DGAP1.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/DGAP1.png"></p>
 <p>作者提出一种融合现有方法优点的新方案，使用判别器（discriminator）实现对
 LLM
 动作的细粒度评价与优化。判别器基于任务目标与环境信息，结合历史动作和当前
@@ -334,7 +333,7 @@ LLM 输出，评估其与专家策略之间的对齐程度： <span class="math 
 D_{\phi} : (l, h_t, a^{π_{llm}}(l, s_t)) \to Q
 \]</span> 其中，<span class="math inline">\(D_{\phi}\)</span>
 是判别器，<span class="math inline">\(l\)</span>：任务目标（task
-objective）,$ <span class="math inline">\(s_t\)</span>：时间步<span class="math inline">\(t\)</span>的环境状态，<span class="math inline">\(h_t\)</span>：前十步动作的历史轨迹，<span class="math inline">\(a^{\pi_{llm}}\)</span>：LLM
+objective），<span class="math inline">\(s_t\)</span>：时间步<span class="math inline">\(t\)</span>的环境状态，<span class="math inline">\(h_t\)</span>：前十步动作的历史轨迹，<span class="math inline">\(a^{\pi_{llm}}\)</span>：LLM
 在当前状态下生成的动作，<span class="math inline">\(Q\)</span>：评分（0
 到 10 之间），值越高表示越接近专家策略。作者将高质量的 demonstrations
 数据信息转换为数值信息，通过对每一步生成动作进行评分，进而去优化 LLM
@@ -342,7 +341,7 @@ planner。</p>
 <p>判别器的设计目标是对动作进行数值上的区分（即对每个动作给予一个评分）。嵌入回归（embedding
 regression）被认为是一个有效的方法。但是存在一个关键问题：LLM
 生成的动作与专家动作在嵌入空间中的表示非常相似，这种高度相似性导致判别器很难区分两者，从而难以生成具有良好泛化能力的数值评分。结合已有方案，作者对专家数据进行了改造，比如引入随机数据、增加语言模型自动生成的数据等增强数据的多样性。</p>
-<p><img src="/2025/04/01/GUIagent_papers/DGAP2.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/DGAP2.png"></p>
 <p>在提示（prompt）中会加入先前动作及其判别器评分，引导 LLM
 具备“预见性”，即能够根据每一步的评分判断该动作是否有助于任务成功。然后利用判别器评分形成一个闭环过程：当某一步的动作得分低于设定阈值时，LLM
 需重新调整其策略（即重采样或修改动作），在评分驱动下引导其优化输出策略。</p>
@@ -360,7 +359,7 @@ OSWorld 基准测试中的评估表明，Agent S 在成功率上比基准测试�
 9.37%（相对改进
 83.6%），并实现了新的最先进技术。全面的分析突出了各个组件的有效性，并为未来的改进提供了见解。此外，Agent
 S 在新发布的 WindowsAgentArena 基准测试中展示了广泛的普适性。</p>
-<p><img src="/2025/04/01/GUIagent_papers/agents1.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/agents1.png"></p>
 <h2 id="related-work">Related work</h2>
 <p><strong>GUI Agents</strong>. MLLM agents have been applied to execute
 natural language instructions in both web and OS environments. Early
@@ -395,7 +394,7 @@ task experience is summarized into an abstractive textual reward for
 subtask planning; 3) the subtask experience is assessed and annotated by
 a self-evaluator before being stored in memory.</strong></p>
 <h2 id="agent-s">Agent S</h2>
-<p><img src="/2025/04/01/GUIagent_papers/agents2.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/agents2.png"></p>
 <p>Agent S
 通过经验增强的分层规划，将复杂任务拆解为可管理的子任务，结合外部经验库与内部经验库，实现
 high level 规划与 low level
@@ -537,7 +536,7 @@ Planning）</strong>，可根据环境变化动态调整多尺度下的行动计
 S2 整合了来自 Agent S 的一些框架，比如外部知识库、经验
 memory，反思机制等。</p>
 <h2 id="mixture-of-grounding">Mixture of Grounding</h2>
-<p><img src="/2025/04/01/GUIagent_papers/agents3.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/agents3.png"></p>
 <p>在每一个执行步骤中，Agent S2 的 Worker 模块（W）
 会接收一个当前的子目标 <span class="math inline">\(g_i\)</span>，以及来自环境的最新观测 <span class="math inline">\(o_t\)</span>。随后，其策略模块 <span class="math inline">\(\pi_W\)</span> 会基于此生成一个动作 <span class="math inline">\(a_t\)</span>，该动作配有一段自然语言描述，用于标明目标位置。生成动作后，Worker
 会将 grounding 任务委托给以下三类专门的 grounding
@@ -566,7 +565,7 @@ grounding 方法难以实现精确对齐。为此，Agent S2 设计了结构化 
 专家，专门用于处理电子表格和表格 UI 中的结构化数据。</p>
 <h2 id="proactive-hierarchical-planning">Proactive Hierarchical
 Planning</h2>
-<p><img src="/2025/04/01/GUIagent_papers/agents4.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/agents4.png"></p>
 <p>复杂电脑任务的<strong>初始状态通常只包含部分与用户请求相关的信息。同时，后台程序和弹窗也会引入大量噪声</strong>，进一步加剧多模态大语言模型（MLLM）在图形界面中处理能力的挑战。</p>
 <p>为此，Agent S2 引入了<strong>动态层级规划（Proactive Hierarchical
 Planning）</strong>，在两个时间尺度（高层 Manager 与底层
@@ -587,8 +586,8 @@ g''_2\)</span>，重复上述流程，直到整个用户请求 <span class="math
 Retrieval-Augmented Planning with Contextual Memory for Multimodal LLM
 Agents</a></h1>
 <p>RAP（检索增强规划）旨在增强大语言模型（LLM）智能体的规划能力。它通过存储过往经验，并根据当前情境与历史任务的相似性进行智能检索，从而优化决策过程。</p>
-<p><img src="/2025/04/01/GUIagent_papers/rap.png"></p>
-<p><img src="/2025/04/01/GUIagent_papers/rap2.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/rap.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/rap2.png"></p>
 <h1 id="autoguide-automated-generation-and-selection-of-context-aware-guidelines-for-large-language-model-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2403.08978">(202412) AutoGuide: Automated
 Generation and Selection of Context-Aware Guidelines for Large Language
 Model Agents</a></h1>
@@ -596,8 +595,8 @@ Model Agents</a></h1>
 learning）方式难以有效指导模型做出准确决策。为解决这一挑战，本文提出了
 AUTOGUIDE，能够自动从离线经验中生成上下文感知的自然语言指南，提升智能体的泛化能力与任务表现。AUTOGUIDE
 利用离线交互数据自动构建上下文-条件对，提取任务中的关键决策要素。生成的指南采用简洁自然语言表达，具有明确的条件结构（if-context-then-action），能精确描述指南适用的情境。</p>
-<p><img src="/2025/04/01/GUIagent_papers/autoguide.png"></p>
-<p><img src="/2025/04/01/GUIagent_papers/autoguide2.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/autoguide.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/autoguide2.png"></p>
 <h1 id="历史动作回溯-scaletrack-scaling-and-back-tracking-automated-gui-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2505.00416">(202503) （历史动作回溯）
 ScaleTrack: Scaling and back-tracking Automated GUI Agents</a></h1>
 <p>自动 GUI agent
@@ -612,7 +611,6 @@ agent 性能。具体来说，ScaleTrack 收集并统一了来自多个来源的
 模型；同时，在训练中不仅预测当前图像下的下一步操作，还<strong>回溯导致当前界面的历史动作</strong>，从而显式建模
 GUI 状态的变化轨迹。实验表明，ScaleTrack
 在多个任务上显著提升了性能，展示了该方法在数据利用与行为建模上的强大潜力。</p>
-<p><img src="/2025/04/01/GUIagent_papers/scaletrack.png"></p>
 <h1 id="任务分解反思纠正奖励机制-infigui-r1-advancing-multimodal-gui-agents-from-reactive-actors-to-deliberative-reasoners"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.14239">(202504)
 （任务分解、反思纠正、奖励机制） InfiGUI-R1: Advancing Multimodal GUI
 Agents from Reactive Actors to Deliberative Reasoners</a></h1>
@@ -621,7 +619,7 @@ GUI 环境中对计划与容错能力的需求。为此，InfiGUI-R1
 引入了一种全新的训练框架 —— Actor2Reasoner，旨在将 GUI agent
 从“反应型执行者”演化为“推理型行动者”。该框架分为两个阶段：推理注入（Reasoning
 Injection） 和 推理增强（Deliberation Enhancement）。</p>
-<p><img src="/2025/04/01/GUIagent_papers/actor2reasoner1.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/actor2reasoner1.png"></p>
 <h2 id="阶段-1-推理注入">阶段 1: 推理注入</h2>
 <p>第 1 阶段的主要目标是让 agent 从反应型行动者（Perception <span class="math inline">\(\rightarrow\)</span> Action）到基础推理者
 （Perception <span class="math inline">\(\rightarrow\)</span> Reasoning
@@ -662,7 +660,7 @@ Qwen2.5-VL-32B-Instruct）将该信息压缩为精炼的文本描述 <span class
 a_{\text{teacher}})\)</span>
 样本需经由动作正确性校验过滤，确保数据质量。筛选后的高质量样本用于微调学生模型，监督目标为：
 <span class="math display">\[
-(I_s, G) \rightarrow (R_{\text{teacher}}, a_{\text{teacher}})
+(I_s, G) \rightarrow (R_{\text{teacher}},  a_{\text{teacher}})
 \]</span></p>
 <p>通过学习显式生成或隐式模拟这些推理步骤，学生模型逐步内化“感知 <span class="math inline">\(\rightarrow\)</span> 推理 <span class="math inline">\(\rightarrow\)</span>
 动作”的处理流程，摆脱以往直接从感知到动作的反应式模式。</p>
@@ -712,7 +710,7 @@ OS-Genesis，一种图形用户界面数据合成方法。与以往依赖预定�
 中的交互轨迹中识别其任务目标。具体来说，给定一系列用户的 UI
 操作序列（即点击、滑动、输入等轨迹），系统需自动生成该用户执行任务的明确意图描述（goal
 intent），从而更好地理解其真实目标和行为动机。</p>
-<p><img src="/2025/04/01/GUIagent_papers/gs.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/gs.png"></p>
 <h1 id="benchmark-mobile-bench-v2-a-more-realistic-and-comprehensive-benchmark-for-vlm-based-mobile-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2505.11891">(20250517) (benchmark)
 Mobile-Bench-v2: A More Realistic and Comprehensive Benchmark for
 VLM-based Mobile Agents</a></h1>
@@ -728,7 +726,7 @@ Mobile-Bench-v2。Mobile-Bench-v2
 在任务执行过程中的逐步奖励获取能力。该基准还包含一个基于广告弹窗等应用构建的噪声任务子集（noisy
 split），以及一个名为 AITZ-Noise
 的污染任务子集，用以模拟真实复杂的噪声环境。</p>
-<p><img src="/2025/04/01/GUIagent_papers/mobilebench1.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/mobilebench1.png"></p>
 <p>Mobile-Bench-v2 在原有基准的基础上进行了如下改进：</p>
 <p>（1）<strong>指令生成方法</strong>：基于 Mobile3M
 的随机游走图结构语料库，采用 GIAS（Generating Instructions From GUI
@@ -746,7 +744,7 @@ AITZ 进行污染处理，通过插入广告元素生成 AITZ-Noise
 子数据集，用于测试agent在执行过程中是否具备主动提问与交互的能力。该数据集基于完整指令进行插槽提取，逐步简化为模糊指令，同时构建对应的问答内容并绑定至相应
 GUI
 元素。由于现有agent框架普遍未包含显式提问机制，允许agent在决策前自主选择是否提出问题。为了确保评估公平性，问题类型限制为指令理解相关内容，禁止与动作决策或界面元素功能直接相关的问题。</p>
-<p><img src="/2025/04/01/GUIagent_papers/mobilebench2.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/mobilebench2.png"></p>
 <h2 id="giasgenerating-instructions-from-mobile-ui-action-sequences">GIAS（Generating
 Instructions From Mobile UI Action Sequences）</h2>
 <p>（1）<strong>多路径采样</strong>：在固定的起始 GUI 与目标 GUI
@@ -764,7 +762,7 @@ UI 元素数量超过设定阈值的 GUI
 信息填入预先设计的任务指令模板中（比如：“请在 App
 中搜索【关键词】，然后点击【商品名称】，并将其加入购物车。”），自动生成自然语言指令。</p>
 <p>（6）<strong>去重与简化</strong>：对生成的指令进行语义去重和语言简化，过滤重复或语义冗余的指令，提升指令数据质量与表达多样性。</p>
-<p><img src="/2025/04/01/GUIagent_papers/mobilebench3.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/mobilebench3.png"></p>
 <h1 id="benchmark-tongui-building-generalized-gui-agents-by-learning-from-multimodal-web-tutorials"><a target="_blank" rel="noopener" href="https://github.com/TongUI-agent/TongUI-agent?tab=readme-ov-file">(20250521
 (benchmark)) TongUI: Building Generalized GUI Agents by Learning from
 Multimodal Web Tutorials</a></h1>
@@ -794,7 +792,7 @@ GUI 操作轨迹，包括每一步的思考逻辑与对应动作。</p></li>
 <li><p><strong>数据过滤（Data Filtering）</strong>
 为确保数据质量与相关性，构建了多阶段过滤流程，包括教程去重、基于LLM的内容过滤、以及利用GUI代理进行轨迹级筛选。最终保留与GUI任务强相关、结构清晰的数据实例。</p></li>
 </ol>
-<p><img src="/2025/04/01/GUIagent_papers/tongui1.png"></p>
+<p><img src="/2025/06/01/GUIagent_papers/tongui1.png"></p>
  
       <!-- reward -->
       
@@ -859,7 +857,7 @@ GUI 操作轨迹，包括每一步的思考逻辑与对应动作。</p></li>
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2025/04/01/GUIagent_papers/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -870,19 +868,10 @@ GUI 操作轨迹，包括每一步的思考逻辑与对应动作。</p></li>
    
   <nav class="article-nav">
     
-      <a href="/2025/04/18/UI_TARS/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            UI-TARS
-          
-        </div>
-      </a>
     
-    
-      <a href="/2025/03/21/The_State_of_LLM_Reasoning_Models/" class="article-nav-link">
+      <a href="/2025/05/01/GUIagent-with-RL-papers/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">The State of LLM Reasoning Models (Part 1)</div>
+        <div class="article-nav-title">(GUI) Agent with RL Papers</div>
       </a>
     
   </nav>

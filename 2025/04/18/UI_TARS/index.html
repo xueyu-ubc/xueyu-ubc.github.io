@@ -36,9 +36,9 @@
   
 
 <link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
-
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" />
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+</head>
 
 </html>
 <script src="/js/hexo_resize_image.js"></script>
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">14.2k</span>
+            <span class="post-count">14.1k</span>
         </span>
     </span>
 
@@ -582,20 +582,16 @@ t_2, a_2), , (o_t, t_t, a_t)。 $ 假设在第 <span class="math inline">\(\tau\
 <span class="math display">\[
 T^- = \text{instruction}, (o_1, t_1, a_1), (o_2, t_2, a_2), \ldots,
 (o_\tau, t_\tau, a_\tau),
-\]</span> <span class="math display">\[
-T^+ = \text{instruction}, (o_1, t_1, a_1), (o_2, t_2, a_2), \ldots,
-(o_\tau, t^*_\tau, a^*_\tau).
-\]</span></p>
+\]</span> T^+ = , (o_1, t_1, a_1), (o_2, t_2, a_2), , (o_, t^*_, a^*_).
+$$</p>
 <p>此外，还要求标注者继续基于错误动作 <span class="math inline">\(a_{\tau}\)</span>
 标注后续的步骤，模拟错误已经发生的真实情境。在生成下一步的思考过程 <span class="math inline">\(t^*_{\tau+1}\)</span>
 时，标注者需考虑之前错误所造成的影响，给出一个补救动作 <span class="math inline">\(a^*_{\tau+1}\)</span>，以重新校准任务的执行进度。例如，若上一步原本应将网页加入书签却误点击了关闭按钮，则下一步应为重新打开最近关闭的网页，并再次尝试点击“添加书签”按钮。因此形成了如下反思修正轨迹对：
 <span class="math display">\[
 T^- = \text{instruction}, (o_1, t_1, a_1), (o_2, t_2, a_2), \ldots,
 (o_\tau, t_\tau, a_\tau), (o_{\tau+1}, t_{\tau+1}, a_{\tau+1}),
-\]</span> <span class="math display">\[
-T^+ = \text{instruction}, (o_1, t_1, a_1), (o_2, t_2, a_2), \ldots,
-(o_\tau, t_\tau, a_\tau), (o_{\tau+1}, t^*_{\tau+1}, a^*_{\tau+1}).
-\]</span></p>
+\]</span> T^+ = , (o_1, t_1, a_1), (o_2, t_2, a_2), , (o_, t_, a_),
+(o_{+1}, t^*_{+1}, a^*_{+1}). $$</p>
 <p>在训练中，作者仅使用正样本轨迹 <span class="math inline">\(T^+\)</span> 进行监督微调（SFT），并且只对修正步骤
 <span class="math inline">\((t^*_\tau, a^*_\tau)\)</span> 与 <span class="math inline">\((t^*_{\tau+1}, a^*_{\tau+1})\)</span>
 计算损失函数，跳过错误步骤 <span class="math inline">\((t_\tau,
@@ -622,12 +618,11 @@ a_\tau\)</span> 表示偏好修正后的动作 <span class="math inline">\(a'_\t
 <p>在训练时，作者采用 DPO 的优化目标，使用 SFT 模型 <span class="math inline">\(\pi_{\text{SFT}}\)</span>
 作为参考，对偏好数据集进行训练，鼓励模型增加正确动作的概率，减少错误动作的概率。损失函数定义如下：
 <span class="math display">\[
-\mathcal{L}_{\text{DPO}}(\theta) = - \mathbb{E}_\tau [ \log \sigma (
-\beta \log \frac{\pi_\theta(a'_\tau |
-s_\tau)}{\pi_{\text{SFT}}(a'_\tau | s_\tau)} - \beta \log
-\frac{\pi_\theta(a_\tau | s_\tau)}{\pi_{\text{SFT}}(a_\tau | s_\tau)} )
-],
-\]</span> 其中：<span class="math inline">\(\pi_\theta\)</span>：当前优化策略（即 DPO
+L_{\text{DPO}}(\theta) = - \mathbb{E}_\tau [ \log \sigma ( \beta \log
+\frac{\pi_\theta(a'_\tau | s_\tau)}{\pi_{\text{SFT}}(a'_\tau |
+s_\tau)} - \beta \log \frac{\pi_\theta(a_\tau |
+s_\tau)}{\pi_{\text{SFT}}(a_\tau | s_\tau)} ) ],
+\]</span> 其中，<span class="math inline">\(\pi_\theta\)</span>：当前优化策略（即 DPO
 agent）；<span class="math inline">\(\pi_{\text{SFT}}\)</span>：通过监督微调得到的策略；<span class="math inline">\(\beta\)</span>：控制 DPO 策略与 SFT
 策略之间差异程度的超参数；<span class="math inline">\(\sigma\)</span>：sigmoid
 函数，保证输出为合法的概率值</p>
@@ -812,11 +807,11 @@ UI-TARS-7B 和 UI-TARS-72B，均采用 Bo1（单样本）策略。与 in-domain
 评估结果形成鲜明对比的是，在 AndroidWorld 上，系统 2 推理显著优于系统 1
 推理。</p>
 <p>尽管在 Mind2Web、Android Control 和 GUI Odyssey 等 in-domain
-任务中，System 1在 Bo1 设定下表现更稳定，而System
-2可能因复杂推理带来幻觉或执行错误，但在 OOD
+任务中，System 1 在 Bo1 设定下表现更稳定，而 System 2
+可能因复杂推理带来幻觉或执行错误，但在 OOD
 情境下，这种劣势被反转。System 2
-更深入的推理过程在处理未见过的任务时展现出了更强的泛化能力。这表明，尽管System
-2
+更深入的推理过程在处理未见过的任务时展现出了更强的泛化能力。这表明，尽管
+System 2
 在已知领域的执行效率尚有改进空间，其在真实世界中面向未知任务的适应性和推理潜力更为出色，展示了其在多样化、复杂环境中的广泛适用性与前景。</p>
  
       <!-- reward -->
@@ -903,9 +898,9 @@ UI-TARS-7B 和 UI-TARS-72B，均采用 Bo1（单样本）策略。与 in-domain
       </a>
     
     
-      <a href="/2025/04/01/GUIagent_papers/" class="article-nav-link">
+      <a href="/2025/03/21/The_State_of_LLM_Reasoning_Models/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">(GUI) Agent Papers</div>
+        <div class="article-nav-title">The State of LLM Reasoning Models (Part 1)</div>
       </a>
     
   </nav>
