@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">13 min</span>
+            <span class="post-count">14 min</span>
         </span>
     </span>
 </div>
@@ -128,9 +128,9 @@ Systems），研究者提出了多种方法（Park 等人，2023；Sun 等人，
 <li><p><strong>智能体数量固定与角色预先定义</strong>：现有方法采用固定数量的智能体且角色预先设定，缺乏对智能体动态集成的支持；</p></li>
 <li><p><strong>智能体同质性</strong>：智能体通常为同种类型，限制了多样性，进而约束了系统能力范围。</p></li>
 </ol>
-<p>为此，本文提出 AgentStore——
-一种可扩展平台，旨在通过动态集成异构代理实现计算机任务自动化。该平台支持用户集成第三方代理，使系统能够持续丰富功能并适应快速演进的操作系统。</p>
-<h2 id="framework-overview">FRAMEWORK OVERVIEW</h2>
+<p>为此，本文提出
+AgentStore，旨在通过动态集成异构代理实现计算机任务自动化。该平台支持用户集成第三方代理，使系统能够持续丰富功能并适应快速演进的操作系统。</p>
+<h2 id="研究框架">研究框架</h2>
 <p>AgentStore
 主要由三个核心组件构成：智能体池（AgentPool）、智能体注册模块（AgentEnroll）和元智能体（MetaAgent）。智能体池存储所有具备特定功能的智能体；智能体注册模块定义了将新智能体添加到智能体池的集成协议；元智能体则从智能体池中选择最合适的一个或多个智能体，独立或协同完成任务。</p>
 <p><img src="/2025/05/01/multi_agent_papers/agentstore1.png"></p>
@@ -142,29 +142,30 @@ Systems），研究者提出了多种方法（Park 等人，2023；Sun 等人，
 AgentStore
 时，必须以标准化格式注册智能体信息。为确保集成过程的一致性，作者制定了智能体集成协议。在注册过程中，开发者需填写预定义表格，详细说明智能体的功能、局限性、交互应用以及功能演示（见上图）。形式上，所有已注册智能体的集合表示为
 <span class="math inline">\(A = {(a_1, d_1),(a_2, d_2), ...,(a_n,
-d_n)}\)</span>，其中每个智能体<span class="math inline">\(a_i\)</span>的完整注册表格构成文档<span class="math inline">\(d_i\)</span>。</p></li>
+d_n)}\)</span>，其中每个智能体 <span class="math inline">\(a_i\)</span>
+的完整注册表格构成文档 <span class="math inline">\(d_i\)</span>。</p></li>
 <li><p>元智能体（MetaAgent）：作为 AgentStore
 的核心，元智能体充当平台管理者。如图右侧所示，当用户提出任务时，元智能体将任务描述与系统状态（包括屏幕截图、终端输出、无障碍树等）相结合，从智能体池中选择合适的智能体来完成任务。这主要涉及两项功能：其一，当单个智能体可处理任务时，元智能体会选择最合适的智能体；其二，当需要多个智能体协作时，元智能体将任务拆分为子任务，并分配给相应智能体，以确保任务高效完成。</p></li>
 </ul>
-<h2 id="metaagent-with-agenttoken">METAAGENT WITH AGENTTOKEN</h2>
+<h2 id="元智能体">元智能体</h2>
 <p>作者采用功能强大的开源多模态大语言模型（MLLM）作为元智能体 M
 的基础，使其能够处理涵盖任务描述和操作系统截图的多模态信息。给定所有已注册智能体集合
 <span class="math inline">\(A\)</span>，元智能体的目标是调用其中的子智能体集合以实现计算机任务自动化。由于
 AgentStore
 中的智能体数量动态增长并可能达到大规模，传统方法如上下文学习（ICL，In-Context
-Learning）和全量微调（FT，Fine-Tuning）分别因上下文长度超限和再训练成本过高而不再适用。为此，作者提出**
-AgentToken
-策略**，该策略无需冗长上下文，并显著降低新增智能体时元智能体的再训练成本。</p>
+Learning）和全量微调（FT，Fine-Tuning）分别因上下文长度超限和再训练成本过高而不再适用。为此，作者提出<strong>AgentToken
+策略</strong>，该策略无需冗长上下文，并显著降低新增智能体时元智能体的再训练成本。</p>
 <p>在元智能体的词汇表中，将已注册智能体编码为特殊
-token。具体而言，<strong>智能体 token </strong>被参数化为嵌入矩阵 $W_A
-^{|A| d} $，并拼接到原始<strong>词 token</strong> <span class="math inline">\(W_V \in \mathbb{R}^{|V| \times d}\)</span>
-上。假设智能体 token <span class="math inline">\(W_A\)</span>
+token。具体而言，智能体 token 被参数化为嵌入矩阵 <span class="math inline">\(W_A \in \mathbb{R}^{|A| \times
+d}\)</span>，并拼接到原始词 token <span class="math inline">\(W_V \in
+\mathbb{R}^{|V| \times d}\)</span> 上。假设智能体 token <span class="math inline">\(W_A\)</span>
 已训练完成，两者的拼接结果构成元智能体新的 language modeling
 head。此时，元智能体通过以下概率预测下一个 token：<br>
 <span class="math display">\[
 P_M(t_i | t_{&lt;i}) = \text{softmax}([W_V; W_A] \cdot h_{i-1}),
 \]</span><br>
-其中下一个 token $t_i $ 可以是词 token 或智能体 token（即 $t_i V A <span class="math inline">\(），\)</span>h_{i-1} ^d $ 为最后一个隐藏状态。</p>
+其中下一个 token <span class="math inline">\(t_i\)</span> 可以是词 token
+或智能体 token（即 $t_i V A <span class="math inline">\(），\)</span>h_{i-1} ^d$ 为最后一个隐藏状态。</p>
 <p>在此框架下，AgentToken 策略使元智能体能够实现两大核心功能：</p>
 <ol type="1">
 <li><p><strong>元智能体作为
@@ -172,8 +173,8 @@ Router</strong>：通过最大化条件概率获取最可能的下一个 token�
 <span class="math display">\[
 t_i^* = \arg \max_{t \in V \cup A} P_M(t_i | t_{&lt;i}).
 \]</span><br>
-若预测为智能体 token（$t_i^* A
-$），元智能体将停止解码并调用对应智能体执行任务。该方法使元智能体在单个智能体可完成任务时，能够预测最合适的智能体。</p></li>
+若预测为智能体 token（<span class="math inline">\(t_i^* \in
+A\)</span>），元智能体将停止解码并调用对应智能体执行任务。该方法使元智能体在单个智能体可完成任务时，能够预测最合适的智能体。</p></li>
 <li><p><strong>任务拆分与多智能体协作（Manager
 模式）</strong>：当任务需要多个智能体时，<strong>已训练的智能体 token
 常出现在下一个 token
@@ -182,7 +183,7 @@ token 扩展为多 token 模式：<br>
 <span class="math display">\[
 T_i^* = \text{TopK}_{t \in A} ( P_M(t_i | t_{&lt;i}), K),
 \]</span><br>
-其中，<span class="math display">\[\text{TopK}(\cdot)\]</span>
+其中，<span class="math inline">\(\text{TopK}(\cdot)\)</span>
 函数从智能体 token 集合 <span class="math inline">\(A\)</span>
 中返回概率最高的 <span class="math inline">\(K\)</span> 个
 token，对应与任务最相关的 <span class="math inline">\(K\)</span>
@@ -222,45 +223,42 @@ SELF-INSTRUCT</h2>
 <span class="math inline">\(c_i\)</span>
 出发，逐步扩展高质量演示数据。核心步骤如下：</p>
 <h4 id="初始演示数据生成">1. 初始演示数据生成</h4>
-<p>使用现有演示数据 $ S_i $ 和智能体描述 $ c_i $ 向元智能体 $ M $ 发起
-prompt，生成新的演示数据：<br>
+<p>使用现有演示数据 <span class="math inline">\(S_i\)</span>
+和智能体描述 <span class="math inline">\(c_i\)</span> 向元智能体 <span class="math inline">\(M\)</span> 发起 prompt，生成新的演示数据：<br>
 $ S'_i = M(S_i, c_i), $<br>
-其中 $ S'_i $
+其中 <span class="math inline">\(S'_i\)</span>
 包含元智能体基于文档语义和现有演示逻辑生成的新任务-状态对。</p>
 <h4 id="演示质量过滤与优化">2. 演示质量过滤与优化</h4>
 <p>为确保生成演示的<strong>一致性</strong>和<strong>多样性</strong>，采用
-BERTScore 对所有新生成的演示 $ y' S'_i $
-进行评估，并通过贪心算法迭代过滤元素，得到精炼集合 $ S^{}_i S'_i <span class="math inline">\(。过滤条件为：\)</span> _1 (y_k, y_j) _2, y_k, y_j
-S_i S^{}_i &nbsp; &nbsp;k j, $<br>
-- **下限 $ _1 $**：避免生成与现有演示语义无关的输出；</p>
+BERTScore 对所有新生成的演示 <span class="math inline">\(y' \in
+S'_i\)</span> 进行评估，并通过贪心算法迭代过滤元素，得到精炼集合
+<span class="math inline">\(S^{\text{new}}_i \subseteq
+S'_i\)</span>。过滤条件为：<br>
+<span class="math display">\[
+\tau_1 \leq \text{BERTScore}(y_k, y_j) \leq \tau_2, \quad \forall y_k,
+y_j \in S_i \cup S^{\text{new}}_i \ \text{且} \ k \neq j,
+\]</span> - 下限 <span class="math inline">\(\tau_1\)</span>：避免生成与现有演示语义无关的输出；</p>
 <ul>
-<li>**上限 $ _2
-$**：确保演示之间具有足够的多样性，覆盖不同任务场景。</li>
+<li>上限 <span class="math inline">\(\tau_2\)</span>：确保演示之间具有足够的多样性，覆盖不同任务场景。</li>
 </ul>
 <h4 id="数据增强与迭代引导">3. 数据增强与迭代引导</h4>
-<p>将过滤后的演示数据集合 $ S^{}_i $ 合并到原始集合中（即 $ S_i = S_i
-S^{}_i $），形成增强后的演示数据集。元智能体基于新的 <span class="math inline">\(S_i\)</span> 进一步生成更多示例，重复上述
+<p>将过滤后的演示数据集合 <span class="math inline">\(S^{\text{new}}_i\)</span> 合并到原始集合中（即
+<span class="math inline">\(S_i = S_i \cup
+S^{\text{new}}_i\)</span>），形成增强后的演示数据集。元智能体基于新的
+<span class="math inline">\(S_i\)</span> 进一步生成更多示例，重复上述
 BERTScore 引导的过滤过程，直至生成足够数量的演示数据以满足 <span class="math inline">\(W_A\)</span> 的训练需求。</p>
 <h3 id="基于自生成数据的训练机制">基于自生成数据的训练机制</h3>
 <p>在训练过程中，演示集合 <span class="math inline">\(S_i\)</span>
-中的每个任务描述和初始状态作为输入前缀，其后附加智能体token <span class="math inline">\(\text{Agent} i\)</span>
-作为下一个token预测的真实标签。具体而言，AgentToken的训练目标为：<br>
+中的每个任务描述和初始状态作为输入前缀，其后附加智能体 token <span class="math inline">\(\text{Agent} i\)</span> 作为下一个 token
+预测的真实标签。具体而言，AgentToken 的训练目标为：<br>
 <span class="math display">\[
 \mathcal{L}(W_A) = \sum_{i=1}^{|A|} \sum_{y_j \in S_i} -\log P(\langle
 \text{Agent } i \rangle | y_j),
 \]</span><br>
 其中嵌入矩阵 <span class="math inline">\(W_A\)</span> 是智能体池 <span class="math inline">\(A\)</span> 中所有智能体唯一的可调参数。</p>
-<table style="width:36%;">
-<colgroup>
-<col style="width: 36%">
-</colgroup>
-<tbody>
-<tr>
-<td>[question:
-当需要多个智能体时，先选择固定数目的agents，然后将任务进行分解再划分。如何选择k个agents？这k个agents一定和任务相关吗？在进行选择时，为什么不基于任务进行选择？]</td>
-</tr>
-</tbody>
-</table>
+<p>[question: 当需要多个智能体时，先选择固定数目的
+agents，然后将任务进行分解再划分。如何选择 k 个 agents？这 k 个 agents
+一定和任务相关吗？在进行选择时，为什么不基于任务进行选择？]</p>
 <h1 id="iclr-2025多智能体-inverse-attention-agents-for-multi-agent-systems"><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=OaoDVZntGe">（ICLR
 2025）（多智能体） Inverse Attention Agents for Multi-Agent
 Systems</a></h1>
@@ -274,9 +272,9 @@ MARL
 1994）的状态转移与奖励依赖于所有智能体的联合动作。一个包含 <span class="math inline">\(N\)</span>
 个智能体的马尔可夫博弈形式上定义为：</p>
 <ul>
-<li><p>状态集合：<span class="math inline">\(\mathcal{S}\)</span></p></li>
+<li><p>状态集合：<span class="math inline">\(\mathcal{S}\)</span>.</p></li>
 <li><p>每个智能体 <span class="math inline">\(i\)</span>
-的动作集合：<span class="math inline">\(\mathcal{A}_i\)</span></p></li>
+的动作集合：<span class="math inline">\(\mathcal{A}_i\)</span>.</p></li>
 <li><p>状态转移函数： <span class="math display">\[
 T: \mathcal{S} \times \mathcal{A}_1 \times \cdots \times \mathcal{A}_N
 \rightarrow \Delta(\mathcal{S}).
