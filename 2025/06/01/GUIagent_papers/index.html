@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">14.1k</span>
+            <span class="post-count">15.4k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">52 min</span>
+            <span class="post-count">56 min</span>
         </span>
     </span>
 </div>
@@ -733,17 +733,20 @@ split），以及一个名为 AITZ-Noise
 Action Sequences）方法生成了共计 1.2
 万条指令。每条指令由任务模板与对应轨迹中的插槽信息生成，插槽信息源于轨迹中的关键节点动作（keynode
 actions），可在评估阶段作为稳定的步骤奖励信号使用，从而解决在线环境中奖励不稳定的问题。</p>
-<p>（2）<strong>离线多路径评估机制</strong>：融合在线与离线评估的优点，提出多路径评估方法。agent可选择以单路径方式执行并与标准轨迹（golden
-path）对比；也可在图语料中进行动作搜索，并逐步积累步骤奖励，模拟在线行为搜索模式。两种方式联合使用，以更全面评估agent的任务执行能力和路径泛化能力。</p>
+<p>（2）<strong>离线多路径评估机制</strong>：融合在线与离线评估的优点，提出多路径评估方法。agent
+可选择以单路径方式执行并与标准轨迹（golden
+path）对比；也可在图语料中进行动作搜索，并逐步积累步骤奖励，模拟在线行为搜索模式。两种方式联合使用，以更全面评估
+agent 的任务执行能力和路径泛化能力。</p>
 <p>（3）<strong>真实噪声环境构建</strong>：收集了一个名为
 Mobile-Bench-Noisy
 的子数据集，用于构建更具现实性的噪声评估环境。该数据集选取了多个广告弹窗频繁的应用，通过实际交互收集包含广告干扰的轨迹。同时，还对原始正常轨迹集
 AITZ 进行污染处理，通过插入广告元素生成 AITZ-Noise
 子集，用以模拟真实复杂的噪声场景。</p>
 <p>（4）<strong>主动交互能力评估</strong>：构建 Mobile-Bench-Ambiguous
-子数据集，用于测试agent在执行过程中是否具备主动提问与交互的能力。该数据集基于完整指令进行插槽提取，逐步简化为模糊指令，同时构建对应的问答内容并绑定至相应
-GUI
-元素。由于现有agent框架普遍未包含显式提问机制，允许agent在决策前自主选择是否提出问题。为了确保评估公平性，问题类型限制为指令理解相关内容，禁止与动作决策或界面元素功能直接相关的问题。</p>
+子数据集，用于测试 agent
+在执行过程中是否具备主动提问与交互的能力。该数据集基于完整指令进行插槽提取，逐步简化为模糊指令，同时构建对应的问答内容并绑定至相应
+GUI 元素。由于现有 agent 框架普遍未包含显式提问机制，允许 agent
+在决策前自主选择是否提出问题。为了确保评估公平性，问题类型限制为指令理解相关内容，禁止与动作决策或界面元素功能直接相关的问题。</p>
 <p><img src="/2025/06/01/GUIagent_papers/mobilebench2.png"></p>
 <h2 id="giasgenerating-instructions-from-mobile-ui-action-sequences">GIAS（Generating
 Instructions From Mobile UI Action Sequences）</h2>
@@ -769,30 +772,93 @@ Multimodal Web Tutorials</a></h1>
 <p>本文提出了一个名为 TongUI
 的框架，通过学习丰富的多模态网页教程，构建通用的 GUI
 agent。具体而言，TongUI 通过抓取和处理来自网络的 GUI
-教程（如视频和图文文章），自动转换为 GUI
-agent的轨迹数据。基于此，本文构建了包含 100 万条轨迹、覆盖 五大操作系统
-与 超过 280 个应用程序 的大型数据集 ——
-GUI-Net-1M。在此数据集基础上，作者对 Qwen2.5-VL-3B/7B
-多模态模型进行了微调，训练得到了 TongUI agent。该agent在常用的 grounding
-与导航类基准测试中表现优异。</p>
+教程（如视频和图文文章），自动转换为 GUI agent
+的轨迹数据。基于此，本文构建了包含 100 万条轨迹、覆盖 五大操作系统 与
+超过 280 个应用程序 的大型数据集 —— GUI-Net-1M。在此数据集基础上，作者对
+Qwen2.5-VL-3B/7B 多模态模型进行了微调，训练得到了 TongUI agent。该 agent
+在常用的 grounding 与导航类基准测试中表现优异。</p>
 <p>本文提出了 <strong>TongUI
 框架</strong>，用于构建具备泛化能力的图形用户界面（GUI）智能代理。其中
 “Tong”
-在中文中意为“通用、泛化”。我们的核心观点是：互联网上广泛存在着关于如何操作电脑与智能手机的<strong>多模态教学资源</strong>，如图文教程与教学视频，这些教程涵盖了与多种操作系统和应用程序交互的详细过程，具有易获取、信息丰富和质量较高等优势。相较于传统的人工收集或合成轨迹数据，这类网络教程提供了更高效且更广覆盖的数据来源。因此，我们设计了一个系统框架，能够将这类多模态网络教程转化为可用于GUI代理训练的任务轨迹数据。</p>
+在中文中意为“通用、泛化”。我们的核心观点是：互联网上广泛存在着关于如何操作电脑与智能手机的<strong>多模态教学资源</strong>，如图文教程与教学视频，这些教程涵盖了与多种操作系统和应用程序交互的详细过程，具有易获取、信息丰富和质量较高等优势。相较于传统的人工收集或合成轨迹数据，这类网络教程提供了更高效且更广覆盖的数据来源。因此，我们设计了一个系统框架，能够将这类多模态网络教程转化为可用于
+GUI 代理训练的任务轨迹数据。</p>
 <h3 id="四个核心步骤">四个核心步骤</h3>
 <ol type="1">
 <li><p><strong>教程爬取（Tutorial Crawling）</strong>
 先由研究人员编写部分“种子任务”，再借助大型语言模型扩展生成更多相关任务，形成任务集合。这些任务关键词随后用于在网络平台（如
 WikiHow、YouTube）上检索并获取对应的图文或视频教程。</p></li>
 <li><p><strong>教程处理（Tutorial Processing）</strong>
-对于视频教程，使用自动语音识别（ASR）或字幕提取获取文本内容；对于图文教程，直接提取正文描述。之后通过LLM对文本内容生成任务查询和任务计划。同时，从视频中提取关键帧作为每一步的截图，文章中的配图则直接作为步骤图像使用。</p></li>
-<li><p><strong>轨迹生成（Trajectory Generation）</strong>
-使用一个零样本GUI代理，对上述步骤对之间的动作与推理过程进行识别，生成完整的
-GUI 操作轨迹，包括每一步的思考逻辑与对应动作。</p></li>
+对于视频教程，使用自动语音识别（ASR）或字幕提取获取文本内容；对于图文教程，直接提取正文描述。之后通过
+LLM
+对文本内容生成任务查询和任务计划。同时，从视频中提取关键帧作为每一步的截图，文章中的配图则直接作为步骤图像使用。</p></li>
+<li><p><strong>轨迹生成（Trajectory Generation）</strong> 使用一个零样本
+GUI 代理，对上述步骤对之间的动作与推理过程进行识别，生成完整的 GUI
+操作轨迹，包括每一步的思考逻辑与对应动作。</p></li>
 <li><p><strong>数据过滤（Data Filtering）</strong>
-为确保数据质量与相关性，构建了多阶段过滤流程，包括教程去重、基于LLM的内容过滤、以及利用GUI代理进行轨迹级筛选。最终保留与GUI任务强相关、结构清晰的数据实例。</p></li>
+为确保数据质量与相关性，构建了多阶段过滤流程，包括教程去重、基于 LLM
+的内容过滤、以及利用 GUI 代理进行轨迹级筛选。最终保留与 GUI
+任务强相关、结构清晰的数据实例。</p></li>
 </ol>
 <p><img src="/2025/06/01/GUIagent_papers/tongui1.png"></p>
+<h1 id="learning-reasoning-refinement-a-framework-for-kahnemans-dual-system-intelligence-in-gui-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2506.17913">Learning, Reasoning, Refinement:
+A Framework for Kahneman’s Dual-System Intelligence in GUI
+Agents</a></h1>
+<p>GUI
+智能体在利用计算机视觉与语言模型自动化数字任务方面已取得显著进展，然而现有系统仍存在明显局限性。首先，它们主要依赖于反复试错（trial-and-error）的决策方式，缺乏从交互过程中学习与适应的能力；其次，当前评估方法多为单步准确率，难以反映真实
+GUI 操作的复杂性。为克服这些问题，本文提出了 CogniGUI ——
+一个具有人类认知特征的 GUI
+自动化框架。该框架受到卡尼曼“双系统理论”的启发，结合了两个核心组件：（1）Omni-parser
+引擎通过快速视觉语义分析，进行 GUI
+元素的分层解析，识别可操作部分；（2）基于 GRPO 的 grounding
+agent，评估多种交互路径，并通过独特的相对奖励机制，促进最小化且高效的操作路径选择。该双系统设计支持智能体进行迭代性的“探索–学习–掌握”循环，使其能基于经验持续优化策略。为更全面评估智能体的泛化与适应能力，作者还提出了
+ScreenSeek
+基准测试集，涵盖多应用导航、动态状态变化以及跨界面一致性等现实场景中常被忽视的挑战。实验结果表明，CogniGUI
+在现有 GUI grounding 基准及 ScreenSeek
+测试中均优于现有最先进方法，标志着 GUI
+自动化从静态、孤立操作向具备认知适应能力的智能体迈出了关键一步。</p>
+<p><img src="/2025/06/01/GUIagent_papers/cognigui.png"></p>
+<p>OmniParser
+引擎能够有效识别屏幕上的文本按钮、图标按钮和其他交互元素，但它没有考虑任务目标，也没有很好地解释选择依据。这会导致效率和可解释性不足。新系统通过一个相关性函数
+<span class="math inline">\(R(e|I)\)</span>，来判断一个界面元素 <span class="math inline">\(e\)</span> 与当前任务指令 <span class="math inline">\(I\)</span> 的相关性，公式如下： <span class="math display">\[
+R(e|I) = \alpha \cdot B(e) + \beta \cdot \text{sim}(V(e), V(I))
+\]</span></p>
+<p>参数解释：</p>
+<ul>
+<li><p><span class="math inline">\(B(e)\)</span>：元素的交互性评分（是否可点击、控件类型等）</p></li>
+<li><p><span class="math inline">\(V(e)\)</span>, <span class="math inline">\(V(I)\)</span>：分别是元素和任务指令的向量表示（embedding）</p></li>
+<li><p>sim(·)：表示它们之间的语义相似度</p></li>
+<li><p><span class="math inline">\(α\)</span> 和 <span class="math inline">\(β\)</span>：权重参数，用于平衡结构信息和语义信息</p></li>
+</ul>
+<p>这个评分会产生一个界面元素的概率分布，让系统优先考虑与任务相关的元素，而不是对所有元素一视同仁。通过设定一个自适应的相关性阈值（adaptive
+relevance
+threshold），系统可以只处理最相关的那一部分元素，大幅减少计算量，提高响应速度。解决现有模型的偏见问题：研究发现当前的多模态模型（VLMs）普遍更擅长识别文本按钮，对图标按钮（没有文字的）识别准确率低，这会导致
+VLM
+驱动的代理在界面交互中偏向文本按钮，忽略图标控件。为解决这一问题，该系统采取了两个策略：</p>
+<ol type="1">
+<li><p>高效计算语义相似度：通过专门的嵌入技术，将元素和指令映射到同一向量空间，提高理解能力。</p></li>
+<li><p>引入基础得分函数 <span class="math inline">\(B(e)\)</span>：即使一个元素没有明显文本，<span class="math inline">\(B(e)\)</span>
+会因为其功能性（如是否可点击）给予加分，弥补模型对图标的歧视性偏差。</p></li>
+</ol>
+<p>作者介绍了一种新的评估指标，叫做 Interaction Rounds
+Metric（交互轮次指标），它不仅关注任务是否完成（准确率），还评估完成任务所需的交互步骤数量，从而更贴近真实用户体验。传统评估方法（如准确率）只看任务是否完成，忽略了过程中的效率。比如两个模型都完成了一个任务，但一个用了
+5 步，另一个用了 20 步——显然前者体验更好。 Interaction Rounds IR(T)
+定义如下： <span class="math display">\[
+IR(T) = \sum_{i=1}^{n} S_i,
+\]</span> 其中，T 表示一个任务，n
+表示完成该任务所需的总步骤数（如点击多个页面），<span class="math inline">\(S_i\)</span>表示模型在步骤 <span class="math inline">\(i\)</span>
+上的交互尝试次数（例如尝试多个按钮、点击错误元素），这反映了模型完成整个任务所花的“努力”，而不仅仅是成功与否。</p>
+<p>为了模拟真实用户的耐心极限，每个步骤都设置一个最大尝试阈值 <span class="math inline">\(T_{max}\)</span>：如果模型在任意步骤的尝试次数超过
+<span class="math inline">\(T_{max}\)</span>，则判定该任务失败。此时，系统会将该任务的
+CogniPath Quotient (CPQ) 设为 0： <span class="math display">\[
+\text{CPQ} = 0.
+\]</span> 若任务未失败，CPQ 的计算公式为： <span class="math display">\[
+\text{CPQ} = \frac{S_{\min}}{IR(T)},
+\]</span> 其中，<span class="math inline">\(S_{\min}\)</span>
+表示人类专家完成该任务所需的最少步骤；<span class="math inline">\(IR(T)\)</span>
+表示模型实际使用的总交互轮数。因此，CPQ 趋近于 1
+表示模型像人一样高效完成任务（理想情况），CPQ 趋近于 0
+说明模型绕了很多冤枉路，效率低下。</p>
+<h1 id="section"></h1>
  
       <!-- reward -->
       

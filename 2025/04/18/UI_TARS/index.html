@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">14.1k</span>
+            <span class="post-count">14.2k</span>
         </span>
     </span>
 
@@ -582,16 +582,21 @@ t_2, a_2), , (o_t, t_t, a_t)。 $ 假设在第 <span class="math inline">\(\tau\
 <span class="math display">\[
 T^- = \text{instruction}, (o_1, t_1, a_1), (o_2, t_2, a_2), \ldots,
 (o_\tau, t_\tau, a_\tau),
-\]</span> T^+ = , (o_1, t_1, a_1), (o_2, t_2, a_2), , (o_, t^*_, a^*_).
-$$</p>
+\]</span> <span class="math display">\[
+T^+ = \text{instruction}, (o_1, t_1, a_1), (o_2, t_2, a_2), \ldots,
+(o_\tau, t^*_\tau, a^*_\tau).
+\]</span></p>
 <p>此外，还要求标注者继续基于错误动作 <span class="math inline">\(a_{\tau}\)</span>
 标注后续的步骤，模拟错误已经发生的真实情境。在生成下一步的思考过程 <span class="math inline">\(t^*_{\tau+1}\)</span>
 时，标注者需考虑之前错误所造成的影响，给出一个补救动作 <span class="math inline">\(a^*_{\tau+1}\)</span>，以重新校准任务的执行进度。例如，若上一步原本应将网页加入书签却误点击了关闭按钮，则下一步应为重新打开最近关闭的网页，并再次尝试点击“添加书签”按钮。因此形成了如下反思修正轨迹对：
 <span class="math display">\[
 T^- = \text{instruction}, (o_1, t_1, a_1), (o_2, t_2, a_2), \ldots,
 (o_\tau, t_\tau, a_\tau), (o_{\tau+1}, t_{\tau+1}, a_{\tau+1}),
-\]</span> T^+ = , (o_1, t_1, a_1), (o_2, t_2, a_2), , (o_, t_, a_),
-(o_{+1}, t^*_{+1}, a^*_{+1}). $$</p>
+\]</span></p>
+<p><span class="math display">\[
+T^+ = \text{instruction}, (o_1, t_1, a_1), (o_2, t_2, a_2), \ldots,
+(o_\tau, t_\tau, a_\tau), (o_{\tau+1}, t^*_{\tau+1}, a^*_{\tau+1}).
+\]</span></p>
 <p>在训练中，作者仅使用正样本轨迹 <span class="math inline">\(T^+\)</span> 进行监督微调（SFT），并且只对修正步骤
 <span class="math inline">\((t^*_\tau, a^*_\tau)\)</span> 与 <span class="math inline">\((t^*_{\tau+1}, a^*_{\tau+1})\)</span>
 计算损失函数，跳过错误步骤 <span class="math inline">\((t_\tau,

@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">4k</span>
+            <span class="post-count">9.7k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">14 min</span>
+            <span class="post-count">34 min</span>
         </span>
     </span>
 </div>
@@ -128,7 +128,7 @@ Models: A Model-Based Approach to AI Control</a></h1>
 Web Agents with World Models: Learning and Leveraging Environment
 Dynamics in Web Navigation</a></h1>
 <p>当前基于 LLM
-的网页智能体在执行长程任务时表现仍不理想，常常犯下如重复购买不可退票等不可逆错误。相比之下，人类能够避免此类错误，是因为我们<strong>具备对行为后果的预判能力</strong>，即“世界模型”（world
+的网页智能体在执行长程任务时表现仍不理想，常常犯下如重复购买不可退票等不可逆错误。相比之下，人类能够避免此类错误，是因为我们具备对行为后果的预判能力，即“世界模型”（world
 model）。基于这一观察，本文首先通过实证分析验证了当前主流 LLM（如
 GPT-4o、Claude-3.5-Sonnet
 等）缺乏内在世界模型的能力。作者通过实验分析，得到以下结论：</p>
@@ -136,9 +136,8 @@ GPT-4o、Claude-3.5-Sonnet
 <li><p>当前的大型语言模型（LLMs）无法有效预测其动作所导致的下一状态。这表明，<strong>“世界模型”这一能力——即预见所采取动作可能产生的后果——在现有
 LLM 中是缺失的</strong>。换句话说，虽然 LLMs
 擅长语言生成和知识问答，但它们并不具备像人类那样的“因果预判”能力，难以在复杂环境中做出具备长期规划意识的决策。</p></li>
-<li><p>当前最先进的大型语言模型（SOTA
-LLMs）在仅依赖当前观察状态（即当前界面或页面信息）进行动作选择时表现不佳，平均准确率仅为
-49%。然而，当这些模型被<strong>增强以获取每个候选动作对应的“下一状态”信息</strong>后，它们在动作选择任务上表现出显著提升，准确率最高可提升
+<li><p>当前最先进的大型语言模型在仅依赖当前观察状态（即当前界面或页面信息）进行动作选择时表现不佳，平均准确率仅为
+49%。然而，当这些模型被增强以获取每个候选动作对应的“下一状态”信息后，它们在动作选择任务上表现出显著提升，准确率最高可提升
 <strong>38%</strong>。这表明，LLMs
 在具备预测未来状态（即拥有“世界模型”能力）的情况下，能够做出更合理、前瞻性的决策，从而大幅改善任务表现。</p></li>
 </ul>
@@ -146,11 +145,10 @@ LLMs）在仅依赖当前观察状态（即当前界面或页面信息）进行�
 智能体（WMA）</strong>，该智能体通过模拟动作可能带来的后果，从而做出更优的决策。作者认为，<strong>直接训练世界模型去预测下一个完整的观察状态（即整个网页）往往会导致大量重复的元素反复出现，同时
 HTML 输入内容冗长，这些都会严重影响模型的性能</strong>。为了克服将 LLM
 训练为世界模型所面临的挑战——如连续网页状态间的大量重复元素以及 HTML
-输入过长等问题，因此研究引入了<strong>以状态转变为核心的观察抽象方法</strong>。具体而言，<strong>模型不再预测完整下一步状态，而是以自然语言的形式仅描述关键的状态变化</strong>，从而简化建模目标，增强推理效率。在推理阶段，智能体会利用世界模型分别<strong>模拟策略模型提供的每个候选动作</strong>所带来的后果（即下一观察状态的变化描述），接着使用一个<strong>价值函数</strong>对所有模拟结果进行奖励估计，最终选择<strong>预期奖励最高的动作</strong>来执行。该方法有效避免了冗余状态建模，提高了世界模型的效率与实用性。</p>
+输入过长等问题，因此研究引入了<strong>以状态转变为核心的观察抽象方法</strong>。具体而言，<strong>模型不再预测完整下一步状态，而是以自然语言的形式仅描述关键的状态变化</strong>，从而简化建模目标，增强推理效率。在推理阶段，智能体会利用世界模型模拟策略模型提供的每个候选动作所带来的后果（即下一观察状态的变化描述），接着使用一个<strong>价值函数</strong>对所有模拟结果进行奖励估计，最终选择<strong>预期奖励最高的动作</strong>来执行。该方法有效避免了冗余状态建模，提高了世界模型的效率与实用性。</p>
 <p>"While some world models are trained with <strong>raw
-observations</strong> (Oh et al., 2015; Chiappa et al., 2017), others
-are built on <strong>latent representations</strong> (Hafner et al.,
-2019a; 2020; Kipf et al., 2020)."</p>
+observations</strong>, others are built on <strong>latent
+representations</strong>."</p>
 <h2 id="world-model-augmented-web-agents">WORLD-MODEL-AUGMENTED WEB
 AGENTS</h2>
 <p><img src="/2025/05/01/World-model/wma1.png"></p>
@@ -187,10 +185,9 @@ S\)</span>，这些状态是通过真实的状态转移函数 <span class="math 
 Agent 进行规划与决策。</p>
 <h3 id="面向状态转移的观察抽象transition-focused-observation-abstraction">面向状态转移的观察抽象（Transition-Focused
 Observation Abstraction）</h3>
-<p>在步骤 I 中，已收集了数据集 <span class="math inline">\(D =
-\sum_{t=1}^{n} \{I, o_t, a_t,
-o_{t+1}\}\)</span>，现在直观的做法是训练基于大语言模型（LLM）的世界模型来预测下一个观察
-<span class="math inline">\(o_{t+1}\)</span>，这些观察一般以文本形式表达（如
+<p>在上述步骤中，已收集了数据集 <span class="math inline">\(D =
+\sum_{t=1}^{n} \{I, o_t, a_t, o_{t+1}\}\)</span>，直观的做法是训练基于
+LLM 的世界模型来预测下一个观察 <span class="math inline">\(o_{t+1}\)</span>，这些观察一般以文本形式表达（如
 HTML
 或可访问性树）。但直接使用这种方式作为训练目标存在两个主要问题：</p>
 <ol type="1">
@@ -204,11 +201,11 @@ token，增加了训练成本。如下图所示。</p></li>
 <p><img src="/2025/05/01/World-model/wma3.png"></p>
 <p>为解决这两个问题，作者通过抽象表达观测值的变化，仅关注“状态转移”的差异部分，以提高训练效率和效果。具体做法如下：</p>
 <ol type="1">
-<li><p><strong>识别状态差异</strong>：不采用简单摘要，而是通过
+<li><p><strong>识别状态差异</strong>：不采用简单描述，而是通过
 <strong>匈牙利算法</strong> 比较 <span class="math inline">\(o_t\)</span> 和 <span class="math inline">\(o_{t+1}\)</span>
 中的元素，生成匹配代价矩阵，从而精准识别新增（ADDED）、删除（DELETED）、更新（UPDATED）等元素变更，构造出状态转移集合
 <span class="math inline">\(\Delta(o_t,
-o_{t+1})\)</span>。(计算成本很高呀)</p></li>
+o_{t+1})\)</span>。（计算成本很高呀）</p></li>
 <li><p><strong>转换为自然语言描述</strong>：将上述结构化的差异信息 <span class="math inline">\(\Delta(o_t, o_{t+1})\)</span> 输入给一个
 LLM，将其转化为自由形式的自然语言文本 <span class="math inline">\(\tilde{o}_{t+1}\)</span>，该文本专注于描述观察变化的关键信息，而不是完整网页内容。</p></li>
 <li><p><strong>构建新数据集</strong>：用新生成的 <span class="math inline">\(\tilde{o}_{t+1}\)</span> 替换原始数据中的 <span class="math inline">\(o_{t+1}\)</span>，最终得到更精炼、有效的信息训练集：</p>
@@ -241,7 +238,7 @@ p(\tilde{o}_{t+1} \mid o_t, a_t, I)
 </ol>
 <p>推理流程如下：</p>
 <ul>
-<li><p>Step 1: 策略模型采样动作候选。在时间步 <span class="math inline">\(t\)</span>，智能体首先从策略模型 <span class="math inline">\(\theta\)</span> 中基于当前观察 <span class="math inline">\(o_t\)</span> 和用户目标 <span class="math inline">\(I\)</span>，通过 top-p sampling 方法生成 <span class="math inline">\(k\)</span> 个动作候选： <span class="math display">\[
+<li><p>Step 1: 策略模型采样动作候选。在时间步 <span class="math inline">\(t\)</span>，智能体首先从策略模型 <span class="math inline">\(\theta\)</span> 中基于当前观察 <span class="math inline">\(o_t\)</span> 和用户目标 <span class="math inline">\(I\)</span>，通过 top-p decoding 方法生成 <span class="math inline">\(k\)</span> 个动作候选： <span class="math display">\[
 \{a^1_t, a^2_t, ..., a^k_t\}.
 \]</span></p></li>
 <li><p>Step 2: 世界模型预测未来状态。对于每个动作候选 <span class="math inline">\(a^i_t\)</span>，利用世界模型 <span class="math inline">\(\phi\)</span> 来“模拟”该动作将导致的下一观察 <span class="math inline">\(\tilde{o}^{i}_{t+1}\)</span>，即：</p></li>
@@ -258,8 +255,41 @@ p(\tilde{o}_{t+1} \mid o_t, a_t, I)
 \hat{a}_t = \arg\max_{a_t \in \{a^1_t, ..., a^k_t\}} V(I, o_t, a_t,
 \tilde{o}_{t+1}).
 \]</span> 最终选择最优动作 <span class="math inline">\(\hat{a}_t\)</span> 来执行。</p>
-<h2 id="与树搜索tree-search智能体的对比">与树搜索（Tree
-Search）智能体的对比</h2>
+<h2 id="实验">实验</h2>
+<ul>
+<li><p>作者使用 Llama-3.1-8B-Instruct 作为世界模型的backbone。</p></li>
+<li><p>对于策略模型Policy model，作者采用 GPT-4o (gpt-4o-0513)
+和GPT-4o-mini（gpt-4o-mini-0718）作为agent backbone。</p></li>
+<li><p>对于价值函数 Value function，作者利用来自 Mind2Web 的数据对
+Llama-3.1-8B-Instruct 进行了微调。</p></li>
+</ul>
+<p>为简化评估并提升准确性，作者将“下一状态预测”任务转化为二分类问题，而不是自然语言生成任务。这是因为评估机器生成的完整
+HTML 或可访问性树（accessibility tree）非常困难，通常需要人工评估或借助
+LLM 判断器，而这可能引入偏差，目前也尚无共识认为 LLM
+在这方面是可靠的评估者。</p>
+<h3 id="如何构建训练样本">如何构建训练样本：</h3>
+<ul>
+<li><p>使用 <code>difflib</code> Python
+库，<strong>计算黄金标准（正确）下一状态与多个错误候选状态的词汇相似度</strong>；</p></li>
+<li><p>从中选取最相似但实际上是错误的状态，作为<strong>负样本（negative
+sample）</strong>；</p></li>
+<li><p>将正负状态随机打乱排列，用于训练世界模型以进行<strong>分类预测（即“哪个是正确的下一状态？”）</strong>。</p></li>
+</ul>
+<p>用于此任务的提示词（prompt）展示于论文中的图 15；人工标注界面见图
+8。</p>
+<h3 id="推理阶段">推理阶段</h3>
+<ol type="1">
+<li><p>使用 top-p 采样（p = 1.0）生成 20
+个动作候选，从中选出出现频率最高的三个动作；</p></li>
+<li><p>对这三个动作分别使用世界模型<strong>预测其可能导致的下一状态</strong>（提示词如图
+20 所示）；</p></li>
+<li><p>使用 <strong>value function</strong>
+对每个预测状态评估其“奖励”分数（即该状态对任务目标的贡献度，提示词如图
+21）；</p></li>
+<li><p>最终选择<strong>获得最高奖励的动作作为执行动作</strong>。</p></li>
+</ol>
+<h3 id="与树搜索tree-search智能体的对比">与树搜索（Tree
+Search）智能体的对比</h3>
 <p>作者将 WMA（World-Model-Augmented）网页智能体与树搜索（Tree
 Search）智能体在<strong>时间效率</strong>和 <strong>API
 成本效率</strong>方面进行了对比。</p>
@@ -275,16 +305,199 @@ Search）智能体在<strong>时间效率</strong>和 <strong>API
 </ul>
 <p>总结来看，在 CMS、Reddit、Gitlab 和 Map 等多个任务环境中，WMA
 智能体在保持与树搜索智能体<strong>相近性能</strong>的同时，展现出显著的<strong>时间与成本优势</strong>。</p>
+<h3 id="消融实验">消融实验</h3>
+<p><img src="/2025/05/01/World-model/wma4.png"></p>
+<h4 id="下一状态的影响">下一状态的影响</h4>
+<p>在奖励估计中引入模拟的下一状态有助于提升智能体的性能。为了评估在计算价值评分时引入模拟下一状态的效果，研究将其与仅基于当前观测
+<span class="math inline">\(o_t\)</span> 和动作 <span class="math inline">\(a_t\)</span> 的 Q
+值函数进行了对比。表5第一行结果表明，使用包含下一状态信息的方法能让价值函数更准确地预测奖励，从而显著提升任务执行的效果。这说明模拟出的后续状态在强化学习中对智能体的决策具有重要价值。</p>
+<h4 id="模型微调-vs-提示工程">模型微调 vs 提示工程</h4>
+<p>微调相比基于提示的方法更能提升世界模型的效果。研究将所提出的框架与一种变体进行对比：该变体将训练好的世界模型（即微调后的
+Llama-3.1-8B-Instruct）替换为未经过训练、仅通过两轮示例（2-shot）进行提示学习的
+GPT-4o-mini 来预测下一步观测。结果如表 5 第 2
+行所示，该变体的性能明显较差，表明即使是最先进的大模型（SOTA
+LLM），在未经过训练的情况下也无法充分掌握环境动态。这与第 3.1
+节中的发现一致，进一步说明微调对于构建有效的世界模型是关键的。</p>
+<h4 id="状态变化的抽象观测的影响">状态变化的抽象观测的影响</h4>
+<p>对观测进行抽象有助于提升下一状态的预测效果。为验证第 §4.1.2
+节中提出的“状态转换抽象表示”的有效性，研究训练了一种对比模型，该模型直接预测完整的可访问性树（即完整的
+<span class="math inline">\(o_{t+1}\)</span>），而不是只关注状态变化的抽象观测
+<span class="math inline">\(\tilde{o}_{t+1}\)</span>。如表 5 第 3
+行所示，结果验证了预期：生成完整的下一观测（即视窗中所有元素）反而削弱了智能体性能，是所有消融实验中成功率最低的。这说明，在观测中处理大量冗余和重复信息会干扰模型对关键状态变化的捕捉，而聚焦于状态转变的抽象观测能更有效地支持世界模型学习。</p>
+<h4 id="价值函数的选择">价值函数的选择</h4>
+<p>研究对比了用于实现 WMA
+的微调模型（Llama-3.1-8B-Instruct）与基于提示的
+GPT-4o-mini。表6结果显示，微调模型在智能体性能上略优于
+GPT-4o-mini。这表明，在 API
+预算受限的场景中，通过微调获得的价值函数是一种合理且成本更低的替代方案。
+<img src="/2025/05/01/World-model/wma5.png"></p>
+<h4 id="候选action数量的影响">候选action数量的影响</h4>
+<p>图 6 显示，在推理阶段的策略优化过程中，所采样动作数量 <span class="math inline">\(k\)</span>
+的增加与智能体任务完成率（SR）之间呈现出正相关趋势。也就是说，采样的候选动作越多，智能体的性能通常越好。该结果表明，在预算允许的情况下，WMA
+网络智能体可以通过更充分地探索未来状态来获得更好的任务表现。 <img src="/2025/05/01/World-model/wma6.png"></p>
+<h2 id="未来方向">未来方向</h2>
+<ol type="1">
+<li><p>使用世界模型的另一种方式是<strong>基于模拟结果对生成动作进行自我优化（self-refine）</strong>。在策略模型
+<span class="math inline">\(\theta\)</span> 生成初始动作 <span class="math inline">\(a_t\)</span> 后，使用世界模型预测下一观察状态
+<span class="math inline">\(\tilde{o}_{t+1}\)</span>，再将此预测结果作为反馈重新提示
+<span class="math inline">\(\theta\)</span>
+以“修正”其动作。换言之，如果模拟结果不理想，模型可以对先前的动作进行调整优化。实验结果显示，该方法比单纯使用
+CoT（Chain of Thought）推理的策略提升了 1.8
+个百分点的准确率。但相比之下，作者提出的
+<strong>“模拟-打分-选择”</strong>（simulate-score-select）范式在准确率上几乎翻倍，表现更优，因此被选为主策略优化方法。</p></li>
+<li><p>作者从 WebArena 中 随机抽取了 50 个世界模型预测的错误状态（即
+<span class="math inline">\(\tilde{o}_{t+1}\)</span>），并由计算机专业人员手动比对预测观察结果与实际页面视图（viewport），对错误类型进行分类。主要错误类型包括：正确但过于笼统的描述（24%）、对网页元素/功能理解能力不足（26%）、反事实想象（Counterfactual
+Imagination，42%）、其他错误（8%）。世界模型预测错误中最大的问题是<strong>虚构未来状态（反事实）</strong>，其次是<strong>对页面组件功能的理解缺陷</strong>。虽然部分描述在语言上“看起来对”，但缺乏精度和可操作性。这表明，构建更可靠的
+web world model，需要解决“想象偏差”与“知识不足”这两大挑战。</p></li>
+</ol>
 <h1 id="web-agents-is-your-llm-secretly-a-world-model-of-the-internet-model-based-planning-for-web-agents"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2411.06559">(202411, Web Agents) Is Your LLM
 Secretly a World Model of the Internet? Model-Based Planning for Web
 Agents</a></h1>
 <p>近期研究发现，将规划算法（如树搜索）引入网页智能体中，相比于仅根据当前状态做出反应的策略（reactive
 planning），具有明显优势。然而，与可控的仿真环境不同，现实中的网页环境充满了不可逆的操作，例如点击购买不可退款的商品等，这使得树搜索依赖的“回溯”机制变得不可行。此外，过度依赖测试时搜索也会显著降低执行效率。为此，作者提出了一种新的思路：基于模型的网页智能体规划方法（model-based
-planning）。这种方法利用世界模型预测各候选动作的未来结果，在执行动作前先进行“模拟与思考”，从而实现更稳健的决策。
-算法框架同上篇论文WMA。</p>
+planning）。这种方法利用世界模型预测各候选动作的未来结果，在执行动作前先进行“模拟与思考”，从而实现更稳健的决策。</p>
+<h2 id="introduction">Introduction</h2>
+<p>规划（Planning）——
+即为实现目标而决定最优行动序列——自人工智能诞生以来一直是核心问题。近年来，研究者对能够在各种网站上完成复杂任务的通用型网页智能体（generalist
+web
+agents）表现出浓厚兴趣，部分原因是网页作为一个复杂而现实的环境，为智能体的研究和发展提供了良好试验场。然而，将现有的规划算法应用于在线网页环境面临巨大挑战。现实世界中的网页环境充满状态变化且不可逆的操作，例如在
+Amazon.com
+这样的网站上，一个简单操作可能包括提交订单、创建账户、修改隐私设置等，这些都使得搜索型规划算法中的关键步骤——回溯（backtracking）变得极具挑战甚至无法实现。此外，在测试时依赖大量探索所带来的延迟，也会影响执行效率并损害用户体验。</p>
+<p>为应对上述挑战，一个解决方案是基于模型的规划（model-based
+planning）。该方法通过引入“世界模型”——使智能体能够在模型中模拟一系列动作的结果，从而实现更高效的决策。在传统强化学习任务中，世界模型已取得显著成果，由于环境动态明确、动作空间小且固定，训练世界模型相对容易。然而，将这一方法应用于网页环境仍属探索初期。与封闭的模拟环境不同，互联网是开放且不断演变的，页面结构复杂多样，用户可执行的交互行为种类繁多，这使得构建适用于网页环境的世界模型面临巨大挑战。因此，一个关键问题是：我们应如何为互联网构建高效的世界模型？</p>
 <p><img src="/2025/05/01/World-model/webdreamer1.png"></p>
+<h2 id="webdreamer-方法介绍">WEBDREAMER 方法介绍</h2>
+<p>Web
+智能体在自动化操作真实网站时，面临庞大且复杂的搜索空间。形式上，这类任务在给定指令
+<span class="math inline">\(I\)</span>
+的情况下可建模为部分可观测马尔可夫决策过程（POMDP），表示为 <span class="math inline">\((S, A, O, T, R, \Omega)\)</span>。其中，<span class="math inline">\(S\)</span> 是环境可能状态集合，<span class="math inline">\(A\)</span>
+是动作集合，如点击元素、输入文本、导航页面等，<span class="math inline">\(O\)</span> 是智能体可观察到的信息，<span class="math inline">\(T: S \times A \to S\)</span>
+表示状态转移函数，<span class="math inline">\(R\)</span>
+是二值奖励函数，用于判断任务是否完成。由于环境是部分可观测的，智能体只能通过
+<span class="math inline">\(o = \Omega(s)\)</span>
+感知状态。直接在环境中进行基于树搜索的规划代价高昂，并存在不可逆风险。为此，基于模拟的模型规划成为更优方案：智能体通过学习到的模拟函数
+<span class="math inline">\(\text{sim}(o, a)\)</span>
+在执行前预测动作结果，从而进行在线规划。常见方法是模型预测控制（MPC），即在有限的时间视野
+<span class="math inline">\(H\)</span>
+内模拟每个候选动作对应的未来状态轨迹，并通过得分函数 <span class="math inline">\(\text{score}(\tau)\)</span>
+评估，选择得分最高的动作执行。该过程在每次观察到新状态后重复进行，使智能体能够在不频繁干扰环境的前提下，进行动态决策与调整。</p>
+<p>图 2 展示了 WEBDREAMER
+的规划流程示意：对于每个候选动作，系统会模拟其对应的两步未来轨迹，并选择得分最高的轨迹所对应的初始动作来执行。WEBDREAMER
+的核心在于利用大语言模型（LLM）来实现两项关键功能：<strong>模拟函数（sim）</strong>
+和 <strong>打分函数（score）</strong>。</p>
+<h3 id="模拟函数-sim-的实现">模拟函数 sim 的实现</h3>
+<p>sim
+由两个模块组成：一个模块预测动作执行后的状态变化，用于近似状态转移函数
+<span class="math inline">\(T\)</span>；另一个模块则基于预测的状态“想象”出接下来的动作，从而支持多步轨迹生成。这两个模块共同生成长度为
+<span class="math inline">\(H\)</span> 的模拟轨迹（其中 <span class="math inline">\(H\)</span> 是模拟深度）。为表征状态变化，LLM（如
+GPT-4o
+或自训练的世界模型）会输出该动作产生的<strong>自然语言简洁描述</strong>，重点突出该动作的影响，如图
+2 中 Stage I 所示。</p>
+<h3 id="打分函数-score-的实现">打分函数 score 的实现</h3>
+<p>每个候选动作 <span class="math inline">\(a_i\)</span>
+所对应的模拟轨迹 <span class="math inline">\(\tau_i\)</span>
+生成后，会进一步由 LLM 打分。按照 Koh
+等人（2024b）的做法，<strong>GPT-4o</strong>
+会对每条轨迹打出一个三等级分数：完成（1.0）、进行中（0.5）或错误（0.0），表示轨迹完成任务的可能性。最终动作得分是多次模拟与打分的平均结果，得分最高的动作（例如“点击
+Electronics”）被选中执行。</p>
+<h3 id="候选动作生成">候选动作生成</h3>
+<p>在规划开始前，需要首先生成一组候选动作。WEBDREAMER
+采用两阶段方法：第一阶段使用 Koh 等人（2024b）的方法生成 top-k
+动作，第二阶段利用 LLM
+自我优化（self-refinement）来去除不必要的无关动作。这一自我精炼过程是为了适应不同状态下动作空间的变化——某些步骤本就没有很多合理动作，固定的
+k 值可能会引入干扰项。</p>
+<p>在论文<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.01476">TREE SEARCH FOR
+LANGUAGE MODEL AGENTS</a>中，给出了action采样方法：</p>
+<p>为了生成丰富且合理的动作候选，系统采用 <strong>核采样（nucleus
+sampling）</strong>，设置为：Temperature = 1.0：保留一定生成随机性；
+Top-p = 0.95：从累计概率 95%
+的词表中随机采样，以平衡创造性与可靠性。</p>
+<p>在每一步执行中，模型接收带有 CoT 推理提示的 action-generation
+prompt，让模型生成<strong>20 次</strong>动作输出。 CoT
+帮助模型逐步思考当前网页状态、可执行动作及其后果，这样生成的候选更贴近合理的操作思维。对每一步
+20
+个输出中提到的动作分别进行计数，统计每个动作被多次采样命中的“票数”。从票数最高的若干动作中，选出
+<strong>前 b
+个</strong>作为下一步的候选动作，用于模型预测或实际执行。</p>
+<h3 id="终止机制">终止机制</h3>
+<p>系统在每一步都会检查是否满足终止条件（termination_check），包括模型输出了“停止”动作、达到最大步骤数，或某一动作重复执行超过
+3 次。</p>
+<p><img src="/2025/05/01/World-model/webdreamer2.png"></p>
+<h2 id="数据合成与模型训练">数据合成与模型训练</h2>
+<p><img src="/2025/05/01/World-model/webdreamer3.png"></p>
+<p>虽然像 GPT-4o
+这样的通用大模型具备充当世界模型的能力，但其推理成本和响应延迟限制了在实时规划中的实用性。为实现更高效、可部署的替代方案，作者提出训练一个更小型的世界模型，具备更低的推理成本并易于迁移到新领域。如图
+3
+所示，研究团队设计了一个可扩展的数据生成流程，通过启发式策略自动与网页交互。起始网页
+URL 来自 2024 年 10 月的 Common Crawl
+Index，系统会执行包括点击、悬停、输入文本和选择选项在内的随机网页操作。为了更贴近人类交互分布，操作概率被人为调整，例如提升点击操作的频率，同时保持其他操作的覆盖率。此外，通过优先对新出现的元素（如悬停后出现的按钮）进行操作，增强了动作间的因果联系。对于搜索类文本输入，系统使用
+GPT-3.5-turbo 生成上下文相关的搜索词。</p>
+<p>每次交互后，系统会截取网页操作前后的视觉快照，并使用 Qwen2-VL-72B
+生成对网页变化的文本描述，确保精确反映每个动作对页面的影响。<strong>每条训练数据包含：初始视觉状态、执行的动作，以及网页变化的文本说明</strong>。在数据处理阶段，系统会过滤掉失败的交互、被反爬虫机制阻断的内容以及潜在有害数据，最终得到一个包含超过
+310
+万条交互实例的数据集，捕捉了丰富的用户行为与网页状态变化之间的因果关系。</p>
+<p>在实际操作中，团队首先会在目标网页元素周围绘制红色边框，以便精确地将该元素定位给
+Qwen2-VL-72B。接着，模型会被提示分别生成两个描述：<strong>（1）该目标元素的指代表达（referring
+expression）</strong>，例如“页面左上角的蓝色按钮”；<strong>（2）执行动作后网页状态的变化描述</strong>。随后，将这两部分自然语言内容整合在一起，结合表
+C.1 中预设的随机模板，构建完整的训练样本。</p>
+<p>尽管训练数据只使用了有限数量的 prompt
+模板与自然图像，实验结果显示，Dreamer-7B
+在多个评估基准中展现出良好的泛化能力，不仅能适应此前未见过的指令或
+prompt，如 Online-Mind2Web（Xue 等，2025）和 Mind2Web-Live（Pan
+等，2024b），还可以处理包含复杂标记结构的图像任务，如 VisualWebArena
+中的 Set-of-Mark（Yang 等，2023）。</p>
+<p>实验表明，**当模拟深度 <span class="math inline">\(H = 1\)</span>
+时，效率与效果之间最为平衡。因此，团队聚焦于训练 <code>sim</code>
+中的状态转移模块，并以 Qwen2-VL-7B
+作为初始模型。进行微调，以实现对网页中未来状态的预测能力。训练样本被统一格式化为结构化
+prompt，例如：</p>
+<blockquote>
+<p>“这是网页截图。在你对 {元素} 执行 {动作}
+后，请描述你将会看到什么。”</p>
+</blockquote>
+<p>整个训练过程在 64 张 H100 GPU（每张显存
+80GB）的集群上进行，Dreamer-7B 在完整训练集上训练了 <strong>最多 2 个
+epoch</strong>。最终的 Dreamer-7B
+模型目标是根据当前网页状态和执行的动作，以自然语言方式预测下一状态，采用
+token-level 的语言建模训练目标。为避免每个 checkpoint
+都依赖高成本的下游评估，团队还构建了一个内在评价集，用于模型训练过程中的快速性能监控与
+checkpoint 筛选。优化器使用 DecoupledAdamW。此外，研究团队还训练了三个
+<strong>领域特定的世界模型</strong>：分别面向
+<strong>分类广告（Classifieds）、Reddit、购物（Shopping）</strong>
+三个垂直场景。这些模型均在通用 Dreamer-7B 模型基础上继续微调 1 个
+epoch，使用对应的领域内训练数据。与主模型相同的训练配置下，这些微调模型采用更小的学习率
+<code>5e-7</code> 和较短的 warmup steps
+<code>100</code>，以便在小数据集上实现稳定的参数适应。</p>
+<h2 id="实验-1">实验</h2>
+<h3 id="消融实验-1">消融实验</h3>
+<h4 id="不同模块的影响">不同模块的影响</h4>
+<p>研究团队在 VWA（VisualWebArena）购物任务中的人工验证子集上，对
+WEBDREAMER 的两个关键阶段进行了消融实验，分别是
+<strong>模拟阶段（simulation）</strong>和<strong>自我精炼阶段（self-refinement）</strong>。这一子集是目前规模最大、经过人工标注验证的子集，因此具有较强的代表性。</p>
+<p>针对模拟阶段，团队特别关注一个假设：也许模型性能的提升主要来自于对候选动作的重新排序（reranking），而与是否进行模拟无关。为了验证这一观点，研究人员设计了一个实验，完全移除模拟阶段，而是让
+reward 模型（score）直接对每个候选动作打分，从而仅做重排序。这一变体称为
+Reranking。此外，团队还去除了 WEBDREAMER 框架中的
+自我精炼步骤（即在候选动作生成后不再过滤冗余动作），以评估该模块的实际贡献。
+<img src="/2025/05/01/World-model/webdreamer4.png"></p>
+<p>结果如图 4 所示，虽然 Reranking
+相比于基础的响应式（reactive）模型略有提升，但性能仍明显落后于完整的
+WEBDREAMER，说明 基于 LLM
+的模拟能力是整个规划体系的核心，在预测未来状态、引导合理规划方面起到了关键作用。在取消自我精炼模块后，模型性能也出现了下降。深入分析发现，这一性能退化主要归因于：<strong>自我精炼模块在当前最优动作明确时，能有效剔除无关或干扰性的候选动作</strong>。相反，<strong>如果直接对所有动作进行模拟，可能引入额外噪声</strong>，反而影响最终动作选择的质量。</p>
+<h4 id="模拟深度的影响">模拟深度的影响</h4>
+<p>为了深入理解模拟深度（H，即规划视野）对模型性能的影响，研究团队在
+Online-Mind2Web 子集上，使用 GPT-4o 作为世界模型，评估了 WEBDREAMER 在
+规划视野为 1、2、3 步时的表现。</p>
+<p><img src="/2025/05/01/World-model/webdreamer5.png"></p>
+<p>实验结果（见图 5）显示：无论设置何种视野长度，WEBDREAMER
+的表现始终优于基础的反应式方法（reactive baseline）。然而，当视野从 1
+步扩展到 2 或 3 步时，性能反而略有下降。</p>
+<p>进一步分析表明，这种性能下降主要源于
+模拟中的动作生成“幻觉”问题（action proposal
+hallucination）。在多步模拟中，LLM
+会倾向于生成看似合理但在实际预测结果中并不可行的动作。这导致不同动作模拟出的轨迹变得越来越相似，“看起来都像是对的”，从而削弱了动作间的可辨识性和可判别性。此外，在复杂的网页环境中，模拟多步操作带来的误差会逐步积累，进一步影响整体准确性，这一现象也与以往的研究观察一致（Mendes
+&amp; Ritter, 2025；Chae 等，2025）。</p>
 <h1 id="gui-agents世界模型-a-generative-visual-gui-world-model-for-app-agents"><a target="_blank" rel="noopener" href="https://ai-agents-2030.github.io/ViMo/">（202504, GUI
-Agents(世界模型) A Generative Visual GUI World Model for App
+Agents（世界模型） A Generative Visual GUI World Model for App
 Agents</a></h1>
 <p>ViMo 是首个专为移动应用智能体（App
 Agents）设计的视觉世界模型，旨在解决现有世界模型在处理长程任务规划时缺乏视觉预测能力的问题。<strong>传统模型主要依赖文本描述来预测界面状态</strong>，难以还原包含丰富图像信息的
@@ -297,7 +510,7 @@ STR）将图像中的文本内容以符号占位的方式进行编码，从而�
 能够模拟智能体执行不同动作后界面可能呈现的视觉状态，有效提升其长程规划能力和任务成功率。实验结果表明，ViMo
 能生成既真实可信又功能完备的 GUI 图像，显著增强 App
 智能体在复杂任务中的决策效果与执行表现。该模型为移动智能体在现实环境中的广泛应用提供了重要技术支撑。</p>
-<p>ViMo为首个视觉 GUI 世界模型，通过引入名为 符号化文本表示（Symbolic
+<p>ViMo 为首个视觉 GUI 世界模型，通过引入名为 符号化文本表示（Symbolic
 Text Representation，STR）
 的新型数据表示方式，<strong>将图形内容与文本内容的生成解耦，分别建模</strong>，从而有效降低了文本生成过程中对图像精度的敏感性。在
 STR 表示中，GUI
@@ -312,6 +525,21 @@ STR，ViMo 分别使用两个模块完成图形与文本的生成任务：<stron
 预测器生成的文本符号，对应输出每个文本符号所代表的具体文本内容。最后，ViMo
 将预测得到的 STR 与生成的文本融合，合成出完整的下一个 GUI 界面。</p>
 <p><img src="/2025/05/01/World-model/vimo1.png"></p>
+<h1 id="general-agents-need-world-models"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2506.01622">(202501) General agents need
+world models</a></h1>
+<p>如今，研究焦点逐渐转向<strong>通用智能体</strong>——即能够在复杂真实环境中完成长周期目标导向任务的系统。有观点认为无需显式模型即可实现智能行为，例如
+Brooks
+提出的“世界即其自身最佳模型”，强调通过感知-动作环路即可实现智能。越来越多的证据表明，所谓的
+model-free
+智能体实际上可能学习了隐式的世界模型，甚至包括隐式的规划机制。
+这引发了一个根本问题：是否存在无需世界模型就能达成人类水平智能的捷径？或者，世界模型是否终究是不可或缺的？如果需要，那模型必须达到何种准确性与完备性？作者对这些问题进行了回答：
+<strong>‘any agent that satisfies a regret bound for a sufficiently
+diverse set of simple goal-directed tasks must have learned an accurate
+predictive model of its
+environment.’（任何在足够多样的简单目标任务上满足一定后悔界限的智能体，必然已经学习到了其环境的准确预测模型。）</strong></p>
+<h1 id="iclr2025-combo-compositional-world-models-for-embodied-multi-agent-cooperation"><a target="_blank" rel="noopener" href="https://umass-embodied-agi.github.io/COMBO/">(ICLR2025) COMBO:
+Compositional World Models for Embodied Multi-Agent Cooperation</a></h1>
+<p>本文研究的是具身多智能体协作问题，其中去中心化的智能体只能通过自我视角（egocentric）的观察来实现协作。与单智能体环境中学习世界动态不同，在多智能体环境下，我们需要在仅有部分视觉信息的情况下，根据任意数量的智能体动作来模拟世界动态。为了解决部分可观测性带来的挑战，作者首先训练生成模型，用于在仅观察到部分视角的情况下估计整体世界状态。为了支持在该世界状态上准确模拟多个动作组合的结果，作者提出了一种可组合的世界模型，通过因式分解多个智能体的联合动作来实现视频生成的组合性建模。结合视觉语言模型来推理其他智能体的动作，整体系统采用树搜索方法，将各模块整合，实现了在线协同规划。</p>
  
       <!-- reward -->
       
