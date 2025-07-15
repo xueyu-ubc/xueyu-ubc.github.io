@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Reinforcement Learning for LLM Reasoning |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+<script src="/js/hexo_resize_image.js"></script>
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Reinforcement-Learning"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Reinforcement Learning for LLM Reasoning
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/04/23/Reinforcement-Learning/" class="article-date">
+  <time datetime="2025-04-23T02:00:00.000Z" itemprop="datePublished">2025-04-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Foundation-Model/">Foundation Model</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">12.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">46 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="LLM-的幻觉问题"><a href="#LLM-的幻觉问题" class="headerlink" title="LLM 的幻觉问题"></a>LLM 的幻觉问题</h2><p>Great thanks to this blog: <a target="_blank" rel="noopener" href="https://aman.ai/primers/ai/hallucination/">NLP • Hallucination Mitigation</a></p>
+<p>AI 文本生成中的<strong>幻觉</strong>现象指的是模型生成的文本虽然在语法上可能是正确的，并且看起来合理，但与输入内容并不一致，甚至可能是事实错误的。这种问题在像 GPT-3 这样的系统中尤为常见，生成的细节可能会偏离甚至与输入内容相矛盾。</p>
+<h3 id="幻觉产生的原因"><a href="#幻觉产生的原因" class="headerlink" title="幻觉产生的原因"></a>幻觉产生的原因</h3><p>造成幻觉的原因可以归结为以下几个方面：</p>
+<p><strong>1. 训练数据不足</strong>：如果模型在训练中没有接触到多样化的数据，它可能无法准确地建立输入与合适输出之间的关联，从而导致幻觉内容的产生。</p>
+<p><strong>2. 模型过拟合</strong>：过拟合于训练数据会导致模型生成的输出过于依赖训练集，但在面对新的或不同的输入时与实际不符。</p>
+<p><strong>3. 监督不足</strong>：如果没有充分的指导，模型可能会过度依赖其内部逻辑，导致生成的内容出现“幻觉”。</p>
+<p><strong>4. 知识截止</strong>：像 ChatGPT 这样的语言模型有知识截止日期，因此对于截止日期之后的信息一无所知。在这种情况下，它可能在不知情的情况下提供过时或不再相关的回答。</p>
+<h3 id="如何解决幻觉"><a href="#如何解决幻觉" class="headerlink" title="如何解决幻觉"></a>如何解决幻觉</h3><h4 id="训练阶段"><a href="#训练阶段" class="headerlink" title="训练阶段"></a>训练阶段</h4><p><strong>Reinforcement Learning from Human Feedback (RLHF)</strong>。使用 RLHF 来减少幻觉的核心思想是让人类提供有关模型响应准确性和相关性的反馈。通过将这些反馈融入训练过程，模型可以逐步学习区分准确信息和不准确信息，从而降低产生幻觉的可能性。此外，RLHF 还能帮助模型理解其输出带来的影响，进而提高生成相关且符合事实的回应能力。</p>
+<h4 id="训练之后"><a href="#训练之后" class="headerlink" title="训练之后"></a>训练之后</h4><p>在对 LLM 进行训练之后，可以使用 <strong>Prompting</strong> 减轻幻觉。</p>
+<p><strong>1. Retrieval Augmented Generation（RAG）</strong>。 通过在生成过程中提供额外的上下文信息，有助于消除大语言模型中的幻觉问题。幻觉现象通常发生在 LLM 基于训练数据中的模式生成响应，而不是依赖真实知识时，尤其当模型缺乏特定领域的信息或难以识别其知识边界时更容易出现。RAG 通过将外部知识源整合到生成过程中来解决这一问题。它使 LLM 能够在生成响应时访问来自外部数据库的最新或特定上下文的数据。这种方法为模型注入了更多的上下文信息，帮助其更好地理解主题，降低幻觉出现的概率。例如，在设计用于提供汽车信息的聊天机器人中，RAG 可以从外部数据库中检索产品的具体细节和上下文信息，以补充用户的输入。这样，LLM 可以接收到更全面和详细的提示，从而生成更准确和相关的响应。</p>
+<p><strong>2. Contextual Prompting</strong>。旨在通过为模型提供明确的上下文或背景信息来改善其生成的输出。这种方法通过在提示（prompt）中包含相关的上下文信息，帮助模型更好地理解任务，并生成更准确、相关性更高的回答或内容。在给大语言模型（LLM）提供问题和上下文时，附加的上下文段落通常是来自维基百科文章、书籍章节等的摘要。这些上下文片段通过在句末插入唯一标识符进行标记，例如“(source 1234)”或“(source 4567)”。例如：</p>
+<ul>
+<li>“巴黎是法国的首都。(source 1234)”</li>
+<li><p>“法国位于西欧。(source 4567)”</p>
+<p>这些来源标签是与原始上下文片段中的特定句子相对应的唯一编号。具体来说，Contextual Prompting 涉及将一段上下文或背景知识与问题或任务一起输入模型。这段上下文可以是来自外部知识库的文本、前面对话中的信息、或任何与当前任务相关的数据。上下文为模型提供了额外的信息，使其能够更好地理解用户的意图，并在生成内容时参考这些背景知识。在使用这些带标签的上下文提示 LLM 时，研究方法还会在问题后附加指令，例如“提供细节并在答案中包含来源。” 通过这种方式，LLM 在生成响应时被引导引用这些标记的来源。这些标签为验证 LLM 的响应是否基于提供的上下文信息提供了参考。如果响应中包含匹配的来源标签，就表明 LLM 依赖于提供的上下文，而不是凭空生成（幻觉）的内容。</p>
+</li>
+</ul>
+<p><strong>3. Chain of Verification （CoVe）</strong>。CoVe 方法让大语言模型（LLM）在生成初始回答后，经过多个步骤来提升准确性：(1). 生成初始回答，可能包含不准确或幻觉。(2). 规划验证问题——模型生成一系列验证问题以自我查证。(3). 执行验证——模型独立回答这些验证问题 (Verification questions are often answered more accurately than facts stated in long passages)。(4). 基于验证结果修正初始回答，生成最终答案。</p>
+<p><img src="/2025/04/23/Reinforcement-Learning/cove.png" alt=" "></p>
+<h2 id="LLM-对齐"><a href="#LLM-对齐" class="headerlink" title="LLM 对齐"></a>LLM 对齐</h2><p>Great thanks to this blog: <a target="_blank" rel="noopener" href="https://aman.ai/primers/ai/Reinforcement-Learning/">LLM Alignment</a></p>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><ul>
+<li>2017 年，OpenAI 在其论文 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03741">Deep reinforcement learning from human preferences</a> 中提出了一种开创性的机器学习方法，称为 “从人类反馈出发的强化学习” (RLHF)，特别关注人类偏好。这一创新概念自此激发了该领域的进一步研究和发展。</li>
+<li>RLHF 概念：使用一个预先训练好的语言模型，由人类评估员对其输出进行排序。然后，这种排序会让模型对某些类型的回答产生偏好，从而产生更可靠、更安全的输出。</li>
+<li>RLHF 可以有效利用人类反馈来提高语言模型的性能。它将强化学习算法的优势与对人类输入的细微理解相结合，促进了模型的持续学习和改进。结合人类反馈，RLHF 不仅能提高模型的自然语言理解和生成能力，还能提高其在文本分类或翻译等特定任务中的效率。此外，RLHF 在解决语言模型中的偏差方面也发挥着至关重要的作用。通过允许人工输入来指导和纠正模型的语言使用，它可以促进更加公平和包容的交流。不过，在这一过程中，必须注意人为因素可能导致的偏差。</li>
+</ul>
+<h3 id="Reinforcement-Learning-强化学习基础概念"><a href="#Reinforcement-Learning-强化学习基础概念" class="headerlink" title="Reinforcement Learning 强化学习基础概念"></a>Reinforcement Learning 强化学习基础概念</h3><p><img src="/2025/04/23/Reinforcement-Learning/rl.png" alt=""></p>
+<p>如图所示，agent 采取一定的 action，对于当前的 action，环境会反馈其状态 state 以及 给出 reward。其中，reward 是要优化的目标，state 是环境当前的状态，policy 用于根据 state 选择 action.</p>
+<h3 id="Reinforcement-Learning-from-Human-Feedback-RLHF"><a href="#Reinforcement-Learning-from-Human-Feedback-RLHF" class="headerlink" title="Reinforcement Learning from Human Feedback (RLHF)"></a>Reinforcement Learning from Human Feedback (RLHF)</h3><p>LLM 的最初目标是准确地预测下一个 token。但是，这种方式无法保证输出的结果是有用、无害且诚实的，有可能产生不符合人类道德或安全标准的内容。为解决这一问题，需要有一种方式来引导模型输出符合人类价值观的结果。</p>
+<p><img src="/2025/04/23/Reinforcement-Learning/rlhf.png" alt=""></p>
+<p>图中给出了使用 RLHF 训练 LM 的三个步骤，具体来说，</p>
+<ol>
+<li><p>Collect Demonstration Data, and Train a Supervised Policy. 首先，从 prompts 中选择一个 prompt；然后人类标注者给出希望得到的输出；最后这些经过标注后的数据用于对 LM 进行 supervised fine-tune.</p>
+</li>
+<li><p>Collect Comparison Data, and Train a Reward Model. 首先，选取一个 prompt，模型给出几个可能的输出结果；标注者根据有用性、准确性等准则对结果进行从好到差的排序；这些排序后的数据用来训练一个 reward model. Reward model 用来评估模型输出结果的质量。</p>
+</li>
+<li><p>Optimize a Policy Against the Reward Model Using Reinforcement Learning. 产生新的 prompt, 基于当前的 policy, model 得到新的输出 response; Reward model 评估 response，然后得到 reward；基于得到的 reward 以及一些强化学习算法，比如 PPO，对 policy 进行更新。调整 policy 是为了增加未来产生 higher-reward outputs 的可能性。</p>
+</li>
+</ol>
+<p>Chip Huyen provides a zoomed out view of how the overall process works in her flowchart below:</p>
+<p><img src="/2025/04/23/Reinforcement-Learning/rlhf1.jpeg" alt=""></p>
+<h4 id="REWARD-MODEL"><a href="#REWARD-MODEL" class="headerlink" title="REWARD MODEL"></a>REWARD MODEL</h4><p>Reward model 的主要功能是评估给定的输入（如文本序列）并产生 scalar reward。这种 reward 量化了输出与人类偏好或期望行为的一致程度。</p>
+<p><img src="/2025/04/23/Reinforcement-Learning/rlhf2.png" alt=""></p>
+<h4 id="Optimizing-the-Policy"><a href="#Optimizing-the-Policy" class="headerlink" title="Optimizing the Policy"></a>Optimizing the Policy</h4><p><strong>策略（policy）</strong>：在强化学习中，策略是一组规则或决策机制，指导智能体（agent）根据它所处的环境状态或观察结果来选择行动。也就是说，策略定义了智能体如何在不同的情境下采取什么样的行为。</p>
+<p><strong>PPO（Proximal Policy Optimization，邻近策略优化）</strong>：是一种常用的强化学习算法。在 PPO 中，策略是通过反复迭代来优化的。其目标是最大化奖励，即让智能体的行为逐步改善，获得更高的回报。<br>但是，PPO 会确保策略的更新不会发生剧烈变化。这是通过引入一种约束，使更新后的策略保持与之前的策略相似性，以避免不稳定性或训练失败的情况。</p>
+<p><strong>DPO（Direct Preference Optimization，直接偏好优化）</strong>：是一种不同的策略优化方法。在 DPO 中，策略直接基于人类偏好进行优化。具体来说，它通过二元交叉熵损失函数（binary cross entropy loss），增加模型生成的优选输出的相对对数概率，而减少非优选输出的概率。这种方法直接根据人类的反馈进行优化，旨在使模型生成更符合人类期望的输出。<br>与此同时，DPO 也通过 KL 散度约束来保持平衡，防止策略发生过大的偏离。</p>
+<h4 id="Training-Llama-2"><a href="#Training-Llama-2" class="headerlink" title="Training Llama 2"></a>Training Llama 2</h4><p><img src="/2025/04/23/Reinforcement-Learning/llama.jpeg" alt=""></p>
+<p>以下是 Llama 2 的主要训练阶段的介绍：</p>
+<ol>
+<li><p><strong>预训练阶段</strong>（Pretraining）：</p>
+<ul>
+<li>在最初的预训练阶段，Llama 2 使用大量数据通过<strong>自监督学习</strong>进行训练。这一阶段让模型学习语言模式和上下文的基本结构，使其能够理解语言的基本规则和含义。</li>
+<li>自监督学习的方式通常是通过预测文本中隐藏的部分（如下一句话或遮盖的单词）来训练模型，帮助它积累广泛的语言知识。</li>
+</ul>
+</li>
+<li><p><strong>有监督微调阶段</strong>（Supervised Fine-Tuning）：</p>
+<ul>
+<li>在此阶段，模型进一步通过<strong>指令数据</strong>进行有监督微调。具体来说，模型会根据特定的指令进行训练，学习如何对不同的提示做出合适的响应。</li>
+<li>这个过程使模型能够在实际应用中根据明确的要求或任务生成准确、相关的回答。</li>
+</ul>
+</li>
+<li><p><strong>奖励模型创建（RLHF 步骤 1）</strong>（Reward Models Creation - RLHF Step 1）：</p>
+<ul>
+<li>为了进一步优化模型输出的质量，Llama 2 创建了两个<strong>奖励模型</strong>，一个针对<strong>帮助性（helpfulness）</strong>，另一个针对<strong>安全性（safety）</strong>。</li>
+<li>这些奖励模型通过<strong>人类偏好数据</strong>训练，预测在两种不同的输出中哪一个更符合人类的判断。此阶段基于二元比较，模型通过评估每对输出的优劣来学习。</li>
+</ul>
+</li>
+<li><p><strong>边际损失与排名</strong>（Margin Loss and Ranking）：</p>
+<ul>
+<li>Llama 2 使用二元比较数据集来优化排名。在每次比较中，标注者只需要选择两种响应中的一个，并通过<strong>边际标签</strong>来表示偏好的强度。这种边际标签可以用于进一步计算<strong>排名损失</strong>，提高模型对不同偏好的敏感性。</li>
+</ul>
+</li>
+<li><p><strong>拒绝采样与 PPO 对齐（RLHF 步骤 2）</strong>（Rejection Sampling and PPO - RLHF Step 2）：</p>
+<ul>
+<li>在最后一步，Llama 2 使用<strong>拒绝采样</strong>和<strong>邻近策略优化（PPO）</strong>来进一步优化模型。</li>
+<li>拒绝采样是指从模型生成的多个输出中，选择<strong>奖励最高</strong>的输出用于更新梯度，从而增强模型生成高质量输出的能力。</li>
+<li>之后通过 PPO 算法对模型进行进一步对齐，使其生成的回答更加安全且有帮助，同时确保优化过程中策略更新的稳定性。</li>
+</ul>
+</li>
+</ol>
+<p>总的来说，Llama 2 的训练流程结合了大规模的自监督学习、基于指令的有监督微调，以及基于人类偏好的强化学习，通过一系列精细的步骤来提升模型的语言理解、输出的帮助性和安全性。</p>
+<h4 id="Proximal-Policy-Optimization-PPO"><a href="#Proximal-Policy-Optimization-PPO" class="headerlink" title="Proximal Policy Optimization (PPO)"></a>Proximal Policy Optimization (PPO)</h4><p>建议先阅读以下两篇优秀博客：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xingzheai/p/15826847.html">详解策略梯度算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xingzheai/p/15931681.html">详解近端策略优化</a></li>
+</ul>
+<p><strong>PPO-clip</strong>: 在 PPO（邻近策略优化）中，代理损失函数（surrogate loss） 是通过当前策略和参考策略下执行同一动作的概率比率来定义的。这一比率用于引导策略向那些能够获得更高奖励的动作倾斜，同时确保策略更新的幅度不会过大，从而保持训练的稳定性。为防止策略的更新幅度过大，PPO 引入了剪裁，限制比率在一定范围内。通过在一定阈值外“剪裁”比率的变化，模型可以避免发生过大的更新，从而保证训练过程的稳定性。</p>
+<p>定义 $\pi<em>{\theta}$ 为当前策略（参数为 $\theta$ 的一个网络），$\pi</em>{ref}$ 是实际的、可参考的策略空间。$A(s_t, a_t)$ 为在状态 $s_t$ 下采取行为 $a_t$ 时得到的优势函数（可正可负，取决于定义方式）。近端策略优化裁剪函数为：</p>
+<script type="math/tex; mode=display">
+L(\theta) = E_{(s_t, a_t) \sim \pi_{ref}} \min{(\frac{p_{\theta}(a_t | s_t)}{p_{\pi_{ref}}(a_t|s_t)} A(s_t, a_t), clip(\frac{p_{\theta}(a_t | s_t)}{p_{\pi_{ref}}(a_t|s_t)}, 1-\epsilon, 1+\epsilon) A(s_t, a_t))},</script><p>其中，$\epsilon$ 是一个需要调整的超参数，一般设置为 0.1 或 0.2。优势函数 $A(s_t, a_t)$ 表示当前动作相对于平均策略动作的好坏，通过 value model (价值模型) 以及 reward model 的输出估算得到，比如 $A(s_t, a_t) = \text{reward} - \text{value}$， 。</p>
+<p>Reward 只告诉你“这一步做得好不好”，但 Advantage 才告诉你“这一步是否比你平常做得更好” —— 策略优化需要后者。Reward 是唯一来自人类偏好或环境反馈的信号，如果直接拟合 Advantage，模型根本不知道什么是“好的 Advantage”。</p>
+<p><strong>PPO-penalty</strong>: 在 PPO 中，除了使用剪裁目标函数（clipped objective）外，另一种常见的方法是直接在目标函数中加入 KL 散度惩罚项。这意味着算法会根据新策略与参考策略的偏离程度对目标函数进行惩罚。具体损失函数为：</p>
+<script type="math/tex; mode=display">
+L(\theta) = E_{(s_t, a_t) \sim \pi_{ref}} \frac{p_{\theta}(a_t | s_t)}{p_{\pi_{ref}}(a_t|s_t)} A(s_t, a_t) - \beta KL(\pi_{ref}||\pi_{\theta}),</script><p>通过<strong>最大化目标函数</strong>得到最优策略。对于大规模语言模型（LLM）来说，这个目标函数反映了模型对齐的目标，比如生成<strong>有帮助</strong>、<strong>真实</strong>、<strong>无害</strong>的回答。</p>
+<p><strong>参考策略 (Reference Policy)</strong>：参考策略是训练过程中用作<strong>基准</strong>或<strong>对照</strong>的一套策略。它通常是一个<strong>稳定的策略</strong>，模型可以从这个基准出发，或者在训练过程中参考该策略来指导学习。它确保最优策略的更新不会偏离初始策略太远，防止训练过程中产生剧烈变化或不稳定的行为。</p>
+<h5 id="几种常见的Advantage-Function估计算法及其公式"><a href="#几种常见的Advantage-Function估计算法及其公式" class="headerlink" title="几种常见的Advantage Function估计算法及其公式"></a>几种常见的Advantage Function估计算法及其公式</h5><p><strong>单步 TD Advantage</strong>：</p>
+<script type="math/tex; mode=display">
+A_t = r_t + \gamma V(s_{t+1}) - V(s_t),</script><p>这是最基本的 <strong>Temporal Difference (TD)</strong> 方法，用当前 reward 和下一个状态的 value 来估计当前 advantage，方差低，但偏差高。</p>
+<p><strong>Monte Carlo Advantage</strong>：</p>
+<script type="math/tex; mode=display">
+A_t = (\sum_{l=0}^{T-t-1} \gamma^l r_{t+l}) - V(s_t)</script><p>使用从当前时刻到 episode 结束的实际回报作为估计（也称为 <strong>return</strong>），偏差小，但方差大。</p>
+<p><strong>n-step Advantage</strong>：</p>
+<script type="math/tex; mode=display">
+A_t = (\sum_{l=0}^{n-1} \gamma^l r_{t+l}) + \gamma^n V(s_{t+n}) - V(s_t)</script><p>在 MC 与 TD 之间折中，可调参数 $n$ 控制回报跨度，方差与偏差之间权衡更灵活。</p>
+<p><strong>GAE（Generalized Advantage Estimation）</strong>：</p>
+<script type="math/tex; mode=display">
+A_t^{\text{GAE}(\gamma, \lambda)} = \sum_{l=0}^{\infty} (\gamma \lambda)^l \delta_{t+l}</script><p>其中：</p>
+<script type="math/tex; mode=display">
+\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)</script><p>参数 $\lambda \in [0, 1]$ 控制 bias-variance 权衡：</p>
+<ul>
+<li><p>$\lambda = 1$ → 近似 MC（高方差，低偏差）</p>
+</li>
+<li><p>$\lambda = 0$ → 等价 TD（低方差，高偏差）</p>
+</li>
+</ul>
+<p>在实践中通常设置 $\lambda = 0.95$ 左右，表现很好</p>
+<h3 id="Reinforcement-Learning-with-AI-Feedback-RLAIF"><a href="#Reinforcement-Learning-with-AI-Feedback-RLAIF" class="headerlink" title="Reinforcement Learning with AI Feedback (RLAIF)"></a>Reinforcement Learning with AI Feedback (RLAIF)</h3><p>RLAIF 使用 AI 生成的偏好（而不是人工标注的偏好）来训练大规模语言模型（LLMs）。这种方法通过利用强大的预训练模型（如 GPT-4）生成反馈，为训练其他 LLM 提供高效、成本更低的替代方案。在 RLAIF 中，反馈生成的语言模型相当于充当了“虚拟人工标注者”的角色。它评估训练中的模型生成的多个输出，选择优选响应或提供改进建议。</p>
+<h4 id="Direct-Preference-Optimization-DPO"><a href="#Direct-Preference-Optimization-DPO" class="headerlink" title="Direct Preference Optimization (DPO)"></a>Direct Preference Optimization (DPO)</h4><p>本文前面讨论的 RLHF 主要包括两个阶段：根据人类偏好标签训练奖励模型，然后使用强化学习（RL）对 LM 进行微调（优化 policy model），使其与这些偏好保持一致。然而，RLHF 存在复杂性和不稳定性问题，它需要拟合一个奖励模型，然后训练一个策略，这就容易产生稳定性问题。</p>
+<p>DPO 算法摆脱了传统 RL 方法中的两个阶段。通过定义新的损失函数来训练 LLM，以避免不稳定性问题。<br>DPO 使用一种特殊格式的数据集，形式为：<prompt, worse="" completion,="" better="" completion="">（即“提示，较差的完成，较好的完成”）。在训练过程中，DPO 的损失函数鼓励模型增加较好完成的概率，同时降低较差完成的概率。这个过程是通过加权实现的，权重基于隐含的奖励模型。这里的关键在于，LLM 本身充当了奖励模型，因此不再需要一个显式的奖励模型。下图给出了 DPO 和 RLHF 的区别。</prompt,></p>
+<p><img src="/2025/04/23/Reinforcement-Learning/DPO.jpg" alt=""></p>
+<p><strong>Binary Cross-Entropy Loss</strong>：<br>DPO 通过使用二元交叉熵（Binary Cross-Entropy, BCE）损失函数来优化语言模型以更好地与人类偏好对齐的训练方法。对于每个输入，模型会生成两个响应，并由人类标注者指明他们的偏好（哪个响应更好）。DPO 通过比较模型生成的响应对（即优选响应和不优选响应）与人类偏好进行训练。</p>
+<p>损失定义如下：</p>
+<script type="math/tex; mode=display">
+L_{DPO}(\theta) = -E_{(x, y_w, y_l) \sim D} [\log\sigma (\beta\log\frac{\pi_{\theta}(y_w| x)}{\pi_{ref}(y_w|x)} - \beta\log\frac{\pi_{\theta}(y_l| x)}{\pi_{ref}(y_l|x)})],</script><p>其中，$\pi<em>{\theta}$ 为要训练的策略模型， $\pi</em>{ref}$ 是参考的策略模型；$y_w$ 和 $y_l$ 分别表示优选 response 和 不优选的 response. $\beta$ 控制待训练模型与参考策略模型的接近程度。$\sigma$ 为 logistic 函数。</p>
+<p>DPO 标志着语言模型训练方法的转变，通过将强化学习与人类反馈（RLHF）过程整合为<strong>单个的端到端</strong>优化步骤，简化了模型的训练。</p>
+<p><strong>DPO 的训练过程</strong></p>
+<ul>
+<li><p>选择一个已经经过基础指令调优的语言模型作为参考模型，这个模型提供了良好的基础。</p>
+</li>
+<li><p>使用不同的采样/解码方法（例如不同的温度设置）对同一提示生成成对输出，并让人类选择他们喜欢的哪一个。这一过程将产生一个人类偏好/反馈的数据集。</p>
+</li>
+<li><p>在 LLM 上添加一个线性层，使得模型能够输出一个标量值。这一层将帮助模型在训练过程中产生更具体的数值输出。</p>
+</li>
+<li><p>使用 DPO 损失，该损失函数基于二元交叉熵损失。计算参考模型和正在调优模型的标量输出的对数比率，并乘以一个散度参数，以调整模型的输出。</p>
+</li>
+<li><p>在训练完成后，去掉最后的线性层，这样就得到了一个基于人类反馈微调的 LLM。</p>
+</li>
+</ul>
+<p>通过以上步骤，DPO 方法通过简化 RLHF 过程，去掉了复杂的强化学习步骤和专门的奖励模型，使得模型训练更为高效和直接。这样，最终得到的模型能够更好地反映人类的偏好，提供更优质的输出</p>
+<h4 id="Kahneman-Tversky-Optimization-KTO"><a href="#Kahneman-Tversky-Optimization-KTO" class="headerlink" title="Kahneman-Tversky Optimization (KTO)"></a>Kahneman-Tversky Optimization (KTO)</h4><p>人类在面对不确定事件时，由于“厌恶损失”，往往会做出无法最大化期望值的决策。直接以人的偏好指导大模型的训练，其训练的数据中包含了大量的人类偏好，往往无法做出期望最大的决策。KTO 是一种对齐手段，将重点从传统训练目标（如下一个标记预测或拟合配对偏好数据）转向直接优化被<strong>认为有价值或可取</strong>的输出。</p>
+<p>KTO 消除了对配对偏好排名或比较数据的需求，显著简化了数据要求。它只需要二元标签，指示某个 LLM 输出是可取的还是不可取的。这种二元偏好数据的需求使 KTO 在现实场景中更为实用，因为收集详细的偏好数据往往比较困难。</p>
+<p><strong>前景理论 (prospect theory)</strong></p>
+<p>KTO 的灵感来自 Daniel Kahneman 和 Amos Tversky 提出的决策行为模型，特别是他们的前景理论 (prospect theory)。KTO 将这些概念调整为损失函数，通过捕捉人类的偏差（如损失规避和风险敏感性），使 LLM 与人类反馈保持一致。</p>
+<p>在前景理论中，人类在不确定性下的决策行为偏离了预期效用最大化的原则，主要是因为一些心理偏差，如损失厌恶（loss aversion）和非线性概率加权（nonlinear probability weighting）。这些概念是 KTO 损失函数的基础。</p>
+<p><strong>1. 价值函数 (Value Function)</strong>.前景理论中的价值函数用于描述人们如何看待收益和损失的差异。它具有以下特征：</p>
+<ul>
+<li><p><strong>对收益的凹性</strong>：当收益增加时，价值函数是凹的，这意味着人们在获得相同金额的收益时，所感受到的价值增加会逐渐减小。这反映了人们在面对收益时的风险厌恶（risk aversion）。</p>
+</li>
+<li><p><strong>对损失的凸性</strong>：当面临损失时，价值函数是凸的，这意味着在损失相同金额时，所感受到的损失会逐渐增大，反映了人们在面对损失时的风险寻求（risk-seeking）行为。</p>
+</li>
+<li><p><strong>损失的影响大于收益</strong>：损失对人们的情感影响通常大于收益，这一点通过损失厌恶参数 $\lambda$ 来建模。该参数通常大于 1，意味着人们在面对损失时的感受强于获得相同金额收益时的感受。</p>
+</li>
+</ul>
+<p><strong>2. 数学表达式</strong>. 价值函数 $v(x)$ 可以用以下公式表示：</p>
+<script type="math/tex; mode=display">
+v(x) = \begin{cases} 
+x^\alpha & \text{if } x \geq 0 \\
+-\lambda (-x)^\beta & \text{if } x < 0 
+\end{cases}</script><p>其中：</p>
+<ul>
+<li>$\alpha \in (0,1)$ 和 $\beta \in (0,1)$ 控制对收益和损失的减敏感性（diminishing sensitivity）。这意味着随着收益或损失的增加，人们的感知效应会逐渐减弱。</li>
+<li>$\lambda$ 是损失厌恶因子，通常大于 1，这表示人们对损失的反应比对收益更为强烈。</li>
+</ul>
+<p><strong>3. 概率加权函数 (Probability Weighting Function)</strong>. 人们在判断概率时，往往会倾向于高估小概率事件和低估大概率事件。尽管这一元素并非 KTO 的核心部分，但它强调了主观不确定性感知如何影响决策。这种加权使得人们在面对不确定性时的决策并不是完全理性的，而是受到了心理因素的影响。</p>
+<p>Kahneman-Tversky Optimization (KTO) 的损失函数是基于前景理论构建的，其设计目标是直接最大化语言模型生成输出的效用。以下是 KTO 损失函数的关键要素及其解释：</p>
+<p><strong>KTO‘s loss function</strong></p>
+<ul>
+<li>KTO 使用了一个 <strong>逻辑函数 $\sigma$</strong>，而不是经典前景理论中的分段价值函数。这种逻辑函数保持了对收益的<strong>凹性</strong>和对损失的<strong>凸性</strong>，反映了人类对风险的感知。</li>
+<li><p><strong>风险厌恶参数 $\beta$</strong> 被纳入模型中，用于控制风险厌恶程度。这一参数影响价值函数饱和的陡峭程度，进而影响模型如何感知收益和损失。</p>
+</li>
+<li><p>在 KTO 中，传统的损失厌恶参数 $\lambda$ 被替换为两个独立的超参数：<strong>$\lambda_D$</strong>（用于积极反馈的输出）和 <strong>$\lambda_U$</strong>（用于消极反馈的输出）。允许模型根据输出类型的不同（积极或消极），以更细致的控制方式来处理反馈，从而更好地反映人类的风险厌恶特性。</p>
+</li>
+<li><p>模型的参考点通过 <strong>KL 散度</strong> 来定义，表示当前模型策略 $\pi<em>\theta$ 与参考策略 $\pi</em>{\text{ref}}$ 之间的差异。KL 散度项控制当前模型输出与预训练参考模型的偏离程度，并作为优化中评估收益和损失的参考点 $z_0$。</p>
+</li>
+</ul>
+<p>KTO（Kahneman-Tversky Optimization）损失函数的数学公式如下：</p>
+<script type="math/tex; mode=display">
+L_{KTO}(\pi_\theta, \pi_{\text{ref}}) = \mathbb{E}_{x,y \sim D}[\lambda_y - v(x,y)], \\
+\quad \\
+v(x,y) =
+   \begin{cases}
+   \lambda_D \sigma(\beta(r_\theta(x,y) - z_0)), & \text{if } y \sim \text{desirable} \\
+   \lambda_U \sigma(\beta(z_0 - r_\theta(x,y))), & \text{if } y \sim \text{undesirable}
+   \end{cases}</script><p>其中：</p>
+<ul>
+<li><strong>$\mathbb{E}_{x,y \sim D}$</strong>：表示对数据集 $D$ 中的样本进行期望计算，其中 $x$ 是输入，$y$ 是模型生成的输出。</li>
+<li><strong>$\lambda_y$</strong>：代表与输出 $y$ 相关的损失厌恶参数，可以是 <strong>$\lambda_D$</strong>（用于积极输出）或 <strong>$\lambda_U$</strong>（用于消极输出），用于表示人类对损失的厌恶程度。</li>
+<li><p><strong>$r_\theta(x,y)$</strong>：<br>$<br> r<em>\theta(x,y) = \log \frac{\pi</em>\theta(y|x)}{\pi<em>{\text{ref}}(y|x)}.<br>$<br>该函数表示在当前策略 $\pi</em>\theta$ 下生成输出 $y$ 的对数概率与参考策略 $\pi_{\text{ref}}$ 下生成同一输出的对数概率之比。它衡量了当前模型与参考模型在生成特定输出时的相对表现。</p>
+</li>
+<li><p><strong>$z_0$</strong>： $z<em>0 = KL(\pi</em>\theta(y’|x) | \pi<em>{\text{ref}}(y’|x))$. 这里量化当前策略 $\pi</em>\theta$ 和参考策略 $\pi_{\text{ref}}$ 之间的差异。它作为评估当前策略与参考策略偏离程度的参考点。</p>
+</li>
+<li><p><strong>$v(x,y)$</strong>：价值函数，依赖于输出 $y$ 的性质。<strong>$\sigma$</strong>：逻辑函数，用于对价值函数进行调整，使其保持凹性（对于收益）和凸性（对于损失），模型就会在收益时更加规避风险，在损失时更加追求风险。<strong>$\beta$</strong>：风险厌恶参数，控制风险厌恶的程度。增加 $\beta$会增加收益时的风险规避行为和损失时的风险追求行为。</p>
+</li>
+</ul>
+<h3 id="PPO-DPO-以及-KTO-的对比"><a href="#PPO-DPO-以及-KTO-的对比" class="headerlink" title="PPO, DPO 以及 KTO 的对比"></a>PPO, DPO 以及 KTO 的对比</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>PPO</th>
+<th>DPO</th>
+<th>KTO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标</td>
+<td>最大化预期奖励，同时防止策略更新过大（目标函数 clip）。</td>
+<td>根据人类偏好直接优化策略，使用二元分类目标（使用 KL 散度约束）。</td>
+<td>通过最大化 LLM 生成的效用对齐模型，基于前景理论，不需要详细的偏好对。</td>
+</tr>
+<tr>
+<td>输入</td>
+<td>来自环境的状态和奖励。</td>
+<td>来自环境的状态和人类偏好反馈。</td>
+<td>带有二元标签（可取或不可取结果）的 LLM 输出。</td>
+</tr>
+<tr>
+<td>输出</td>
+<td>在环境中采取的行动。</td>
+<td>在环境中采取的行动，与人类偏好对齐。</td>
+<td>与简化人类效用函数对齐的 LLM 生成结果。</td>
+</tr>
+<tr>
+<td>学习机制</td>
+<td>使用 clip 替代目标的策略梯度来更新策略和价值网络。</td>
+<td>在人类偏好数据上进行二元交叉熵优化，更新单个策略网络。</td>
+<td>基于 LLM 输出与二元反馈的对齐进行优化，无需复杂的偏好模型。</td>
+</tr>
+<tr>
+<td>网络结构</td>
+<td>独立的策略网络和价值网络。</td>
+<td>单个策略网络。</td>
+<td>针对 KTO 方法学调整的 LLM 框架。</td>
+</tr>
+<tr>
+<td>反馈机制</td>
+<td>使用来自环境的奖励作为学习的反馈。</td>
+<td>使用人类偏好数据作为直接反馈进行学习。</td>
+<td>利用对 LLM 输出的二元反馈来指导对齐，无需复杂的偏好数据。</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td>目标函数中的剪辑机制保持策略更新的稳定性。</td>
+<td>通过直接优化偏好，利用动态逐例重要性加权实现内在稳定性。</td>
+<td>通过简化反馈机制和聚焦于效用最大化来实现稳定的对齐。</td>
+</tr>
+<tr>
+<td>复杂性</td>
+<td>由于双网络结构和奖励最大化与策略更新稳定性之间的平衡，较复杂。</td>
+<td>更简单，因为它绕过显式的奖励建模，直接从人类偏好优化政策。</td>
+<td>通过消除对详细偏好建模的需求，专注于二元效用优化，降低复杂性。</td>
+</tr>
+<tr>
+<td>适用性</td>
+<td>适用于各种 RL 环境，其中奖励信号可用。</td>
+<td>在与人类偏好对齐至关重要的场景中特别有效。</td>
+<td>在快速和简化对齐人类反馈的场景中尤为有用。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="GRPO"><a href="#GRPO" class="headerlink" title="GRPO"></a>GRPO</h3><p>Group Relative Policy Optimization (GRPO) 是 PPO 的一种变体，目的是增强模型的推理能力，同时优化内存使用。GRPO 不需要学习 value model (估算优势函数)，它采用了一种更简单的方法，即从 policy 模型中抽取多个 answer，并利用它们的相对 quality 来计算优势 advantage，而不是依靠额外的模型来计算估计 value。PPO 和 GRPO 的具体区别可见 DeepSeekMath 中的示意图。<br><img src="/2025/04/23/Reinforcement-Learning/GRPO.jpg" alt=""></p>
+<h3 id="对齐可能引入的偏差以及解决策略"><a href="#对齐可能引入的偏差以及解决策略" class="headerlink" title="对齐可能引入的偏差以及解决策略"></a>对齐可能引入的偏差以及解决策略</h3><p>在讨论 <strong>强化学习人类反馈（RLHF）</strong> 和 <strong>强化学习人工反馈（RLAIF）</strong> 时，一个重要的问题是：这些方法是否会给模型引入偏见？答案是肯定的，正如任何依赖人类输入的机器学习方法，RLHF 也有引入偏见的潜力。</p>
+<p><strong>可能引入的不同形式的偏见</strong></p>
+<ol>
+<li><p><strong>选择偏见</strong>：RLHF 依赖于人类评估者的反馈，这些评估者可能会有自己的偏见和偏好，因此他们的反馈可能局限于他们能够关联的主题或情境。这可能导致模型没有接触到其在现实世界中将遇到的行为和结果的真实范围。</p>
+</li>
+<li><p><strong>确认偏见</strong>：人类评估者可能更倾向于提供确认他们已有信念或预期的反馈，而不是根据代理的表现提供客观反馈。这可能导致模型在某些行为或结果上受到强化，而这些行为或结果在长远来看可能并不理想或可取。</p>
+</li>
+<li><p><strong>评分者间的差异</strong>：不同的人类评估者可能对代理表现的质量有不同的看法或判断，导致 agent 收到的反馈不一致。这使得有效训练 agent 变得困难，并可能导致次优表现。</p>
+</li>
+<li><p><strong>反馈有限</strong>：人类评估者可能无法对 agent 表现的所有方面提供反馈，导致 agent 学习的缺口，可能在某些情况下表现不佳。</p>
+</li>
+</ol>
+<p><strong>缓解策略</strong></p>
+<ol>
+<li><p><strong>多样化评估者选择</strong>：选择具有不同背景和视角的评估者可以帮助减少反馈中的偏见，就像在工作场所中一样。这可以通过从不同的人口群体、地区或行业招募评估者来实现。</p>
+</li>
+<li><p><strong>共识评估</strong>：使用共识评估，即多个评估者对同一任务提供反馈，可以减少个体偏见的影响，提高反馈的可靠性。这几乎就像是对评估进行“归一化”。</p>
+</li>
+<li><p><strong>评估者的校准</strong>：通过提供培训和指导来校准评估者，帮助提高反馈的质量和一致性。</p>
+</li>
+<li><p><strong>反馈过程的评估</strong>：定期评估反馈过程，包括反馈质量和培训过程的有效性，可以帮助识别和解决可能存在的偏见。</p>
+</li>
+<li><p><strong>agent 表现的评估</strong>：定期评估 agent 在各种任务和不同环境中的表现，可以确保其没有过拟合于特定示例，并且能够推广到新的情境。</p>
+</li>
+<li><p><strong>平衡反馈</strong>：将人类评估者的反馈与其他反馈来源（如自我对话或专家演示）进行平衡，有助于减少反馈中的偏见影响，提高训练数据的整体质量。</p>
+</li>
+</ol>
+<h3 id="TRL-Transformer-Reinforcement-Learning"><a href="#TRL-Transformer-Reinforcement-Learning" class="headerlink" title="TRL - Transformer Reinforcement Learning"></a>TRL - Transformer Reinforcement Learning</h3><p><strong>TRL</strong>（Transformer Reinforcement Learning）库可用于通过 <strong>监督微调（SFT）</strong>、<strong>奖励建模（RM）</strong>、<strong>近端策略优化（PPO）</strong> 以及 <strong>直接偏好优化（DPO）</strong> 等方法，对转换器语言模型和扩散模型进行微调和对齐。 </p>
+<h3 id="RL-reward-modeling-from-RLHF-to-RLVR"><a href="#RL-reward-modeling-from-RLHF-to-RLVR" class="headerlink" title="RL reward modeling: from RLHF to RLVR"></a>RL reward modeling: from RLHF to RLVR</h3><p>DeepSeek 团队在训练其 R1 和 R1-Zero 模型的推理能力时，采用了一种类似于强化学习（RLHF）的方法，但他们并没有依赖人工偏好和训练奖励模型，而是使用了<strong>可验证的奖励</strong>，这种方法被称为<strong>基于可验证奖励的强化学习（RLVR）</strong>。与传统的 RLHF 方法不同，RLVR 跳过了对奖励模型的训练过程，也不需要人工标注的偏好数据，而是通过确定性的工具提供直接的二元反馈（正确或错误）作为监督信号，比如在数学问题中使用计算器，或在代码生成任务中使用编译器。这种方法的一个动机是避免人类标注或学习得到的奖励信号带来的噪声或高成本；另一个动机是使用这些“便宜”的工具（如符号验证器）替代原本需要训练的复杂奖励模型。通常奖励模型本身就是整个预训练模型加一个 regression head，这使得其训练开销很大。因此 RLVR 方法通过直接使用工具输出的结果来判断答案的对错，显著提高了训练效率。DeepSeek-R1 使用了 GRPO 强化学习算法结合 RLVR，不仅去除了奖励模型，同时也不需要价值模型（Critic），从而减少了两个成本高昂的模型组件。<br><img src="/2025/04/23/Reinforcement-Learning/rlvr.png" alt=""></p>
+<h2 id="Reinforcement-Fine-Tuning-LLMs-with-GRPO"><a href="#Reinforcement-Fine-Tuning-LLMs-with-GRPO" class="headerlink" title="Reinforcement Fine-Tuning LLMs with GRPO"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/reinforcement-fine-tuning-llms-grpo/">Reinforcement Fine-Tuning LLMs with GRPO</a></h2><h3 id="When-should-we-choose-RFT-over-SFT"><a href="#When-should-we-choose-RFT-over-SFT" class="headerlink" title="When should we choose RFT over SFT?"></a>When should we choose RFT over SFT?</h3><p><img src="/2025/04/23/Reinforcement-Learning/rft.png" alt=""></p>
+<h3 id="Reward-hacking"><a href="#Reward-hacking" class="headerlink" title="Reward hacking"></a>Reward hacking</h3><p>在强化学习中，存在一种现象，即模型生成的内容越长，就越有可能获得更高的奖励。<br><img src="/2025/04/23/Reinforcement-Learning/rh.png" alt=""></p>
+<p>为了避免这种情况，DeepSeek-R1 在训练过程中引入了长度惩罚（length penalty），鼓励模型生成简短且正确的回答，而不是冗长但错误的回答。<br>示例：创建一个奖励函数，对写出较长摘要的模型给予负分（即惩罚）。在训练过程中，随着时间的推移，这种惩罚应该会阻止模型通过输出较长的摘要来获得更高的奖励分数。<br><img src="/2025/04/23/Reinforcement-Learning/rh1.png" alt=""></p>
+<h3 id="Calculating-loss-in-GRPO"><a href="#Calculating-loss-in-GRPO" class="headerlink" title="Calculating loss in GRPO"></a>Calculating loss in GRPO</h3><p>在 GRPO 中，损失函数的计算是基于模型生成的答案与参考答案之间的相对质量。具体来说，GRPO 通过比较多个候选答案的质量来计算优势（advantage），而不是依赖于额外的 value model。这种方法使得 GRPO 在内存使用上更为高效，同时也简化了训练过程。</p>
+<p><img src="/2025/04/23/Reinforcement-Learning/deepseek.png" alt=""></p>
+<h4 id="Create-reference-and-policy-models"><a href="#Create-reference-and-policy-models" class="headerlink" title="Create reference and policy models"></a>Create reference and policy models</h4><ul>
+<li><p>The reference model is the base LLM, and remains unchanges throughout training.</p>
+</li>
+<li><p>The policy model is the same model with a LoRA adapter applied - the weights of the LoRA adapter get updated throughout the RFT training process.</p>
+</li>
+</ul>
+<p><img src="/2025/04/23/Reinforcement-Learning/GRPO1.png" alt=""></p>
+<h4 id="Calculating-the-policy-loss-ratio"><a href="#Calculating-the-policy-loss-ratio" class="headerlink" title="Calculating the policy loss ratio"></a>Calculating the policy loss ratio</h4><p>Completion_mask：Create a mask to identify the tokens that were generated by the model in the full sequence.</p>
+<p>During the first step of training, the reference and policy models are identical. So the loss comes from the advantage of the reponse.<br></p><pre class="line-numbers language-python" data-language="python"><code class="language-python">def grpo_loss(model, ref_model, prompt, completion, advantage):
+    input_ids, attention_mask, completion_mask = prepare_inputs(
+        prompt, completion
+    )
+
+    # Model forward
+    token_log_probs = compute_log_probs(
+        model, input_ids, attention_mask
+    )
+    with torch.no_grad():
+        ref_token_log_probs = compute_log_probs(
+            ref_model, input_ids, attention_mask
+    )
+
+    # ratio = p_model / p_ref = exp(log(p_model) - log(p_ref))
+    ratio = torch.exp(token_log_probs - ref_token_log_probs)
+
+    # Scale the ratio by the advantage function
+    policy_loss = ratio * advantage
+
+    # We want to maximize reward, so we make the loss negative 
+    # because optimizers minimize loss.
+    per_token_loss = -policy_loss
+
+    # Only compute loss over the output tokens
+    loss = (per_token_loss * completion_mask).sum() / completion_mask.sum()
+    return loss<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p></p>
+<h2 id="Noteworthy-research-papers-on-training-reasoning-models"><a href="#Noteworthy-research-papers-on-training-reasoning-models" class="headerlink" title="Noteworthy research papers on training reasoning models"></a>Noteworthy research papers on training reasoning models</h2><h3 id="1-Kimi-k1-5-Scaling-Reinforcement-Learning-And-Context-Length"><a href="#1-Kimi-k1-5-Scaling-Reinforcement-Learning-And-Context-Length" class="headerlink" title="1. Kimi k1.5: Scaling Reinforcement Learning (And Context Length)"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12599">1. Kimi k1.5: Scaling Reinforcement Learning (And Context Length)</a></h3><p>本文介绍了一种使用强化学习训练的多模态大语言模型（LLM），与 DeepSeek-R1 类似，该方法没有使用过程奖励模型（PRM），而是采用了可验证的奖励机制。PRM 是一种评估不仅仅关注最终答案，还会考虑推理过程步骤的奖励模型，常用于 LLM 的强化学习训练中。</p>
+<p>这项工作的一个核心理念是通过扩展上下文长度（最多可达 128k tokens），使模型在推理过程中能够更好地规划、反思和自我修正。在奖励机制方面，除了与 DeepSeek-R1 类似的正确性奖励外，还引入了长度奖励机制：鼓励简短且正确的回答，同时对冗长但错误的回答给予更大的惩罚。此外，作者提出了一种名为 long2short 的方法，用于将长链式思维（long-CoT）的能力提炼到更高效的短链式思维（short-CoT）模型中。该方法通过模型融合、最短拒绝采样（shortest rejection sampling）、直接偏好优化（DPO）以及一轮更强长度惩罚的强化学习，将长回答模型中的有效推理能力迁移到更短的回答中。</p>
+<h3 id="2-OpenAI-Competitive-Programming-with-Large-Reasoning-Models"><a href="#2-OpenAI-Competitive-Programming-with-Large-Reasoning-Models" class="headerlink" title="2. OpenAI, Competitive Programming with Large Reasoning Models"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.06807">2. OpenAI, Competitive Programming with Large Reasoning Models</a></h3><p>首先，该论文中的模型训练采用了基于结果的强化学习（outcome-based RL），而非基于过程的奖励模型（process-based reward models），这一方法与 DeepSeek-R1 和 Kimi 等项目类似。</p>
+<p>一个有趣的发现是，模型 o3 在推理阶段（也就是实际使用模型进行回答或解决问题的时候），能够自主学习和采用一些策略来提高解题的准确性，而不需要人类提前告诉它怎么做。其中一个典型的策略是：它会先写出一个简单但正确的暴力解法，虽然这种解法可能运行速度慢、效率低，但它的优点是容易确保正确性。接着，模型再生成一个更高效但可能更复杂的解法，然后用前面那个暴力版本来验证这个高效解法的输出是否正确。值得注意的是，这种策略并非人为设计，而是模型自主“发明”的。</p>
+<p>因此，论文主张，通过扩展通用强化学习的规模，模型能够在无需人工启发式规则或特定领域推理系统的前提下，自主形成复杂的推理与验证机制，说明它具备一定的自我策略生成和验证能力。这个现象也体现了大规模 RL 训练可以让模型发展出复杂的推理行为，而不是单纯模仿训练数据。相较之下，早期模型（如 o1-ioi）则依赖大量手工设计的测试阶段策略，例如对成千上万的样本进行聚类再重排序，这些方法既繁琐又需要精细调参。</p>
+<h3 id="3-Exploring-the-Limit-of-Outcome-Reward-for-Learning-Mathematical-Reasoning"><a href="#3-Exploring-the-Limit-of-Outcome-Reward-for-Learning-Mathematical-Reasoning" class="headerlink" title="3. Exploring the Limit of Outcome Reward for Learning Mathematical Reasoning"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.06781">3. Exploring the Limit of Outcome Reward for Learning Mathematical Reasoning</a></h3><p>这篇论文研究了在只使用 binary “correct” or “wrong” feedback（类似于 DeepSeek-R1 的方式）进行强化学习的情况下，模型在解决数学问题方面究竟能达到什么程度。为此，作者首先使用 Best-of-N 采样方法收集正确的示例，然后对这些高质量示例进行行为克隆（behavior cloning）。他们从理论上论证了：仅使用这种方式，就已经足够优化策略。</p>
+<p>为了应对奖励稀疏的问题——特别是在长链推理中，可能存在部分正确但整体错误的情况——他们引入了一个<strong>基于 token 的奖励模型</strong>。这个模型能够学习如何为推理过程中不同的步骤分配“重要性权重”，从而引导模型在训练时更加关注那些关键步骤。这种机制提升了模型的学习效率和最终表现，使其在只有二值反馈的条件下也能逐步学会复杂的数学推理能力。</p>
+<h3 id="4-Logic-RL-Unleashing-LLM-Reasoning-with-Rule-Based-Reinforcement-Learning"><a href="#4-Logic-RL-Unleashing-LLM-Reasoning-with-Rule-Based-Reinforcement-Learning" class="headerlink" title="4. Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.14768">4. Logic-RL: Unleashing LLM Reasoning with Rule-Based Reinforcement Learning</a></h3><p>这篇论文延续了 DeepSeek-R1 在数学与编程任务上的研究方向，但这次重点放在<strong>逻辑谜题</strong>上，训练了一个 7B 参数规模的模型。</p>
+<p>研究者采用了与 DeepSeek-R1 类似的<strong>基于规则的强化学习框架</strong>，但做了一些关键调整：</p>
+<ul>
+<li><p>引入了严格的格式奖励机制：对“走捷径”的行为进行惩罚，确保模型在回答中用明确的 <code>&lt;reasoning&gt;</code> 和 <code>&lt;final_answer&gt;</code> 标签来区分推理过程和最终答案，强调结构清晰、逻辑分明的作答方式。</p>
+</li>
+<li><p>使用系统提示（system prompt）：明确要求模型在给出最终答案前，必须逐步推理整个问题，引导其形成链式思维。</p>
+</li>
+</ul>
+<p>尽管训练数据只有 5000 条合成的逻辑题，模型仍然学到了强大的推理能力，并且这种能力很好地泛化到了更难的数学基准测试上，比如 AIME 和 AMC。这表明，即便在数据量有限的情况下，只要训练方式合理，模型依然可以掌握深入的逻辑推理技能。</p>
+<h3 id="5-L1-Controlling-How-Long-A-Reasoning-Model-Thinks-With-Reinforcement-Learning"><a href="#5-L1-Controlling-How-Long-A-Reasoning-Model-Thinks-With-Reinforcement-Learning" class="headerlink" title="5. L1: Controlling How Long A Reasoning Model Thinks With Reinforcement Learning"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.04697">5. L1: Controlling How Long A Reasoning Model Thinks With Reinforcement Learning</a></h3><p>本文提出了一种名为“Length Controlled Policy Optimization（LCPO）”的方法，用于解决当前推理模型在生成链式思维（Chain-of-Thought）过程中输出较长、但缺乏对长度控制的问题。LCPO 是一种简单的强化学习方法，能够在优化回答准确性的同时，引导模型生成符合用户指定长度的输出。其核心思想类似于 GRPO，但引入了长度控制的自定义奖励函数，形式为<br></p><pre class="line-numbers language-none"><code class="language-none">reward = reward_correctness - α * |target_length - actual_length|，<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><br>其中 target_length 由用户在提示中提供。该方法能够鼓励模型尽量精确地输出指定长度的文本。作者还提出了 LCPO 的变体 LCPO-Max，该变体不强制模型匹配目标长度，而是鼓励其不超过最大长度限制，奖励函数为：<br><pre class="line-numbers language-none"><code class="language-none">reward = reward_correctness * clip(α * (target_length - actual_length) + δ, 0, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><br>基于 LCPO 方法，作者训练了一个 1.5B 参数规模的模型 L1，具备根据提示动态调整输出长度的能力，使用户能够在任务中根据需求在计算资源和准确性之间做出权衡。更有趣的是，实验发现长文本生成模型擅长于短文本推理任务，在相同 token 长度下甚至超过了如 GPT-4o 等更大规模的模型。<p></p>
+<h3 id="6-Understanding-R1-Zero-Like-Training-A-Critical-Perspective"><a href="#6-Understanding-R1-Zero-Like-Training-A-Critical-Perspective" class="headerlink" title="6. Understanding R1-Zero-Like Training: A Critical Perspective"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.20783">6. Understanding R1-Zero-Like Training: A Critical Perspective</a></h3><p>这篇论文探讨了 DeepSeek-R1-Zero 所采用的纯强化学习（RL）方法为何能够在推理任务中有效提升模型表现。作者发现，一些基础模型（如 Qwen2.5）在未经过任何 RL 微调的情况下，已经展现出较强的推理能力，甚至能自然地表现出所谓的 “Aha moment”（即模型在思考过程中突然得出关键结论的时刻）。这表明，<strong>这种深层推理能力可能并非由 RL 训练带来的，而是在预训练阶段就已内化和形成</strong>，从而对“RL 是实现推理能力的关键因素”的观点提出了挑战。</p>
+<p>论文还指出了当前广泛使用的 GRPO（Generalized Reweighted Policy Optimization）方法中存在的两个偏差问题：</p>
+<ol>
+<li><p><strong>响应长度偏差（Response-length bias）</strong>：GRPO 中在计算优势（advantage）时会将其除以响应长度。这导致对于较长的错误回答，惩罚变得较小，模型反而倾向于生成冗长却不正确的答案。</p>
+</li>
+<li><p><strong>难度级别偏差（Difficulty-level bias）</strong>：GRPO 会对每个问题的奖励进行标准差归一化。这样一来，那些奖励方差较小的题目（通常是非常容易或非常困难的问题）会被模型赋予更大的权重，导致训练过程中的偏向。</p>
+</li>
+</ol>
+<p>为解决这两个问题，作者提出了一种改进版本，称为 <strong>Dr. GRPO（Debiased and Regularized GRPO）</strong>。该方法在 GRPO 的基础上进行了以下调整：</p>
+<ul>
+<li><strong>取消响应长度的归一化处理</strong>，避免错误回答因过长而逃避惩罚；</li>
+<li></li>
+<li><strong>移除问题级别的奖励标准差归一化</strong>，使每个问题在训练中的权重更均衡。</li>
+</ul>
+<p>这些改进带来了更加高效、稳定的训练过程，并有效减少了模型生成冗长无效回答的倾向。尤其在模型预测错误时，Dr. GRPO 不再鼓励其生成长篇幅的“假推理”，从而提升了整体推理质量与鲁棒性。</p>
+<h3 id="7-Rethinking-Reflection-in-Pre-Training"><a href="#7-Rethinking-Reflection-in-Pre-Training" class="headerlink" title="7. Rethinking Reflection in Pre-Training"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.04022">7. Rethinking Reflection in Pre-Training</a></h3><p>基于 DeepSeek-R1 论文中的一个关键观点——即通过纯强化学习（RL）赋予基础模型推理能力，我们通常认为大模型的推理能力是在 RL 阶段“涌现”的。然而，这篇论文却带来了一个“反转”：<strong>自我纠错能力其实早在预训练阶段就已开始显现</strong>。具体来说，作者在任务中故意引入错误的思维链（chain-of-thought），以测试模型是否能够识别并纠正这些错误。结果发现，不论是显式（如明确指出错误）还是隐式（通过调整答案）形式的<strong>反思与纠错能力，都在预训练过程中逐渐涌现</strong>。</p>
+<p>这一现象不仅出现在大型模型中，也在中小规模的模型和早期 checkpoint 中有所体现。随着预训练计算量的增加，这种自我修正能力不断增强，表明它是模型语言理解和推理能力进化过程中的自然副产物，而非完全依赖 RL 微调阶段的结果。这项研究颠覆了“推理能力仅源于 RL”的传统理解，并强调了<strong>预训练阶段的策略和数据质量在模型认知能力形成中的关键作用</strong>。<br><img src="/2025/04/23/Reinforcement-Learning/olmo.png" alt=""></p>
+<h3 id="8-Concise-Reasoning-via-Reinforcement-Learning"><a href="#8-Concise-Reasoning-via-Reinforcement-Learning" class="headerlink" title="8. Concise Reasoning via Reinforcement Learning"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.05185">8. Concise Reasoning via Reinforcement Learning</a></h3><p>众所周知，推理型大模型往往生成较长的回答，这不仅提高了计算成本，也引发了人们对其“是否真的需要这么长”这一问题的关注。最新的一篇论文对此进行了深入剖析，并指出：<strong>这种长回答行为并不是因为准确率提升的需要，而是强化学习过程本身在训练中引发的副作用。</strong></p>
+<p>作者发现，这种现象主要出现在使用 PPO（Proximal Policy Optimization）算法训练的模型中。当模型在某一回答上获得<strong>负奖励（即答错了）</strong>时，由于 PPO 的损失函数结构，<strong>较长的回答会稀释每个 token 所受到的惩罚</strong>。换言之，即使答案错误，如果响应更长，<strong>每个 token 分摊到的“错误惩罚”就会更小，从而降低了整体损失值</strong>，让模型“误以为”这是更好的策略。这种机制无形中鼓励了模型生成越来越长的回答——哪怕这些额外的 token 并不能真正帮助模型获得更正确的结果。于是，我们看到模型出现所谓的“aha moment”或冗长的推理链条，并非一定是模型真的“在思考”，而可能是出于规避损失惩罚的学习偏差。</p>
+<p>值得注意的是，这一分析是<strong>特定于 PPO 的</strong>。论文也明确指出：“我们当前的分析并不适用于 GRPO，关于这类方法的精确分析将在未来研究中探讨。”</p>
+<p>此外，作者还发现，通过第二轮强化学习（fine-tuning），即便仅使用少量样本（其中一部分任务模型可能可以解出），也可以<strong>有效缩短模型的回答长度，同时保持甚至提升推理准确性</strong>。这为模型在实际部署场景中的<strong>推理效率提升</strong>提供了可行路径和重要启示。换句话说，我们或许可以“教”模型在保持聪明的同时，少说废话。<br><img src="/2025/04/23/Reinforcement-Learning/concise.png" alt=""></p>
+<h3 id="9-A-Sober-Look-at-Progress-in-Language-Model-Reasoning-Pitfalls-and-Paths-to-Reproducibility"><a href="#9-A-Sober-Look-at-Progress-in-Language-Model-Reasoning-Pitfalls-and-Paths-to-Reproducibility" class="headerlink" title="9. A Sober Look at Progress in Language Model Reasoning: Pitfalls and Paths to Reproducibility"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.07086">9. A Sober Look at Progress in Language Model Reasoning: Pitfalls and Paths to Reproducibility</a></h3><p>DeepSeek-R1 论文指出，尽管对蒸馏后的模型应用强化学习（RL）可以带来一定的性能提升，但这些提升往往被<strong>夸大</strong>了，实际效果并不如早期研究中声称的那样显著。论文作者认为，这值得进一步探讨，因此仅报告了简单 SFT 蒸馏模型的结果，而没有过多强调 RL 微调带来的增益。<br>作者进一步分析发现，在像 AIME24 这样的<strong>小型基准测试集上，评估结果非常不稳定</strong>：仅仅是更换一个随机种子，就可能导致分数相差几个百分点。这说明此前 RL 带来的“大幅提升”在很多情况下可能只是评估过程中的“噪声”，而非真实的泛化能力增长。</p>
+<p>在更受控、标准化的评估条件下，使用 RL 微调后的模型所表现出的<strong>性能提升大多非常有限，甚至经常没有统计显著性</strong>。尽管某些 RL 训练的模型确实在特定任务上有一定改进，但这些提升通常<strong>比不上监督微调（SFT）带来的效果</strong>，而且很难推广到新的任务或基准上。因此，该研究呼吁社区对 RL 带来的增益保持理性看待，并强调<strong>建立更严格的评估标准和统一的比较框架</strong>，以便更准确地理解哪些方法真正有效，哪些只是实验设置或评估偏差造成的错觉。这对于指导未来训练小模型和提高推理性能具有重要意义。</p>
+<h2 id="DeepSeek-技术路线"><a href="#DeepSeek-技术路线" class="headerlink" title="DeepSeek 技术路线"></a>DeepSeek 技术路线</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12948">DeepSeek-R1 paper</a></p>
+<p>Blogs:</p>
+<p><a target="_blank" rel="noopener" href="https://hub.baai.ac.cn/view/43236">Sebastian Raschka: 关于 DeepSeek R1 和推理模型，我有几点看法</a></p>
+<p><a target="_blank" rel="noopener" href="https://sebastianraschka.com/blog/2025/understanding-reasoning-llms.html">Sebastian Raschka: Understanding Reasoning LLMs</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://aman.ai/primers/ai/">Distilled AI</a></p>
+<p><a target="_blank" rel="noopener" href="https://magazine.sebastianraschka.com/p/the-state-of-llm-reasoning-model-training">The State of Reinforcement Learning for LLM Reasoning</a></p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.03300">DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models</a></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2025/04/23/Reinforcement-Learning/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/04/23/LLM-Alignment/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Reinforcement Learning for LLM Reasoning
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2025/04/18/UI_TARS/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">UI-TARS</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2025
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

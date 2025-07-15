@@ -103,81 +103,35 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="mcp-build-rich-context-ai-apps-with-anthropic"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/">（20250709）MCP:
-Build Rich-Context AI Apps with Anthropic</a></h1>
-<h3 id="why-model-context-protocol-mcp">Why Model Context Protocol
-(MCP)?</h3>
-<p>Models are only as good as the context provided to them. If the model
-doesn't have the ability to connect to the outside world and pull in the
-data and context necessary, it is not as useful as it can possibly be.
-The model context protocol is an open-source protocol that standardizes
-how your language model connects and works with your tools and data
-sources.</p>
-<p>Many AI researchers and teams talk to a similar data source but
-writen in a different way. Instead of building the same integration for
-a different data source over and over again, depending on the model or
-the data source, we instead going to build once and use everywhere. The
-model context protocol borrows a lot of its ideas from other protocols
-that aim to achieve similar ideas. For example, LSP (language server
-protocol) developed in 2016 by Microsoft, standardizes how intergrated
-development environments interact with language-sepcific tools. When you
-create extensions for particular languages for particular development
-environments, you don't want to have to write that over and over again
-for all of those development environments. So that is what MCP trying to
-do.</p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp1.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp2.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp3.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp4.png"></p>
-<h3 id="mcp-architecture">MCP architecture</h3>
-<p>MCP is based on a client-server architecture, where the MCP clients
-maintain a 1 to 1 connection with MCP servers. The way these two
-communicate with each other is through messages defined by the MCP
-itself. These clients live inside of a host. The host could be something
-like Claude desktop or Claude AI. The host is repsonsible for storing
-and maintaining all of the clients and connections to MCP servers.</p>
+  <h1 id="（20250709）MCP-Build-Rich-Context-AI-Apps-with-Anthropic"><a href="#（20250709）MCP-Build-Rich-Context-AI-Apps-with-Anthropic" class="headerlink" title="（20250709）MCP: Build Rich-Context AI Apps with Anthropic"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/">（20250709）MCP: Build Rich-Context AI Apps with Anthropic</a></h1><h3 id="Why-Model-Context-Protocol-MCP"><a href="#Why-Model-Context-Protocol-MCP" class="headerlink" title="Why Model Context Protocol (MCP)?"></a>Why Model Context Protocol (MCP)?</h3><p>Models are only as good as the context provided to them. If the model doesn’t have the ability to connect to the outside world and pull in the data and context necessary, it is not as useful as it can possibly be. The model context protocol is an open-source protocol that standardizes how your language model connects and works with your tools and data sources.</p>
+<p>Many AI researchers and teams talk to a similar data source but writen in a different way. Instead of building the same integration for a different data source over and over again, depending on the model or the data source, we instead going to build once and use everywhere. The model context protocol borrows a lot of its ideas from other protocols that aim to achieve similar ideas. For example, LSP (language server protocol) developed in 2016 by Microsoft, standardizes how intergrated development environments interact with language-sepcific tools. When you create extensions for particular languages for particular development environments, you don’t want to have to write that over and over again for all of those development environments. So that is what MCP trying to do.</p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp1.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp2.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp3.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp4.png" alt=""></p>
+<h3 id="MCP-architecture"><a href="#MCP-architecture" class="headerlink" title="MCP architecture"></a>MCP architecture</h3><p>MCP is based on a client-server architecture, where the MCP clients maintain a 1 to 1 connection with MCP servers. The way these two communicate with each other is through messages defined by the MCP itself. These clients live inside of a host. The host could be something like Claude desktop or Claude AI. The host is repsonsible for storing and maintaining all of the clients and connections to MCP servers. </p>
 <ul>
-<li><p>Hosts are LLM applications that want to access external data and
-tools through MCP.</p></li>
-<li><p>MCP servers are lightweight programs that expose the specific
-capabilities through the protocol.</p></li>
-<li><p>MCP clients are the components that live inside of the host and
-connect to the MCP servers.</p></li>
+<li><p>Hosts are LLM applications that want to access external data and tools through MCP.</p>
+</li>
+<li><p>MCP servers are lightweight programs that expose the specific capabilities through the protocol.</p>
+</li>
+<li><p>MCP clients are the components that live inside of the host and connect to the MCP servers.</p>
+</li>
 </ul>
-<p><img src="/2025/07/08/DeepLearningAI/mcp5.png"></p>
-<h3 id="how-does-it-work">How does it work?</h3>
-<p><img src="/2025/07/08/DeepLearningAI/mcp6.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp7.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp8.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp9.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp10.png"></p>
-<h4 id="the-transport">The transport</h4>
-<p>The transport handles the mechanics of how messages are sent back and
-forth between the client and server. It depends on how you are running
-your application, and you will choose one of these different transports.
-For servers running locally, we are going to be using standard IO or
-stdin/stdout. For servers running remotely, we are going to be using
-HTTP and server-side events or using the Streamable HTTP transport. As
-of this time of recording, Sreamable HTTP is not supported yet across
-all software development kits (SDKs).</p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp11.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp12.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/mcp13.png"></p>
-<p>Streamable HTTP 指的是 HTTP
-协议支持逐步传输数据流，而不是一次性返回完整的响应。这在传输大数据、实时内容（如视频、聊天、日志）时尤其重要。客户端可以<strong>边接收边处理</strong>数据（如使用
-<code>fetch</code> 的
-<code>ReadableStream</code>），降低延迟：不必等到整个资源生成完再返回。</p>
-<p>Stateless Connection 是指每个 HTTP
-请求都是<strong>独立的</strong>，服务器不会记住客户端的任何历史状态。客户端发送多个请求时，服务器<strong>不会自动记住</strong>登录状态或用户上下文。
-Stateful connection
-是指服务器在客户端和服务器之间保持连接状态或会话信息，使多个请求之间可以共享上下文。
-服务器能够记住客户端的前一个请求或上下文（如登录状态、购物车信息）。</p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp5.png" alt=""></p>
+<h3 id="How-does-it-work"><a href="#How-does-it-work" class="headerlink" title="How does it work?"></a>How does it work?</h3><p><img src="/2025/07/08/DeepLearningAI/mcp6.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp7.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp8.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp9.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp10.png" alt=""></p>
+<h4 id="The-transport"><a href="#The-transport" class="headerlink" title="The transport"></a>The transport</h4><p>The transport handles the mechanics of how messages are sent back and forth between the client and server. It depends on how you are running your application, and you will choose one of these different transports. For servers running locally, we are going to be using standard IO or stdin/stdout. For servers running remotely, we are going to be using HTTP and server-side events or using the Streamable HTTP transport. As of this time of recording, Sreamable HTTP is not supported yet across all software development kits (SDKs).</p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp11.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp12.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp13.png" alt=""></p>
+<p>Streamable HTTP 指的是 HTTP 协议支持逐步传输数据流，而不是一次性返回完整的响应。这在传输大数据、实时内容（如视频、聊天、日志）时尤其重要。客户端可以<strong>边接收边处理</strong>数据（如使用 <code>fetch</code> 的 <code>ReadableStream</code>），降低延迟：不必等到整个资源生成完再返回。</p>
+<p>Stateless Connection 是指每个 HTTP 请求都是<strong>独立的</strong>，服务器不会记住客户端的任何历史状态。客户端发送多个请求时，服务器<strong>不会自动记住</strong>登录状态或用户上下文。<br>Stateful connection 是指服务器在客户端和服务器之间保持连接状态或会话信息，使多个请求之间可以共享上下文。<br>服务器能够记住客户端的前一个请求或上下文（如登录状态、购物车信息）。</p>
+<div class="table-container">
 <table>
-<colgroup>
-<col style="width: 17%">
-<col style="width: 27%">
-<col style="width: 54%">
-</colgroup>
 <thead>
 <tr>
 <th>特性</th>
@@ -213,84 +167,35 @@ Stateful connection
 </tr>
 </tbody>
 </table>
+</div>
 <ul>
-<li><p><strong>Stateful</strong>：用户登录后加入商品，服务器记住用户的购物车状态。</p></li>
-<li><p><strong>Stateless</strong>：每次请求都需带上购物车内容（前端负责维护状态）。</p></li>
+<li><p><strong>Stateful</strong>：用户登录后加入商品，服务器记住用户的购物车状态。</p>
+</li>
+<li><p><strong>Stateless</strong>：每次请求都需带上购物车内容（前端负责维护状态）。</p>
+</li>
 </ul>
-<h1 id="acp-agent-communication-protocol"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/acp-agent-communication-protocol/">(20250710)
-ACP: Agent Communication Protocol</a></h1>
-<p>ACP (Agent Communication Protocol) 是一个开源协议，旨在标准化 AI
-代理之间的通信方式。它允许不同的 AI 代理在同一系统中进行交互和协作。ACP
-的设计目标是使 AI 代理能够更容易地共享信息、协调任务和执行复杂操作。</p>
-<p>To build the team of agents that communicate and collaborate through
-ACP, you can host an agent on an ACP server, which will receive REST
-requests from an ACP client and forward those requests to the agent to
-execute the task. The ACP client can be an agent or any other process,
-discovers the agents using the endpoints of the ACP servers and then
-initiates requests.</p>
-<p><img src="/2025/07/08/DeepLearningAI/acp1.png"></p>
-<p>ACP is based on a client-server architecture that uses a simple REST
-interface. The client is responsible fore initiating communication and
-ther server responds to the request. In ACP, both the client and server
-can be an AI agent, a human, or a microservice. The client will always
-initiate the request and the server will always respond to the
-request.</p>
-<p>In the following diagram, a client make a request to an ACP server
-over REST, which wraps an agent. The agent determines it needs to invoke
-a tool. So it sends a request to an avaible MCP server to execute the
-tool call and return the result. Once the ACP agent completes its run
-and returns the output to the ACP client.</p>
-<p><img src="/2025/07/08/DeepLearningAI/acp2.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/acp3.png"></p>
+<h1 id="20250710-ACP-Agent-Communication-Protocol"><a href="#20250710-ACP-Agent-Communication-Protocol" class="headerlink" title="(20250710) ACP: Agent Communication Protocol"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/acp-agent-communication-protocol/">(20250710) ACP: Agent Communication Protocol</a></h1><p>ACP (Agent Communication Protocol) 是一个开源协议，旨在标准化 AI 代理之间的通信方式。它允许不同的 AI 代理在同一系统中进行交互和协作。ACP 的设计目标是使 AI 代理能够更容易地共享信息、协调任务和执行复杂操作。</p>
+<p>To build the team of agents that communicate and collaborate through ACP, you can host an agent on an ACP server, which will receive REST requests from an ACP client and forward those requests to the agent to execute the task.<br>The ACP client can be an agent or any other process, discovers the agents using the endpoints of the ACP servers and then initiates requests.</p>
+<p><img src="/2025/07/08/DeepLearningAI/acp1.png" alt=""></p>
+<p>ACP is based on a client-server architecture that uses a simple REST interface. The client is responsible fore initiating communication and ther server responds to the request. In ACP, both the client and server can be an AI agent, a human, or a microservice. The client will always initiate the request and the server will always respond to the request. </p>
+<p>In the following diagram, a client make a request to an ACP server over REST, which wraps an agent. The agent determines it needs to invoke a tool. So it sends a request to an avaible MCP server to execute the tool call and return the result. Once the ACP agent completes its run and returns the output to the ACP client.</p>
+<p><img src="/2025/07/08/DeepLearningAI/acp2.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/acp3.png" alt=""></p>
 <ul>
-<li><p>Agent detail is where you define your agent's basic identity and
-capabilities. You can specify the agent name, provide description, and
-add optional information.</p></li>
-<li><p>The agent detail enables the agent to be discoverable and usable
-within the ACP ecosystem. It allows other agents or clients to
-understand what the agent does and how it can be used. Online discovery
-occurs when ACP servers are already running and can be accessed through
-their API endpoints. Offline discovery like at the agent catalog or
-registry, where agent detail is embedded in the agent package, allowing
-an user or system to discover the agent without requiring them to be
-running first. This enables the creation of an agent catalog or
-directories, where agents can be browsed, selected, and then spawned
-when needed.</p></li>
-<li><p>To activate your agent and enable its online discovery, you need
-to deploy it.</p></li>
-<li><p>Once the agent is activated, it's ready for execution, meaning it
-can actively process requests and generate a response. ACP offers three
-excution modes: synchronous, asynchronous and streaming. In synchronous
-mode, the client sends a request and waits for the server to respond
-with the result. In asynchronous mode, the client sends a request and
-continues processing without waiting for the server's response. The
-server will send the response later when it's ready. In streaming mode,
-the client can receive real-time updates as the agent generated
-results.</p></li>
+<li><p>Agent detail is where you define your agent’s basic identity and capabilities. You can specify the agent name, provide description, and add optional information.</p>
+</li>
+<li><p>The agent detail enables the agent to be discoverable and usable within the ACP ecosystem. It allows other agents or clients to understand what the agent does and how it can be used. Online discovery occurs when ACP servers are already running and can be accessed through their API endpoints. Offline discovery like at the agent catalog or registry, where agent detail is embedded in the agent package, allowing an user or system to discover the agent without requiring them to be running first. This enables the creation of an agent catalog or directories, where agents can be browsed, selected, and then spawned when needed. </p>
+</li>
+<li><p>To activate your agent and enable its online discovery, you need to deploy it.</p>
+</li>
+<li><p>Once the agent is activated, it’s ready for execution, meaning it can actively process requests and generate a response. ACP offers three excution modes: synchronous, asynchronous and streaming. In synchronous mode, the client sends a request and waits for the server to respond with the result. In asynchronous mode, the client sends a request and continues processing without waiting for the server’s response. The server will send the response later when it’s ready. In streaming mode, the client can receive real-time updates as the agent generated results.</p>
+</li>
 </ul>
-<h3 id="the-difference-between-acp-mcp-and-a2a">The difference between
-ACP, MCP and A2A</h3>
-<p><img src="/2025/07/08/DeepLearningAI/acp4.png"></p>
-<p>MCP（Model Context
-Protocol）是用于丰富一个模型上下文的协议，提供工具、资源和提示等。MCP 与
-ACP（Agent Communication Protocol）是兼容并互补的：例如一个智能体使用
-MCP 发起工具调用，获取上下文后，如果需要与其他智能体交互，则通过 ACP
-完成。 MCP 与 ACP 是解耦的，因为 MCP
-并不是为智能体之间的通信设计的。当前 MCP
-协议不适用于智能体间任务传递或点对点协作。 在共享内存方面，MCP
-支持会话管理，可以在请求之间维护客户端信息，但并不处理实际的状态数据。
-相比之下，ACP SDK
-提供集中式的运行与会话存储，可跨多个服务器保持信息一致。在消息结构上，MCP
-不关注消息格式；而 ACP 支持多模态内容，适合自然语言等复杂交互。</p>
-<p>Google 的 A2A（Agent-to-Agent）协议 是在 ACP（Agent Communication
-Protocol） 之后推出的，目标是标准化智能体之间的通信。
-两者都支持多智能体系统，但在理念和治理方式上存在差异。</p>
+<h3 id="The-difference-between-ACP-MCP-and-A2A"><a href="#The-difference-between-ACP-MCP-and-A2A" class="headerlink" title="The difference between ACP, MCP and A2A"></a>The difference between ACP, MCP and A2A</h3><p><img src="/2025/07/08/DeepLearningAI/acp4.png" alt=""></p>
+<p>MCP（Model Context Protocol）是用于丰富一个模型上下文的协议，提供工具、资源和提示等。MCP 与 ACP（Agent Communication Protocol）是兼容并互补的：例如一个智能体使用 MCP 发起工具调用，获取上下文后，如果需要与其他智能体交互，则通过 ACP 完成。<br>MCP 与 ACP 是解耦的，因为 MCP 并不是为智能体之间的通信设计的。当前 MCP 协议不适用于智能体间任务传递或点对点协作。<br>在共享内存方面，MCP 支持会话管理，可以在请求之间维护客户端信息，但并不处理实际的状态数据。<br>相比之下，ACP SDK 提供集中式的运行与会话存储，可跨多个服务器保持信息一致。在消息结构上，MCP 不关注消息格式；而 ACP 支持多模态内容，适合自然语言等复杂交互。</p>
+<p>Google 的 A2A（Agent-to-Agent）协议 是在 ACP（Agent Communication Protocol） 之后推出的，目标是标准化智能体之间的通信。<br>两者都支持多智能体系统，但在理念和治理方式上存在差异。</p>
+<div class="table-container">
 <table>
-<colgroup>
-<col style="width: 7%">
-<col style="width: 50%">
-<col style="width: 42%">
-</colgroup>
 <thead>
 <tr>
 <th>特性</th>
@@ -341,68 +246,44 @@ Protocol） 之后推出的，目标是标准化智能体之间的通信。
 </tr>
 </tbody>
 </table>
-<p>ACP 更适合标准化、多智能体集中管理的场景；A2A
-更适合灵活、自主、分布式的多智能体系统，但代价是部署和调试更复杂。</p>
-<h1 id="function-calling-and-data-extraction-with-llms"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/function-calling-and-data-extraction-with-llms/">(20250711)
-Function-Calling and Data Extraction with LLMs</a></h1>
-<p>在支持函数调用功能的大语言模型（LLM）中，用户的提示（prompt）可以包含<strong>函数的描述信息</strong>，让模型知道它有哪些“工具”可以调用，以及如何使用它们。这些描述通常包括：</p>
+</div>
+<p>ACP 更适合标准化、多智能体集中管理的场景；A2A 更适合灵活、自主、分布式的多智能体系统，但代价是部署和调试更复杂。</p>
+<h1 id="20250711-Function-Calling-and-Data-Extraction-with-LLMs"><a href="#20250711-Function-Calling-and-Data-Extraction-with-LLMs" class="headerlink" title="(20250711) Function-Calling and Data Extraction with LLMs"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/function-calling-and-data-extraction-with-llms/">(20250711) Function-Calling and Data Extraction with LLMs</a></h1><p>在支持函数调用功能的大语言模型（LLM）中，用户的提示（prompt）可以包含<strong>函数的描述信息</strong>，让模型知道它有哪些“工具”可以调用，以及如何使用它们。这些描述通常包括：</p>
 <ul>
-<li><p>函数的功能说明（它是干什么的）</p></li>
-<li><p>使用场景（什么时候使用）</p></li>
-<li><p>所需参数（参数名、数据类型、含义）</p></li>
+<li><p>函数的功能说明（它是干什么的）</p>
+</li>
+<li><p>使用场景（什么时候使用）</p>
+</li>
+<li><p>所需参数（参数名、数据类型、含义）</p>
+</li>
 </ul>
-<h3 id="函数调用的流程">函数调用的流程</h3>
-<ol type="1">
-<li><p><strong>提示中提供函数说明</strong>。用户或开发者在 prompt
-中提供多个可调用函数的说明，LLM 会理解每个函数的作用。</p></li>
-<li><p><strong>模型分析用户查询</strong>。当用户提出问题时，LLM
-会判断是否有某个函数可以解决这个问题。</p></li>
-<li><p><strong>生成调用参数</strong>。如果需要调用函数，LLM
-会从用户的查询中提取参数，自动生成一个调用该函数所需的参数字符串。注意：LLMs
-只产生字符串 string，比如图中的 'getTemp(city_name = "New
-York")'，而不是直接执行函数。</p></li>
-<li><p><strong>返回调用格式</strong>。LLM
-本身并不直接执行函数。它只是<strong>返回一个字符串</strong>（通常是函数名
-+ 参数）表示“应该调用这个函数”。</p></li>
-<li><p><strong>外部系统执行函数</strong>。接收到这个“调用建议”后，外部的应用系统（如聊天机器人平台）负责真正执行这个函数，并将结果返回给
-LLM 或用户。</p></li>
+<h3 id="函数调用的流程"><a href="#函数调用的流程" class="headerlink" title="函数调用的流程"></a>函数调用的流程</h3><ol>
+<li><p><strong>提示中提供函数说明</strong>。用户或开发者在 prompt 中提供多个可调用函数的说明，LLM 会理解每个函数的作用。</p>
+</li>
+<li><p><strong>模型分析用户查询</strong>。当用户提出问题时，LLM 会判断是否有某个函数可以解决这个问题。</p>
+</li>
+<li><p><strong>生成调用参数</strong>。如果需要调用函数，LLM 会从用户的查询中提取参数，自动生成一个调用该函数所需的参数字符串。注意：LLMs 只产生字符串 string，比如图中的 ‘getTemp(city_name = “New York”)’，而不是直接执行函数。</p>
+</li>
+<li><p><strong>返回调用格式</strong>。LLM 本身并不直接执行函数。它只是<strong>返回一个字符串</strong>（通常是函数名 + 参数）表示“应该调用这个函数”。</p>
+</li>
+<li><p><strong>外部系统执行函数</strong>。接收到这个“调用建议”后，外部的应用系统（如聊天机器人平台）负责真正执行这个函数，并将结果返回给 LLM 或用户。</p>
+</li>
 </ol>
-<p><img src="/2025/07/08/DeepLearningAI/fc1.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/fc2.png"></p>
-<p><img src="/2025/07/08/DeepLearningAI/fc5.png"></p>
-<h3 id="function-calling-和-tools-的区别">function calling 和 tools
-的区别</h3>
-<ul>
-<li><p>Function calling is the name given to this LLM capability of
-forming a string containing a function call or structure needed to make
-a function call.</p></li>
-<li><p>Tools are the actual functions that can be called by the LLM.
-They are defined by the user or developer and can be used to perform
-specific tasks.</p></li>
+<p><img src="/2025/07/08/DeepLearningAI/fc1.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/fc2.png" alt=""></p>
+<p><img src="/2025/07/08/DeepLearningAI/fc5.png" alt=""></p>
+<h3 id="function-calling-和-tools-的区别"><a href="#function-calling-和-tools-的区别" class="headerlink" title="function calling 和 tools 的区别"></a>function calling 和 tools 的区别</h3><ul>
+<li><p>Function calling is the name given to this LLM capability of forming a string containing a function call or structure needed to make a function call.</p>
+</li>
+<li><p>Tools are the actual functions that can be called by the LLM. They are defined by the user or developer and can be used to perform specific tasks.</p>
+</li>
 </ul>
-<h3 id="例子">例子</h3>
-<p>一般直接调用函数： <img src="/2025/07/08/DeepLearningAI/fc3.png"></p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>一般直接调用函数：<br><img src="/2025/07/08/DeepLearningAI/fc3.png" alt=""></p>
 <p>需要根据函数计算出相应的y值。</p>
-<p>让LLM通过function calling执行： <img src="/2025/07/08/DeepLearningAI/fc4.png"></p>
-<p>注意 “function call”
-只是生成一个字符串，表示应该调用哪个函数以及传入什么参数。执行
-“exec(function call)” 则会真正执行这个函数，进行绘图。</p>
-<p>openai 示例： <img src="/2025/07/08/DeepLearningAI/fc6.png"> <img src="/2025/07/08/DeepLearningAI/fc7.png"> <img src="/2025/07/08/DeepLearningAI/fc8.png"></p>
-<h3 id="function-calling-and-data-extraction-with-llms-1">function
-calling and data extraction with LLMs</h3>
-<h1 id="evaluating-ai-agents"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/evaluating-ai-agents/">(20250711)
-Evaluating AI Agents</a></h1>
-<h1 id="long-term-agentic-memory-with-langgraph"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/long-term-agentic-memory-with-langgraph/">Long-Term
-Agentic Memory with LangGraph</a></h1>
-<h1 id="retrieval-optimization-from-tokenization-to-vector-quantization"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/retrieval-optimization-from-tokenization-to-vector-quantization/">Retrieval
-Optimization: From Tokenization to Vector Quantization</a></h1>
-<h1 id="multi-ai-agent-systems-with-crewai"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/">Multi
-AI Agent Systems with crewAI</a></h1>
-<h1 id="knowledge-graphs-for-rag"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/knowledge-graphs-rag/">Knowledge
-Graphs for RAG</a></h1>
-<h1 id="building-and-evaluating-advanced-rag-applications"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/">Building
-and Evaluating Advanced RAG Applications</a></h1>
- 
+<p>让LLM通过function calling执行：<br><img src="/2025/07/08/DeepLearningAI/fc4.png" alt=""></p>
+<p>注意 “function call” 只是生成一个字符串，表示应该调用哪个函数以及传入什么参数。执行 “exec(function call)” 则会真正执行这个函数，进行绘图。</p>
+<p>openai 示例：<br><img src="/2025/07/08/DeepLearningAI/fc6.png" alt=""><br><img src="/2025/07/08/DeepLearningAI/fc7.png" alt=""><br><img src="/2025/07/08/DeepLearningAI/fc8.png" alt=""></p>
+<h3 id="function-calling-and-data-extraction-with-LLMs"><a href="#function-calling-and-data-extraction-with-LLMs" class="headerlink" title="function calling and data extraction with LLMs"></a>function calling and data extraction with LLMs</h3><h1 id="Knowledge-Graphs-for-RAG"><a href="#Knowledge-Graphs-for-RAG" class="headerlink" title="Knowledge Graphs for RAG"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/knowledge-graphs-rag/">Knowledge Graphs for RAG</a></h1><h1 id="Building-and-Evaluating-Advanced-RAG-Applications"><a href="#Building-and-Evaluating-Advanced-RAG-Applications" class="headerlink" title="Building and Evaluating Advanced RAG Applications"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/">Building and Evaluating Advanced RAG Applications</a></h1><h1 id="20250711-Evaluating-AI-Agents"><a href="#20250711-Evaluating-AI-Agents" class="headerlink" title="(20250711) Evaluating AI Agents"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/evaluating-ai-agents/">(20250711) Evaluating AI Agents</a></h1><h1 id="Long-Term-Agentic-Memory-with-LangGraph"><a href="#Long-Term-Agentic-Memory-with-LangGraph" class="headerlink" title="Long-Term Agentic Memory with LangGraph"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/long-term-agentic-memory-with-langgraph/">Long-Term Agentic Memory with LangGraph</a></h1><h1 id="Retrieval-Optimization-From-Tokenization-to-Vector-Quantization"><a href="#Retrieval-Optimization-From-Tokenization-to-Vector-Quantization" class="headerlink" title="Retrieval Optimization: From Tokenization to Vector Quantization"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/retrieval-optimization-from-tokenization-to-vector-quantization/">Retrieval Optimization: From Tokenization to Vector Quantization</a></h1><h1 id="Multi-AI-Agent-Systems-with-crewAI"><a href="#Multi-AI-Agent-Systems-with-crewAI" class="headerlink" title="Multi AI Agent Systems with crewAI"></a><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/">Multi AI Agent Systems with crewAI</a></h1> 
       <!-- reward -->
       
     </div>
