@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    DeepLearning.AI Courses |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+<script src="/js/hexo_resize_image.js"></script>
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-DeepLearningAI"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  DeepLearning.AI Courses
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/07/08/DeepLearningAI/" class="article-date">
+  <time datetime="2025-07-07T16:00:00.000Z" itemprop="datePublished">2025-07-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/research-works/">research works</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">10 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="mcp-build-rich-context-ai-apps-with-anthropic"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/">（20250709）MCP:
+Build Rich-Context AI Apps with Anthropic</a></h1>
+<h3 id="why-model-context-protocol-mcp">Why Model Context Protocol
+(MCP)?</h3>
+<p>Models are only as good as the context provided to them. If the model
+doesn't have the ability to connect to the outside world and pull in the
+data and context necessary, it is not as useful as it can possibly be.
+The model context protocol is an open-source protocol that standardizes
+how your language model connects and works with your tools and data
+sources.</p>
+<p>Many AI researchers and teams talk to a similar data source but
+writen in a different way. Instead of building the same integration for
+a different data source over and over again, depending on the model or
+the data source, we instead going to build once and use everywhere. The
+model context protocol borrows a lot of its ideas from other protocols
+that aim to achieve similar ideas. For example, LSP (language server
+protocol) developed in 2016 by Microsoft, standardizes how intergrated
+development environments interact with language-sepcific tools. When you
+create extensions for particular languages for particular development
+environments, you don't want to have to write that over and over again
+for all of those development environments. So that is what MCP trying to
+do.</p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp1.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp2.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp3.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp4.png"></p>
+<h3 id="mcp-architecture">MCP architecture</h3>
+<p>MCP is based on a client-server architecture, where the MCP clients
+maintain a 1 to 1 connection with MCP servers. The way these two
+communicate with each other is through messages defined by the MCP
+itself. These clients live inside of a host. The host could be something
+like Claude desktop or Claude AI. The host is repsonsible for storing
+and maintaining all of the clients and connections to MCP servers.</p>
+<ul>
+<li><p>Hosts are LLM applications that want to access external data and
+tools through MCP.</p></li>
+<li><p>MCP servers are lightweight programs that expose the specific
+capabilities through the protocol.</p></li>
+<li><p>MCP clients are the components that live inside of the host and
+connect to the MCP servers.</p></li>
+</ul>
+<p><img src="/2025/07/08/DeepLearningAI/mcp5.png"></p>
+<h3 id="how-does-it-work">How does it work?</h3>
+<p><img src="/2025/07/08/DeepLearningAI/mcp6.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp7.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp8.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp9.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp10.png"></p>
+<h4 id="the-transport">The transport</h4>
+<p>The transport handles the mechanics of how messages are sent back and
+forth between the client and server. It depends on how you are running
+your application, and you will choose one of these different transports.
+For servers running locally, we are going to be using standard IO or
+stdin/stdout. For servers running remotely, we are going to be using
+HTTP and server-side events or using the Streamable HTTP transport. As
+of this time of recording, Sreamable HTTP is not supported yet across
+all software development kits (SDKs).</p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp11.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp12.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/mcp13.png"></p>
+<p>Streamable HTTP 指的是 HTTP
+协议支持逐步传输数据流，而不是一次性返回完整的响应。这在传输大数据、实时内容（如视频、聊天、日志）时尤其重要。客户端可以<strong>边接收边处理</strong>数据（如使用
+<code>fetch</code> 的
+<code>ReadableStream</code>），降低延迟：不必等到整个资源生成完再返回。</p>
+<p>Stateless Connection 是指每个 HTTP
+请求都是<strong>独立的</strong>，服务器不会记住客户端的任何历史状态。客户端发送多个请求时，服务器<strong>不会自动记住</strong>登录状态或用户上下文。
+Stateful connection
+是指服务器在客户端和服务器之间保持连接状态或会话信息，使多个请求之间可以共享上下文。
+服务器能够记住客户端的前一个请求或上下文（如登录状态、购物车信息）。</p>
+<table>
+<colgroup>
+<col style="width: 17%">
+<col style="width: 27%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr>
+<th>特性</th>
+<th>Stateless（无状态）</th>
+<th>Stateful（有状态）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>请求之间是否独立</td>
+<td>是</td>
+<td>否</td>
+</tr>
+<tr>
+<td>服务器是否记住状态</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>扩展性</td>
+<td>高（易于负载均衡）</td>
+<td>较低（需同步状态）</td>
+</tr>
+<tr>
+<td>常见协议/技术</td>
+<td>HTTP, REST</td>
+<td>WebSocket, FTP, Telnet, SOAP</td>
+</tr>
+<tr>
+<td>应用示例</td>
+<td>API 接口、CDN</td>
+<td>登录系统、WebSocket 聊天</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Stateful</strong>：用户登录后加入商品，服务器记住用户的购物车状态。</p></li>
+<li><p><strong>Stateless</strong>：每次请求都需带上购物车内容（前端负责维护状态）。</p></li>
+</ul>
+<h1 id="acp-agent-communication-protocol"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/acp-agent-communication-protocol/">(20250710)
+ACP: Agent Communication Protocol</a></h1>
+<p>ACP (Agent Communication Protocol) 是一个开源协议，旨在标准化 AI
+代理之间的通信方式。它允许不同的 AI 代理在同一系统中进行交互和协作。ACP
+的设计目标是使 AI 代理能够更容易地共享信息、协调任务和执行复杂操作。</p>
+<p>To build the team of agents that communicate and collaborate through
+ACP, you can host an agent on an ACP server, which will receive REST
+requests from an ACP client and forward those requests to the agent to
+execute the task. The ACP client can be an agent or any other process,
+discovers the agents using the endpoints of the ACP servers and then
+initiates requests.</p>
+<p><img src="/2025/07/08/DeepLearningAI/acp1.png"></p>
+<p>ACP is based on a client-server architecture that uses a simple REST
+interface. The client is responsible fore initiating communication and
+ther server responds to the request. In ACP, both the client and server
+can be an AI agent, a human, or a microservice. The client will always
+initiate the request and the server will always respond to the
+request.</p>
+<p>In the following diagram, a client make a request to an ACP server
+over REST, which wraps an agent. The agent determines it needs to invoke
+a tool. So it sends a request to an avaible MCP server to execute the
+tool call and return the result. Once the ACP agent completes its run
+and returns the output to the ACP client.</p>
+<p><img src="/2025/07/08/DeepLearningAI/acp2.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/acp3.png"></p>
+<ul>
+<li><p>Agent detail is where you define your agent's basic identity and
+capabilities. You can specify the agent name, provide description, and
+add optional information.</p></li>
+<li><p>The agent detail enables the agent to be discoverable and usable
+within the ACP ecosystem. It allows other agents or clients to
+understand what the agent does and how it can be used. Online discovery
+occurs when ACP servers are already running and can be accessed through
+their API endpoints. Offline discovery like at the agent catalog or
+registry, where agent detail is embedded in the agent package, allowing
+an user or system to discover the agent without requiring them to be
+running first. This enables the creation of an agent catalog or
+directories, where agents can be browsed, selected, and then spawned
+when needed.</p></li>
+<li><p>To activate your agent and enable its online discovery, you need
+to deploy it.</p></li>
+<li><p>Once the agent is activated, it's ready for execution, meaning it
+can actively process requests and generate a response. ACP offers three
+excution modes: synchronous, asynchronous and streaming. In synchronous
+mode, the client sends a request and waits for the server to respond
+with the result. In asynchronous mode, the client sends a request and
+continues processing without waiting for the server's response. The
+server will send the response later when it's ready. In streaming mode,
+the client can receive real-time updates as the agent generated
+results.</p></li>
+</ul>
+<h3 id="the-difference-between-acp-mcp-and-a2a">The difference between
+ACP, MCP and A2A</h3>
+<p><img src="/2025/07/08/DeepLearningAI/acp4.png"></p>
+<p>MCP（Model Context
+Protocol）是用于丰富一个模型上下文的协议，提供工具、资源和提示等。MCP 与
+ACP（Agent Communication Protocol）是兼容并互补的：例如一个智能体使用
+MCP 发起工具调用，获取上下文后，如果需要与其他智能体交互，则通过 ACP
+完成。 MCP 与 ACP 是解耦的，因为 MCP
+并不是为智能体之间的通信设计的。当前 MCP
+协议不适用于智能体间任务传递或点对点协作。 在共享内存方面，MCP
+支持会话管理，可以在请求之间维护客户端信息，但并不处理实际的状态数据。
+相比之下，ACP SDK
+提供集中式的运行与会话存储，可跨多个服务器保持信息一致。在消息结构上，MCP
+不关注消息格式；而 ACP 支持多模态内容，适合自然语言等复杂交互。</p>
+<p>Google 的 A2A（Agent-to-Agent）协议 是在 ACP（Agent Communication
+Protocol） 之后推出的，目标是标准化智能体之间的通信。
+两者都支持多智能体系统，但在理念和治理方式上存在差异。</p>
+<table>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 50%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr>
+<th>特性</th>
+<th>ACP（Agent Communication Protocol）</th>
+<th>A2A（Agent-to-Agent Protocol）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标</td>
+<td>标准化智能体通信，支持多智能体系统</td>
+<td>同样目标，Google 推出</td>
+</tr>
+<tr>
+<td>开源治理</td>
+<td>开源，由 Linux Foundation 管理</td>
+<td>开源</td>
+</tr>
+<tr>
+<td>部署方式</td>
+<td>多 Agent 可共用一个服务器</td>
+<td>每个 Agent 要单独运行在服务器</td>
+</tr>
+<tr>
+<td>架构风格</td>
+<td>REST 架构，标准化、可扩展</td>
+<td>JSON-RPC，复杂度更高</td>
+</tr>
+<tr>
+<td>状态处理</td>
+<td>支持同步、异步、流式模式，使用 SSE</td>
+<td>动态决定交互方式，支持有/无状态</td>
+</tr>
+<tr>
+<td>可观察性</td>
+<td>更强（事件顺序易追踪）</td>
+<td>较弱（输出与历史分离）</td>
+</tr>
+<tr>
+<td>客户端要求</td>
+<td>简化、模式清晰</td>
+<td>需灵活处理多种模式</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>通用、标准化平台</td>
+<td>更灵活但运维复杂的系统</td>
+</tr>
+</tbody>
+</table>
+<p>ACP 更适合标准化、多智能体集中管理的场景；A2A
+更适合灵活、自主、分布式的多智能体系统，但代价是部署和调试更复杂。</p>
+<h1 id="function-calling-and-data-extraction-with-llms"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/function-calling-and-data-extraction-with-llms/">(20250711)
+Function-Calling and Data Extraction with LLMs</a></h1>
+<p>在支持函数调用功能的大语言模型（LLM）中，用户的提示（prompt）可以包含<strong>函数的描述信息</strong>，让模型知道它有哪些“工具”可以调用，以及如何使用它们。这些描述通常包括：</p>
+<ul>
+<li><p>函数的功能说明（它是干什么的）</p></li>
+<li><p>使用场景（什么时候使用）</p></li>
+<li><p>所需参数（参数名、数据类型、含义）</p></li>
+</ul>
+<h3 id="函数调用的流程">函数调用的流程</h3>
+<ol type="1">
+<li><p><strong>提示中提供函数说明</strong>。用户或开发者在 prompt
+中提供多个可调用函数的说明，LLM 会理解每个函数的作用。</p></li>
+<li><p><strong>模型分析用户查询</strong>。当用户提出问题时，LLM
+会判断是否有某个函数可以解决这个问题。</p></li>
+<li><p><strong>生成调用参数</strong>。如果需要调用函数，LLM
+会从用户的查询中提取参数，自动生成一个调用该函数所需的参数字符串。注意：LLMs
+只产生字符串 string，比如图中的 'getTemp(city_name = "New
+York")'，而不是直接执行函数。</p></li>
+<li><p><strong>返回调用格式</strong>。LLM
+本身并不直接执行函数。它只是<strong>返回一个字符串</strong>（通常是函数名
++ 参数）表示“应该调用这个函数”。</p></li>
+<li><p><strong>外部系统执行函数</strong>。接收到这个“调用建议”后，外部的应用系统（如聊天机器人平台）负责真正执行这个函数，并将结果返回给
+LLM 或用户。</p></li>
+</ol>
+<p><img src="/2025/07/08/DeepLearningAI/fc1.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/fc2.png"></p>
+<p><img src="/2025/07/08/DeepLearningAI/fc5.png"></p>
+<h3 id="function-calling-和-tools-的区别">function calling 和 tools
+的区别</h3>
+<ul>
+<li><p>Function calling is the name given to this LLM capability of
+forming a string containing a function call or structure needed to make
+a function call.</p></li>
+<li><p>Tools are the actual functions that can be called by the LLM.
+They are defined by the user or developer and can be used to perform
+specific tasks.</p></li>
+</ul>
+<h3 id="例子">例子</h3>
+<p>一般直接调用函数： <img src="/2025/07/08/DeepLearningAI/fc3.png"></p>
+<p>需要根据函数计算出相应的y值。</p>
+<p>让LLM通过function calling执行： <img src="/2025/07/08/DeepLearningAI/fc4.png"></p>
+<p>注意 “function call”
+只是生成一个字符串，表示应该调用哪个函数以及传入什么参数。执行
+“exec(function call)” 则会真正执行这个函数，进行绘图。</p>
+<p>openai 示例： <img src="/2025/07/08/DeepLearningAI/fc6.png"> <img src="/2025/07/08/DeepLearningAI/fc7.png"> <img src="/2025/07/08/DeepLearningAI/fc8.png"></p>
+<h3 id="function-calling-and-data-extraction-with-llms-1">function
+calling and data extraction with LLMs</h3>
+<h1 id="evaluating-ai-agents"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/evaluating-ai-agents/">(20250711)
+Evaluating AI Agents</a></h1>
+<h1 id="long-term-agentic-memory-with-langgraph"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/long-term-agentic-memory-with-langgraph/">Long-Term
+Agentic Memory with LangGraph</a></h1>
+<h1 id="retrieval-optimization-from-tokenization-to-vector-quantization"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/retrieval-optimization-from-tokenization-to-vector-quantization/">Retrieval
+Optimization: From Tokenization to Vector Quantization</a></h1>
+<h1 id="multi-ai-agent-systems-with-crewai"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/">Multi
+AI Agent Systems with crewAI</a></h1>
+<h1 id="knowledge-graphs-for-rag"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/knowledge-graphs-rag/">Knowledge
+Graphs for RAG</a></h1>
+<h1 id="building-and-evaluating-advanced-rag-applications"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/building-evaluating-advanced-rag/">Building
+and Evaluating Advanced RAG Applications</a></h1>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2025/07/08/DeepLearningAI/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2025/06/01/GUIagent_papers/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">(GUI) Agent Papers</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2025
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

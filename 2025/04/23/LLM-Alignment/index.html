@@ -36,9 +36,9 @@
   
 
 <link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
-<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" />
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
 </html>
 <script src="/js/hexo_resize_image.js"></script>
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">11.9k</span>
+            <span class="post-count">12.4k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">42 min</span>
+            <span class="post-count">44 min</span>
         </span>
     </span>
 </div>
@@ -209,11 +209,14 @@ works in her flowchart below:</p>
 <p>Reward model 的主要功能是评估给定的输入（如文本序列）并产生 scalar
 reward。这种 reward 量化了输出与人类偏好或期望行为的一致程度。</p>
 <p><img src="/2025/04/23/LLM-Alignment/rlhf2.png"></p>
-<p>Reward 模型的结构包括 - LM 分类器：一个二元分类器微调的
-LLM，可对哪种反应更符合人类偏好进行评分。 - value
-networks：一个回归模型，根据输入预测人类偏好评分。 -
-评论生成器：经过训练的
-LM，可生成评价性评论，解释哪种回答更好以及原因。该评论可用于指令调整。</p>
+<p>Reward model 的结构包括：</p>
+<ul>
+<li><p>LM 分类器：一个二元分类器微调的 LLM，可对哪种 response
+更符合人类偏好进行评分。</p></li>
+<li><p>Value networks：一个回归模型，根据输入预测人类偏好评分。</p></li>
+<li><p>评论生成器：经过训练的
+LM，可生成评价性评论，解释哪种回答更好以及原因。该评论可用于指令调整。</p></li>
+</ul>
 <h4 id="optimizing-the-policy">Optimizing the Policy</h4>
 <p><strong>策略（policy）</strong>：在强化学习中，策略是一组规则或决策机制，指导智能体（agent）根据它所处的环境状态或观察结果来选择行动。也就是说，策略定义了智能体如何在不同的情境下采取什么样的行为。</p>
 <p><strong>PPO（Proximal Policy
@@ -274,16 +277,26 @@ Sampling and PPO - RLHF Step 2）：
 PPO（邻近策略优化）中，代理损失函数（surrogate loss）
 是通过当前策略和参考策略下执行同一动作的概率比率来定义的。这一比率用于引导策略向那些能够获得更高奖励的动作倾斜，同时确保策略更新的幅度不会过大，从而保持训练的稳定性。为防止策略的更新幅度过大，PPO
 引入了剪裁，限制比率在一定范围内。通过在一定阈值外“剪裁”比率的变化，模型可以避免发生过大的更新，从而保证训练过程的稳定性。</p>
-<p>定义 <span class="math inline">\(\pi_{\theta}\)</span>为当前策略（参数为 <span class="math inline">\(\theta\)</span> 的一个网络），<span class="math inline">\(\pi_{ref}\)</span>
+<p>定义 <span class="math inline">\(\pi_{\theta}\)</span>
+为当前策略（参数为 <span class="math inline">\(\theta\)</span>
+的一个网络），<span class="math inline">\(\pi_{ref}\)</span>
 是实际的、可参考的策略空间。<span class="math inline">\(A(s_t,
-a_t)\)</span>为在状态 <span class="math inline">\(s_t\)</span>
+a_t)\)</span> 为在状态 <span class="math inline">\(s_t\)</span>
 下采取行为 <span class="math inline">\(a_t\)</span>
-时得到的奖励。近端策略优化裁剪函数为： <span class="math display">\[
+时得到的优势函数（可正可负，取决于定义方式）。近端策略优化裁剪函数为：
+<span class="math display">\[
 L(\theta) = E_{(s_t, a_t) \sim \pi_{ref}} \min{(\frac{p_{\theta}(a_t |
 s_t)}{p_{\pi_{ref}}(a_t|s_t)} A(s_t, a_t), clip(\frac{p_{\theta}(a_t |
-s_t)}{p_{\pi_{ref}}(a_t|s_t)}, 1-\epsilon, 1+\epsilon)A(s_t, a_t))},
-\]</span> <span class="math inline">\(\epsilon\)</span>
-是一个超参数，要需要我们调整的，一般设置为 0.1 或 0.2。</p>
+s_t)}{p_{\pi_{ref}}(a_t|s_t)}, 1-\epsilon, 1+\epsilon) A(s_t, a_t))},
+\]</span> 其中，<span class="math inline">\(\epsilon\)</span>
+是一个需要调整的超参数，一般设置为 0.1 或 0.2。优势函数 <span class="math inline">\(A(s_t, a_t)\)</span>
+表示当前动作相对于平均策略动作的好坏，通过 value model (价值模型) 以及
+reward model 的输出估算得到，比如 <span class="math inline">\(A(s_t,
+a_t) = \text{reward} - \text{value}\)</span>， 。</p>
+<p>Reward 只告诉你“这一步做得好不好”，但 Advantage
+才告诉你“这一步是否比你平常做得更好” —— 策略优化需要后者。Reward
+是唯一来自人类偏好或环境反馈的信号，如果直接拟合
+Advantage，模型根本不知道什么是“好的 Advantage”。</p>
 <p><strong>PPO-penalty</strong>: 在 PPO
 中，除了使用剪裁目标函数（clipped
 objective）外，另一种常见的方法是直接在目标函数中加入 KL
@@ -296,6 +309,36 @@ KL(\pi_{ref}||\pi_{\theta}),
 <p>通过<strong>最大化目标函数</strong>得到最优策略。对于大规模语言模型（LLM）来说，这个目标函数反映了模型对齐的目标，比如生成<strong>有帮助</strong>、<strong>真实</strong>、<strong>无害</strong>的回答。</p>
 <p><strong>参考策略 (Reference
 Policy)</strong>：参考策略是训练过程中用作<strong>基准</strong>或<strong>对照</strong>的一套策略。它通常是一个<strong>稳定的策略</strong>，模型可以从这个基准出发，或者在训练过程中参考该策略来指导学习。它确保最优策略的更新不会偏离初始策略太远，防止训练过程中产生剧烈变化或不稳定的行为。</p>
+<h5 id="几种常见的advantage-function估计算法及其公式">几种常见的Advantage
+Function估计算法及其公式</h5>
+<p><strong>单步 TD Advantage</strong>： <span class="math display">\[
+A_t = r_t + \gamma V(s_{t+1}) - V(s_t),
+\]</span> 这是最基本的 <strong>Temporal Difference (TD)</strong>
+方法，用当前 reward 和下一个状态的 value 来估计当前
+advantage，方差低，但偏差高。</p>
+<p><strong>Monte Carlo Advantage</strong>： <span class="math display">\[
+A_t = (\sum_{l=0}^{T-t-1} \gamma^l r_{t+l}) - V(s_t)
+\]</span> 使用从当前时刻到 episode 结束的实际回报作为估计（也称为
+<strong>return</strong>），偏差小，但方差大。</p>
+<p><strong>n-step Advantage</strong>： <span class="math display">\[
+A_t = (\sum_{l=0}^{n-1} \gamma^l r_{t+l}) + \gamma^n V(s_{t+n}) - V(s_t)
+\]</span> 在 MC 与 TD 之间折中，可调参数 <span class="math inline">\(n\)</span>
+控制回报跨度，方差与偏差之间权衡更灵活。</p>
+<p><strong>GAE（Generalized Advantage Estimation）</strong>： <span class="math display">\[
+A_t^{\text{GAE}(\gamma, \lambda)} = \sum_{l=0}^{\infty} (\gamma
+\lambda)^l \delta_{t+l}
+\]</span> 其中： <span class="math display">\[
+\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)
+\]</span> 参数 <span class="math inline">\(\lambda \in [0, 1]\)</span>
+控制 bias-variance 权衡：</p>
+<ul>
+<li><p><span class="math inline">\(\lambda = 1\)</span> → 近似
+MC（高方差，低偏差）</p></li>
+<li><p><span class="math inline">\(\lambda = 0\)</span> → 等价
+TD（低方差，高偏差）</p></li>
+</ul>
+<p>在实践中通常设置 <span class="math inline">\(\lambda = 0.95\)</span>
+左右，表现很好</p>
 <h3 id="reinforcement-learning-with-ai-feedback-rlaif">Reinforcement
 Learning with AI Feedback (RLAIF)</h3>
 <p>RLAIF 使用 AI
@@ -306,8 +349,8 @@ GPT-4）生成反馈，为训练其他 LLM 提供高效、成本更低的替代�
 Optimization (DPO)</h4>
 <p>本文前面讨论的 RLHF
 主要包括两个阶段：根据人类偏好标签训练奖励模型，然后使用强化学习（RL）对
-LM 进行微调，使其与这些偏好保持一致。然而，RLHF
-存在复杂性和不稳定性问题，它需要拟合一个奖励模型，然后训练一个策略来优化该奖励，这就容易产生稳定性问题。</p>
+LM 进行微调（优化 policy model），使其与这些偏好保持一致。然而，RLHF
+存在复杂性和不稳定性问题，它需要拟合一个奖励模型，然后训练一个策略，这就容易产生稳定性问题。</p>
 <p>DPO 算法摆脱了传统 RL 方法中的两个阶段。通过定义新的损失函数来训练
 LLM，以避免不稳定性问题。 DPO
 使用一种特殊格式的数据集，形式为：&lt;prompt, worse completion, better
@@ -316,38 +359,37 @@ completion&gt;（即“提示，较差的完成，较好的完成”）。在训
 本身充当了奖励模型，因此不再需要一个显式的奖励模型。下图给出了 DPO 和
 RLHF 的区别。</p>
 <p><img src="/2025/04/23/LLM-Alignment/DPO.jpg"></p>
-<p><strong>Binary Cross-Entropy Loss</strong> DPO
+<p><strong>Binary Cross-Entropy Loss</strong>： DPO
 通过使用二元交叉熵（Binary Cross-Entropy,
 BCE）损失函数来优化语言模型以更好地与人类偏好对齐的训练方法。对于每个输入，模型会生成两个响应，并由人类标注者指明他们的偏好（哪个响应更好）。DPO
 通过比较模型生成的响应对（即优选响应和不优选响应）与人类偏好进行训练。</p>
 <p>损失定义如下： <span class="math display">\[
-L_{DPO}(\theta) = -E_{(x, y_w, y_l) \sim D} [\log \sigma (\beta
-\log\frac{\pi_{\theta}(y_w| x)}{\pi_{ref}(y_w|x)} - \beta \beta
-\log\frac{\pi_{\theta}(y_l| x)}{\pi_{ref}(y_l|x)})],
+L_{DPO}(\theta) = -E_{(x, y_w, y_l) \sim D} [\log\sigma
+(\beta\log\frac{\pi_{\theta}(y_w| x)}{\pi_{ref}(y_w|x)} -
+\beta\log\frac{\pi_{\theta}(y_l| x)}{\pi_{ref}(y_l|x)})],
 \]</span> 其中，<span class="math inline">\(\pi_{\theta}\)</span>
 为要训练的策略模型， <span class="math inline">\(\pi_{ref}\)</span>
 是参考的策略模型；<span class="math inline">\(y_w\)</span> 和 <span class="math inline">\(y_l\)</span> 分别表示优选 response 和 不优选的
 response. <span class="math inline">\(\beta\)</span>
 控制待训练模型与参考策略模型的接近程度。<span class="math inline">\(\sigma\)</span> 为 logistic 函数。</p>
+<p>DPO
+标志着语言模型训练方法的转变，通过将强化学习与人类反馈（RLHF）过程整合为<strong>单个的端到端</strong>优化步骤，简化了模型的训练。</p>
+<p><strong>DPO 的训练过程</strong></p>
 <ul>
-<li>DPO
-标志着语言模型训练方法的转变，通过将强化学习与人类反馈（RLHF）过程整合为<strong>单个的端到端</strong>优化步骤，简化了模型的训练。</li>
+<li><p>选择一个已经经过基础指令调优的语言模型作为参考模型，这个模型提供了良好的基础。</p></li>
+<li><p>使用不同的采样/解码方法（例如不同的温度设置）对同一提示生成成对输出，并让人类选择他们喜欢的哪一个。这一过程将产生一个人类偏好/反馈的数据集。</p></li>
+<li><p>在 LLM
+上添加一个线性层，使得模型能够输出一个标量值。这一层将帮助模型在训练过程中产生更具体的数值输出。</p></li>
+<li><p>使用 DPO
+损失，该损失函数基于二元交叉熵损失。计算参考模型和正在调优模型的标量输出的对数比率，并乘以一个散度参数，以调整模型的输出。</p></li>
+<li><p>在训练完成后，去掉最后的线性层，这样就得到了一个基于人类反馈微调的
+LLM。</p></li>
 </ul>
-<p><strong>DPO 的训练过程</strong> -
-选择一个已经经过基础指令调优的语言模型作为参考模型，这个模型提供了良好的基础。
--
-使用不同的采样/解码方法（例如不同的温度设置）对同一提示生成成对输出，并让人类选择他们喜欢的哪一个。这一过程将产生一个人类偏好/反馈的数据集。
-- 在 LLM
-上添加一个线性层，使得模型能够输出一个标量值。这一层将帮助模型在训练过程中产生更具体的数值输出。
-- 使用 DPO
-损失，该损失函数基于二元交叉熵损失。计算参考模型和正在调优模型的标量输出的对数比率，并乘以一个散度参数，以调整模型的输出。
-- 在训练完成后，去掉最后的线性层，这样就得到了一个基于人类反馈微调的
-LLM。</p>
 <p>通过以上步骤，DPO 方法通过简化 RLHF
 过程，去掉了复杂的强化学习步骤和专门的奖励模型，使得模型训练更为高效和直接。这样，最终得到的模型能够更好地反映人类的偏好，提供更优质的输出</p>
 <h4 id="kahneman-tversky-optimization-kto">Kahneman-Tversky Optimization
 (KTO)</h4>
-<p>人类在面对不确定事件时，由于‘厌恶损失’，往往会做出无法最大化期望值的决策。直接以人的偏好指导大模型的训练，其训练的数据中包含了大量的人类偏好，往往无法做出期望最大的决策。KTO
+<p>人类在面对不确定事件时，由于“厌恶损失”，往往会做出无法最大化期望值的决策。直接以人的偏好指导大模型的训练，其训练的数据中包含了大量的人类偏好，往往无法做出期望最大的决策。KTO
 是一种对齐手段，将重点从传统训练目标（如下一个标记预测或拟合配对偏好数据）转向直接优化被<strong>认为有价值或可取</strong>的输出。</p>
 <p>KTO
 消除了对配对偏好排名或比较数据的需求，显著简化了数据要求。它只需要二元标签，指示某个
@@ -362,7 +404,7 @@ LLM 与人类反馈保持一致。</p>
 aversion）和非线性概率加权（nonlinear probability
 weighting）。这些概念是 KTO 损失函数的基础。</p>
 <p><strong>1. 价值函数 (Value
-Function)</strong>：前景理论中的价值函数用于描述人们如何看待收益和损失的差异。它具有以下特征：</p>
+Function)</strong>.前景理论中的价值函数用于描述人们如何看待收益和损失的差异。它具有以下特征：</p>
 <ul>
 <li><p><strong>对收益的凹性</strong>：当收益增加时，价值函数是凹的，这意味着人们在获得相同金额的收益时，所感受到的价值增加会逐渐减小。这反映了人们在面对收益时的风险厌恶（risk
 aversion）。</p></li>
@@ -378,13 +420,14 @@ x^\alpha &amp; \text{if } x \geq 0 \\
 \end{cases}
 \]</span> 其中：</p>
 <ul>
-<li>$ (0,1)$ 和 <span class="math inline">\(\beta \in (0,1)\)</span>
+<li><span class="math inline">\(\alpha \in (0,1)\)</span> 和 <span class="math inline">\(\beta \in (0,1)\)</span>
 控制对收益和损失的减敏感性（diminishing
 sensitivity）。这意味着随着收益或损失的增加，人们的感知效应会逐渐减弱。</li>
-<li>$ $ 是损失厌恶因子，通常大于
+<li><span class="math inline">\(\lambda\)</span>
+是损失厌恶因子，通常大于
 1，这表示人们对损失的反应比对收益更为强烈。</li>
 </ul>
-<p><strong>3. 概率加权函数 (Probability Weighting Function)</strong>:
+<p><strong>3. 概率加权函数 (Probability Weighting Function)</strong>.
 人们在判断概率时，往往会倾向于高估小概率事件和低估大概率事件。尽管这一元素并非
 KTO
 的核心部分，但它强调了主观不确定性感知如何影响决策。这种加权使得人们在面对不确定性时的决策并不是完全理性的，而是受到了心理因素的影响。</p>
@@ -511,9 +554,9 @@ $ r_(x,y) = . $ 该函数表示在当前策略 <span class="math inline">\(\pi_\
 <h3 id="grpo">GRPO</h3>
 <p>Group Relative Policy Optimization (GRPO) 是 PPO
 的一种变体，目的是增强模型的推理能力，同时优化内存使用。GRPO 不需要学习
-value model，它采用了一种更简单的方法，即从 policy 模型中抽取多个
-answer，并利用它们的相对 quality
-来计算优势，而不是依靠额外的模型来计算估计 reward。PPO 和 GRPO
+value model (估算优势函数)，它采用了一种更简单的方法，即从 policy
+模型中抽取多个 answer，并利用它们的相对 quality 来计算优势
+advantage，而不是依靠额外的模型来计算估计 value。PPO 和 GRPO
 的具体区别可见 DeepSeekMath 中的示意图。 <img src="/2025/04/23/LLM-Alignment/GRPO.jpg"></p>
 <h3 id="对齐可能引入的偏差以及解决策略">对齐可能引入的偏差以及解决策略</h3>
 <p>在讨论 <strong>强化学习人类反馈（RLHF）</strong> 和
@@ -560,6 +603,11 @@ regression head，这使得其训练开销很大。因此 RLVR
 使用了 GRPO 强化学习算法结合
 RLVR，不仅去除了奖励模型，同时也不需要价值模型（Critic），从而减少了两个成本高昂的模型组件。
 <img src="/2025/04/23/LLM-Alignment/rlvr.png"></p>
+<h2 id="reinforcement-fine-tuning-llms-with-grpo"><a target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/reinforcement-fine-tuning-llms-grpo/">Reinforcement
+Fine-Tuning LLMs with GRPO</a></h2>
+<h3 id="when-should-we-choose-rft-over-sft">When should we choose RFT
+over SFT?</h3>
+<p><img src="/2025/04/23/LLM-Alignment/rft.png"></p>
 <h2 id="noteworthy-research-papers-on-training-reasoning-models">Noteworthy
 research papers on training reasoning models</h2>
 <h3 id="kimi-k1.5-scaling-reinforcement-learning-and-context-length"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12599">1. Kimi k1.5: Scaling
@@ -620,11 +668,16 @@ AMC。这表明，即便在数据量有限的情况下，只要训练方式合�
 <h3 id="l1-controlling-how-long-a-reasoning-model-thinks-with-reinforcement-learning"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.04697">5. L1: Controlling How Long A
 Reasoning Model Thinks With Reinforcement Learning</a></h3>
 <p>本文提出了一种名为“Length Controlled Policy
-Optimization（LCPO）”的方法，用于解决当前推理模型在生成链式思维（Chain-of-Thought）过程中输出较长、但缺乏对长度控制的问题。LCPO是一种简单的强化学习方法，能够在优化回答准确性的同时，引导模型生成符合用户指定长度的输出。其核心思想类似于GRPO，但引入了长度控制的自定义奖励函数，形式为
-</p><pre class="line-numbers language-none"><code class="language-none">reward = reward_correctness - α * |target_length - actual_length|，<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-其中target_length由用户在提示中提供。该方法能够鼓励模型尽量精确地输出指定长度的文本。作者还提出了LCPO的变体LCPO-Max，该变体不强制模型匹配目标长度，而是鼓励其不超过最大长度限制，奖励函数为：
-<pre class="line-numbers language-none"><code class="language-none">reward = reward_correctness * clip(α * (target_length - actual_length) + δ, 0, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-基于LCPO方法，作者训练了一个1.5B参数规模的模型L1，具备根据提示动态调整输出长度的能力，使用户能够在任务中根据需求在计算资源和准确性之间做出权衡。更有趣的是，实验发现长文本生成模型擅长于短文本推理任务，在相同token长度下甚至超过了如GPT-4o等更大规模的模型。<p></p>
+Optimization（LCPO）”的方法，用于解决当前推理模型在生成链式思维（Chain-of-Thought）过程中输出较长、但缺乏对长度控制的问题。LCPO
+是一种简单的强化学习方法，能够在优化回答准确性的同时，引导模型生成符合用户指定长度的输出。其核心思想类似于
+GRPO，但引入了长度控制的自定义奖励函数，形式为 </p><pre class="line-numbers language-none"><code class="language-none">reward = reward_correctness - α * |target_length - actual_length|，<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre> 其中
+target_length
+由用户在提示中提供。该方法能够鼓励模型尽量精确地输出指定长度的文本。作者还提出了
+LCPO 的变体
+LCPO-Max，该变体不强制模型匹配目标长度，而是鼓励其不超过最大长度限制，奖励函数为：
+<pre class="line-numbers language-none"><code class="language-none">reward = reward_correctness * clip(α * (target_length - actual_length) + δ, 0, 1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre> 基于 LCPO 方法，作者训练了一个 1.5B 参数规模的模型
+L1，具备根据提示动态调整输出长度的能力，使用户能够在任务中根据需求在计算资源和准确性之间做出权衡。更有趣的是，实验发现长文本生成模型擅长于短文本推理任务，在相同
+token 长度下甚至超过了如 GPT-4o 等更大规模的模型。<p></p>
 <h3 id="understanding-r1-zero-like-training-a-critical-perspective"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2503.20783">6. Understanding R1-Zero-Like
 Training: A Critical Perspective</a></h3>
 <p>这篇论文探讨了 DeepSeek-R1-Zero
@@ -661,8 +714,8 @@ RL
 阶段“涌现”的。然而，这篇论文却带来了一个“反转”：<strong>自我纠错能力其实早在预训练阶段就已开始显现</strong>。具体来说，作者在任务中故意引入错误的思维链（chain-of-thought），以测试模型是否能够识别并纠正这些错误。结果发现，不论是显式（如明确指出错误）还是隐式（通过调整答案）形式的<strong>反思与纠错能力，都在预训练过程中逐渐涌现</strong>。</p>
 <p>这一现象不仅出现在大型模型中，也在中小规模的模型和早期 checkpoint
 中有所体现。随着预训练计算量的增加，这种自我修正能力不断增强，表明它是模型语言理解和推理能力进化过程中的自然副产物，而非完全依赖
-RL
-微调阶段的结果。这项研究颠覆了“推理能力仅源于RL”的传统理解，并强调了<strong>预训练阶段的策略和数据质量在模型认知能力形成中的关键作用</strong>。
+RL 微调阶段的结果。这项研究颠覆了“推理能力仅源于
+RL”的传统理解，并强调了<strong>预训练阶段的策略和数据质量在模型认知能力形成中的关键作用</strong>。
 <img src="/2025/04/23/LLM-Alignment/olmo.png"></p>
 <h3 id="concise-reasoning-via-reinforcement-learning"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2504.05185">8. Concise Reasoning via
 Reinforcement Learning</a></h3>
@@ -696,7 +749,14 @@ RL
 训练的模型确实在特定任务上有一定改进，但这些提升通常<strong>比不上监督微调（SFT）带来的效果</strong>，而且很难推广到新的任务或基准上。因此，该研究呼吁社区对
 RL
 带来的增益保持理性看待，并强调<strong>建立更严格的评估标准和统一的比较框架</strong>，以便更准确地理解哪些方法真正有效，哪些只是实验设置或评估偏差造成的错觉。这对于指导未来训练小模型和提高推理性能具有重要意义。</p>
-<h1 id="reference">Reference</h1>
+<h2 id="deepseek-技术路线">DeepSeek 技术路线</h2>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12948">DeepSeek-R1 paper</a></p>
+<p>Blogs:</p>
+<p><a target="_blank" rel="noopener" href="https://hub.baai.ac.cn/view/43236">Sebastian Raschka: 关于
+DeepSeek R1 和推理模型，我有几点看法</a></p>
+<p><a target="_blank" rel="noopener" href="https://sebastianraschka.com/blog/2025/understanding-reasoning-llms.html">Sebastian
+Raschka: Understanding Reasoning LLMs</a></p>
+<h2 id="reference">Reference</h2>
 <p><a target="_blank" rel="noopener" href="https://aman.ai/primers/ai/">Distilled AI</a></p>
 <p><a target="_blank" rel="noopener" href="https://magazine.sebastianraschka.com/p/the-state-of-llm-reasoning-model-training">The
 State of Reinforcement Learning for LLM Reasoning</a></p>

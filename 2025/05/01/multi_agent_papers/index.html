@@ -36,9 +36,9 @@
   
 
 <link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
-<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" />
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
 </html>
 <script src="/js/hexo_resize_image.js"></script>
@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">3.9k</span>
+            <span class="post-count">6.4k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">14 min</span>
+            <span class="post-count">23 min</span>
         </span>
     </span>
 </div>
@@ -153,8 +153,9 @@ d_n)}\)</span>，其中每个智能体 <span class="math inline">\(a_i\)</span>
 <span class="math inline">\(A\)</span>，元智能体的目标是调用其中的子智能体集合以实现计算机任务自动化。由于
 AgentStore
 中的智能体数量动态增长并可能达到大规模，传统方法如上下文学习（ICL，In-Context
-Learning）和全量微调（FT，Fine-Tuning）分别因上下文长度超限和再训练成本过高而不再适用。为此，作者提出<strong>AgentToken
-策略</strong>，该策略无需冗长上下文，并显著降低新增智能体时元智能体的再训练成本。</p>
+Learning）和全量微调（FT，Fine-Tuning）分别因上下文长度超限和再训练成本过高而不再适用。为此，作者提出**
+AgentToken
+策略**，该策略无需冗长上下文，并显著降低新增智能体时元智能体的再训练成本。</p>
 <p>在元智能体的词汇表中，将已注册智能体编码为特殊
 token。具体而言，智能体 token 被参数化为嵌入矩阵 <span class="math inline">\(W_A \in \mathbb{R}^{|A| \times
 d}\)</span>，并拼接到原始词 token <span class="math inline">\(W_V \in
@@ -257,9 +258,9 @@ BERTScore 引导的过滤过程，直至生成足够数量的演示数据以满�
 \text{Agent } i \rangle | y_j),
 \]</span><br>
 其中嵌入矩阵 <span class="math inline">\(W_A\)</span> 是智能体池 <span class="math inline">\(A\)</span> 中所有智能体唯一的可调参数。</p>
-<p>[question: 当需要多个智能体时，先选择固定数目的
+<p>question: 当需要多个智能体时，先选择固定数目的
 agents，然后将任务进行分解再划分。如何选择 k 个 agents？这 k 个 agents
-一定和任务相关吗？在进行选择时，为什么不基于任务进行选择？]</p>
+一定和任务相关吗？在进行选择时，为什么不基于任务进行选择？</p>
 <h1 id="iclr-2025多智能体-inverse-attention-agents-for-multi-agent-systems"><a target="_blank" rel="noopener" href="https://openreview.net/forum?id=OaoDVZntGe">（ICLR
 2025）（多智能体） Inverse Attention Agents for Multi-Agent
 Systems</a></h1>
@@ -310,8 +311,6 @@ attention 网络。然后基于训练后的 attention
 <strong>更新自身的注意力权重</strong>，从而调整其对各个目标的重视程度；更新后的注意力权重将影响最终动作选择，实现更高层次的协作或对抗行为。</p></li>
 </ul>
 <p><img src="/2025/05/01/multi_agent_papers/inverse1.png"></p>
-<h1 id="acl-chatdev-communicative-agents-for-software-development"><a target="_blank" rel="noopener" href="https://aclanthology.org/2024.acl-long.810/">(2024 ACL) ChatDev:
-Communicative Agents for Software Development</a></h1>
 <h1 id="acl-experiential-co-learning-of-software-developing-agents"><a target="_blank" rel="noopener" href="https://aclanthology.org/2024.acl-long.305/">(2024 ACL)
 Experiential Co-Learning of Software-Developing Agents</a></h1>
 <h1 id="ecoagent-an-efficient-edge-cloud-collaborative-multi-agent-framework-for-mobile-automation"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.05440">(202505) EcoAgent: An Efficient
@@ -325,6 +324,109 @@ Collaboration via Evolving Orchestration</a></h1>
 Learning on LLM-based Multi-Agent Collaboration</a></h1>
 <h1 id="mas-gpt-training-llms-to-build-llm-based-multi-agent-systems"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2503.03686">(202503) MAS-GPT: Training LLMs
 to Build LLM-based Multi-Agent Systems</a></h1>
+<h1 id="agentorchestra-a-hierarchical-multi-agent-framework-for-general-purpose-task-solving"><a target="_blank" rel="noopener" href="https://www.arxiv.org/pdf/2506.12508">(202506) AgentOrchestra: A
+Hierarchical Multi-Agent Framework for General-Purpose Task
+Solving</a></h1>
+<p>近年来，LLMs
+的智能体系统在解决复杂任务方面展现出强大能力，但现有方法普遍缺乏协调多个专用智能体的机制，且在新领域中的泛化能力有限。为此，本文提出了
+AgentOrchestra——一个面向通用任务求解的分层多智能体框架。该系统借鉴指挥家协调交响乐团的方式，融合高层规划与模块化智能体协作，强调可扩展性、多模态处理、模块化设计与智能体协调能力。框架核心是一个中央规划智能体，负责将复杂目标拆解为子任务，并将其分配给具备不同专长的子智能体。这些子智能体拥有通用的编程与分析工具，能够执行各种现实任务，如数据分析、文件操作、网页导航以及动态多模态环境中的交互式推理。AgentOrchestra
+通过明确的子目标设定、智能体间通信以及角色动态分配，实现了灵活的任务调度与协作。在三个主流基准数据集上进行评估，涵盖网页搜索、跨模态推理等现实任务，实验结果表明，AgentOrchestra
+在任务成功率与适应能力方面均优于传统的扁平化或单体式智能体系统。这一研究凸显了分层架构与角色专精机制在构建可扩展、通用的
+LLM 智能体系统中的有效性。</p>
+<h1 id="anymac-cascading-flexible-multi-agent-collaboration-via-next-agent-prediction"><a target="_blank" rel="noopener" href="https://www.arxiv.org/pdf/2506.17784">(202506) AnyMAC: Cascading
+Flexible Multi-Agent Collaboration via Next-Agent Prediction</a></h1>
+<h2 id="related-work">Related Work</h2>
+<p>为支持多智能体之间的协作，研究者们探索了多种通信结构（如链式、树状、星形、全连接、随机图以及可学习的拓扑结构），以适应不同任务复杂性与通信开销的需求。这些结构旨在在性能与效率之间取得平衡，并根据任务或输入查询调整通信方式。近年来，学习型拓扑结构的引入使智能体通信图能够动态生成，标志着从固定流程向更灵活、任务感知的通信系统转变，进一步释放了大语言模型群体智能的潜力。
+<img src="/2025/05/01/multi_agent_papers/AnyMAC1.png"></p>
+<p>尽管取得了诸多进展，当前基于图的通信结构仍存在根本性限制。首先，它们在每轮通信中通常采用静态拓扑结构：一旦通信图确定，所有智能体即只能遵循固定的通信模式运行，缺乏在推理过程中的动态调整能力。这种限制导致无法对某些关键智能体（如擅长
+Python
+编程的专家代理）在任务多个阶段进行重复调用，尤其是在需要多轮反馈或递归推理的复杂任务中，这会造成效率低下或推理路径不优。为了保证消息流的有向无环性（DAG），许多设计不得不进一步收缩通信拓扑的空间，限制了智能体间更灵活、更动态的合作方式。其次，现有方法多数仅允许信息在图中相邻智能体间传递，即每个智能体只能接收到邻居节点的消息。在诸如树状结构中，这导致下游智能体常常无法访问平行分支的结果，从而错失关键的上下文信息，影响整体推理质量。这种对全局信息流的限制，使得智能体难以建立全面的认知，影响了集体智能在复杂任务中的表现。</p>
+<p>为解决当前多智能体通信结构中的限制，本文提出了全新的多智能体协作框架
+<strong>ANYMAC</strong>，其核心思想是以<strong>顺序通信协议</strong>取代传统的图结构建模方式，从而实现更灵活、更高效的智能体协同。ANYMAC
+引入了两个关键创新设计：</p>
+<p>（1）<strong>下一智能体预测（Next-Agent
+Prediction）</strong>：系统通过逐步预测的方式动态决定下一个要激活的智能体。这种顺序式设计跳出了图结构的限制，允许在不同任务中灵活调整智能体的调用顺序与频次，实现智能体的重复使用与个性化调度。</p>
+<p>（2）<strong>下一上下文选择（Next-Context
+Selection）</strong>：该机制允许每一步自由访问所有历史步骤中任意智能体的输出，从而实现全局信息的灵活获取。信息的传递不再受限于固定的图边或线性顺序，而是基于任务需求动态选择最相关的上下文，实现更加丰富且适应性强的通信流程。</p>
+<p>ANYMAC
+的这两项设计共同构建出一种<strong>任务自适应、上下文可控的通信范式</strong>，显著提升了多智能体系统在复杂任务中的表现。大量基准实验结果表明，该方法在准确率与计算效率（尤其是
+token
+消耗）方面均优于现有最先进的通信拓扑结构，验证了其在多智能体协作中的优势与实用性。</p>
+<h2 id="problem-formulation">Problem Formulation</h2>
+<p><img src="/2025/05/01/multi_agent_papers/AnyMAC2.png"></p>
+<p>本文提出的 ANYMAC
+框架将多智能体通信过程建模为一个顺序决策流程，核心思想是将通信流程表示为一个由语言模型驱动的智能体序列：
+<span class="math display">\[
+S = [a_1, a_2, \ldots, a_T]
+\]</span> 其中，每个元素 <span class="math inline">\(a_t\)</span> 表示第
+<span class="math inline">\(t\)</span>
+步被选中的智能体。该设计允许智能体在任务中被多次复用，并可根据具体任务动态调整智能体的调用顺序。</p>
+<p>每个智能体 <span class="math inline">\(a_t\)</span>
+包含以下组成部分： <span class="math display">\[
+a_t = \{\text{Base}_t, \text{Role}_t, \text{State}_t, \text{Tool}_t\}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\text{Base}_t\)</span>：该智能体底层使用的语言模型实例；</p></li>
+<li><p><span class="math inline">\(\text{Role}_t\)</span>：当前所承担的角色（如分析员、程序员等）；</p></li>
+<li><p><span class="math inline">\(\text{State}_t\)</span>：记录智能体的记忆与交互历史；</p></li>
+<li><p><span class="math inline">\(\text{Tool}_t\)</span>：可选的插件工具，如计算器、搜索引擎、文件检索器等。</p></li>
+</ul>
+<p>对于初始任务查询 <span class="math inline">\(Q\)</span>，通信序列在
+<span class="math inline">\(T\)</span> 步中依次展开。每一步 <span class="math inline">\(t\)</span> 包括如下三个阶段：</p>
+<h4 id="上下文选择与提示生成">1. 上下文选择与提示生成</h4>
+<p>在每一步，系统会组合原始查询和之前生成的部分响应构建提示： <span class="math display">\[
+P^{(t)}_R = \text{Select}(\{O^{(1)}, \ldots, O^{(t-1)}\})
+\]</span> 其中，<span class="math inline">\(O^{(i)}\)</span> 是第 <span class="math inline">\(i\)</span> 步由智能体生成的响应，Select
+是一个可学习模块，用于从历史输出中筛选最相关的信息构建当前上下文。</p>
+<h4 id="智能体执行">2. 智能体执行</h4>
+<p>选中的智能体根据如下提示进行响应生成： <span class="math display">\[
+O^{(t)} = a_t (P^{(t)}_{\text{sys}}, P^{(t)}_{\text{usr}}, P^{(t)}_R)
+\]</span> * <span class="math inline">\(P^{(t)}_{\text{sys}}\)</span>
+包含角色 <span class="math inline">\(\text{Role}_t\)</span> 和状态 <span class="math inline">\(\text{State}_t\)</span>；</p>
+<ul>
+<li><p><span class="math inline">\(P^{(t)}_{\text{usr}}\)</span>
+是用户提示，包含任务查询与操作说明；</p></li>
+<li><p><span class="math inline">\(P^{(t)}_R\)</span>
+为从历史中选出的上下文响应。</p></li>
+</ul>
+<h4 id="编码与预测机制">3. 编码与预测机制</h4>
+<ul>
+<li><p><strong>Encoding 阶段</strong>：将任务查询 <span class="math inline">\(Q\)</span>、候选角色集 <span class="math inline">\(R\)</span> 以及历史对话 <span class="math inline">\(H_{t-1}\)</span> 编码为 Token 并输入 Transformer
+模型，生成上下文嵌入。</p></li>
+<li><p><strong>Prediction
+阶段</strong>：基于上下文嵌入，系统执行两个预测：</p>
+<ul>
+<li><p><strong>Next Agent Prediction
+(NAP)</strong>：预测下一个最合适的智能体 <span class="math inline">\(a_t\)</span>；</p></li>
+<li><p><strong>Next Context Selection
+(NCS)</strong>：从历史响应中选出与当前任务最相关的信息作为提示输入。</p></li>
+</ul></li>
+</ul>
+<p>这一序列将持续进行，直到达到终止条件。最后由一个裁决智能体对所有响应进行聚合，输出最终答案：
+<span class="math display">\[
+a^{(T)} = \text{FinalAggregator}(\{O^{(1)}, \ldots, O^{(T)}\}).
+\]</span>
+该顺序式协作框架突破了传统图结构在通信拓扑上的刚性约束，支持智能体重复使用与灵活的信息路由，实现更高效、更具适应性的多智能体推理流程。实验证明，ANYMAC
+在多个基准测试中，在准确率和 token
+消耗效率方面均优于现有最先进的方法。</p>
+<h1 id="generalizable-agent-modeling-for-agent-collaboration-competition-adaptation-with-multiretrieval-and-dynamic-generation"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2506.16718">(202506) Generalizable Agent
+Modeling for Agent Collaboration-Competition Adaptation with
+MultiRetrieval and Dynamic Generation</a></h1>
+<p><img src="/2025/05/01/multi_agent_papers/ACCA.png">
+这三种方法分别代表了多智能体系统中关于协作与泛化能力研究的不同方向，具体如下：</p>
+<h4 id="a-marl-for-zsl多智能体强化学习用于零样本学习">(a) MARL for
+ZSL（多智能体强化学习用于零样本学习）</h4>
+<p>在训练阶段，让一组智能体在特定任务和场景中建立高效的协作策略，以完成任务。这些智能体能够在评估阶段利用已有的协作范式，在新环境中与陌生对手竞争。虽然具备一定的泛化能力，但在遇到**陌生队友（unfamiliar
+teammates）**时，缺乏动态协作能力，无法建立新的合作关系。</p>
+<h4 id="b-ahtad-hoc-teamwork即临时团队协作">(b) AHT（Ad Hoc
+Teamwork，即临时团队协作）</h4>
+<p>训练智能体与未知的队友进行有效合作，同时在特定任务中对抗竞争对手。强调智能体与陌生队友的协作能力，提升临时合作的适应性。尽管可与陌生队友配合完成任务，但缺乏对任务和环境多样性的泛化能力，无法适应变化的任务场景。</p>
+<h4 id="c-accaad-hoc-collaboration-and-competition-agent即临时协作与竞争智能体">(c)
+ACCA（Ad Hoc Collaboration and Competition
+Agent，即临时协作与竞争智能体）</h4>
+<p>在训练过程中，智能体既可与队友协作（如共同获取“梨”），也能自主行动（如独立获取“苹果”）以获得更高奖励。同时具备跨任务、跨环境的泛化能力；能够动态适应队友和对手的策略变化；在评估阶段，能够灵活处理协作与竞争双重需求。
+ACCA综合了 MARL 的泛化优势与 AHT
+的协作能力，并进一步提升了在动态多智能体环境中的通用适应性和策略弹性。</p>
  
       <!-- reward -->
       
