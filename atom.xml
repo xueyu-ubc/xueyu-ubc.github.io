@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2025-07-15T07:37:55.377Z</updated>
+  <updated>2025-10-16T10:33:11.975Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Embodied World Models</title>
+    <link href="https://xueyu-ubc.github.io/2025/08/01/Embodied_World_Models/"/>
+    <id>https://xueyu-ubc.github.io/2025/08/01/Embodied_World_Models/</id>
+    <published>2025-08-01T00:00:00.000Z</published>
+    <updated>2025-10-16T10:33:11.975Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>DeepLearning.AI Courses</title>
     <link href="https://xueyu-ubc.github.io/2025/07/08/DeepLearningAI/"/>
     <id>https://xueyu-ubc.github.io/2025/07/08/DeepLearningAI/</id>
     <published>2025-07-07T16:00:00.000Z</published>
-    <updated>2025-07-15T07:37:55.377Z</updated>
+    <updated>2025-07-15T11:08:48.999Z</updated>
     
     
       
@@ -44,14 +67,14 @@
     <link href="https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/"/>
     <id>https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/</id>
     <published>2025-05-31T16:00:00.000Z</published>
-    <updated>2025-07-08T09:00:42.947Z</updated>
+    <updated>2025-09-01T07:37:07.430Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;seeclick-harnessing-gui-grounding-for-advanced-visual-gui-agents&quot;&gt;&lt;a href=&quot;https://arxiv.org/abs/2401.10935&quot;&gt;（202402）SeeClick:</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
         
       
     
@@ -67,14 +90,14 @@
     <link href="https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/"/>
     <id>https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/</id>
     <published>2025-05-01T00:00:00.000Z</published>
-    <updated>2025-05-30T04:59:45.146Z</updated>
+    <updated>2025-09-30T06:38:35.653Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;hrl-data-efficient-hierarchical-reinforcement-learning&quot;&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.08296&quot;&gt;(201805)(HRL)</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
         
       
     
@@ -86,19 +109,18 @@
   </entry>
   
   <entry>
-    <title>Multi-Agent Paper</title>
+    <title>Multi-Agent Papers</title>
     <link href="https://xueyu-ubc.github.io/2025/05/01/multi_agent_papers/"/>
     <id>https://xueyu-ubc.github.io/2025/05/01/multi_agent_papers/</id>
     <published>2025-05-01T00:00:00.000Z</published>
-    <updated>2025-07-09T02:03:50.221Z</updated>
+    <updated>2025-07-15T08:38:42.895Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;benchmark-gaia-a-benchmark-for-general-ai-assistants&quot;&gt;&lt;a href=&quot;https://huggingface.co/gaia-benchmark&quot;&gt;(20231121)（Benchmark）
-GAIA: A</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
         
       
     
@@ -114,14 +136,14 @@ GAIA: A</summary>
     <link href="https://xueyu-ubc.github.io/2025/05/01/World-model/"/>
     <id>https://xueyu-ubc.github.io/2025/05/01/World-model/</id>
     <published>2025-05-01T00:00:00.000Z</published>
-    <updated>2025-07-01T01:46:20.475Z</updated>
+    <updated>2025-08-28T06:09:12.092Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;is-a-picture-worth-a-thousand-words-delving-into-spatial-reasoning-for-vision-language-models&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
         
       
     
@@ -159,32 +181,10 @@ GAIA: A</summary>
   
   <entry>
     <title>Reinforcement Learning for LLM Reasoning</title>
-    <link href="https://xueyu-ubc.github.io/2025/04/23/LLM-Alignment/"/>
-    <id>https://xueyu-ubc.github.io/2025/04/23/LLM-Alignment/</id>
-    <published>2025-04-23T02:00:00.000Z</published>
-    <updated>2025-07-15T04:35:12.819Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;llm-的幻觉问题&quot;&gt;LLM 的幻觉问题&lt;/h2&gt;
-&lt;p&gt;Great thanks to this blog: &lt;a href=&quot;https://aman.ai/primers/ai/hallucination/&quot;&gt;NLP •</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Reinforcement Learning for LLM Reasoning</title>
     <link href="https://xueyu-ubc.github.io/2025/04/23/Reinforcement-Learning/"/>
     <id>https://xueyu-ubc.github.io/2025/04/23/Reinforcement-Learning/</id>
     <published>2025-04-23T02:00:00.000Z</published>
-    <updated>2025-07-15T08:36:34.390Z</updated>
+    <updated>2025-09-19T02:25:01.541Z</updated>
     
     
       
@@ -205,18 +205,18 @@ GAIA: A</summary>
   </entry>
   
   <entry>
-    <title>UI-TARS</title>
+    <title>ByteDance Seed</title>
     <link href="https://xueyu-ubc.github.io/2025/04/18/UI_TARS/"/>
     <id>https://xueyu-ubc.github.io/2025/04/18/UI_TARS/</id>
     <published>2025-04-17T16:00:00.000Z</published>
-    <updated>2025-06-19T10:00:18.921Z</updated>
+    <updated>2025-09-19T02:29:56.341Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;ui-tars-pioneering-automated-gui-interaction-with-native-agents&quot;&gt;&lt;a href=&quot;https://arxiv.org/abs/2501.12326v1&quot;&gt;UI-TARS: Pioneering</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
         
       
     
