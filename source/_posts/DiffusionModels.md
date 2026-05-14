@@ -26,13 +26,13 @@ $$
 L_{LDM} = \mathbb{E}_{E(x), \epsilon \sim N(0,1), t} [|| \epsilon - \epsilon_{\theta}(z_t, t)||^2_2].
 $$
 
-在训练阶段，由于前向过程是固定的，$z_t$ 可以高效地从编码器 $E$ 中获得，避免额外计算开销。 在推理（采样）阶段，从 $ p(z) $采样一个潜在表示 $ z $（扩散过程生成的样本），然后只需单次前向传播通过解码器 $ D $ 即可将 $ z $ 解码回完整图像。  
+在训练阶段，由于前向过程是固定的，$z_t$ 可以高效地从编码器 $E$ 中获得，避免额外计算开销。 在推理（采样）阶段，从 $p(z)$采样一个潜在表示 $z$（扩散过程生成的样本），然后只需单次前向传播通过解码器 $D$ 即可将 $z$ 解码回完整图像。  
 
 ## Conditional Image Generation with LDMs
 
-扩散模型可以建模条件概率分布 $ p(z | y) $ ，其中 $y$ 代表条件输入，如文本。类似，也可以通过条件去噪自编码器 $\epsilon_\theta(z_t, t, y)$ 使得 LDM 具备可控的合成能力。  
+扩散模型可以建模条件概率分布 $p(z | y)$ ，其中 $y$ 代表条件输入，如文本。类似，也可以通过条件去噪自编码器 $\epsilon_\theta(z_t, t, y)$ 使得 LDM 具备可控的合成能力。  
 
-为了使扩散模型成为更灵活的条件图像生成器，LDM 在其 U-Net 结构中加入了Cross-Attention。为了预处理不同模态（如语言提示），LDM 采用领域特定编码器（Domain-Specific Encoder）$\tau_{\theta}$  映射 $  y$  到中间表示：  
+为了使扩散模型成为更灵活的条件图像生成器，LDM 在其 U-Net 结构中加入了Cross-Attention。为了预处理不同模态（如语言提示），LDM 采用领域特定编码器（Domain-Specific Encoder）$\tau_{\theta}$  映射 $ y$  到中间表示：  
 $
 \tau_\theta(y) \in \mathbb{R}^{M \times d_\tau}
 $。 
@@ -40,13 +40,13 @@ $。
 $$
 \text{Attention}(Q, K, V) = \text{softmax} (\frac{Q K^T}{\sqrt{d}}) \cdot V,
 $$  
-其中，$Q = W_Q^{(i)} \cdot \phi_i(z_t) $，$K = W_K^{(i)} \cdot \tau_{\theta(y)} $，$ V = W_V^{(i)} \cdot \tau_{\theta(y)}$。$\phi_i(z_t) $ 是U-Net 中的中间表示，经过 Flattened 后得到 $\phi_{i}(z_t) \in \mathbb{R}^{N \times d}$。
+其中，$Q = W_Q^{(i)} \cdot \phi_i(z_t)$，$K = W_K^{(i)} \cdot \tau_{\theta(y)}$，$V = W_V^{(i)} \cdot \tau_{\theta(y)}$。$\phi_i(z_t)$ 是U-Net 中的中间表示，经过 Flattened 后得到 $\phi_{i}(z_t) \in \mathbb{R}^{N \times d}$。
 
 条件 LDM的目标函数如下：  
 $$
 \mathcal{L}_{\text{LDM}} = \mathbb{E}_{E(x), y, \epsilon \sim \mathcal{N}(0,1), t} [ || \epsilon - \epsilon_{\theta} (z_t, t, \tau_{\theta(y)}) ||_2^2 ],
 $$  
-其中，$\tau_{\theta}$ 和 $\epsilon_{\theta} $ 通过优化该目标函数得到，$\tau_{\theta}(y)$ 是条件输入 $y $ 的编码输出。 
+其中，$\tau_{\theta}$ 和 $\epsilon_{\theta}$ 通过优化该目标函数得到，$\tau_{\theta}(y)$ 是条件输入 $y$ 的编码输出。 
 ![](./DiffusionModels/ldm.jpg)
 
 
@@ -54,11 +54,11 @@ $$
 [Official PyTorch Implementation](https://github.com/facebookresearch/DiT/tree/main?tab=readme-ov-file)
 
 ## Diffusion formulation (DDPM)
-高斯扩散模型（Gaussian Diffusion Models）假设前向噪声过程逐步向真实数据 $ x_0 $ 添加噪声，该过程定义如下：  
+高斯扩散模型（Gaussian Diffusion Models）假设前向噪声过程逐步向真实数据 $x_0$ 添加噪声，该过程定义如下：  
 $$
 q(x_t | x_0) = \mathcal{N} ( x_t; \sqrt{\bar{\alpha}_t} x_0, (1 - \bar{\alpha}_t)I ),
 $$
-其中，$\bar{\alpha}_t$ 是预设的超参数。利用重参数化技巧,可以对 $ x_t $ 进行采样：  
+其中，$\bar{\alpha}_t$ 是预设的超参数。利用重参数化技巧,可以对 $x_t$ 进行采样：  
 $$
 x_t = \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon_t, \quad \epsilon_t \sim \mathcal{N}(0, I).
 $$
@@ -66,23 +66,21 @@ $$
 $$
 p_\theta (x_{t-1} | x_t) = \mathcal{N} ( \mu_\theta (x_t), \Sigma_\theta (x_t) ),
 $$
-其中，神经网络用于预测 $ p_\theta $ 的均值和协方差。模型的训练基于变分下界（Variational Lower Bound, VLB）来优化数据的对数似然：  
+其中，神经网络用于预测 $p_\theta$ 的均值和协方差。模型的训练基于变分下界（Variational Lower Bound, VLB）来优化数据的对数似然：  
 $$
 L(\theta) = -p(x_0 | x_1) + \sum_t D_{KL} ( q^*(x_{t-1} | x_t, x_0) \,\big\|\, p_\theta (x_{t-1} | x_t) ),
 $$
-其中，$ D_{KL} $ 表示 **Kullback-Leibler 散度**，用于衡量两个分布之间的差异。  
-由于 $ q^* $ 和 $ p_\theta $ 都是高斯分布，该散度可以通过均值和协方差计算。
+其中，$D_{KL}$ 表示 **Kullback-Leibler 散度**，用于衡量两个分布之间的差异。  
+由于 $q^*$ 和 $p_\theta$ 都是高斯分布，该散度可以通过均值和协方差计算。
 
-为了优化该目标，我们可以将均值 $ \mu_\theta $ 重新参数化为 **噪声预测网络** $ \epsilon_\theta $，并采用均方误差损失进行训练：  
+为了优化该目标，我们可以将均值 $\mu_\theta$ 重新参数化为 **噪声预测网络** $\epsilon_\theta$，并采用均方误差损失进行训练：  
 $$
 L_{\text{simple}} (\theta) = \| \epsilon_\theta (x_t) - \epsilon_t \|^2_2,
 $$
-但如果要训练逆过程的协方差 $ \Sigma_\theta $，则需要优化完整的 $ D_{KL} $ 项。 作者遵循 **Nichol 和 Dhariwal** 的方法：首先用 $ L_{\text{simple}} $ 训练 $ \epsilon_\theta $，然后用完整的 $ L $ 训练 $ \Sigma_\theta $。
+但如果要训练逆过程的协方差 $\Sigma_\theta$，则需要优化完整的 $D_{KL}$ 项。 作者遵循 **Nichol 和 Dhariwal** 的方法：首先用 $L_{\text{simple}}$ 训练 $\epsilon_\theta$，然后用完整的 $L$ 训练 $\Sigma_\theta$。
 
-在训练完成后，可以通过以下步骤生成新的图像：设定 **初始噪声** $ x_{T} \sim \mathcal{N}(0, I) $，然后依次从后向分布中采样：
-$
-x_{t-1} \sim p_\theta (x_{t-1} | x_t)
-$。
+在训练完成后，可以通过以下步骤生成新的图像：设定 **初始噪声** $x_{T} \sim \mathcal{N}(0, I)$，然后依次从后向分布中采样：
+$x_{t-1} \sim p_\theta (x_{t-1} | x_t)$。
 这个过程通过 **重参数化技巧** 实现，最终得到无噪声的高质量图像。
 
 ## Diffusion Transformer Design Space
@@ -90,29 +88,29 @@ $。
 ![](./DiffusionModels/dit.png)
 
 ### Patchify
-DiT 的输入是一个空间表示 $ z $（对于 $ 256 \times 256 \times 3 $ 的图像，$ z $ 的形状为 $ 32 \times 32 \times 4 $）。DiT 的第一层是 **"Patchify"**，其作用是将空间输入转换为一个长度为 $ T $ 的序列，每个 token 具有维度 $ d $，具体过程如下：  
+DiT 的输入是一个空间表示 $z$（对于 $256 \times 256 \times 3$ 的图像，$z$ 的形状为 $32 \times 32 \times 4$）。DiT 的第一层是 **"Patchify"**，其作用是将空间输入转换为一个长度为 $T$ 的序列，每个 token 具有维度 $d$，具体过程如下：  
 
-1. Patchify 过程。通过 linear embedding 将输入的每个 patch 转换为一个 token。patch size 超参数 $ p $ 控制每个 patch 的大小。  
+1. Patchify 过程。通过 linear embedding 将输入的每个 patch 转换为一个 token。patch size 超参数 $p$ 控制每个 patch 的大小。  
 
 2. 位置编码。Patchify 之后，为所有输入 token 添加位置编码。  
 
-生成的 token 数量 $ T $ 由patch size $ p $ 决定，$ T = \frac{H}{p} \times \frac{W}{p}$。
+生成的 token 数量 $T$ 由patch size $p$ 决定，$T = \frac{H}{p} \times \frac{W}{p}$。
 
 ![](./DiffusionModels/ditpatchify.png)
 
 ### DiT block design
-在 Patchify 之后，输入 tokens 会经过一系列 Transformer 块处理。除了噪声图像输入外，扩散模型有时还会处理额外的条件信息，如**噪声时间步 $t$、类别标签 $c$、自然语言描述等。DiT 主要探索了四种不同的 Transformer 块变体。具体来说，
+在 Patchify 之后，输入 tokens 会经过一系列 Transformer 块处理。除了噪声图像输入外，扩散模型有时还会处理额外的条件信息，如噪声时间步 $t$、类别标签 $c$、自然语言描述等。DiT 主要探索了四种不同的 Transformer 块变体。具体来说，
 
-- In-context conditioning。直接将时间步 $t $ 和类别标签 $c $ 的向量嵌入作为额外的 token 添加到输入序列中，类似于 ViT 中的 **CLS token** 机制。 
+- In-context conditioning。直接将时间步 $t$ 和类别标签 $c$ 的向量嵌入作为额外的 token 添加到输入序列中，类似于 ViT 中的 **CLS token** 机制。 
 
-- Cross-attention block。将时间步 $t $ 和类别标签 $c $ 的嵌入向量拼接成一个长度为 2 的独立序列，与图像 token 序列分开处理。修改 Transformer 块，在 self-attention 块之后，额外添加 cross-attention 层。  
+- Cross-attention block。将时间步 $t$ 和类别标签 $c$ 的嵌入向量拼接成一个长度为 2 的独立序列，与图像 token 序列分开处理。修改 Transformer 块，在 self-attention 块之后，额外添加 cross-attention 层。  
 
-- Adaptive Layer Norm, adaLN 块。传统的 LayerNorm 直接学习缩放和偏移参数 $\gamma $ 和 $\beta $，而 adaLN 通过回归计算这些参数。$\gamma, \beta = \text{MLP}(t + c)$，其中，$MLP$ 以时间步 $t $ 和类别标签 $c $ 的嵌入和为输入，回归生成归一化参数。  
+- Adaptive Layer Norm, adaLN 块。传统的 LayerNorm 直接学习缩放和偏移参数 $\gamma$ 和 $\beta$，而 adaLN 通过回归计算这些参数。$\gamma, \beta = \text{MLP}(t + c)$，其中，$MLP$ 以时间步 $t$ 和类别标签 $c$ 的嵌入和为输入，回归生成归一化参数。  
 
-- adaLN-Zero 块。在 adaLN 方案的基础上，进一步引入通道维度缩放参数 $\alpha $，并在残差连接之前应用 $\alpha = \text{MLP}(t + c)$。采用零初始化策略，MLP 在初始状态下输出全零向量 $\alpha = 0 $，使得整个 Transformer 块的初始状态等价于恒等映射（identity function）。
+- adaLN-Zero 块。在 adaLN 方案的基础上，进一步引入通道维度缩放参数 $\alpha$，并在残差连接之前应用 $\alpha = \text{MLP}(t + c)$。采用零初始化策略，MLP 在初始状态下输出全零向量 $\alpha = 0$，使得整个 Transformer 块的初始状态等价于恒等映射（identity function）。
 
 ### Model size
-在 DiT 中，模型由 $ N $ 个 DiT blocks 组成，每个块在隐藏维度大小 $ d $ 上进行计算。DiT 采用与 ViT 类似的 Transformer 配置，即同时缩放 Transformer 块数量 $ N $，隐藏维度大小 $ d $，注意力头数（Attention Heads）。
+在 DiT 中，模型由 $N$ 个 DiT blocks 组成，每个块在隐藏维度大小 $d$ 上进行计算。DiT 采用与 ViT 类似的 Transformer 配置，即同时缩放 Transformer 块数量 $N$，隐藏维度大小 $d$，注意力头数（Attention Heads）。
 
 DiT 提供了四种不同规模的模型配置，分别为：DiT-S（Small），DiT-B（Base），DiT-L（Large），DiT-XL（Extra Large）。 
 
