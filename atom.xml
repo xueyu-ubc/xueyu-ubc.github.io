@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Welcome to XueYu&#39;s Blog</title>
+  
+  
+  <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://xueyu-ubc.github.io/"/>
+  <updated>2026-05-13T10:07:41.687Z</updated>
+  <id>https://xueyu-ubc.github.io/</id>
+  
+  <author>
+    <name>Xue Yu</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Embodied World Models</title>
+    <link href="https://xueyu-ubc.github.io/2026/05/01/Embodied_World_Models/"/>
+    <id>https://xueyu-ubc.github.io/2026/05/01/Embodied_World_Models/</id>
+    <published>2026-05-01T00:00:00.000Z</published>
+    <updated>2026-05-13T10:07:41.687Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Evaluation&lt;/h1&gt;
+&lt;h2 id=&quot;20250518-ewmbench-evaluating-scene-motion-and-semantic-quality-in-embodied-world-models&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>DeepLearning.AI Courses</title>
+    <link href="https://xueyu-ubc.github.io/2025/07/08/DeepLearningAI/"/>
+    <id>https://xueyu-ubc.github.io/2025/07/08/DeepLearningAI/</id>
+    <published>2025-07-07T16:00:00.000Z</published>
+    <updated>2025-07-15T11:08:48.999Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/&quot;&gt;（20250709）MCP: Build Rich-Context AI</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>(GUI) Agent Papers</title>
+    <link href="https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/"/>
+    <id>https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/</id>
+    <published>2025-05-31T16:00:00.000Z</published>
+    <updated>2025-11-19T09:18:18.049Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://arxiv.org/abs/2401.10935&quot;&gt;（202402）SeeClick: Harnessing GUI Grounding for Advanced Visual GUI</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>(GUI) Agent with RL Papers</title>
+    <link href="https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/"/>
+    <id>https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/</id>
+    <published>2025-05-01T00:00:00.000Z</published>
+    <updated>2025-09-30T06:38:35.653Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.08296&quot;&gt;(201805)(HRL) Data-Efficient Hierarchical Reinforcement Learning&lt;/a&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>World Model</title>
+    <link href="https://xueyu-ubc.github.io/2025/05/01/World-model/"/>
+    <id>https://xueyu-ubc.github.io/2025/05/01/World-model/</id>
+    <published>2025-05-01T00:00:00.000Z</published>
+    <updated>2026-05-06T06:57:07.911Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;%E2%80%8Bhttps://arxiv.org/html/2406.14852v1%E2%80%8B&quot;&gt;(202411) Is A Picture Worth A Thousand Words? Delving Into Spatial</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Multi-Agent Papers</title>
+    <link href="https://xueyu-ubc.github.io/2025/05/01/multi_agent_papers/"/>
+    <id>https://xueyu-ubc.github.io/2025/05/01/multi_agent_papers/</id>
+    <published>2025-05-01T00:00:00.000Z</published>
+    <updated>2025-07-15T08:38:42.895Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://huggingface.co/gaia-benchmark&quot;&gt;(20231121)（Benchmark） GAIA: A Benchmark for General AI Assistants&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;本文提出了</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Trustworthy GUI Agents</title>
+    <link href="https://xueyu-ubc.github.io/2025/04/28/trustworthy_agent/"/>
+    <id>https://xueyu-ubc.github.io/2025/04/28/trustworthy_agent/</id>
+    <published>2025-04-28T09:00:00.000Z</published>
+    <updated>2025-12-18T08:37:40.114Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Agent Safety&lt;/h1&gt;
+&lt;h2 id=&quot;20241114-navigating-the-risks-a-survey-of-security-privacy-and-ethics-threats-in-llm-based-agents&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="GUI" scheme="https://xueyu-ubc.github.io/categories/GUI/"/>
+    
+    
+    <category term="Agents" scheme="https://xueyu-ubc.github.io/tags/Agents/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Reinforcement Learning for LLM Reasoning</title>
+    <link href="https://xueyu-ubc.github.io/2025/04/23/Reinforcement-Learning/"/>
+    <id>https://xueyu-ubc.github.io/2025/04/23/Reinforcement-Learning/</id>
+    <published>2025-04-23T02:00:00.000Z</published>
+    <updated>2025-09-19T02:25:01.541Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;llm-的幻觉问题&quot;&gt;LLM 的幻觉问题&lt;/h2&gt;
+&lt;p&gt;Great thanks to this blog: &lt;a href=&quot;https://aman.ai/primers/ai/hallucination/&quot;&gt;NLP • Hallucination</summary>
+        
+      
+    
+    
+    
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
+    
+    
+    <category term="LLM" scheme="https://xueyu-ubc.github.io/tags/LLM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ByteDance Seed</title>
+    <link href="https://xueyu-ubc.github.io/2025/04/18/UI_TARS/"/>
+    <id>https://xueyu-ubc.github.io/2025/04/18/UI_TARS/</id>
+    <published>2025-04-17T16:00:00.000Z</published>
+    <updated>2025-09-19T02:29:56.341Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://arxiv.org/abs/2501.12326v1&quot;&gt;UI-TARS: Pioneering Automated GUI Interaction with Native Agents&lt;/a&gt;&lt;/h1&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="GUI" scheme="https://xueyu-ubc.github.io/categories/GUI/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>The State of LLM Reasoning Models (Part 1: Inference-Time Compute Scaling Methods)</title>
+    <link href="https://xueyu-ubc.github.io/2025/03/21/The_State_of_LLM_Reasoning_Models/"/>
+    <id>https://xueyu-ubc.github.io/2025/03/21/The_State_of_LLM_Reasoning_Models/</id>
+    <published>2025-03-21T09:00:00.000Z</published>
+    <updated>2026-05-14T07:54:13.836Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Part 1: Inference-Time Compute Scaling Methods&lt;/h1&gt;
+&lt;p&gt;在 2025 年，提高 LLM 的推理能力已成为最热门的话题之一，更强的推理能力使 LLM</summary>
+        
+      
+    
+    
+    
+    <category term="AI research works" scheme="https://xueyu-ubc.github.io/categories/AI-research-works/"/>
+    
+    
+    <category term="LLM" scheme="https://xueyu-ubc.github.io/tags/LLM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Diffusion Models (LDM, DiT, SiT, REPA, STF, KNN score estimator)</title>
+    <link href="https://xueyu-ubc.github.io/2025/03/19/DiffusionModels/"/>
+    <id>https://xueyu-ubc.github.io/2025/03/19/DiffusionModels/</id>
+    <published>2025-03-19T03:00:00.000Z</published>
+    <updated>2025-05-26T15:30:10.899Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Latent Diffusion Models&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/CompVis/latent-diffusion?tab=readme-ov-file&quot;&gt;Official PyTorch</summary>
+        
+      
+    
+    
+    
+    <category term="Generative Model" scheme="https://xueyu-ubc.github.io/categories/Generative-Model/"/>
+    
+    
+    <category term="Diffusion" scheme="https://xueyu-ubc.github.io/tags/Diffusion/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Research works in Feb. 2025</title>
+    <link href="https://xueyu-ubc.github.io/2025/02/01/papers_202502/"/>
+    <id>https://xueyu-ubc.github.io/2025/02/01/papers_202502/</id>
+    <published>2025-02-01T00:00:00.000Z</published>
+    <updated>2025-03-06T07:25:33.051Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;DeepSeek 技术路线&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2501.12948&quot;&gt;DeepSeek-R1 paper&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Blogs:&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>推荐系统</title>
+    <link href="https://xueyu-ubc.github.io/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://xueyu-ubc.github.io/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</id>
+    <published>2024-11-15T08:00:00.000Z</published>
+    <updated>2025-02-22T06:14:06.682Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;基本概念&lt;/h1&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="电商" scheme="https://xueyu-ubc.github.io/categories/%E7%94%B5%E5%95%86/"/>
+    
+    
+    <category term="搜广推" scheme="https://xueyu-ubc.github.io/tags/%E6%90%9C%E5%B9%BF%E6%8E%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Model Acceleration</title>
+    <link href="https://xueyu-ubc.github.io/2024/11/08/Model_Acceleration/"/>
+    <id>https://xueyu-ubc.github.io/2024/11/08/Model_Acceleration/</id>
+    <published>2024-11-08T11:00:00.000Z</published>
+    <updated>2024-11-08T13:46:05.832Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Training Optimizations&lt;/h1&gt;
+&lt;h2 id=&quot;flashattention&quot;&gt;FlashAttention&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2205.14135&quot;&gt;FlashAttention:</summary>
+        
+      
+    
+    
+    
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
+    
+    
+    <category term="Transformer" scheme="https://xueyu-ubc.github.io/tags/Transformer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AI Agents Framework</title>
+    <link href="https://xueyu-ubc.github.io/2024/11/08/agents_framework/"/>
+    <id>https://xueyu-ubc.github.io/2024/11/08/agents_framework/</id>
+    <published>2024-11-08T06:00:00.000Z</published>
+    <updated>2025-05-07T06:09:15.009Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-agent-工作流程&quot;&gt;1. Agent</summary>
+        
+      
+    
+    
+    
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
+    
+    
+    <category term="Agents" scheme="https://xueyu-ubc.github.io/tags/Agents/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习常见算法&amp;数理统计基础知识</title>
+    <link href="https://xueyu-ubc.github.io/2024/10/08/statistic/"/>
+    <id>https://xueyu-ubc.github.io/2024/10/08/statistic/</id>
+    <published>2024-10-08T02:10:10.000Z</published>
+    <updated>2025-02-25T13:04:34.279Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;一、机器学习相关&lt;/h1&gt;
+&lt;h2 id=&quot;1-基本概念&quot;&gt;1. 基本概念&lt;/h2&gt;
+&lt;h3 id=&quot;1-1-排序&quot;&gt;1.1. 排序&lt;/h3&gt;
+&lt;h4</summary>
+        
+      
+    
+    
+    
+    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/categories/Machine-Learning/"/>
+    
+    
+    <category term="Machine Learning" scheme="https://xueyu-ubc.github.io/tags/Machine-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vision-Language Models</title>
+    <link href="https://xueyu-ubc.github.io/2024/09/12/VLM/"/>
+    <id>https://xueyu-ubc.github.io/2024/09/12/VLM/</id>
+    <published>2024-09-12T07:00:00.000Z</published>
+    <updated>2025-05-27T06:14:32.368Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Architecture of Vision-Language Models&lt;/h1&gt;
+&lt;p&gt;视觉语言模型（VLM）集成了视觉（图像）和文本（语言）信息处理功能。旨在理解和生成涉及图像和文本的内容，从而能够执行图像标题、视觉问题解答和文本到图像的生成等任务。VLM</summary>
+        
+      
+    
+    
+    
+    <category term="Multimodal LLMs" scheme="https://xueyu-ubc.github.io/categories/Multimodal-LLMs/"/>
+    
+    
+    <category term="VLM" scheme="https://xueyu-ubc.github.io/tags/VLM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Transformer, KV Cache, MHA, MQA, GQA, BERT, ViT, MAE, Swin Transformer, 常用评估指标</title>
+    <link href="https://xueyu-ubc.github.io/2024/08/26/Transformer/"/>
+    <id>https://xueyu-ubc.github.io/2024/08/26/Transformer/</id>
+    <published>2024-08-25T23:30:00.000Z</published>
+    <updated>2025-02-25T13:15:18.333Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Attention is all you need&lt;/h1&gt;
+&lt;h2 id=&quot;comparison-with-rnn-and-cnn&quot;&gt;Comparison with RNN and CNN&lt;/h2&gt;
+&lt;p&gt;RNN: 对于给定一个序列，从左向右进行计算。对于第&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="Foundation Model" scheme="https://xueyu-ubc.github.io/categories/Foundation-Model/"/>
+    
+    
+    <category term="Transformer" scheme="https://xueyu-ubc.github.io/tags/Transformer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Generative Models</title>
+    <link href="https://xueyu-ubc.github.io/2023/11/29/Generative-Models/"/>
+    <id>https://xueyu-ubc.github.io/2023/11/29/Generative-Models/</id>
+    <published>2023-11-29T07:00:00.000Z</published>
+    <updated>2024-08-25T23:38:21.704Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Generative Models&lt;/h1&gt;
+&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive Models, GAN, Flow-based Models,</summary>
+        
+      
+    
+    
+    
+    <category term="Generative Model" scheme="https://xueyu-ubc.github.io/categories/Generative-Model/"/>
+    
+    
+    <category term="Diffusion" scheme="https://xueyu-ubc.github.io/tags/Diffusion/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>The Effect of Data Centering on PCA Models</title>
+    <link href="https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/"/>
+    <id>https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/</id>
+    <published>2023-11-07T11:00:00.000Z</published>
+    <updated>2024-08-25T23:54:07.896Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;A common misconception in PCA is that PC 1 is the mean of the data when the data are not centered. It was shown in this paper that PC 1</summary>
+        
+      
+    
+    
+    
+    <category term="Statistic" scheme="https://xueyu-ubc.github.io/categories/Statistic/"/>
+    
+    
+    <category term="Statistic" scheme="https://xueyu-ubc.github.io/tags/Statistic/"/>
+    
+  </entry>
+  
+</feed>
