@@ -1,5 +1,5 @@
 ---
-title: The State of LLM Reasoning Models (Part 1: Inference-Time Compute Scaling Methods)
+title: "The State of LLM Reasoning Models (Part 1: Inference-Time Compute Scaling Methods)"
 date: 2025-03-21 17:00:00
 tags: LLM
 categories: AI research works
