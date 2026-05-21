@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2025-10-16T10:33:11.975Z</updated>
+  <updated>2026-05-21T03:07:59.332Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -18,17 +18,18 @@
   
   <entry>
     <title>Embodied World Models</title>
-    <link href="https://xueyu-ubc.github.io/2025/08/01/Embodied_World_Models/"/>
-    <id>https://xueyu-ubc.github.io/2025/08/01/Embodied_World_Models/</id>
-    <published>2025-08-01T00:00:00.000Z</published>
-    <updated>2025-10-16T10:33:11.975Z</updated>
+    <link href="https://xueyu-ubc.github.io/2026/05/01/Embodied_World_Models/"/>
+    <id>https://xueyu-ubc.github.io/2026/05/01/Embodied_World_Models/</id>
+    <published>2026-05-01T00:00:00.000Z</published>
+    <updated>2026-05-21T03:07:59.332Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1&gt;Evaluation&lt;/h1&gt;
+&lt;h2 id=&quot;20250518-ewmbench-evaluating-scene-motion-and-semantic-quality-in-embodied-world-models&quot;&gt;&lt;a</summary>
         
       
     
@@ -51,7 +52,7 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://www.deeplearning.ai/short-courses/mcp-build-rich-context-ai-apps-with-anthropic/&quot;&gt;（20250709）MCP: Build Rich-Context AI</summary>
         
       
     
@@ -67,14 +68,14 @@
     <link href="https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/"/>
     <id>https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/</id>
     <published>2025-05-31T16:00:00.000Z</published>
-    <updated>2025-09-01T07:37:07.430Z</updated>
+    <updated>2025-11-19T09:18:18.049Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://arxiv.org/abs/2401.10935&quot;&gt;（202402）SeeClick: Harnessing GUI Grounding for Advanced Visual GUI</summary>
         
       
     
@@ -97,7 +98,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://arxiv.org/abs/1805.08296&quot;&gt;(201805)(HRL) Data-Efficient Hierarchical Reinforcement Learning&lt;/a&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;a</summary>
         
       
     
@@ -120,7 +122,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://huggingface.co/gaia-benchmark&quot;&gt;(20231121)（Benchmark） GAIA: A Benchmark for General AI Assistants&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;本文提出了</summary>
         
       
     
@@ -136,14 +139,14 @@
     <link href="https://xueyu-ubc.github.io/2025/05/01/World-model/"/>
     <id>https://xueyu-ubc.github.io/2025/05/01/World-model/</id>
     <published>2025-05-01T00:00:00.000Z</published>
-    <updated>2025-08-28T06:09:12.092Z</updated>
+    <updated>2026-05-06T06:57:07.911Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;%E2%80%8Bhttps://arxiv.org/html/2406.14852v1%E2%80%8B&quot;&gt;(202411) Is A Picture Worth A Thousand Words? Delving Into Spatial</summary>
         
       
     
@@ -159,14 +162,15 @@
     <link href="https://xueyu-ubc.github.io/2025/04/28/trustworthy_agent/"/>
     <id>https://xueyu-ubc.github.io/2025/04/28/trustworthy_agent/</id>
     <published>2025-04-28T09:00:00.000Z</published>
-    <updated>2025-05-30T04:49:07.825Z</updated>
+    <updated>2025-12-18T08:37:40.114Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;Agent-Safety&quot;&gt;&lt;a href=&quot;#Agent-Safety&quot; class=&quot;headerlink&quot; title=&quot;Agent Safety&quot;&gt;&lt;/a&gt;Agent Safety&lt;/h1&gt;&lt;h2</summary>
+    <summary type="html">&lt;h1&gt;Agent Safety&lt;/h1&gt;
+&lt;h2 id=&quot;20241114-navigating-the-risks-a-survey-of-security-privacy-and-ethics-threats-in-llm-based-agents&quot;&gt;&lt;a</summary>
         
       
     
@@ -191,7 +195,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;llm-的幻觉问题&quot;&gt;LLM 的幻觉问题&lt;/h2&gt;
+&lt;p&gt;Great thanks to this blog: &lt;a href=&quot;https://aman.ai/primers/ai/hallucination/&quot;&gt;NLP • Hallucination</summary>
         
       
     
@@ -216,7 +221,8 @@
       
         
         
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot;</summary>
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;https://arxiv.org/abs/2501.12326v1&quot;&gt;UI-TARS: Pioneering Automated GUI Interaction with Native Agents&lt;/a&gt;&lt;/h1&gt;
+&lt;h2</summary>
         
       
     
@@ -228,20 +234,19 @@
   </entry>
   
   <entry>
-    <title>The State of LLM Reasoning Models (Part 1)</title>
+    <title>The State of LLM Reasoning Models (Part 1: Inference-Time Compute Scaling Methods)</title>
     <link href="https://xueyu-ubc.github.io/2025/03/21/The_State_of_LLM_Reasoning_Models/"/>
     <id>https://xueyu-ubc.github.io/2025/03/21/The_State_of_LLM_Reasoning_Models/</id>
     <published>2025-03-21T09:00:00.000Z</published>
-    <updated>2025-03-24T10:10:39.175Z</updated>
+    <updated>2026-05-14T07:54:13.836Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;part-1-inference-time-compute-scaling-methods&quot;&gt;Part 1:
-Inference-Time Compute Scaling Methods&lt;/h1&gt;
-&lt;p&gt;在 2025 年，提高</summary>
+    <summary type="html">&lt;h1&gt;Part 1: Inference-Time Compute Scaling Methods&lt;/h1&gt;
+&lt;p&gt;在 2025 年，提高 LLM 的推理能力已成为最热门的话题之一，更强的推理能力使 LLM</summary>
         
       
     
@@ -266,8 +271,8 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;latent-diffusion-models&quot;&gt;Latent Diffusion Models&lt;/h1&gt;
-&lt;p&gt;&lt;a</summary>
+    <summary type="html">&lt;h1&gt;Latent Diffusion Models&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/CompVis/latent-diffusion?tab=readme-ov-file&quot;&gt;Official PyTorch</summary>
         
       
     
@@ -292,7 +297,7 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;deepseek-技术路线&quot;&gt;DeepSeek 技术路线&lt;/h1&gt;
+    <summary type="html">&lt;h1&gt;DeepSeek 技术路线&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2501.12948&quot;&gt;DeepSeek-R1 paper&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Blogs:&lt;/p&gt;
 &lt;p&gt;&lt;a</summary>
@@ -318,9 +323,8 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;基本概念&quot;&gt;基本概念&lt;/h1&gt;
-&lt;h3 id=&quot;短期消费指标&quot;&gt;短期消费指标&lt;/h3&gt;
-&lt;ol</summary>
+    <summary type="html">&lt;h1&gt;基本概念&lt;/h1&gt;
+&lt;h3</summary>
         
       
     
@@ -338,16 +342,16 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
     <link href="https://xueyu-ubc.github.io/2024/11/08/Model_Acceleration/"/>
     <id>https://xueyu-ubc.github.io/2024/11/08/Model_Acceleration/</id>
     <published>2024-11-08T11:00:00.000Z</published>
-    <updated>2024-11-08T13:45:28.443Z</updated>
+    <updated>2024-11-08T13:46:05.832Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;training-optimizations&quot;&gt;Training Optimizations&lt;/h1&gt;
+    <summary type="html">&lt;h1&gt;Training Optimizations&lt;/h1&gt;
 &lt;h2 id=&quot;flashattention&quot;&gt;FlashAttention&lt;/h2&gt;
-&lt;p&gt;&lt;a</summary>
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2205.14135&quot;&gt;FlashAttention:</summary>
         
       
     
@@ -372,7 +376,7 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h2 id=&quot;agent-工作流程&quot;&gt;1. Agent</summary>
+    <summary type="html">&lt;h2 id=&quot;1-agent-工作流程&quot;&gt;1. Agent</summary>
         
       
     
@@ -397,9 +401,9 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;一机器学习相关&quot;&gt;一、机器学习相关&lt;/h1&gt;
-&lt;h2 id=&quot;基本概念&quot;&gt;1. 基本概念&lt;/h2&gt;
-&lt;h3 id=&quot;排序&quot;&gt;1.1. 排序&lt;/h3&gt;
+    <summary type="html">&lt;h1&gt;一、机器学习相关&lt;/h1&gt;
+&lt;h2 id=&quot;1-基本概念&quot;&gt;1. 基本概念&lt;/h2&gt;
+&lt;h3 id=&quot;1-1-排序&quot;&gt;1.1. 排序&lt;/h3&gt;
 &lt;h4</summary>
         
       
@@ -425,8 +429,8 @@ Inference-Time Compute Scaling Methods&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;architecture-of-vision-language-models&quot;&gt;Architecture of
-Vision-Language</summary>
+    <summary type="html">&lt;h1&gt;Architecture of Vision-Language Models&lt;/h1&gt;
+&lt;p&gt;视觉语言模型（VLM）集成了视觉（图像）和文本（语言）信息处理功能。旨在理解和生成涉及图像和文本的内容，从而能够执行图像标题、视觉问题解答和文本到图像的生成等任务。VLM</summary>
         
       
     
@@ -451,8 +455,9 @@ Vision-Language</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;attention-is-all-you-need&quot;&gt;Attention is all you need&lt;/h1&gt;
-&lt;h2 id=&quot;comparison-with-rnn-and-cnn&quot;&gt;Comparison with RNN and</summary>
+    <summary type="html">&lt;h1&gt;Attention is all you need&lt;/h1&gt;
+&lt;h2 id=&quot;comparison-with-rnn-and-cnn&quot;&gt;Comparison with RNN and CNN&lt;/h2&gt;
+&lt;p&gt;RNN: 对于给定一个序列，从左向右进行计算。对于第&lt;span</summary>
         
       
     
@@ -477,9 +482,8 @@ Vision-Language</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;generative-models&quot;&gt;Generative Models&lt;/h1&gt;
-&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive
-Models, GAN,</summary>
+    <summary type="html">&lt;h1&gt;Generative Models&lt;/h1&gt;
+&lt;h2 id=&quot;autoregressive-models-gan-flow-based-models-vae&quot;&gt;Autoregressive Models, GAN, Flow-based Models,</summary>
         
       
     
@@ -504,8 +508,7 @@ Models, GAN,</summary>
       
         
         
-    <summary type="html">&lt;p&gt;A common misconception in PCA is that PC 1 is the mean of the data
-when the data are not centered. It was shown in this paper that PC 1</summary>
+    <summary type="html">&lt;p&gt;A common misconception in PCA is that PC 1 is the mean of the data when the data are not centered. It was shown in this paper that PC 1</summary>
         
       
     
