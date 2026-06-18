@@ -6,7 +6,7 @@
   <link href="https://xueyu-ubc.github.io/atom.xml" rel="self"/>
   
   <link href="https://xueyu-ubc.github.io/"/>
-  <updated>2026-05-21T03:07:59.332Z</updated>
+  <updated>2026-06-17T11:01:30.700Z</updated>
   <id>https://xueyu-ubc.github.io/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Embodied World Models</title>
+    <title>Embodied World Models (2)</title>
+    <link href="https://xueyu-ubc.github.io/2026/05/01/Embodied_World_Models_2/"/>
+    <id>https://xueyu-ubc.github.io/2026/05/01/Embodied_World_Models_2/</id>
+    <published>2026-05-01T00:00:00.000Z</published>
+    <updated>2026-06-17T11:01:30.700Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Vison Language Action Models&lt;/h1&gt;
+&lt;h2 id=&quot;simvla-a-simple-vla-baseline-for-robotic-manipulation&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Embodied World Models (2)</title>
     <link href="https://xueyu-ubc.github.io/2026/05/01/Embodied_World_Models/"/>
     <id>https://xueyu-ubc.github.io/2026/05/01/Embodied_World_Models/</id>
     <published>2026-05-01T00:00:00.000Z</published>
-    <updated>2026-05-21T03:07:59.332Z</updated>
+    <updated>2026-06-16T09:07:47.623Z</updated>
     
     
       
@@ -45,7 +69,7 @@
     <link href="https://xueyu-ubc.github.io/2025/07/08/DeepLearningAI/"/>
     <id>https://xueyu-ubc.github.io/2025/07/08/DeepLearningAI/</id>
     <published>2025-07-07T16:00:00.000Z</published>
-    <updated>2025-07-15T11:08:48.999Z</updated>
+    <updated>2025-07-15T11:08:48.000Z</updated>
     
     
       
@@ -68,7 +92,7 @@
     <link href="https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/"/>
     <id>https://xueyu-ubc.github.io/2025/06/01/GUIagent_papers/</id>
     <published>2025-05-31T16:00:00.000Z</published>
-    <updated>2025-11-19T09:18:18.049Z</updated>
+    <updated>2025-11-19T09:18:18.000Z</updated>
     
     
       
@@ -91,7 +115,7 @@
     <link href="https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/"/>
     <id>https://xueyu-ubc.github.io/2025/05/01/GUIagent-with-RL-papers/</id>
     <published>2025-05-01T00:00:00.000Z</published>
-    <updated>2025-09-30T06:38:35.653Z</updated>
+    <updated>2025-09-30T06:38:35.000Z</updated>
     
     
       
@@ -111,11 +135,34 @@
   </entry>
   
   <entry>
+    <title>World Model</title>
+    <link href="https://xueyu-ubc.github.io/2025/05/01/World-model/"/>
+    <id>https://xueyu-ubc.github.io/2025/05/01/World-model/</id>
+    <published>2025-05-01T00:00:00.000Z</published>
+    <updated>2026-05-06T06:57:07.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;&lt;a href=&quot;%E2%80%8Bhttps://arxiv.org/html/2406.14852v1%E2%80%8B&quot;&gt;(202411) Is A Picture Worth A Thousand Words? Delving Into Spatial</summary>
+        
+      
+    
+    
+    
+    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Multi-Agent Papers</title>
     <link href="https://xueyu-ubc.github.io/2025/05/01/multi_agent_papers/"/>
     <id>https://xueyu-ubc.github.io/2025/05/01/multi_agent_papers/</id>
     <published>2025-05-01T00:00:00.000Z</published>
-    <updated>2025-07-15T08:38:42.895Z</updated>
+    <updated>2025-07-15T08:38:42.000Z</updated>
     
     
       
@@ -135,34 +182,11 @@
   </entry>
   
   <entry>
-    <title>World Model</title>
-    <link href="https://xueyu-ubc.github.io/2025/05/01/World-model/"/>
-    <id>https://xueyu-ubc.github.io/2025/05/01/World-model/</id>
-    <published>2025-05-01T00:00:00.000Z</published>
-    <updated>2026-05-06T06:57:07.911Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;&lt;a href=&quot;%E2%80%8Bhttps://arxiv.org/html/2406.14852v1%E2%80%8B&quot;&gt;(202411) Is A Picture Worth A Thousand Words? Delving Into Spatial</summary>
-        
-      
-    
-    
-    
-    <category term="research works" scheme="https://xueyu-ubc.github.io/categories/research-works/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>Trustworthy GUI Agents</title>
     <link href="https://xueyu-ubc.github.io/2025/04/28/trustworthy_agent/"/>
     <id>https://xueyu-ubc.github.io/2025/04/28/trustworthy_agent/</id>
     <published>2025-04-28T09:00:00.000Z</published>
-    <updated>2025-12-18T08:37:40.114Z</updated>
+    <updated>2025-12-18T08:37:40.000Z</updated>
     
     
       
@@ -188,7 +212,7 @@
     <link href="https://xueyu-ubc.github.io/2025/04/23/Reinforcement-Learning/"/>
     <id>https://xueyu-ubc.github.io/2025/04/23/Reinforcement-Learning/</id>
     <published>2025-04-23T02:00:00.000Z</published>
-    <updated>2025-09-19T02:25:01.541Z</updated>
+    <updated>2025-09-19T02:25:01.000Z</updated>
     
     
       
@@ -214,7 +238,7 @@
     <link href="https://xueyu-ubc.github.io/2025/04/18/UI_TARS/"/>
     <id>https://xueyu-ubc.github.io/2025/04/18/UI_TARS/</id>
     <published>2025-04-17T16:00:00.000Z</published>
-    <updated>2025-09-19T02:29:56.341Z</updated>
+    <updated>2025-09-19T02:29:56.000Z</updated>
     
     
       
@@ -238,7 +262,7 @@
     <link href="https://xueyu-ubc.github.io/2025/03/21/The_State_of_LLM_Reasoning_Models/"/>
     <id>https://xueyu-ubc.github.io/2025/03/21/The_State_of_LLM_Reasoning_Models/</id>
     <published>2025-03-21T09:00:00.000Z</published>
-    <updated>2026-05-14T07:54:13.836Z</updated>
+    <updated>2026-05-14T07:54:13.000Z</updated>
     
     
       
@@ -264,7 +288,7 @@
     <link href="https://xueyu-ubc.github.io/2025/03/19/DiffusionModels/"/>
     <id>https://xueyu-ubc.github.io/2025/03/19/DiffusionModels/</id>
     <published>2025-03-19T03:00:00.000Z</published>
-    <updated>2025-05-26T15:30:10.899Z</updated>
+    <updated>2025-05-26T15:30:10.000Z</updated>
     
     
       
@@ -290,7 +314,7 @@
     <link href="https://xueyu-ubc.github.io/2025/02/01/papers_202502/"/>
     <id>https://xueyu-ubc.github.io/2025/02/01/papers_202502/</id>
     <published>2025-02-01T00:00:00.000Z</published>
-    <updated>2025-03-06T07:25:33.051Z</updated>
+    <updated>2025-03-06T07:25:33.000Z</updated>
     
     
       
@@ -316,7 +340,7 @@
     <link href="https://xueyu-ubc.github.io/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/"/>
     <id>https://xueyu-ubc.github.io/2024/11/15/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/</id>
     <published>2024-11-15T08:00:00.000Z</published>
-    <updated>2025-02-22T06:14:06.682Z</updated>
+    <updated>2025-02-22T06:14:06.000Z</updated>
     
     
       
@@ -342,7 +366,7 @@
     <link href="https://xueyu-ubc.github.io/2024/11/08/Model_Acceleration/"/>
     <id>https://xueyu-ubc.github.io/2024/11/08/Model_Acceleration/</id>
     <published>2024-11-08T11:00:00.000Z</published>
-    <updated>2024-11-08T13:46:05.832Z</updated>
+    <updated>2024-11-08T13:46:05.000Z</updated>
     
     
       
@@ -369,7 +393,7 @@
     <link href="https://xueyu-ubc.github.io/2024/11/08/agents_framework/"/>
     <id>https://xueyu-ubc.github.io/2024/11/08/agents_framework/</id>
     <published>2024-11-08T06:00:00.000Z</published>
-    <updated>2025-05-07T06:09:15.009Z</updated>
+    <updated>2025-05-07T06:09:15.000Z</updated>
     
     
       
@@ -394,7 +418,7 @@
     <link href="https://xueyu-ubc.github.io/2024/10/08/statistic/"/>
     <id>https://xueyu-ubc.github.io/2024/10/08/statistic/</id>
     <published>2024-10-08T02:10:10.000Z</published>
-    <updated>2025-02-25T13:04:34.279Z</updated>
+    <updated>2025-02-25T13:04:34.000Z</updated>
     
     
       
@@ -422,7 +446,7 @@
     <link href="https://xueyu-ubc.github.io/2024/09/12/VLM/"/>
     <id>https://xueyu-ubc.github.io/2024/09/12/VLM/</id>
     <published>2024-09-12T07:00:00.000Z</published>
-    <updated>2025-05-27T06:14:32.368Z</updated>
+    <updated>2025-05-27T06:14:32.000Z</updated>
     
     
       
@@ -448,7 +472,7 @@
     <link href="https://xueyu-ubc.github.io/2024/08/26/Transformer/"/>
     <id>https://xueyu-ubc.github.io/2024/08/26/Transformer/</id>
     <published>2024-08-25T23:30:00.000Z</published>
-    <updated>2025-02-25T13:15:18.333Z</updated>
+    <updated>2025-02-25T13:15:18.000Z</updated>
     
     
       
@@ -475,7 +499,7 @@
     <link href="https://xueyu-ubc.github.io/2023/11/29/Generative-Models/"/>
     <id>https://xueyu-ubc.github.io/2023/11/29/Generative-Models/</id>
     <published>2023-11-29T07:00:00.000Z</published>
-    <updated>2024-08-25T23:38:21.704Z</updated>
+    <updated>2024-08-25T23:38:21.000Z</updated>
     
     
       
@@ -493,31 +517,6 @@
     
     
     <category term="Diffusion" scheme="https://xueyu-ubc.github.io/tags/Diffusion/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>The Effect of Data Centering on PCA Models</title>
-    <link href="https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/"/>
-    <id>https://xueyu-ubc.github.io/2023/11/07/The%20Effect%20of%20Data%20Centering%20on%20PCA%20Models/</id>
-    <published>2023-11-07T11:00:00.000Z</published>
-    <updated>2024-08-25T23:54:07.896Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;A common misconception in PCA is that PC 1 is the mean of the data when the data are not centered. It was shown in this paper that PC 1</summary>
-        
-      
-    
-    
-    
-    <category term="Statistic" scheme="https://xueyu-ubc.github.io/categories/Statistic/"/>
-    
-    
-    <category term="Statistic" scheme="https://xueyu-ubc.github.io/tags/Statistic/"/>
     
   </entry>
   
