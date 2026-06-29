@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">15.9k</span>
+            <span class="post-count">17.3k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">57 min</span>
+            <span class="post-count">63 min</span>
         </span>
     </span>
 </div>
@@ -126,7 +126,6 @@
 <p>第二个任务是更困难的 <strong>bimanual alternating flip-and-handover</strong>，机器人需要通过多次双臂交接完成物体 180° 翻转，任务中长期存在接触不确定性、滑移风险和姿态约束。与第一个任务的阶段切换不同，模型在该任务中几乎持续选择最小 chunk size，形成高频闭环调整策略。该方法取得 <strong>90% 成功率</strong>，而最好的固定 chunk baseline 只有 <strong>25%</strong>，说明自适应机制在高不确定、接触丰富任务中尤其重要。</p>
 <p>总体来看，这篇工作的贡献在于把 action chunk length 从人工固定超参数变成由视觉上下文驱动的动态决策变量。它不依赖预定义子任务、技能库或额外层级规划，而是通过双分支网络在模仿学习框架内同时预测动作和执行长度。实验结果表明，自适应 chunking 能在不同任务结构下自动形成不同策略：在阶段清晰的任务中进行长短 chunk 切换，在持续高不确定任务中保持短 chunk 高频反馈。这为后续 VLA/WAM 中的 adaptive action execution 提供了一个直接而可解释的参考。</p>
 <h2 id="aha-wam-asynchronous-horizon-adaptive-world-action-modeling-with-observation-guided-context-routing"><a target="_blank" rel="noopener" href="https://serene-sivy.github.io/aha-wam/static/aha-wam.pdf">AHA-WAM:Asynchronous Horizon-Adaptive World-Action Modeling with Observation-Guided Context Routing</a></h2>
-<h1>AHA-WAM：让长程规划和实时控制真正解耦</h1>
 <p>随着 Cosmos-Policy、Motus、GigaWorld 等 World Action Model（WAM）的出现，机器人开始从“看到状态直接输出动作”的 VLA 范式，逐渐转向“先想象未来，再决定动作”的世界模型范式。然而现有 WAM 普遍面临一个矛盾：高质量未来预测通常需要长时间范围的视频规划，但长 horizon 视频生成成本极高；另一方面，机器人控制又要求高频闭环更新，必须快速响应环境变化。如果每执行一步动作都重新生成长 horizon 未来视频，推理成本会非常高；如果长期复用旧的未来规划，又会因为环境变化导致规划逐渐失效。AHA-WAM 的核心问题正是：如何同时获得长程规划能力和高频闭环控制能力。</p>
 <p>AHA-WAM 的核心思想是将传统 WAM 中耦合的世界建模和动作生成彻底解耦。论文将系统分成两个时间尺度：一个低频运行的 Video Planner 和一个高频运行的 Action Executor。Video Planner 负责建模较长 horizon 的未来视觉动态，例如未来 64 步内场景可能如何变化；Action Executor 只负责生成较短 horizon 的可执行动作 chunk，例如未来 16 步动作。这样，机器人不需要每一步都重新生成完整未来视频，而是让昂贵的长程规划低频运行，让廉价的动作生成高频运行，从而同时兼顾规划能力和推理效率。</p>
 <p>具体来说，Video Planner 使用 Video Diffusion Transformer 建模未来视频 latent，并产生一组长期规划上下文（planner context）。这些 planner context 本质上是 Video DiT 各层产生的 Key/Value 状态，可以理解为压缩后的“未来世界计划”。Action Executor 则是一个 Action Diffusion Transformer，它在生成动作时不仅关注当前观测和机器人状态，还会通过 Joint Attention 读取 planner context。这样，动作生成始终受到长程未来规划的指导，而不是仅依赖当前观测进行局部决策。</p>
@@ -244,6 +243,15 @@ c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
 <p>作者还进行了多组消融实验。仅使用 RGB 预测、不预测未来 mask 时性能明显下降；只使用输入 mask 而不进行未来 mask 预测时性能也有所退化。这说明 Mask Prompting 和 Future Mask Prediction 两部分是互补关系：前者解决目标定位问题，后者解决目标跟踪问题。进一步的 mask corruption 实验表明，即使输入 mask 存在侵蚀、膨胀、位置偏移或局部缺失等噪声，MaskWAM 仍然能够保持较好的性能，说明其并不过度依赖精确像素级标注。</p>
 <p>从研究定位来看，MaskWAM 并没有重新设计世界模型的生成机制，也没有引入新的规划算法。它关注的是一个更加基础但长期被忽略的问题：世界模型究竟应该围绕什么对象进行建模。过去的 WAM 默认世界状态等于 RGB 视频，因此学习目标天然偏向视觉重建；而 MaskWAM 认为，对于机器人操作而言，更重要的是目标对象本身。通过统一 Mask Prompting 和 Future Mask Prediction，MaskWAM 将世界建模从 scene-centric 推向 object-centric，使未来预测不仅描述“未来会发生什么”，还明确描述“目标物体未来会在哪里”。这一思想与近期 WAM 社区从单纯追求视觉真实性转向关注动作相关性、目标对齐和决策可用性的趋势高度一致。</p>
 <p>一句话总结，MaskWAM 的核心贡献不是让世界模型预测得更逼真，而是让世界模型始终知道自己应该关注谁。通过把 mask 同时作为输入提示和未来预测目标，它将目标对象显式地嵌入世界模型的表示与推理过程，从而显著提升了复杂场景中的目标定位能力、抗干扰能力和跨场景泛化能力。</p>
+<h2 id="oa-wam-object-addressable-world-action-model-for-robust-robot-manipulation"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2605.06481">OA-WAM: Object-Addressable World Action Model for Robust Robot Manipulation</a></h2>
+<p>OA-WAM 关注的是 WAM 中一个比“未来预测是否逼真”更具体的问题：当语言指令指向某个物体时，模型内部有没有一个稳定、可查询的对象接口。现有 World Action Model 通常把未来世界表示成整帧图像、视频 token 或全局 latent，这类表示虽然能提供时序监督，但目标物体的身份、外观、姿态和背景上下文会被混在同一组 token 里。这样在相机视角、物体布局或机器人初始位姿变化时，目标物体仍然可见，但 action decoder 可能已经把“应该操作谁”绑定到了训练分布中的视觉上下文。OA-WAM 将这种失败模式概括为缺少 object addressability，也就是世界模型缺少可被动作头稳定寻址的对象状态。</p>
+<p><img src="/2026/05/01/Embodied_World_Models_2/oa_wam_framework.png" alt=""></p>
+<p>方法上，OA-WAM 把每一帧分解成 robot slot 和 object slots，每个 slot 又被拆成两部分：固定的 identity address 和随时间变化的 content。identity address 在 episode 初始时由语言标签和初始 DINOv3 特征计算得到，并在之后保持冻结；content 则由 SAM3 + DINOv3 根据当前帧持续刷新，负责描述物体外观、位置和状态变化。随后，模型把 BPE 文本 token、Chameleon VQ-GAN 图像 token、对象 slot token、本体状态 token 和历史动作 token 组装成 block-causal 序列，并以 <code>[ACT-Q]</code> action query 作为动作头读取入口。这样，世界状态不再只是一个全局未来视频，而是一组带身份地址的对象状态。</p>
+<p>OA-WAM 最关键的结构约束在于 object-addressable attention。对于 slot token，Transformer 中跨 slot 注意力的 key projection 只能读取 address 子向量，而不能读取 time-varying content；同时每一层之后都会把残差流中的 address slice 重置回缓存的冻结 identity address，防止它被后续计算改写。这个设计的目的不是让模型自动获得完美语义 grounding，而是从张量结构上限制“选择哪个 slot”只能由对象身份地址决定，而不能被当前背景、姿态或邻近干扰物改写。content、pose 和语言信息仍然可以通过 value 和残差流参与动作生成，因此模型仍然能利用状态变化，但目标绑定路径被显式隔离出来。</p>
+<p>训练和预测头也延续了 WAM 的联合建模思路。world head 读取每个 slot 的 hidden state，预测下一帧对象 content 和 pose，作为 object-level future prediction 的辅助监督；action head 读取 <code>[ACT-Q]</code> hidden state，用 flow-matching MLP 一次解码 16 步连续 action chunk。总损失由 slot-level world loss、action flow-matching loss、辅助 image-VQ loss，以及面向 distractor permutation / insertion 的一致性正则和弱 role hint 组成。与 MaskWAM 用 mask 提供对象中心监督不同，OA-WAM 更强调“地址”和“内容”的结构性解耦：mask 或 slot extraction 仍然是前端感知的一部分，但真正被验证的是动作头是否通过固定对象地址进行目标选择。</p>
+<p>实验覆盖 LIBERO、SimplerEnv WidowX Visual Matching 和 LIBERO-Plus。标准基准上，OA-WAM 在 LIBERO 四个 suite 的平均成功率为 <strong>97.8%</strong>，高于表中 VLA-JEPA 的 97.2% 和 OpenVLA-OFT 的 96.9%；在 SimplerEnv WidowX 上平均为 <strong>79.3%</strong>，高于 CoWVLA 的 76.0% 和 MemoryVLA 的 71.9%。更能体现论文假设的是 LIBERO-Plus 鲁棒性评测：OA-WAM 在 Camera、Robot init、Layout 三个几何扰动轴上的 Geo Avg 达到 <strong>84.3%</strong>，高于 Cosmos-Policy 的 73.8% 和 VLA-JEPA 的 71.9%；七类扰动总体平均为 <strong>83.9%</strong>，接近但低于 π0.5 的 85.7%。论文特别指出，OA-WAM 在 Sensor Noise 上只有 75.6%，明显低于 Cosmos-Policy 的 92.7% 和 π0.5 的 89.7%，主要因为光度噪声会破坏前端 slot extraction，而不是 addressable policy 本身一定失效。</p>
+<p>消融实验进一步把收益定位到 OA 结构，而不是单纯的 SAM3/DINOv3 感知前端。完整 OA-WAM 的 LIBERO-Plus camera 成功率为 <strong>80.5%</strong>，关掉 key mask 后降到 67.2%，完全去掉 OA 约束后为 60.5%；与此同时 LIBERO in-distribution 变化很小，说明 OA 主要带来的是几何 OOD 下的目标绑定稳定性，而不是普通容量增益。更直接的 causal slot intervention 测试中，作者在测试时交换语言绑定目标 slot 和另一个场景 slot 的 address，观察末端轨迹是否转向被交换的新目标。完整 OA-WAM 的 swap-binding cosine 达到 <strong>0.87</strong>，而 OpenVLA、WorldVLA、VLA-JEPA、Cosmos-Policy、GE-Act 等 holistic baseline 都在 0.04 到 0.09 附近。这说明模型确实把“操作谁”的决策通道放在 address subspace 上。</p>
+<p>从研究定位看，OA-WAM 和 MaskWAM 都在反思 RGB-centric / holistic WAM 的局限，但切入点不同：MaskWAM 用目标 mask 让世界模型始终关注任务对象，OA-WAM 则把对象表示拆成 frozen address 和 dynamic content，并在注意力路由层面强制保持对象可寻址性。它的价值在于把鲁棒操作问题从“再多做一些数据增强”推进到“世界模型内部是否有稳定对象接口”。局限也很清楚：目前验证仍主要在仿真基准上，方法强依赖 Qwen3-VL、SAM3、DINOv3 等前端感知和 slot 初始化；如果小物体、透明物体、遮挡或噪声导致 slot 本身错误，addressable attention 无法凭空修复。因此 OA-WAM 更像是给 WAM 提供了一种可解释、可干预的对象绑定结构，而不是完整解决真实机器人感知鲁棒性的最终方案。</p>
  
       <!-- reward -->
       
