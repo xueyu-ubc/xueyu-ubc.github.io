@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Vision-Language-Action Models |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+<script src="/js/hexo_resize_image.js"></script>
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Vision_Language_Action_Models"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Vision-Language-Action Models
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2026/05/01/Vision_Language_Action_Models/" class="article-date">
+  <time datetime="2026-05-01T00:00:00.000Z" itemprop="datePublished">2026-05-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/research-works/">research works</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">19.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">74 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="vla-基线统一架构与推理规划">VLA 基线、统一架构与推理规划</h1>
+<h2 id="simvla-a-simple-vla-baseline-for-robotic-manipulation"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2602.18224">SimVLA: A Simple VLA Baseline
+for Robotic Manipulation</a></h2>
+<p>过去一年，Vision-Language-Action（VLA）模型发展非常迅速。从
+OpenVLA、π0、GR00T 到各种引入 3D
+几何、空间先验、记忆模块和世界模型的工作，VLA
+架构变得越来越复杂。然而作者发现一个有趣现象：许多新方法同时修改了模型结构、训练数据、训练策略和超参数，最终虽然性能提升了，但很难回答一个核心问题——这些提升究竟来自新架构，还是来自训练细节的优化？《SimVLA:
+A Simple VLA Baseline for Robotic
+Manipulation》的出发点正是重新建立一个透明、简单且可复现的基线，让社区能够更清楚地理解
+VLA 的性能来源，而不是不断堆叠复杂模块。</p>
+<p>SimVLA 的核心思想可以概括为“Simple but
+Strong”。作者并没有引入新的世界模型、空间推理模块或者复杂记忆机制，而是尽可能保留当前主流
+VLA
+的标准范式：预训练视觉语言模型作为感知骨干，语言指令作为任务条件，再通过动作头预测机器人动作。论文认为，许多工作报告的大量提升其实来自训练配方（training
+recipe）、数据清洗、动作表示设计和优化细节，而非复杂结构创新。因此
+SimVLA 试图构建一个极简框架，在统一训练设置下重新评估 VLA
+的真实能力。</p>
+<p>从框架上看，SimVLA 仍然遵循典型的 VLA
+流程：输入当前图像观测和语言指令，利用预训练视觉语言模型提取多模态表示，再通过动作解码器预测机器人动作。与许多近期工作不同，它没有额外引入世界模型、未来状态预测、3D
+点云分支或复杂规划模块，而是把重点放在构建稳定可靠的训练流水线。作者的观点是，在讨论更复杂的设计之前，社区首先需要知道一个经过充分优化的“简单
+VLA”到底能达到什么水平。</p>
+<p>实验部分主要围绕多个机器人操作基准展开，并与 OpenVLA、π
+系列以及近期各种增强型 VLA
+方法进行比较。作者特别强调统一训练设置和可复现性，希望消除不同论文之间由于数据规模、训练步数和实现细节差异带来的影响。实验结果表明，一个经过认真设计和优化的简单
+VLA
+基线已经能够达到与许多复杂模型相当甚至更好的性能。这意味着部分近期工作的性能提升可能并非完全来自新提出的结构，而是来自训练细节和工程优化。</p>
+<p>从研究定位来看，SimVLA
+并不是提出新的机器人能力，而更像是一篇“反思性论文”。它提醒社区，在 VLA
+快速发展的阶段，复杂结构创新固然重要，但建立透明、强大且可复现的基线同样重要。对于后续工作而言，SimVLA
+提供了一个清晰参照系：未来提出新的空间先验、世界模型或规划模块时，需要证明其增益确实超越了一个经过充分优化的简单基线，而不是仅仅受益于更好的训练配方。</p>
+<h2 id="dreamvla-a-vision-language-action-model-dreamed-with-comprehensive-world-knowledge"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2507.04447v1">DreamVLA: A
+Vision-Language-Action Model Dreamed with Comprehensive World
+Knowledge</a></h2>
+<p>近期在视觉-语言-动作（VLA）模型上的进展表明，将图像生成与动作预测相结合能够提升机器人操作中的泛化与推理能力。然而，现有方法依赖于困难的图像预测，信息冗余且缺乏对动态、空间和语义等全面关键世界知识的建模。为此，我们提出
+DreamVLA，一种新颖的 VLA
+框架，通过世界知识预测实现逆动力学建模，建立感知–预测–行动闭环。</p>
+<p>机器人训练中关于未来世界知识的学习越来越受到关注，其目标是实现
+action-forecasting
+loop。早期方通常依赖于通用世界模型，先进行图像或状态的预测，再将其输入机器人策略模型进行逆动力学学习。这种
+two-stage
+训练策略实现简单，但性能受到世界模型的限制。更先进的方法则将预测与动作规划端到端结合，使策略能够同时预测动作与未来状态，从而在性能和泛化能力上更具优势。然而，这些方法预测的未来状态往往局限于冗余的视觉信息或单一的状态表达。与之不同，DreamVLA
+提出通过高效（动态区域）且有效（全面知识）的未来知识预测方式来提升表现与泛化能力，展现出更强的竞争力。
+<img src="/2026/05/01/Vision_Language_Action_Models/dreamvla1.png"></p>
+<h3 id="methodology">Methodology</h3>
+<h4 id="model-architecture">Model Architecture</h4>
+<p>在每个时间步 <span class="math inline">\(t\)</span>，机器人会接收三类信号：自然语言指令
+<span class="math inline">\(l\)</span>、原始视觉帧 <span class="math inline">\(o_t\)</span>，以及其本体状态 <span class="math inline">\(s_t\)</span>。为了引入前瞻性推理，定义了一组特殊的标记，称为
+<span class="math inline">\(\langle dream \rangle\)</span>
+queries，并将所有输入拼接为一个序列。模型 <span class="math inline">\(M\)</span>
+将这些输入映射为一个紧凑的潜在表示，称之为<strong>世界嵌入</strong>（world
+embedding）： <span class="math display">\[
+w_{t+n} = M(l, o_t, s_t \mid \langle dream \rangle). \tag{1}
+\]</span></p>
+<p>接下来，世界嵌入预测了综合性的世界知识，该知识结合了运动线索、空间细节和高层语义。具体而言，一组预测器
+<span class="math inline">\(P\)</span> 外推 <span class="math inline">\(n\)</span> 步未来： <span class="math display">\[
+\hat{p}_{t+n} = P(w_{t+n}) = (\hat{f}_{t+n}, \hat{d}_{t+n},
+\hat{c}_{t+n}), \tag{2}
+\]</span></p>
+<p>其中 <span class="math inline">\(\hat{f}_{t+n}\)</span>
+表示动态区域，<span class="math inline">\(\hat{d}_{t+n}\)</span>
+编码单目深度，而 <span class="math inline">\(\hat{c}_{t+n}\)</span>
+可选地存储高层语义特征。</p>
+<p>在获得世界嵌入 <span class="math inline">\(w_{t+n}\)</span>
+之后，<span class="math inline">\(\langle action \rangle\)</span>
+queries 被模型 <span class="math inline">\(M\)</span>
+映射为潜在的动作嵌入，用于聚合相关的动作信息。随后，一个去噪扩散
+Transformer <span class="math inline">\(D\)</span>
+基于该潜在特征生成一个 <span class="math inline">\(n\)</span>
+步动作：</p>
+<p><span class="math display">\[
+\hat{a}_{t:t+n-1} = D(M(l, o_t, s_t, \langle dream \rangle \mid \langle
+action \rangle)), \tag{3}
+\]</span></p>
+<p>从而完成了一个在训练与推理阶段均一致的感知–预测–行动闭环。</p>
+<p><img src="/2026/05/01/Vision_Language_Action_Models/dreamvla2.png"></p>
+<p>DreamVLA 框架在统一的 Transformer
+架构下由三个核心模块组成。首先，输入——包括自然语言指令 <span class="math inline">\(l\)</span>、视觉观测 <span class="math inline">\(o_t\)</span> 以及本体感知状态 <span class="math inline">\(s_t\)</span>——分别通过模态特定的编码器进行处理。语言指令由
+CLIP 文本编码器提取特征，视觉帧通过 Masked Autoencoder 获取时空 patch
+表示，而本体感知信号则经由若干卷积层与全连接层编码。完成编码后，一组可学习的查询标记
+<code>&lt;dream&gt;</code> 与 <code>&lt;action&gt;</code>
+会被附加到这些多模态嵌入中，其中 <code>&lt;dream&gt;</code>
+包含三个子查询（动态、深度与语义），可用于预测特定知识。</p>
+<p>随后，基于 GPT-2
+的大型语言模型，在精心设计的因果与非因果注意力机制下，整合并跨模态关注这些嵌入与查询（见图
+4）。这一过程有效地将低层感知信号融合为紧凑且语义一致的世界状态表示。最后，专门设计的轻量级输出头（由浅层卷积层组成）负责将世界嵌入解码为显式预测结果：预期动态区域重建、单目深度以及语义特征。</p>
+<p>在推理阶段，DreamVLA
+完全跳过解码器，从而大幅节省计算量。模型直接输出一个能够同时蕴含未来动态、深度与语义预测的世界嵌入，而无需像素级重建，既保持了未来状态推理带来的精度提升，又能实现低延迟。与此同时，采用
+<strong>Denoising Diffusion Transformer</strong>
+将潜在的动作嵌入解码为可执行的机器人动作序列。整体而言，这些组件协同作用，使
+DreamVLA
+能够在端到端范式下实现稳健的、具有预测性的视觉–语言–动作推理。</p>
+<h4 id="comprehensive-world-knowledge-prediction">Comprehensive World
+Knowledge Prediction</h4>
+<p>相比于简单地复现未来原始帧，<strong>预测未来中真正重要的部分更具价值</strong>。DreamVLA
+显式预测与操作任务最相关的未来世界知识，包括：(i)
+以运动为中心的动态区域、(ii) 三维深度几何信息，以及 (iii)
+高层语义特征。这些互补信号为原始像素提供了紧凑且结构化的替代表示，并为策略提供面向未来的上下文，用于逆动力学规划。</p>
+<p><strong>运动中心的动态区域重建。</strong>
+动态区域的预测能够告诉机器人场景中哪些部分即将发生运动，从而使模型捕捉当前场景、语言指令与实现预测运动所需动作之间的统计联系。首先利用
+<strong>CoTracker</strong>
+提取动态区域，即随机器人末端执行器或其他可移动物体发生运动的像素，然后训练
+DreamVLA 仅重建这些区域。此外，采用 <strong>非对称 tokenizer</strong>
+来生成重建目标可以进一步提升性能。</p>
+<p>从 <strong>离散变分自编码器（dVAE）</strong>
+的角度来看，整体优化目标是最大化对数似然 <span class="math inline">\(P(x_i|\tilde{x}_i)\)</span> 的 ELBO。设 <span class="math inline">\(x\)</span> 表示原始图像，<span class="math inline">\(\tilde{x}\)</span> 表示被掩码的运动区域，<span class="math inline">\(z\)</span>
+表示重建目标，则生成建模过程可以描述为：</p>
+<p><span class="math display">\[
+\sum_{(z_i,\tilde{z}_i)\in D} \log P(x_i|\tilde{x}_i) \geq
+\sum_{(x_i,\tilde{x}_i)\in D} \Bigg(
+\mathbb{E}_{z_i \sim Q_\phi(z|x_i)} \log P_{\psi(x_i|z_i)}
+- D_{\mathrm{KL}}\big( z, P_\theta(z|\hat{z}_i) \big),
+\Bigg), \tag{4}
+\]</span> 其中，<span class="math inline">\(P_\psi(x|z)\)</span> 为
+tokenizer 解码器，用于恢复原始数据；<span class="math inline">\(\hat{z}_i = Q_\phi(z|\tilde{x}_i)\)</span>
+表示来自被掩码数据的运动区域 token；而 <span class="math inline">\(P_\theta(z|\hat{z}_i)\)</span>
+则以自编码方式重建被掩码 token。在此任务中，<span class="math inline">\(P_\theta(z|\hat{z}_i)\)</span>
+设为零，因此动态区域的预测损失可以表述为：</p>
+<p><span class="math display">\[
+\mathcal{L}_{\text{dyn}} = \frac{1}{|D|} \sum_{x_i \in D} \mathbb{E}_{z
+\sim Q_\phi(z|x_i)} [- \log P_\psi ((x_i)^{M}| z)], \tag{5}
+\]</span> 其中 <span class="math inline">\((x_i)^{M}\)</span>
+表示图像中对应掩码运动区域的部分。</p>
+<p><strong>深度预测。</strong>
+预测未来的深度场变化能够告诉机器人下一步该如何移动，从而引导其朝向自由空间并避开潜在障碍物。如果有深度传感器可用，使用
+<strong>真实深度图</strong> 来监督
+DreamVLA；而在缺乏深度感知的低成本平台上，则通过单目 RGB
+流“幻化”未来几何信息。为此，将 <strong>Depth-Anything</strong>
+的预测结果作为自监督教师，并训练一个专门的深度查询（depth
+query）来回归对齐的未来深度图 <span class="math inline">\(\hat{d}_{t+n}\)</span>。其目标函数是尺度归一化的均方误差：
+<span class="math display">\[
+\mathcal{L}_{\text{depth}} = \frac{1}{HW} \sum_{i,j}
+\Big( \hat{d}^{(i,j)}_{t+n} - \alpha d^{(i,j)}_{t+n} \Big)^2, \tag{6}
+\]</span> 其中，尺度因子 <span class="math inline">\(\alpha\)</span>
+用于消除单目方法无法解决的全局尺度歧义：</p>
+<p><span class="math display">\[
+\alpha = \frac{\sum_{i,j} \hat{d}^{(i,j)}_{t+n}
+d^{(i,j)}_{t+n}}{\sum_{i,j} (d^{(i,j)}_{t+n})^2}. \tag{7}
+\]</span></p>
+<p>在实践中，这一简单的损失已经足够有效：教师模型提供度量上合理的深度估计，而尺度归一化项则鼓励模型保持
+<strong>序深度关系</strong>（ordinal depth
+relationships）——这是抓取合成与碰撞检测中的关键属性——同时忽略任意的全局尺度偏移。</p>
+<p><strong>对比式语义预测。</strong>
+预测未来语义信息能够告诉机器人哪些物体或区域将在任务中起关键作用，从而提供高层次的上下文（例如物体类别、可供性），以指导目标选择和抓取决策。为学习语义预测，DreamVLA
+利用 <strong>DINOv2 [65]</strong> 和 <strong>SAM [66]</strong>
+提取的特征 <span class="math inline">\(\hat{c}_{t+n}\)</span>，并通过
+<strong>InfoNCE 损失 [107, 62]</strong>
+进行优化：真实的未来特征作为正样本，而空间上偏移的特征作为负样本。这种方式鼓励模型在预测时进行判别性选择，从多个可能但错误的未来中挑选正确的物体语义：
+<span class="math display">\[
+\mathcal{L}_{\text{sem}} = - \log
+\frac{\exp(\hat{c}^\top_{t+n} c_{t+n} / \tau)}
+{\sum_k \exp(\hat{c}^\top_{t+n} c_k / \tau)}, \tag{8}
+\]</span> 其中，<span class="math inline">\(k\)</span> 表示空间维度上的
+token 数量，<span class="math inline">\(\tau\)</span> 为温度参数。</p>
+<p><strong>结构化注意力实现跨类型知识解耦。</strong>
+为了保持不同类型未来知识的清晰边界，<code>&lt;dream&gt;</code>
+查询被分解为三个子查询（动态、深度和语义）。如果这些子查询能够相互自由关注，那么高频的
+flow details
+可能会污染深度推理，语义线索也可能渗入运动特征，从而产生噪声混合表示。为避免这种情况，论文在注意力机制中对它们的相互关注进行掩蔽：<strong>每个子查询仅能关注共享的视觉、语言和状态
+token，而三者之间的直接连接被禁用</strong>，从而保持其潜在特征的解耦性并避免跨类型干扰。</p>
+<p>如图 4 所示，<code>&lt;dream&gt;</code> 与
+<code>&lt;action&gt;</code> 查询均采用 <strong>因果注意力（causal
+attention）</strong>，并限制在过去上下文中，这保证了时间因果性。该有组织的注意力模式类似于
+<strong>专家混合（Mixture-of-Experts, MoE）网络</strong>
+中的专门路由策略。通过避免跨模态信息泄漏，结构化注意力能够为动作预测提供
+<strong>干净的未来世界知识</strong>，从而提升模型的鲁棒性并保持时间一致性。</p>
+<p><img src="/2026/05/01/Vision_Language_Action_Models/dreamvla3.png"></p>
+<h4 id="inverse-dynamics-via-denoising-diffusion-transformer">Inverse
+Dynamics via Denoising Diffusion Transformer</h4>
+<p>在经典逆动力学中，给定两个有序观测 <span class="math inline">\(o_t\)</span> 与 <span class="math inline">\(o_{t+1}\)</span>，任务是推断中间的动作 <span class="math inline">\(\hat{a}_t\)</span>。论文在此基础上进行了扩展：DreamVLA
+不仅推断单步动作，而是预测 <strong>完整的动作序列</strong> <span class="math inline">\(\hat{a}_{t:t+n-1}\)</span>，其条件为当前观测 <span class="math inline">\(o_t\)</span> 以及未来的潜在世界嵌入 <span class="math inline">\(w_{t+n}\)</span>。</p>
+<p>具体而言，DreamVLA 首先通过专门的 <strong>action query</strong>
+和模型的因果注意力，将包含未来动态、深度与语义预测的世界嵌入聚合为紧凑的
+<strong>动作嵌入</strong>。由于世界嵌入与动作嵌入共享相同的潜在空间并具有相似的统计特性，简单的
+MLP 输出头难以有效解耦模态特定信息或利用其跨模态相关性。因此，我们采用
+<strong>Denoising Diffusion Transformer (DiT)</strong>
+作为动作预测头。</p>
+<p>在条件化的动作嵌入下，DiT 通过迭代的
+<strong>自注意力与去噪过程</strong>，将感知预测与控制先验相融合，并逐步将高斯噪声转化为
+<span class="math inline">\(n\)</span> 步动作轨迹 <span class="math inline">\(\hat{a}_{t:t+n-1}\)</span>，从而生成
+<strong>连贯、多样且物理合理</strong> 的动作序列。其训练目标函数为：
+<span class="math display">\[
+\mathcal{L}_{\text{DiT}} = \mathbb{E}_{\tau, \epsilon} \Bigg[
+\Big\| \epsilon - \epsilon_\theta \Big( \sqrt{\bar{\alpha}_\tau} \,
+a_{t:t+n-1} +
+\sqrt{1 - \bar{\alpha}_\tau} \, \epsilon, \, \tau, \, c \Big) \Big\|_2^2
+\Bigg], \tag{9}
+\]</span> 其中，<span class="math inline">\(\epsilon_\theta\)</span> 为
+DiT 去噪器，<span class="math inline">\(\epsilon \sim \mathcal{N}(0,
+I)\)</span>，<span class="math inline">\(\bar{\alpha}_\tau\)</span>
+服从余弦噪声调度，<span class="math inline">\(c\)</span>
+表示由大语言模型获得的潜在动作嵌入。</p>
+<p>在推理阶段，模型从高斯分布采样，并通过学习到的 反向扩散过程
+生成动作轨迹，从而实现 多样化但物理上合理
+的规划，最终闭合了感知–预测–动作循环。</p>
+<h2 id="unified-vision-language-action-model"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2506.19850">Unified Vision-Language-Action
+Model</a></h2>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1930312584613074483">知乎</a></p>
+<h2 id="thinkact-vision-language-action-reasoning-via-reinforced-visual-latent-planning"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2507.16815v2">ThinkAct:
+Vision-Language-Action Reasoning via Reinforced Visual Latent
+Planning</a></h2>
+<h2 id="planning-with-reasoning-using-vision-language-world-model"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2509.02722">Planning with Reasoning using
+Vision Language World Model</a></h2>
+<h2 id="f1-a-vision-language-action-model-bridging-understanding-and-generation-to-actions"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2509.06951">F1: A Vision-Language-Action
+Model Bridging Understanding and Generation to Actions</a></h2>
+<h1 id="latent-action-与-world-model-enhanced-vla">Latent Action 与
+World-Model-Enhanced VLA</h1>
+<h2 id="vla-jepa-enhancing-vision-language-action-model-with-latent-world-model"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2602.10098">VLA-JEPA: Enhancing
+Vision-Language-Action Model with Latent World Model</a></h2>
+<p>VLA-JEPA 关注的是当前 VLA
+预训练中一个很核心但容易被掩盖的问题：大家都希望利用大规模互联网视频或人类视频来弥补机器人动作数据稀缺，但很多
+latent action
+方法实际学到的并不是“可控状态转移”，而是像素变化的压缩表示。比如
+LAPA、UniVLA、Moto 等路线会从相邻帧、光流或未来片段中抽取 latent
+action，再把它迁移到机器人控制中；这条路线的吸引力在于不需要每段视频都有机器人动作标签，但风险也很明显：背景运动、相机抖动、光照变化和未来帧泄漏都可能让
+latent action 退化成“未来图像摘要”，而不是对动作语义有用的动态变量。</p>
+<p>VLA-JEPA 的核心思路是把 latent action 学习改写成一个 JEPA 风格的
+latent world modeling
+问题。它不要求模型重建像素，也不把未来帧作为学生路径的输入，而是用冻结的
+V-JEPA2 编码器把未来视频编码成 latent state
+target；学生侧只看到当前观测、语言指令和一组可学习的 latent action
+tokens，再通过一个自回归 latent world model
+去预测未来状态表征。这样，未来信息只作为监督目标出现，不能被模型直接读入，从机制上减少
+information leakage；同时，因为预测发生在语义 latent space 而不是 RGB
+pixel
+space，模型更倾向于关注与交互有关的状态变化，而不是背景纹理或无关运动。</p>
+<p><img src="/2026/05/01/Vision_Language_Action_Models/vla_jepa_framework.png"></p>
+<p>从架构上看，VLA-JEPA 使用 Qwen3-VL-2B 作为 VLM
+backbone，并在词表中加入 latent action tokens 和 embodied action
+token。对于没有动作标签的人类视频，模型用 V-JEPA2 encoder 提取多视角
+world state 表征，再让 VLM 产生 latent action 表示，条件化 latent world
+model 去预测后续状态
+chunk；对于有机器人动作标签的数据，模型在同一个框架中额外接入
+flow-matching action head，用 latent action 和 embodied action token
+作为条件生成连续末端执行器动作。训练流程因此被压缩成“latent world model
+预训练 + 动作头微调”的两阶段形式，比许多需要先学视觉表征、再学 latent
+action、再做动作对齐的多阶段方法更直接。</p>
+<p>论文的一个重要细节是，它并不把人类视频神化为可以直接提供机器人动力学的万能数据。预训练阶段使用
+Something-Something-v2 的 22 万条人类视频和 DROID 的 7.6
+万条机器人示范，微调阶段在 LIBERO/LIBERO-Plus、SimplerEnv 以及真实
+Franka 任务上评估。消融结果显示，在 LIBERO 和 SimplerEnv
+这类更依赖高质量专家示范或 real-to-sim
+适配的设置中，去掉人类视频并不会总是明显变差；但在 LIBERO-Plus
+的扰动场景下，人类视频会显著提升鲁棒性，尤其是语言、光照、背景和布局变化。这说明人类视频更多是在增强已有技能的稳定性和泛化，而不是直接教会机器人新的精确控制动力学。</p>
+<p>实验结果整体支持这种定位。在 LIBERO 上，VLA-JEPA 的平均成功率达到
+<strong>97.2%</strong>，略高于 OpenVLA-OFT 的 97.1% 和 π0.5 的 96.9%；在
+SimplerEnv 中，Google Robot 平均成功率为 <strong>65.2%</strong>，WidowX
+Robot 平均为 <strong>57.3%</strong>，其中 Google Robot
+设置下优于列出的基线；在 LIBERO-Plus 鲁棒性评测中，VLA-JEPA 平均成功率为
+<strong>79.5%</strong>，高于 OpenVLA-OFT 的 69.6%、π0-Fast 的 61.6% 和
+UniVLA 的 42.9%，并在 7 类扰动中的 5
+类取得最好结果。真实机器人实验也显示，VLA-JEPA 在 ID 和物体布局 OOD
+设置下表现最好，并出现了重复抓取失败后重新张开夹爪再尝试的行为，作者认为这类时序技能可能来自人类视频中丰富的重复尝试模式。</p>
+<p>从研究价值看，VLA-JEPA 并不是把 VLA 彻底变成显式规划式 WAM，而是在
+VLA 内部加入一个更干净的 latent world model 预训练目标。它与
+Motus、MaskWAM
+这类工作一样，都在回应同一个趋势：机器人策略不能只依赖“当前图像到动作”的直接映射，而需要学习更稳定的世界变化表示。VLA-JEPA
+的贡献在于把这个目标落到一个 leakage-free 的 JEPA 训练机制上，让 latent
+action
+更接近动作相关的状态转移语义。它的局限也比较清楚：真实机器人上仍然存在细粒度语言理解不足、可能抓错目标的问题，而且人类视频主要提升鲁棒性而不是自动解决
+embodiment
+gap。因此它更像是一条可扩展的预训练路线，而不是完整替代机器人数据或显式规划的最终方案。</p>
+<h2 id="lary-a-latent-action-representation-yielding-benchmark-for-generalizable-vision-to-action-alignment"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2604.11689v1">LARY: A Latent Action
+Representation Yielding Benchmark for Generalizable Vision-to-Action
+Alignment</a></h2>
+<p>在 VLA
+模型中，显式机器人动作数据稀缺，而互联网上存在大量人类视频和机器人视频。如果能从这些视频中抽取出与具体机器人形态无关的
+<strong>latent action
+representation</strong>，就有可能缓解机器人动作数据不足的问题。但在此之前，领域内缺少一个系统
+benchmark 来评估这些 latent action
+是否真的能表示动作、是否能支持机器人控制。</p>
+<p>已有 latent action model，例如 LAPA、Moto、LAPO
+等，通常会把视频帧之间的视觉变化编码成离散或连续的 latent action
+tokens。这类方法的目标是把“视觉变化”转化成某种可迁移的动作表征，从而连接人类视频、机器人视频和
+VLA 控制。但已有评估往往依赖下游策略表现或聚类可视化，难以把 latent
+action 本身的质量与具体
+policy、训练环境、任务数据解耦。因此，一个模型在下游任务上表现好，并不一定说明它的
+latent action 表征本身更好。LARY 正是为了解决这个评估缺口。</p>
+<p>LARYBench 的核心贡献是构建了一个统一评测框架，把 latent action
+representation 的能力拆成两个层面：第一是 high-level semantic
+action，即“what to
+do”，评估模型是否能识别动作语义，例如抓取、推、打开、关闭等；第二是
+low-level robotic control，即“how to do”，评估 latent action
+是否能回归真实机器人控制信号，例如末端执行器位移、旋转和夹爪状态。通过这种设计，LARY
+不再只看最终任务成功率，而是直接探测 representation
+是否同时包含语义动作信息和物理控制信息。</p>
+<p>在数据规模上，LARYBench
+构建了一个非常大的跨实体、跨视角、跨环境数据集。论文和项目页给出的数据包括超过
+100 万个视频片段、约 1000 小时视频、151 个动作类别，并包含 620K 图像对
+和 595K
+运动轨迹，覆盖人类和机器人、第一视角和第三视角、真实和仿真环境，以及多种机器人
+embodiment。项目页还说明其覆盖 11 种 embodiment。</p>
+<p>方法上，LARYBench 提供了三个基本流程。首先是
+<code>get_latent_action</code>，即从视频或图像对中提取 latent action
+representation；其次是 <code>classification</code>，用线性或轻量 probe
+测试 latent action 是否能进行动作语义分类；最后是
+<code>regression</code>，测试 latent action
+是否能解码出低层机器人动作。这个流程的好处是，不管一个模型是
+LAM、通用视觉 encoder，还是视频生成 encoder，只要能输出某种 latent
+representation，就可以放进同一套评测协议中比较。Hugging Face 数据集页和
+GitHub 都明确列出了这三个评测 pipeline。</p>
+<p>论文系统比较了四类表示范式。第一类是专门为具身任务设计的 Embodied
+Latent Action Models，例如 LAPA、UniVLA、villa-X；第二类是 General
+Semantic Encoders，例如 DINOv3 和 V-JEPA 2；第三类是 Generative Pixel
+Encoders，例如 Wan2.2 VAE 和 FLUX.2-dev VAE；第四类是作者构造的 General
+Latent Action Models，即把 LAPA 框架中的视觉 encoder 替换为
+DINO、SigLIP、MAGVIT2 等预训练 backbone，以分析通用视觉先验对 latent
+action learning 的帮助。</p>
+<p>实验结论非常有意思。第一，<strong>通用视觉基础模型反而比许多专门的
+embodied latent action model 更强</strong>。例如 DINOv3、V-JEPA 2
+这类没有显式动作监督的大视觉模型，在动作语义分类和机器人动作回归上都表现出很强的
+action-relevant
+representation。论文认为，这说明大规模视觉预训练本身已经编码了大量与动作相关的空间、时间和物体变化信息。</p>
+<p>第二，论文发现 <strong>latent-level visual representation 比
+pixel-level reconstruction 更适合 vision-to-action
+alignment</strong>。也就是说，机器人控制并不一定需要模型精确重建像素级未来图像，更重要的是捕捉语义层、结构层和动作相关的视觉变化。这个结论对当前
+world model / VLA
+研究很有启发：如果目标是控制，盲目追求高清像素重建未必是最优路径，能否形成更抽象、更动作相关的
+latent space 可能更关键。</p>
+<p>论文还通过消融实验讨论了什么样的 latent action model 更有效。作者在
+LAPA 框架下替换不同视觉 encoder，并分析 codebook size、sequence
+length、latent dimension 等因素。结果显示，自监督视觉 encoder，例如
+DINOv3，往往比纯重建式或视觉语言对比模型更能构建有效 latent
+action；同时，量化瓶颈需要适度设计，codebook
+太小会限制表示能力，太大又可能导致 utilization 下降；sequence length
+过短则容易造成 codebook collapse。</p>
+<p>从研究意义看，LARY 的价值不在于提出一个新的
+policy，而在于提供了一个评估 latent action representation 的“标尺”。它把
+latent action
+的质量从下游策略训练中独立出来，让研究者可以直接回答：某个表示是否真的包含动作语义？是否能映射到真实机器人控制？是否能跨人类、机器人、视角和环境泛化？这对后续利用大规模人类视频训练
+VLA、构建 action-conditioned world model、研究 ontology-independent
+action space 都很重要。总体来看，LARY 给出的核心启示是：未来 VLA
+不一定只能依赖稀缺的机器人动作标签，也不一定必须从零学习动作空间。大规模通用视觉模型中已经蕴含了相当多的动作知识，而更好的方向可能是把这些视觉先验转化为稳定、可迁移、能支持低层控制的
+latent action representation。简言之，LARY
+证明了“视觉表征本身可能已经很懂动作”，而 benchmark
+的作用就是把这种能力用标准化方式测出来。</p>
+<h1 id="action-chunking执行调度与推理时纠偏">Action
+Chunking、执行调度与推理时纠偏</h1>
+<h2 id="adaptive-action-chunking-for-robotic-imitation-learning"><a target="_blank" rel="noopener" href="https://www.mdpi.com/2313-7673/11/5/316">Adaptive Action Chunking
+for Robotic Imitation Learning</a></h2>
+<p>固定长度的 action chunk 很难同时兼顾效率和精细控制。传统 ACT 或
+diffusion-based imitation policy 通常一次预测固定长度的动作序列并
+open-loop 执行。短 chunk
+可以提高反馈频率，适合接触、对齐和放置等精细阶段，但会带来动作抖动和执行低效；长
+chunk
+可以让远距离移动更平滑、更高效，却容易在关键接触阶段因缺少闭环修正而累积误差。作者认为，最优
+chunk size 不应是固定超参数，而应根据当前视觉上下文动态决定。</p>
+<p>论文提出一个端到端的 <strong>Adaptive Action Chunking</strong>
+框架，用于双臂机器人视觉模仿学习。模型采用双分支结构：首先用共享的
+ViT-Base 视觉编码器融合全局相机和腕部相机图像，得到场景特征；随后一个
+action prediction head 预测最大长度的未来动作序列，另一个 chunk-size
+prediction head 输出当前时刻最合适的离散 chunk length。最后，一个
+deterministic gating module 根据预测出的 chunk
+size，从长动作序列中截取对应长度的前缀动作并执行。训练时，模型同时最小化动作预测误差和
+chunk-size
+分类误差，使策略不仅学习“怎么动”，也学习“当前应该连续执行多长”。</p>
+<p>实验在两个真实双臂操作任务上进行。第一个是
+<strong>transport-and-place</strong>，机器人需要双臂抓取方块、长距离搬运并精确放入目标区域。该任务天然包含“长距离运输需要长
+chunk”和“末端放置需要短
+chunk”的矛盾。实验中，模型学到明显的阶段切换策略：抓取阶段使用中等
+chunk，运输阶段切换到最大 chunk，进入精确放置阶段后迅速降到最小
+chunk。最终自适应方法达到 <strong>100% 成功率</strong> 和 <strong>32.2 ±
+2.3 秒</strong>平均完成时间，优于所有固定 chunk baseline。</p>
+<p>第二个任务是更困难的 <strong>bimanual alternating
+flip-and-handover</strong>，机器人需要通过多次双臂交接完成物体 180°
+翻转，任务中长期存在接触不确定性、滑移风险和姿态约束。与第一个任务的阶段切换不同，模型在该任务中几乎持续选择最小
+chunk size，形成高频闭环调整策略。该方法取得 <strong>90%
+成功率</strong>，而最好的固定 chunk baseline 只有
+<strong>25%</strong>，说明自适应机制在高不确定、接触丰富任务中尤其重要。</p>
+<p>总体来看，这篇工作的贡献在于把 action chunk length
+从人工固定超参数变成由视觉上下文驱动的动态决策变量。它不依赖预定义子任务、技能库或额外层级规划，而是通过双分支网络在模仿学习框架内同时预测动作和执行长度。实验结果表明，自适应
+chunking 能在不同任务结构下自动形成不同策略：在阶段清晰的任务中进行长短
+chunk 切换，在持续高不确定任务中保持短 chunk 高频反馈。这为后续 VLA/WAM
+中的 adaptive action execution 提供了一个直接而可解释的参考。</p>
+<h2 id="adaptive-action-chunking-mixture-of-horizons-in-action-chunking"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2511.19433">(Adaptive action chunking)
+Mixture of Horizons in Action Chunking</a></h2>
+<p>现有 VLA 模型通常会预测一个固定长度的 action chunk：<span class="math inline">\(A_t=(a_t,a_{t+1},...,a_{t+H-1})\)</span></p>
+<p>这里的 (H) 就是 action horizon / chunk horizon。论文发现，VLA 对这个
+(H) 非常敏感：短 horizon 更适合精细控制，但缺少长程规划能力；长 horizon
+能提供更强的全局 foresight，但会降低短期动作精度。论文在 LIBERO 上比较
+(H=10,20,30)，发现不同 task suite 的最优 horizon 不一样，固定单一
+horizon 会造成泛化瓶颈。论文摘要也明确指出：longer horizons provide
+stronger global foresight but degrade fine-grained accuracy, shorter
+ones sharpen local control but struggle on long-term tasks。</p>
+<p>所以这篇工作的核心问题是：</p>
+<blockquote>
+<p>能不能让一个模型同时具备短 horizon 的精细控制能力和长 horizon
+的长程规划能力？</p>
+</blockquote>
+<h3 id="方法核心mixture-of-horizons-moh">方法核心：Mixture of Horizons,
+MoH</h3>
+<p>论文提出 <strong>Mixture of
+Horizons，MoH</strong>。它的思路是：不要只训练一个固定
+horizon，而是把同一个 action chunk 切成多个不同长度的 horizon
+分支，让它们共享 action transformer，并通过一个轻量 gate 融合不同
+horizon 的预测。</p>
+<p>假设最大 horizon 是：<span class="math inline">\(H\)</span>, 候选
+horizon 集合是：<span class="math inline">\(\mathcal{H}={h_1,h_2,...,h_N}, \quad
+h_N=H\)</span>, 对于真实 action chunk：<span class="math inline">\(A_t=(a_{t,1},...,a_{t,H})\)</span>, 对每个候选
+horizon (h)，构造一个截断版本：<span class="math inline">\(A_t^{(h)}=(a_{t,1},...,a_{t,h})\)</span>。训练时，不同
+horizon 共享同一个视觉语言上下文和同一个 action
+transformer。为了并行计算，短 horizon 会 padding 到最大长度 (H)，并用
+horizon-specific attention mask 把超过该 horizon
+的位置屏蔽掉。论文强调，VLM prefix 只计算一次，而 action transformer
+比较轻，因此训练和推理开销很小。</p>
+<h3 id="gated-mixture如何融合不同-horizon">Gated Mixture：如何融合不同
+horizon？</h3>
+<p>每个 horizon 分支都会输出自己的动作预测：<span class="math inline">\(\hat{A}^{(h)}_t=(\hat{a}^{(h)}_{t,1},...,\hat{a}^{(h)}_{t,h})\)</span>，然后使用一个很轻的
+linear gate head，对每个 step (k) 和 horizon (h) 产生权重： <span class="math inline">\(\alpha_{t,k,h}\)</span>. 只有满足 <span class="math inline">\(k \le h\)</span> 的 horizon 才对第 <span class="math inline">\(k\)</span> 步有效。最终第 (k) 步动作是不同 horizon
+预测的加权和：</p>
+<p><span class="math inline">\(\hat{a}_{t,k} = \sum_{h \in \mathcal{H}:
+k\le h} \alpha_{t,k,h}\hat{a}^{(h)}_{t,k}\)</span></p>
+<p>这个设计的含义是：第一个动作既可以参考短 horizon 分支，也可以参考长
+horizon 分支；而越靠后的动作只能由覆盖到该时间步的长 horizon
+分支提供。论文说这个 gate head 只有约 2k
+额外参数，几乎不增加模型规模。</p>
+<h3 id="训练目标">训练目标</h3>
+<p>MoH 不是替换原来的 VLA 训练目标，而是兼容原本的 policy
+loss。如果底层是 flow-matching policy，例如 <span class="math inline">\(\pi_0\)</span>、<span class="math inline">\(\pi_{0.5}\)</span>，那么它的基础训练目标仍然是
+flow-matching loss。论文中标准 flow-matching 是：从 Gaussian noise chunk
+<span class="math inline">\(\epsilon\)</span> 到真实 action chunk <span class="math inline">\(A_t\)</span> 做线性插值，学习速度场：</p>
+<p><span class="math inline">\(\mathcal{L}_{fm}(\theta)=\mathbb{E}_{\epsilon,\tau}\left[\left
+|v_\theta(A_t^{(\tau)},\tau,V_t,h_{&lt;t},T,s_t) - u(\epsilon,A_t)\right
+|_2^2 \right]\)</span></p>
+<p>如果底层是 one-step regression policy，则可以用 L1 regression
+loss：</p>
+<p><span class="math inline">\(\mathcal{L}_{reg} =
+\sum_{k=1}^{H}\sum_{d=1}^{d_a}|\hat{A}_{t,k,d}-A_{t,k,d}|\)</span></p>
+<p>MoH 最终训练目标由三部分组成： <span class="math inline">\(\mathcal{L} =
+\mathcal{L}_{mix}+\lambda_{ind}\mathcal{L}_{ind}+\lambda_{bal}\mathcal{L}_{bal}\)</span></p>
+<p>其中： * <span class="math inline">\(\mathcal{L}_{mix}\)</span>：融合后动作预测的主损失；
+* <span class="math inline">\(\mathcal{L}_{ind}\)</span>：每个 horizon
+分支自己的预测损失； * <span class="math inline">\(\mathcal{L}_{bal}\)</span>：balance loss，防止
+gate 只依赖某几个 horizon，导致其他 horizon 退化。</p>
+<p>论文中 <span class="math inline">\(\lambda_{ind}=1\)</span>，<span class="math inline">\(\lambda_{bal}=10^{-3}\)</span>。</p>
+<h3 id="dynamic-inference推理时如何自适应执行">Dynamic
+Inference：推理时如何自适应执行？</h3>
+<p>MoH 不只是在训练中融合多 horizon，它还提出了一个 <strong>dynamic
+inference via cross-horizon consensus</strong>。</p>
+<p>推理时，不同 horizon 分支都会给出对未来动作的预测。论文把每个 horizon
+看作一个 voter。如果多个 horizon
+对某一步动作预测一致，说明这一步比较稳定，可以执行；如果不同 horizon
+的预测分歧变大，说明后面的动作不可靠，应该截断当前
+chunk，后续留给下一次重新规划。</p>
+<p>具体来说，对每个 step (k)，计算 fused action 和各个 horizon-wise
+action 的加权 L1 disagreement：</p>
+<p><span class="math inline">\(\bar{d}_k = \sum_{h\in \mathcal{H}_k}
+\alpha_k|\hat{a}-\hat{a}_k|\)</span></p>
+<p>然后用前 (n) 步的平均 disagreement 乘以 scaling ratio (r)
+得到阈值。接着从第 (n+1) 步开始，如果：<span class="math inline">\(\bar{d}_k &gt; \text{threshold}\)</span> 或者可用
+horizon 数量不足，就停止，把前面一致的动作作为 executable prefix
+执行。论文称这会形成一个 <strong>self-truncating executable
+chunk</strong>：只执行跨 horizon
+一致的前缀，把不确定的后缀留到下一次重规划。</p>
+<p>直观理解：</p>
+<blockquote>
+<p>多个 horizon 都同意的动作，可以放心执行； 不同 horizon
+开始分歧的位置，就是应该停止并重新规划的位置。</p>
+</blockquote>
+<h3 id="实验结果">实验结果</h3>
+<p>论文在 <strong>LIBERO、RoboTwin2.0 和真实机器人任务</strong>
+上评估，并使用了三类底层 policy：flow-based <span class="math inline">\(\pi_0\)</span>、<span class="math inline">\(\pi_{0.5}\)</span>，以及 one-step regression
+policy <span class="math inline">\(\pi_{reg}\)</span>。</p>
+<p>在 LIBERO 上，MoH 提升很明显。论文表 1 中：</p>
+<ul>
+<li><span class="math inline">\(\pi_{reg}\)</span>：平均成功率从 95.2%
+提升到 96.4%；</li>
+<li><span class="math inline">\(\pi_0\)</span>：平均成功率从 93.8%
+提升到 95.1%；</li>
+<li><span class="math inline">\(\pi_{0.5}\)</span>：平均成功率从 97.7%
+提升到 99.0%；</li>
+<li><span class="math inline">\(\pi_{0.5}\)</span> with MoH 在
+LIBERO-Object 达到 100%，LIBERO-Long 达到 98.4%。</li>
+</ul>
+<p>论文还强调，<span class="math inline">\(\pi_{0.5}\)</span> with MoH
+在 mixed-task setting 下只训练 30k iterations 就达到 LIBERO 平均 99%
+成功率，声称达到新的 state-of-the-art。</p>
+<p>在 dynamic inference 方面，论文报告 MoH 可以在提高 throughput
+的同时保持高成功率。比如在 LIBERO-Long 上，dynamic inference 即使把
+throughput 提高到默认 5-step 设置的 2.5×，仍然超过 baseline <span class="math inline">\(\pi_{0.5}\)</span>。图 7/8 显示，MoH
+在决策点和精细操作附近选择短 chunk，在平滑低风险运动中选择长 chunk。</p>
+<p>真实机器人实验中，作者在 7-DoF 单臂平台上测试了 “put bread in
+bowl”“pour milk into cup”“put pen in drawer and close
+drawer”等任务。每个任务采集 30 条专家示范，训练 10k iterations，默认执行
+predicted chunk 的前 5 个动作。实验显示 MoH 在三个真实任务和两个 base
+models 上都带来稳定提升，并减少犹豫和反复移动行为。</p>
+<h2 id="adaptive-action-chunking-adaptive-action-chunking-at-inference-time-for-vision-language-action-models"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2604.04161">(Adaptive action chunking)
+Adaptive Action Chunking at Inference-time for Vision-Language-Action
+Models</a></h2>
+<p>在 VLA 模型中，<strong>action chunking</strong>
+指的是：模型一次生成一段未来动作序列，然后机器人连续执行其中若干步，而不是每一步都重新推理。</p>
+<p>例如模型一次预测：<span class="math inline">\(a_{t:t+H}\)</span>，如果执行 16 步，就是 chunk
+size = 16；如果执行 4 步，就是 chunk size = 4。</p>
+<p>很多VLA中训练和推理使用相同 chunk size，例如 16
+步。也有很多方法会训练模型预测较长动作序列，但推理时只执行前面一部分。模型训练时看到更长的未来动作结构，但执行时保持更高的闭环反馈频率。但是后面预测出来的动作没有被充分使用，长
+horizon
+训练能力被浪费了一部分。一般不会让推理执行长度超过训练长度。训练时的
+action chunk size 决定模型能预测多长的动作序列；推理时的 chunk size
+决定机器人实际连续执行多少步。理想的方向是：训练时学习足够长的 action
+horizon，推理时根据当前任务阶段自适应选择执行长度。</p>
+<p>注意：在 VLA 中，训练时的 action chunk size 和 inference-time 执行的
+chunk size 可以一样，也可以不一样。 问题是，固定 chunk size
+很难适配所有任务。论文指出，大 chunk size
+可以提升动作连续性和推理效率，但会降低模型对新观测的响应能力；小 chunk
+size
+可以更频繁重新规划，但容易造成动作不连续、抖动。论文发现，不同任务对最优
+chunk size 的需求不同，因此固定经验值往往是次优选择。</p>
+<p>论文提出
+<strong>AAC</strong>，即在推理阶段根据当前预测动作的不确定性，自适应决定本次执行多少个动作。</p>
+<p>它的直觉是：</p>
+<blockquote>
+<p>如果模型当前预测动作很确定，说明这一段动作比较可靠，可以执行更长的
+chunk；</p>
+</blockquote>
+<blockquote>
+<p>如果模型当前预测动作不确定，说明当前场景可能复杂或关键，需要执行更短的
+chunk，并更快重新观察和规划。</p>
+</blockquote>
+<p>论文用 <strong>action entropy</strong>
+作为动作不确定性的度量。对于连续动作，例如机械臂的平移和旋转，使用高斯微分熵来计算不确定性；对于离散动作，例如夹爪开合，使用离散熵来计算不确定性。为了估计这些熵，AAC
+会并行采样多个候选 action
+chunks，然后统计不同候选动作之间的分布差异。</p>
+<p>假设机器人是 7-DoF 控制，包括：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">3-DoF translation
+3-DoF rotation
+1-DoF gripper<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>模型在当前观测下并行生成多组候选 action chunks。AAC
+对每个未来时间步分别计算：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">translation entropy
+rotation entropy
+gripper entropy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>然后对于不同候选 chunk size，计算平均 action entropy。接着，AAC
+找到平均熵变化最大的点，并结合一个最小动作幅度约束，确定当前最优 chunk
+size。论文把这个过程总结为 Algorithm
+1：先计算每个时间步的连续动作熵和离散夹爪熵，再计算不同 chunk size
+下的平均熵，最后选择最合适的执行长度。</p>
+<p>简单理解就是：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">动作预测稳定 → 熵低 → 执行更长 chunk
+
+动作预测不稳定 → 熵高 → 执行更短 chunk，尽快重新规划<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这和人类操作也类似：搬运阶段比较稳定，可以连续做很多动作；接近抓取、插入、按钮按压等关键阶段时，需要更频繁观察和微调。</p>
+<p>这篇工作的一个重要特点是：</p>
+<blockquote>
+<p><strong>AAC 不需要额外训练，也不修改模型结构，只在 inference-time
+工作。</strong></p>
+</blockquote>
+<p>论文使用 <strong>GR00T N1.5</strong> 作为主要 VLA backbone。GR00T
+N1.5 是一个带有 flow-matching action head 的 VLA 模型，由 VLM
+提取视觉语言特征，再由 Diffusion Transformer / flow-matching action head
+生成动作 chunk。训练阶段仍然使用标准的 flow-matching loss，让 action
+head 学习从噪声中生成真实动作序列。</p>
+<p>也就是说，原始 VLA 模型的训练方式不变：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">视觉观测 + 语言指令 + 机器人状态 → 预测未来 action chunk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>AAC 只在推理阶段插入：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">生成多个候选 action chunks
+→ 计算 action entropy
+→ 自适应选择执行多少步<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>因此，它不是一个新的训练框架，而是一个 <strong>training-free
+inference strategy</strong>。</p>
+<p>推理时，流程大致是：</p>
+<ol type="1">
+<li><p>输入当前视觉观测、语言指令和机器人状态；</p></li>
+<li><p>VLA 模型并行采样多个候选 action chunks；</p></li>
+<li><p>对这些候选动作计算 translation、rotation 和 gripper 的 action
+entropy；</p></li>
+<li><p>根据平均 action entropy 的变化趋势选择当前 chunk
+size；（“平均熵前后差”的意义：找到不确定性突然变大的边界，然后执行边界之前的动作。如果直接选平均熵最低的
+chunk, 通常会偏向最小 h）</p></li>
+<li><p>执行前 (k) 个动作；</p></li>
+<li><p>重新获得新观测，再重复上述过程。</p></li>
+</ol>
+<p>因此，chunk size 不再是固定的 4、8、16，而是随当前场景变化。</p>
+<p><img src="/2026/05/01/Vision_Language_Action_Models/AAC.png"></p>
+<h3 id="实验结果和结论">实验结果和结论</h3>
+<p>论文在 RoboCasa、LIBERO 和真实机器人任务上验证 AAC。实验显示，固定
+chunk size 在不同任务上的表现差异明显，例如 LIBERO-Spatial 最适合的
+chunk size 和 LIBERO-Goal 最适合的 chunk size 并不相同。AAC
+则能够在不同任务中自适应选择更合适的执行长度。</p>
+<p>在 RoboCasa 和 LIBERO 上，GR00T+AAC
+获得了整体最优或接近最优的成功率。例如表 1 中，GR00T+AAC 在 RoboCasa
+平均成功率为 62.0%，在 LIBERO 平均成功率为 95.0%，优于默认固定 chunk 的
+GR00T。</p>
+<p>论文还分析了计算成本。AAC 需要多个候选 action chunks
+来估计熵，因此相比固定 chunk 会增加一些计算量。但由于候选动作可以 batch
+parallel 生成，额外开销较小。实验中，在单张 A800 GPU 上，样本数从 1
+增加到 20 时，推理时间从 83.0ms 增加到 106.0ms，仍然可接受。</p>
+<h2 id="adaptive-action-chunking-open-loop-planning-closed-loop-verification-speculative-verification-for-vla"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2604.02965">(Adaptive action chunking)
+Open-Loop Planning, Closed-Loop Verification: Speculative Verification
+for VLA</a></h2>
+<p>这篇论文要解决的问题是：<strong>VLA
+模型推理很慢，但机器人控制需要高频反馈。</strong></p>
+<p>传统有两种极端做法：</p>
+<p><strong>第一种：每一步都调用大 VLA。</strong>
+这最稳，因为每一步都能根据最新观测重新决策；但代价太高，推理延迟大，不适合实时控制。</p>
+<p><strong>第二种：action chunking。</strong> 大 VLA
+一次预测一长段动作：<span class="math inline">\(A_t = [a_t, a_{t+1},
+...,
+a_{t+K-1}]\)</span>，然后机器人连续执行这段动作。这样推理次数少、效率高，但问题是中间不看新观测，属于
+open-loop
+execution。一旦物体位置变化、抓取偏了、执行误差累积，后续动作仍然按照旧观测继续执行，容易失败。论文指出，当
+chunk size 很大，例如 (K=64) 时，这种 temporal drift 和 error
+accumulation 会更严重。</p>
+<p>这篇工作的核心思想是：</p>
+<blockquote>
+<p><strong>用大的 VLA 低频做 open-loop macro planning，用轻量 verifier
+高频做 closed-loop verification。</strong></p>
+</blockquote>
+<p>也就是：<strong>计划可以低频，验证必须高频。</strong></p>
+<h3 id="什么是-speculative-decoding">什么是 Speculative Decoding？</h3>
+<p><strong>Speculative Decoding</strong>
+最早是大语言模型里的推理加速方法。它的基本思路是：</p>
+<ol type="1">
+<li>用一个小模型，也叫 <strong>draft model</strong>，快速生成多个候选
+token；</li>
+<li>再用一个大模型，也叫 <strong>target model</strong>，并行验证这些
+token；</li>
+<li>如果候选 token 被大模型接受，就一次性前进多步；</li>
+<li>如果不接受，就回退或重新生成。</li>
+</ol>
+<p>可以简单理解为：</p>
+<blockquote>
+<p>小模型先“猜一串答案”，大模型再“快速检查是否靠谱”。</p>
+</blockquote>
+<p>在语言模型中，这个方法有效，是因为 token 的验证只依赖文本上下文。候选
+token
+序列生成后，大模型可以在同一个上下文里并行打分，不需要外部环境反馈。论文也明确指出，标准
+speculative decoding 中，draft model 生成候选序列后，heavy target model
+可以并行验证，因为验证所需的上下文已经在 drafted sequence 中。</p>
+<h4 id="为什么-speculative-decoding-不能直接用于机器人vla">为什么
+Speculative Decoding 不能直接用于机器人/VLA？</h4>
+<p>机器人控制和语言生成不同。语言生成里，下一个 token
+是否合理，只取决于文本上下文；但机器人动作是否合理，取决于动作执行后真实环境发生了什么。</p>
+<p>比如机器人计划：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">靠近杯子 → 夹住杯子 → 抬起杯子 → 放进篮子<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在执行第一步后，真实情况可能是：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">杯子被碰歪了<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>那么后续“夹住杯子”的动作就不再合理。下一个观测 <span class="math inline">\(I_{t+1}\)</span>
+是由当前观测、动作和真实环境动力学共同决定的。未来动作是否有效，必须等真实执行后拿到新观测才能判断，不能像语言
+token 一样提前并行验证。</p>
+<p>所以这篇论文认为：标准 speculative decoding 用在 VLA
+上会有一个根本问题——它仍然基于 stale
+observation，也就是过期观测来验证和执行动作。</p>
+<h3 id="论文提出的方法speculative-verification-sv-vla">论文提出的方法：Speculative
+Verification / SV-VLA</h3>
+<p>SV-VLA 的设计可以概括为：</p>
+<blockquote>
+<p><strong>Open-loop planning, closed-loop verification.</strong></p>
+</blockquote>
+<p>也就是：</p>
+<p><strong>大 VLA 负责低频规划：</strong> 在每个 planning boundary，重型
+VLA 根据当前视觉观测、语言指令和机器人状态，生成一段 macro action
+chunk，并提取一个 planning context feature：</p>
+<p><span class="math inline">\((A_{\text{macro}}, F_0) = \pi_\theta(I_0,
+L, s_0)\)</span></p>
+<p>其中：<span class="math inline">\(A_{\text{macro}} = [a_0, a_1, ...,
+a_{K-1}]\)</span> 是未来动作序列，<span class="math inline">\(F_0\)</span> 是从重型 VLA 的倒数第二层 Transformer
+中提取的上下文特征，用来总结任务意图和场景信息。</p>
+<p><strong>轻量 verifier 负责高频验证：</strong>
+执行过程中，每一步拿到最新观测 <span class="math inline">\(I_t\)</span>，用轻量视觉编码器提取特征：<span class="math inline">\(E_t =
+\phi_{\text{vit}}(I_t)\)</span>，然后把当前视觉特征和原始 planning
+context feature 拼接融合：<span class="math inline">\(Z_t = FC[E_t \Vert
+F_0]\)</span>.</p>
+<p>轻量 verifier 根据 <span class="math inline">\(Z_t\)</span> 预测一个
+reference action：<span class="math inline">\(a^{\prime}_t =
+\pi_{\text{verify}}(Z_t)\)</span>.</p>
+<p>注意，这个 <span class="math inline">\(a^{\prime}_t\)</span><strong>不是直接执行的动作</strong>，而是一个“参考动作”，用来判断原本
+macro chunk 里的动作 <span class="math inline">\(a_t\)</span>
+是否还适合当前真实状态。</p>
+<h3 id="deviation-based-replanning如何判断是否重规划">Deviation-based
+Replanning：如何判断是否重规划？</h3>
+<p>SV-VLA 用 verifier 预测的 reference action <span class="math inline">\(a^{\prime}_t\)</span> 和原计划动作 <span class="math inline">\(a_t\)</span> 做比较。</p>
+<p>它用归一化 L1 距离计算偏差：<span class="math inline">\(E_t =
+\text{norm}(|a'_t - a_t|_1)\)</span></p>
+<p>如果偏差小于阈值：<span class="math inline">\(E_t \leq
+\tau\)</span>，说明原计划动作仍然和当前真实观测一致，于是继续执行 <span class="math inline">\(a_t\)</span>。</p>
+<p>如果偏差大于阈值：<span class="math inline">\(E_t &gt; \tau\)</span>,
+说明当前执行已经偏离原始计划，剩下的动作不再可靠，于是丢弃原 action
+chunk 的剩余部分，重新调用重型 VLA 从当前状态规划新
+chunk。论文的执行规则正是这样定义的。</p>
+<p>因此，SV-VLA 不是让轻量 verifier 取代大 VLA，而是让 verifier
+作为在线监控器：</p>
+<blockquote>
+<p><strong>当前动作还符合原计划，就继续执行；不符合，就触发大模型重规划。</strong></p>
+</blockquote>
+<h3 id="训练策略是什么">训练策略是什么？</h3>
+<p>训练阶段，<strong>重型 VLA 保持冻结</strong>，只训练轻量
+verifier。论文使用 OpenVLA-OFT 作为 heavy VLA，chunk size 设为
+64；训练在 4 张 A100 上进行，验证在单张 V100 上进行。优化器是
+AdamW，学习率为 <span class="math inline">\(8 \times
+10^{-4}\)</span>，batch size 为 64。</p>
+<p>训练目标是让 verifier 学会预测一个和当前观测相匹配的 reference
+action。对于 macro chunk 中后续每一步 <span class="math inline">\(t=1,...,K-1\)</span>，verifier 输入当前观测 <span class="math inline">\(I_t\)</span> 和规划上下文 <span class="math inline">\(F_0\)</span>，预测参考动作 <span class="math inline">\(a^{\prime}_t\)</span>，并用 ground-truth action
+<span class="math inline">\(\hat{a}_t\)</span> 做 L1 回归监督：</p>
+<p><span class="math inline">\(\mathcal{L}_{verify}=\frac{1}{K-1}\sum_{t=1}^{K-1}|a^{\prime}_t-
+\hat{a}_t|_1\)</span></p>
+<p>这样 verifier 学到的是：</p>
+<blockquote>
+<p>在原始高层计划上下文 <span class="math inline">\(F_0\)</span>
+下，结合当前真实观测 <span class="math inline">\(I_t\)</span>，什么动作才是局部合理的。</p>
+</blockquote>
+<p>论文强调，这种做法兼容已有预训练
+VLA，因为大模型和视觉编码器都可以冻结，只需要训练轻量 verifier。</p>
+<h3 id="推理流程">推理流程</h3>
+<p>推理时流程如下：</p>
+<p>首先，大 VLA 从当前观测生成一个长 action chunk 和 planning context
+feature。然后执行第一个动作，获得新观测。</p>
+<p>之后，对于 chunk 中的每个后续动作，轻量 verifier 都会：</p>
+<ol type="1">
+<li>读取最新观测；</li>
+<li>结合 planning context feature；</li>
+<li>预测 reference action；</li>
+<li>与原计划动作比较；</li>
+<li>如果偏差小，继续执行原动作；</li>
+<li>如果偏差大，停止当前 chunk，调用大 VLA 重新规划。</li>
+</ol>
+<p>论文 Algorithm 1 也明确写出：SV-VLA 在每个循环中先做 macro
+planning，然后在高频验证阶段逐步判断是否接受 planned action 或触发
+replanning。</p>
+<h3 id="实验结果-1">实验结果</h3>
+<p>论文主要在 <strong>LIBERO</strong> 上评估，包括
+LIBERO-Goal、LIBERO-Object 和 LIBERO-Spatial 三个 task
+suites。它比较了：</p>
+<ul>
+<li>BASE (K=8)：短 chunk，频繁调用大 VLA；</li>
+<li>BASE (K=64)：长 chunk，open-loop 执行；</li>
+<li>Speculative Decoding；</li>
+<li>Speculative Verification，即 SV-VLA。</li>
+</ul>
+<p>主要结果如下。</p>
+<p><strong>平均成功率方面：</strong></p>
+<ul>
+<li>BASE (K=8)：96.0%，但速度基准为 1.00；</li>
+<li>BASE (K=64)：79.5%，速度 3.15×；</li>
+<li>Speculative Decoding：81.7%，速度 1.36×；</li>
+<li>SV-VLA：90.9%，速度 2.17×。</li>
+</ul>
+<p>这说明 SV-VLA 虽然没有短 chunk (K=8)
+那么高的成功率，但显著快；同时相比长 chunk (K=64)，成功率从 79.5% 提升到
+90.9%，说明在线验证能恢复长 chunk open-loop 丢失的鲁棒性。</p>
+<p><strong>各任务子集上：</strong></p>
+<p>在 LIBERO-Goal 上，SV-VLA 从 open-loop (K=64) 的 93.2% 提升到
+94.4%。</p>
+<p>在 LIBERO-Object 上，从 77.2% 提升到 95.3%。</p>
+<p>在 LIBERO-Spatial 上，从 68.0% 提升到 83.0%。</p>
+<p><strong>推理时间方面：</strong></p>
+<p>BASE (K=8) 每个 episode 平均调用 macro-planner 14.5 次，平均耗时 15.9
+秒，成功率 96.0%。</p>
+<p>BASE (K=64) 平均调用 macro-planner 4.2 次，平均耗时 5.7
+秒，但成功率只有 79.47%。</p>
+<p>SV-VLA 平均调用 macro-planner 6.7 次，额外调用 verifier 13.3
+次，平均耗时 8.8 秒，成功率 90.90%。由于 verifier 每次只需 0.081 秒，而
+heavy macro-planner 每次约 1.373 秒，因此频繁 verifier
+的代价远低于频繁调用大 VLA。</p>
+<p><strong>消融实验方面：</strong></p>
+<p>在 LIBERO-Spatial 上，完整 SV-VLA 成功率为 83.0%。去掉 planning
+context feature 后降到 73.7%；去掉当前观测后降到 63.7%；去掉 replanning
+后只有
+15.5%。这说明当前实时观测、原始规划上下文和重规划机制都很关键，其中没有
+replanning 时性能崩得最厉害，说明 verifier 的核心作用不是替代大
+VLA，而是触发及时恢复。</p>
+<h2 id="vla-corrector-lightweight-detect-and-correct-inference-for-adaptive-action-horizon"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2607.01804">VLA-Corrector: Lightweight
+Detect-and-Correct Inference for Adaptive Action Horizon</a></h2>
+<p>VLA-Corrector 关注的是 action chunk 机制里一个很实际的矛盾。现代 VLA
+为了降低推理频率，通常一次预测一段未来动作，然后在接下来的 <span class="math inline">\(H\)</span> 个控制步里 open-loop
+执行。这样做可以让动作更平滑、减少 policy call，但也产生一个 open-loop
+blind spot：新相机观测虽然每一步都到达，策略却要等当前 chunk
+执行完才重新看环境。如果接触、滑移、碰撞或目标位置扰动发生在 chunk
+中间，机器人会继续执行已经过期的动作，误差在剩余 horizon
+内不断放大。极端地，把 <span class="math inline">\(H\)</span> 设成 1
+可以恢复闭环反应，但推理成本又会变得很高。因此这篇论文的核心问题不是“固定
+horizon 取多大”，而是“如何判断当前 chunk 什么时候不该继续相信”。</p>
+<p><img src="/2026/05/01/Vision_Language_Action_Models/vla_corrector_overview.png"></p>
+<p>VLA-Corrector 的设计很轻量：它不修改 VLA
+backbone，也不重新训练动作策略，而是在已经 fine-tuned 的 action-chunked
+VLA 外面加一个外部 latent dynamics corrector。训练时，作者先冻结
+VLA，用它自己的视觉编码器 <span class="math inline">\(\mathcal{E}\)</span> 从示范轨迹中提取视觉
+latent。给定转移 <span class="math inline">\((o_t,a_t,o_{t+k})\)</span>，先计算当前 latent
+<span class="math inline">\(Z_t^{real}=\mathcal{E}(o_t)\)</span> 和未来
+latent <span class="math inline">\(Z_{t+k}^{real}=\mathcal{E}(o_{t+k})\)</span>，再把二者差值
+<span class="math inline">\(\Delta
+Z_{t+k}^{*}=Z_{t+k}^{real}-Z_t^{real}\)</span>
+作为短程视觉动态目标。外部 corrector <span class="math inline">\(M_{\phi}\)</span> 学的是从当前视觉 latent
+和执行动作预测这个 residual latent evolution：<span class="math inline">\(\Delta\hat{Z}_{t+k}=M_{\phi}(Z_t^{real},a_t)\)</span>。这里预测
+residual 而不是绝对未来
+latent，是为了压掉静态背景信息，让模型更关注动作真正导致的局部视觉变化。训练损失同时包含
+L2 匹配和 cosine direction consistency。</p>
+<p>从架构上看，<span class="math inline">\(M_{\phi}\)</span> 只是一个约
+<strong>40M</strong> 参数的 residual
+MLP，而不是完整世界模型。具体实现是先把执行动作用线性层嵌入，再和当前视觉
+latent 拼接，送入 4 层宽度为 <code>[2048,2048,2048,2048]</code> 的
+residual MLP，输出短程 latent residual。训练使用 AdamW，学习率 <span class="math inline">\(3\times10^{-4}\)</span>，weight decay <span class="math inline">\(10^{-4}\)</span>，最多 30 个 epoch，并在冻结 VLA
+feature
+上训练。这个模块的目标不是生成所有可能未来，而是学习“正常任务进展下，给定当前视觉状态和动作，视觉
+latent 应该朝哪个方向变化”。因此它可以用少量 demonstration
+训练，成本远低于重新微调 VLA 主干。</p>
+<p>推理时，VLA-Corrector 把动作生成和执行监控解耦。VLA backbone
+仍然像原来一样生成 action chunk；机器人执行 chunk 时，Latent-space
+Vision Monitor（LVM）持续读取新观测，把真实视觉变化和 corrector
+预测的期望变化做比较。具体来说，在控制步 <span class="math inline">\(t\)</span>，LVM 用 <span class="math inline">\(M_{\phi}(Z_t^{real},a_t)\)</span> 得到 expected
+residual <span class="math inline">\(\Delta
+Z_{t+k}^{exp}\)</span>；等新观测 <span class="math inline">\(o_{t+k}\)</span> 到达后，再计算 actual residual
+<span class="math inline">\(\Delta
+Z_{t+k}^{real}=Z_{t+k}^{real}-Z_t^{real}\)</span>。二者的不一致分数定义为
+<span class="math display">\[
+E_t = 1-\mathrm{CosSim}(\Delta Z_{t+k}^{exp}, \Delta Z_{t+k}^{real}).
+\]</span> 如果 <span class="math inline">\(E_t\)</span>
+变大，说明“动作本应造成的视觉变化”和“真实发生的视觉变化”开始不一致，当前
+chunk 可能已经 stale。</p>
+<p>为了避免单帧噪声导致误触发，VLA-Corrector 没有简单地对 <span class="math inline">\(E_t\)</span>
+做固定阈值，而是维护一个滑动窗口，计算窗口内 median 和 MAD，再构造
+hysteresis 风格的动态阈值 <span class="math inline">\(T_{on}\)</span> 和
+<span class="math inline">\(T_{off}\)</span>。只有当 <span class="math inline">\(E_t&gt;T_{on}\)</span> 连续持续 <span class="math inline">\(p\)</span> 步时，才触发 interrupt
+event。触发后，系统直接丢弃当前 action queue
+里尚未执行的剩余动作，并重新调用 VLA 生成新 chunk。这样原本固定的 action
+horizon <span class="math inline">\(H\)</span> 被变成 event-triggered
+adaptive horizon：正常时保留长 chunk
+的效率，发生漂移时把实际执行长度截断为 <span class="math inline">\(H_{adaptive}=h &lt;
+H\)</span>，提前闭环重规划。</p>
+<p>论文更有意思的地方是，截断之后不是简单重新推理，而是使用 Online
+Gradient Guidance（OGG）引导下一次 replan。OGG 只作用在 interrupt
+之后的那一次 policy query，不会替换所有推理。它先在 flow-matching
+denoising 的某一步根据当前 noisy action chunk 估计 clean
+chunk，并取第一步候选动作 <span class="math inline">\(\hat{a}_t\)</span>；再用 corrector
+预测这个候选动作会导致的 latent effect <span class="math inline">\(\Delta\hat{Z}_{act}=M_{\phi}(Z_t^{real},\hat{a}_t)\)</span>。与此同时，系统根据上一次稳定状态的
+expected residual 和当前已累积的 deviation，构造 corrective latent
+direction：<span class="math inline">\(\Delta Z_{corr}=\Delta
+Z_{exp}-\Delta Z_{dev}\)</span>。随后定义 <span class="math inline">\(\mathcal{L}_{OGG}=1-\mathrm{CosSim}(\Delta\hat{Z}_{act},\Delta
+Z_{corr})\)</span>，并把该损失的梯度注入 flow-matching velocity：<span class="math inline">\(v_{\tau}^{guide}=v_{\tau}-\eta\nabla_{v_{\tau}}\mathcal{L}_{OGG}\)</span>。直观地说，OGG
+不是直接改动作坐标，而是在动作生成的去噪速度场里施加一个“让下一步动作的视觉效果朝纠偏方向走”的梯度，因此仍然保持原始
+VLA action prior 的平滑性。</p>
+<p>实验覆盖 MetaWorld、LIBERO 和真实 AgileX PiPER 机械臂。MetaWorld
+上，VLA-Corrector 可接到不同 VLA backbone 上：在 <span class="math inline">\(\pi_{0.5}\)</span> 上平均成功率从
+<strong>48.70%</strong> 提升到 <strong>64.35%</strong>，Very Hard split
+从 41.0% 提升到 65.0%；SmolVLA 从 61.90% 提升到 66.65%；X-VLA 从 55.55%
+提升到 59.60%。LIBERO few-shot 设置中，基于 LeRobot 的
+<code>pi05_libero_base</code> checkpoint，few-shot fine-tuned baseline
+平均为 <strong>94.00%</strong>，加 VLA-Corrector 后达到
+<strong>97.80%</strong>，甚至超过 fully fine-tuned baseline 的
+96.95%。这说明它的收益不只是更频繁 query
+policy，而是在减少错误积累、提高每次 policy call 的有效性。</p>
+<p>真实机器人实验更直接体现了这类方法的应用场景。作者在 AgileX PiPER
+6-DoF 机械臂上测试 9 个任务，每个任务 20 次，baseline 和 VLA-Corrector
+使用同一个 fine-tuned <span class="math inline">\(\pi_{0.5}\)</span>。总体平均成功率从
+<strong>55.6%</strong> 提升到 <strong>73.3%</strong>。在普通
+pick-and-place 任务中提升相对温和，从 70.0% 到
+78.3%；在对位、插入和边缘对齐这类 alignment 任务中，从 56.7% 到
+73.3%；在人为移动目标或放置区域的 disturbance recovery
+任务中，提升最大，从 40.0% 到 68.3%。这和论文动机一致：当原始 action
+chunk 在执行中途变 stale 时，LVM 截断和 OGG-guided replan
+的价值最大。</p>
+<p>从研究定位看，VLA-Corrector 和 Adaptive Action Chunking 都在处理
+fixed horizon 的问题，但思路不同：Adaptive Action Chunking
+让策略直接预测当前应该执行多长 chunk，而 VLA-Corrector 不改原
+VLA，只在推理时监控视觉动态并事件触发截断；它也不同于完整
+WAM，不试图在线生成未来视频，而是用一个轻量 latent residual model
+做“当前动作造成的视觉变化是否合理”的局部一致性检测。局限也很清楚：OGG
+需要额外梯度计算，论文报告开启 OGG 后 wall-clock 推理时间约增加
+<strong>1.62×–1.68×</strong>，但由于只在 interrupt
+后触发，均摊到每个环境 step 约从 12.32 ms 增到 20.25 ms；此外，corrector
+仍依赖冻结 VLA 的视觉表示和动作先验，如果 backbone
+本身没有可表达的恢复行为，OGG
+只能把生成方向偏向更合理的局部动态，无法凭空创造新技能。</p>
+<h2 id="speedup-patch-learning-a-plug-and-play-policy-to-accelerate-embodied-manipulation"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2603.20658">Speedup Patch: Learning a
+Plug-and-Play Policy to Accelerate Embodied Manipulation</a></h2>
+<h3 id="研究背景为什么需要-speedup-patch">研究背景：为什么需要 Speedup
+Patch？</h3>
+<p>当前很多具身策略，比如 <strong>ACT、Diffusion
+Policy、VLA/Vision-Language-Action model</strong>，都采用 <strong>action
+chunking</strong>。也就是策略不是每次只输出一个动作，而是一次输出一段动作序列：</p>
+<p><span class="math inline">\(A_t=(a_t,a_{t+1},...,a_{t+n-1})\)</span></p>
+<p>这种方式可以减少 compounding
+error，也能提高推理效率。但是这些策略通常是从人类遥操作示范中学习的，而人类示范往往比较慢、动作比较密、包含大量冗余步骤。结果是，训练出来的机器人策略也会继承这种“慢节奏”，输出过于密集的动作序列，导致任务执行时间长，不利于真实部署。论文明确指出，当前
+embodied policies
+虽然具备不错的操作能力，但执行速度仍然较慢，一个重要原因是它们继承了人类示范中的
+slow pacing 和 temporal redundancy。</p>
+<p>已有加速方法通常有明显代价：要么需要重新整理/下采样数据并重新训练策略，要么需要新的动作预测机制，要么依赖昂贵的在线交互来保证任务成功。这对大规模
+VLA foundation model 尤其不友好，因为 fine-tuning
+成本很高。于是论文提出一个问题：<strong>能不能只用离线数据，在不重新训练原始策略的情况下，给已有策略加一个
+plug-and-play 的加速补丁？</strong></p>
+<p><img src="/2026/05/01/Vision_Language_Action_Models/sup.png"></p>
+<h3 id="核心思想冻结原策略只学一个外部-scheduler">核心思想：冻结原策略，只学一个外部
+scheduler</h3>
+<p>SuP 的核心是训练一个轻量级 <strong>scheduler
+policy</strong>。原始策略 <span class="math inline">\(\pi_{\text{base}}\)</span>
+保持冻结，仍然照常输出一个 action chunk：<span class="math inline">\(A_t
+\sim \pi_{\text{base}}(\cdot \mid I_t,o_t)\)</span>，其中 <span class="math inline">\(I_t\)</span> 是视觉观测，<span class="math inline">\(o_t\)</span> 是机器人状态。SuP 不修改这个 base
+policy，而是在外面加一个 scheduler：<span class="math inline">\(\pi(k
+\mid o_t,A_t)\)</span></p>
+<p>这个 scheduler 根据当前状态和 base policy 输出的 action
+chunk，选择一个 <strong>downsampling rate</strong> <span class="math inline">\(k\)</span>。然后系统把原 action chunk
+下采样成更短的动作序列：<span class="math inline">\(A_t^k\)</span>。最后执行的是下采样后的动作序列，而不是原始完整
+chunk。论文把这个设计称为 plug-and-play
+scheduler，它可以在不重训原策略的情况下实现 state-dependent execution
+speedup。</p>
+<p>直观理解是：</p>
+<blockquote>
+<p>原策略说：“我准备用 20 个小动作完成这段移动。” SuP
+判断：“这段是粗粒度移动，可以跳着走，用 10 个动作就够。”
+但如果是抓取、接触、对位阶段，SuP
+会选择较小的下采样率，避免破坏精度。</p>
+</blockquote>
+<h3 id="方法形式化把加速建模成-cmdp">方法形式化：把加速建模成 CMDP</h3>
+<p>论文把 scheduler 的学习建模为一个 <strong>Constrained Markov Decision
+Process, CMDP（约束马尔可夫决策过程）</strong>。</p>
+<p>目标是：</p>
+<blockquote>
+<p>最大化执行效率，同时不损害任务成功率。</p>
+</blockquote>
+<p>scheduler 的动作空间是离散的 downsampling rates：<span class="math inline">\(K={k_{\min},...,k_{\max}}\)</span></p>
+<p>奖励函数很直接：<span class="math inline">\(r(s_t,k_t)=k_t\)</span>。也就是说，选更大的下采样率，获得更高奖励，因为执行更快。论文将
+speedup learning 建模为在 CMDP 中优化 scheduler policy，以最大化
+acceleration gain，同时保持任务性能。</p>
+<p>但问题是，怎么知道某个 <span class="math inline">\(k\)</span>
+会不会导致任务失败？理想情况下应该用任务成功率或 value function
+来判断。但在离线训练中，不能真实执行每个下采样动作，也不能在线评估成功率。因此论文引入了一个关键替代指标：<strong>World
+Model-based state deviation</strong>。</p>
+<h3 id="关键技术用世界模型估计-state-deviation-作为安全约束">关键技术：用世界模型估计
+state deviation 作为安全约束</h3>
+<p>SuP 训练一个 <strong>Recurrent World Model,
+RWM（循环世界模型）</strong>，用于预测机器人状态轨迹，而不是重建高维图像。这样模型更轻量，也更适合离线大量评估。论文中的
+RWM 根据当前状态和动作序列预测未来低维状态，并采用多步 MSE loss
+训练：</p>
+<p><span class="math inline">\(\mathcal{L}(\theta)= \mathbb{E}
+\left[\sum_{i=1}^{L} |\hat{o}*{t+i}-o*{t+i}|_2^2 \right]\)</span></p>
+<p>有了世界模型后，SuP 可以离线模拟两种轨迹：</p>
+<ol type="1">
+<li>原始 action chunk <span class="math inline">\(A_t\)</span>
+导致的未来状态轨迹；</li>
+<li>下采样 action chunk <span class="math inline">\(A_t^k\)</span>
+导致的未来状态轨迹。</li>
+</ol>
+<p>然后比较这两条轨迹的末端执行器位置是否偏离太多。论文定义 state
+deviation 为两条轨迹中 end-effector 位置最大差异：</p>
+<p><span class="math inline">\(E(s_t,k_t)=\max_i
+d(\text{EEF}(o_{t+i}),\text{EEF}(\hat{o}^{k}_{t+i}))\)</span></p>
+<p>如果：<span class="math inline">\(E(s_t,k_t) &gt; \epsilon\)</span>,
+就认为这个下采样率太激进，会破坏原始策略的运动意图，记为
+violation。论文通过实验发现，state deviation violation
+越多，任务成功率越低，因此它可以作为离线安全约束的代理指标。</p>
+<p>这点很关键：SuP 不直接问“任务会不会成功”，而是问：</p>
+<blockquote>
+<p>下采样后的轨迹是否仍然接近原策略本来想走的轨迹？</p>
+</blockquote>
+<p>如果接近，就认为加速安全；如果偏离太大，就认为风险高。</p>
+<h3 id="训练流程三阶段">训练流程：三阶段</h3>
+<p>论文的训练流程很清楚，分成三步。</p>
+<p>第一阶段，训练 Recurrent World Model。用离线 demonstration
+数据采样不同长度的动作序列，监督世界模型预测未来状态。训练目标是多步状态预测
+MSE。</p>
+<p>第二阶段，合成 scheduler 的离线 RL 数据。对于离线数据中的每个
+transition 和 action chunk，枚举不同的下采样率
+(k)，用世界模型预测下采样后轨迹，并计算 state deviation 和
+violation。然后给每个候选 <span class="math inline">\(k\)</span>
+赋予奖励：</p>
+<p><span class="math display">\[r'(s,k)=\begin{cases}
+k, &amp; h_E(s,k)=0 \
+-\Omega, &amp; h_E(s,k)=1
+\end{cases}
+\]</span></p>
+<p>也就是说，安全的加速动作奖励为 <span class="math inline">\(k\)</span>，越快越好；不安全的下采样动作给予一个很大的负惩罚。论文还给出条件，说明只要
+() 足够大，最优策略会避免 violation。</p>
+<p>第三阶段，用 <strong>IQL（Implicit Q-Learning）</strong> 训练
+scheduler。IQL 学习 <span class="math inline">\(Q(o,A^k)\)</span> 和
+<span class="math inline">\(V(o)\)</span>，推理时选择：<span class="math inline">\(\pi_\phi(o,A)=\arg\max_k
+Q_\phi(o,A^k)\)</span></p>
+<p>也就是在当前状态和候选下采样 chunk
+中，选一个预期收益最高且不违反安全约束的下采样率。</p>
+<h3 id="推理时怎么运行">推理时怎么运行？</h3>
+<p>推理时流程很简单：</p>
+<ol type="1">
+<li>原始 policy <span class="math inline">\(\pi_{\text{base}}\)</span>
+输出 action chunk；</li>
+<li>scheduler 读取当前状态和 action chunk；</li>
+<li>scheduler 输出 downsampling rate <span class="math inline">\(k\)</span>；</li>
+<li>系统把 action chunk 下采样为更短的 <span class="math inline">\(A_t^k\)</span>；</li>
+<li>执行下采样后的动作；</li>
+<li>下一次再重复。</li>
+</ol>
+<p>这个 scheduler 是外接模块，不需要修改 base policy，因此它被称为
+<strong>Speedup Patch</strong>。</p>
+<h3 id="实验结果-2">实验结果</h3>
+<p>论文在 <strong>Bigym、LIBERO 和真实机器人任务</strong> 上评估
+SuP。Bigym 覆盖 20 个厨房/家务类 humanoid manipulation tasks，LIBERO
+覆盖 4 个 task suite 共 40 个任务；base policy 包括 ACT、Diffusion
+Policy、<span class="math inline">\(\pi_0.5\)</span> 和
+VLA-Adapter。</p>
+<p>在 <strong>LIBERO</strong> 上，SuP 对 <span class="math inline">\(\pi_0.5\)</span> 的平均成功率从 0.969 提升到
+0.973，同时实现 <strong>1.35× speedup</strong>；相比 naive downsampling
+(-ds2)，SuP 的成功率明显更稳，因为 (-ds2) 虽然达到 1.72×
+speedup，但平均成功率下降到 0.928。对 VLA-Adapter，SuP 也实现 1.34×
+speedup，并基本保持原始性能，而 naive downsampling 下降明显。</p>
+<p>在 <strong>Bigym</strong> 上，SuP 对 ACT 实现约 <strong>2.01×
+speedup</strong>，同时保持甚至略微提升成功率；对 Diffusion Policy，SuP
+达到 <strong>1.48×
+speedup</strong>，并避免了普通下采样导致的性能崩塌。论文强调 SuP 在
+ACT、DP、VLA 等不同架构上都有较强通用性。</p>
+<p>在 <strong>真实机器人实验</strong> 中，任务包括 Arrange Table、Fold
+Towel、Stack Plates。SuP 在 (_0.5) 上实现平均 <strong>2.17×
+speedup</strong>，同时平均成功率为 0.611，略高于 base policy 的
+0.589，也高于 DemoSpeedup 的 0.600。相比之下，激进的 naive downsampling
+(ds3) 虽然达到 2.19× speedup，但成功率崩到
+0.356，说明盲目加速会严重破坏操作能力。([arXiv][1])</p>
+<p>在计算效率方面，SuP 只有 <strong>5.12M trainable
+parameters</strong>，训练时间约 <strong>2 小时</strong>，推理开销约
+<strong>1ms</strong>，而 DemoSpeedup 需要训练 4B 参数并耗时约 20
+小时。论文指出 scheduler 的推理开销相对 <span class="math inline">\(\pi_0.5\)</span> 的 50ms
+推理延迟几乎可以忽略。</p>
+<h1 id="基准评测安全与导航">基准、评测、安全与导航</h1>
+<h2 id="libero-benchmarking-knowledge-transfer-for-lifelong-robot-learning"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2306.03310">LIBERO: Benchmarking Knowledge
+Transfer for Lifelong Robot Learning</a></h2>
+<p>本文聚焦于决策领域的终身学习（LLDM），指出与图像和文本等传统终身学习主要关注“陈述性知识”（如概念与实体）不同，机器人决策还需要学习和迁移“程序性知识”（如动作与行为）。为推动该方向研究，作者提出了一个新的机器人操作终身学习基准
+LIBERO。该基准围绕五个关键问题展开：如何高效迁移不同类型的知识、如何设计有效的策略架构、如何开发高效算法、模型对任务顺序变化的鲁棒性，以及预训练对终身学习的影响。
+为此，作者构建了一个可扩展的程序化任务生成框架，理论上可生成无限任务，并设计了包含
+130
+个任务的四个任务套件用于评测。同时提供高质量的人类遥操作示范数据，以支持样本高效学习。实验结果揭示了一些重要结论：顺序微调在前向迁移
+(leverage prior knowledge to facilitate learning new tasks)
+上优于现有终身学习方法；不存在在所有知识迁移类型中都表现最优的视觉编码器；而简单的监督预训练反而可能对后续的终身学习性能产生负面影响。这些发现为
+LLDM 研究提供了新的见解与挑战。</p>
+<p>LIBERO 基准包含四类任务集：LIBERO-SPATIAL、LIBERO-OBJECT、LIBERO-GOAL
+和 LIBERO-100。其中前三类任务集各包含 10
+个任务，旨在分别研究不同类型知识的迁移能力：空间信息（陈述性知识）、物体类别（陈述性知识）以及任务目标（程序性知识）。具体而言，LIBERO-SPATIAL
+中的任务要求机器人在相同物体集合中将碗放到盘子上，但存在位置不同的相同碗，因此需要持续学习和记忆空间关系；LIBERO-OBJECT
+要求机器人执行不同物体的抓取与放置，需要不断学习新的物体类别；LIBERO-GOAL
+则在相同物体和固定空间关系下，仅改变任务目标，因此要求机器人学习新的动作和行为策略。相比之下，LIBERO-100
+包含 100 个更复杂的任务，涉及多样的物体交互和运动技能，其中进一步划分为
+90 个短时序任务（LIBERO-90）用于预训练，以及 10
+个长时序任务（LIBERO-LONG）用于评估终身学习算法的泛化能力。</p>
+<h2 id="safety-safety-of-vision-language-action-models-a-survey-from-lifecycle-perspectives"><a target="_blank" rel="noopener" href="https://www.authorea.com/doi/full/10.22541/au.177524426.60806944/v1">(20260408,
+Safety) Safety of Vision-Language-Action Models: A Survey from Lifecycle
+Perspectives</a></h2>
+<p>VLA
+近年来已成为具身智能的一种范式，使机器人能够通过一个端到端策略，在多模态观测下执行复杂动作。随着
+VLA
+模型在现实环境中的日益部署，确保其安全性变得至关重要，因为其失效或恶意行为可能导致严重的物理伤害以及广泛的社会影响。尽管关于
+VLA
+安全性的研究不断增多，现有工作大多集中于单一方面，例如特定的攻击面、鲁棒性或可靠性，而缺乏对
+VLA
+系统全生命周期安全风险的统一理解。为弥补这一空白，论文从整体生命周期的视角，对
+VLA 模型的安全挑战及其缓解策略进行了系统性综述。具体而言，论文将 VLA
+的开发流程划分为三个关键阶段：数据准备、模型训练和系统部署。对于每个阶段，论文从两个互补的角度系统分析安全问题：一是对抗性场景，即有意攻击试图破坏系统安全；二是非对抗性情境，即由于模型固有局限或外部因素导致系统可靠性下降，从而引发不安全行为。最后，论文还探讨了构建安全
+VLA 系统的前沿研究方向。为支持研究人员和从业者推动 VLA
+系统的安全应用，维护了一个持续更新的 VLA
+安全文献资源库：https://github.com/hi-weiyuan/VLA-Safety-Papers。</p>
+<h2 id="safety-modular-safety-guardrails-are-necessary-for-foundation-model-enabled-robots-in-the-real-world"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2602.04056">(20260203, Safety) Modular
+Safety Guardrails Are Necessary for Foundation-Model-Enabled Robots in
+the Real World</a></h2>
+<p>在人与机器人交互的场景中，安全要求不仅仅是“物理上不出事”（比如不撞人），还包括更高层次的要求，例如语义是否合适（做的事情是否合理）、是否符合人类意图，以及是否遵守社会规范。这些不同层面的要求会带来多种不同类型的失败情况，而且这些失败是无法通过单一机制解决的。例如，物理安全过滤器可以防止碰撞，但无法判断“递刀”这种行为在特定情境下是否危险；而语义推理模块虽然可以理解上下文是否合理，却缺乏实时控制能力，无法阻止即时的物理事故。因此，没有一种单一的安全机制能够同时覆盖所有这些问题。</p>
+<p>一种直观的想法是训练一个端到端的统一安全模型，把物理、语义和意图全部一起建模。但在实际中，这种“单体式（monolithic）”方案往往很脆弱。因为现实环境是不断变化的（任务、环境和安全要求都会变化），这种模型容易在分布变化下失效，还需要不断引入额外的安全模块进行补丁式修复。此外，真实数据中往往很少包含严重的安全事故（因为这些事件本来就罕见），导致模型在训练时对最关键的危险情况学习不足，从根本上限制了这种端到端安全方法的可靠性和长期有效性。</p>
+<p>因此，作者提出采用一种<strong>模块化安全设计</strong>。这种设计包含两个层面的“模块化”：</p>
+<p>一方面是<strong>外部模块化（external
+modularity）</strong>，即将安全机制从基础模型（FM）中分离出来，避免模型本身的不确定性直接影响安全；另一方面是<strong>内部模块化（internal
+modularity）</strong>，即把安全拆分为多个针对不同失败模式的子机制。</p>
+<p>基于此，作者提出一个三维安全分类框架：包括<strong>动作安全</strong>（是否满足物理约束）、<strong>决策安全</strong>（语义和上下文是否合理）、以及<strong>以人为中心的安全</strong>（是否符合人类意图和社会规范）。他们认为，在真实世界中，由于安全需求会变化、难以提前完全定义，而且事故虽然少见但后果严重，非模块化方法在本质上是脆弱的。</p>
+<p>为了解决这些问题，论文提出了一种<strong>两层的模块化安全架构</strong>：第一层是“监测与评估层”，负责在整个系统中评估风险；第二层是“干预层”，通过在决策层进行筛选（gating）以及在动作层进行过滤（filtering）来强制执行安全约束。这种模块化设计的优势在于：可以在不同层之间进行协同设计（例如统一表示、合理分配保守性），从而实现更精确、不过度保守的安全控制，同时也支持各个模块独立验证、灵活更新、组合不同方法，并系统性地覆盖所有安全维度。</p>
+<h3 id="safety-definitions-and-specifications-for-fm-enabled-robotics">Safety
+Definitions and Specifications for FM-enabled Robotics</h3>
+<p>首先，<strong>动作安全（Action
+Safety）</strong>关注的是机器人在物理层面的执行是否始终处于明确的安全约束之内，尤其是在真实环境中。例如常见的约束包括避免碰撞、遵守关节运动范围限制，以及在人机交互时控制合适的力或阻抗。这一层面的安全问题相对成熟，通常可以通过基于模型的控制理论方法来解决，也就是说，它主要是一个“物理可行性
++ 控制稳定性”的问题。</p>
+<p>其次，<strong>决策安全（Decision
+Safety）</strong>是在动作安全之上的扩展，它引入了语义和上下文层面的合理性。在开放世界环境中，尤其是当大语言模型（LLM）被集成进机器人系统后，安全不再只是“能不能做”，还包括“该不该做”。例如，“不能把毛绒玩具放在热炉上”或者“倒咖啡不能太快”这样的规则，都是依赖常识和任务语义的约束，这些是单纯依靠底层物理限制无法表达的。因此，决策安全本质上是在判断行为是否符合常识、语境和任务目标。</p>
+<p>最后，<strong>以人为中心的安全（Human-centered
+Safety）</strong>关注的是机器人行为在长期人机交互中，是否会被人类感知为可预测、可理解和值得信任。即使机器人在动作层面没有违规、在决策层面也符合语义，如果它的行为不符合人类预期，或者随着时间推移让人产生误解、不信任，依然可能被认为是不安全的。例如，人类的期望会变化（非静态）、信任可能被高估或低估，这些都会带来认知和社会层面的风险。</p>
+<p>总结来说，这三层安全是逐级递进的：从“物理上安全”（动作安全），到“语义上合理”（决策安全），再到“人类感知上可靠”（以人为中心的安全）。只有同时覆盖这三个层面，机器人在真实世界中的行为才可以被认为是全面安全的。</p>
+<h2 id="vln-fsr-vln-fast-and-slow-reasoning-for-vision-language-navigation-with-hierarchical-multi-modal-scene-graph"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2509.13733">(20251125, VLN) FSR-VLN: Fast
+and Slow Reasoning for Vision-Language Navigation with Hierarchical
+Multi-modal Scene Graph</a></h2>
+<p>本文提出了一种用于视觉-语言导航（VLN）的新方法
+FSR-VLN，旨在解决现有方法在长距离空间推理能力弱以及推理延迟高的问题。该方法结合了层级多模态场景图（HMSG）与快速-慢速导航推理机制（FSR）。其中，HMSG
+通过分层地图结构支持从房间级粗定位到目标视角及物体的细粒度检索，增强了对复杂室内环境的表达能力。在此基础上，FSR-VLN
+采用“快到慢”的两阶段推理流程：首先通过快速匹配在特征空间中筛选候选房间、视角和物体，然后在必要时使用
+VLM 进行慢速精细验证与最终决策，从而在效率与准确性之间取得平衡。</p>
+<p>实验在多个由人形机器人采集的室内数据集上进行，涵盖 87
+条多类别指令。结果表明，FSR-VLN
+在所有数据集上均达到当前最优性能（SOTA），以检索成功率（RSR）衡量显著优于
+HOVSG 和 MobilityVLA，同时在保持高成功率的情况下，将响应时间降低约
+82%。此外，该系统还被集成到 Unitree-G1
+人形机器人中，结合语音交互、规划与控制模块，实现了自然语言驱动的实时导航能力。总体而言，该方法通过引入层级场景图和快慢双重推理机制，有效提升了长距离视觉语言导航的效率与鲁棒性。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2026/05/01/Vision_Language_Action_Models/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2026/05/01/World_Action_Models/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Embodied World Models and World Action Models</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2026
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

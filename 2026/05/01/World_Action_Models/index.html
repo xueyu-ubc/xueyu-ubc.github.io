@@ -1,0 +1,3055 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="I am a second PhD student at Renmin University of China. My research interests include federated learning, high dimensional data, machine learning, and optimization. I am currently working on latent graph learning in Prof.Renjie Liao&#39;s group." />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Embodied World Models and World Action Models |  Welcome to XueYu&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Welcome to XueYu's Blog" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+</html>
+<script src="/js/hexo_resize_image.js"></script>
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-World_Action_Models"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Embodied World Models and World Action Models
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2026/05/01/World_Action_Models/" class="article-date">
+  <time datetime="2026-05-01T00:00:00.000Z" itemprop="datePublished">2026-05-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/research-works/">research works</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">52.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">193 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="评测诊断与基准">评测、诊断与基准</h1>
+<h2 id="ewmbench-evaluating-scene-motion-and-semantic-quality-in-embodied-world-models"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2505.09694">(20250518)EWMBENCH: Evaluating
+Scene, Motion, and Semantic Quality in Embodied World Models</a></h2>
+<p>尽管具身世界模型（EWM）已有所发展，但一个根本性的问题仍未解决：<strong>“我们如何判断一个视频生成模型是否真正称得上是优秀的具身世界模型，而不仅仅是一个通用的视频生成器？”</strong>
+回答这一问题对于指导模型研发、评估模型在生成物理约束和动作一致性行为方面的能力至关重要。现有的视频生成基准主要关注感知层面的指标，例如视觉逼真度、语言对齐度以及人类偏好，但这些标准不足以衡量
+EWM 的性能。
+具身生成任务具有独特需求，比如在具身动作上的连贯性和动作执行的合理性。例如，在机器人操作场景中，背景、物体配置以及具身结构（如机器人形态）应保持静态，而只有机器人的姿态和交互行为会随着指令的变化而演化。这种<strong>结构化的真实感</strong>使
+EWM 区别于通用视频生成器，并要求采用超越传统标准的评估方式。</p>
+<p>论文提出了一个专门的基准——具身世界模型基准（Embodied World Model
+Benchmark，EWMBENCH），用于系统性评估机器人操作中的具身运动<strong>保真度</strong>与<strong>时空一致性</strong>。
+EWMBENCH
+的基准测试设置：给定一个初始视频片段，用于指定具身体（如机械臂）及其所处环境，并结合一条操作指令，候选的具身世界模型需要自回归地生成后续帧，展现具身体在完成指令过程中的运动。
+论文设计了一套基于三个关键方面的评估协议：（1）视觉场景一致性，确保静态元素（如背景、物体以及具身结构）在运动过程中保持不变；（2）运动正确性，要求生成的具身运动轨迹具有连贯性并与任务目标相一致；（3）语义对齐与多样性，评估模型与语言指令的匹配程度以及在多样化任务中的泛化能力。</p>
+<h3 id="the-ewmbench-benchmark">The EWMBENCH Benchmark</h3>
+<h4 id="overview">Overview</h4>
+<p>本工作的主要目标是建立一个用于具身世界模型生成的综合性评测基准。
+EWMBENCH
+引入了三个核心组成部分：（1）统一的世界初始化；（2）具身操作任务数据集；（3）系统化的评测指标。
+完整的流程如图 2
+所示。通过初始场景图像和相应的任务指令进行初始化，其中采样的动作轨迹对于生成模型来说是可选的。在这一统一的输入模态下，各类生成模型被要求生成视频帧，而部分上下文模态则可能根据具体模型而为可选。
+所生成的输出结果将通过 EWMBENCH
+指标进行评估，这些指标主要关注三个关键因素：场景、运动和语义。这些因素共同构成了机器人任务评估的基础。</p>
+<p><img src="/2026/05/01/World_Action_Models/EWM1.png"></p>
+<h4 id="评估指标">评估指标</h4>
+<h5 id="场景一致性scene-consistency">场景一致性（Scene
+Consistency）</h5>
+<p>场景一致性用于考察视觉布局、物体持久性以及视角连贯性。经过具身数据集微调的
+DINOv2 被用于提取帧级的局部 patch level 表征。通过计算相邻帧与初始帧
+patch embeddings
+之间的余弦相似度，可以量化逐帧的一致性。分数越高，表明视频在场景结构和视角保持方面越稳定和连贯。
+具体来说，为了在具身操作场景中增强任务相关视觉特征的提取，论文在
+Agibot-World 数据集上对 DINOv2 进行了 20,000 次无监督训练的微调，并使用
+dinov2-vitb14-reg4 checkpoint 作为初始化。
+论文对比可视化了三种模型变体的特征图：(1) 原始 DINO （ViT-B/16，用于
+VBench），(2) 预训练的 DINOv2，以及 (3) 微调后的
+DINOv2。实验发现，只有微调后的 DINOv2
+能够持续聚焦于任务相关的主体和操作工具，而其他模型要么未能突出关键的前景区域，要么表现出前景与背景纠缠的情况。这证明了将基础模型适配到具身任务领域的必要性。</p>
+<h5 id="运动质量评估">运动质量评估</h5>
+<p>生成运动的质量通过<strong>基于轨迹的评估（Trajectory-Based
+Evaluation）</strong>进行衡量，该方法将生成的轨迹与真实轨迹进行对比。轨迹用于捕捉物理一致性、任务逻辑和交互约束。
+论文采用末端执行器（EEF）的轨迹作为评估对象，EEF
+由微调的检测器进行检测。</p>
+<p>注：End-effector
+（末端执行器，EEF)，在机器人学中，末端执行器是安装在机械臂末端、直接与环境交互的部分。根据任务不同，末端执行器可能是机械手爪、吸盘、工具头、焊枪、手术刀等。它是机器人执行抓取、操作、移动物体等动作的关键部件。
+EEF trajectory （末端执行器轨迹）
+指的是末端执行器在三维空间中随时间变化的运动路径。轨迹通常由位姿（位置 +
+姿态）随时间的序列表示。</p>
+<p>为保证公平性，要求生成模型在每个任务中生成三条候选轨迹，并基于
+Hausdorff 距离选择最佳轨迹。论文考虑三种计算指标： ###### 对称 Hausdorff
+距离一致性（HSD Consistency） 对称 Hausdorff
+距离（SymH）用于衡量生成轨迹与对应真实轨迹之间的最大空间偏差。该距离表示两个轨迹点集之间“最小距离中的最大值”，也就是在所有点的最小匹配距离中取最大者。HSD
+在评估生成轨迹与真实轨迹的空间对齐情况时特别有用，它确保生成的路径遵循预期的运动模式，不会与真实动作轨迹发生显著偏离。为了使该指标与一致性呈正相关，论文取其倒数来作为得分：
+<span class="math display">\[
+HSDscore = \frac{1}{dsymH(G, P)},
+\]</span> 其中，<span class="math inline">\(G\)</span>
+表示真实轨迹，<span class="math inline">\(P\)</span> 表示生成轨迹。</p>
+<p>具体来说，Hausdorff
+距离的核心思想是：如果你有两条轨迹（或点集），先看每个点和对方点集的最短距离，再挑出其中最远的那一个作为整体距离。</p>
+<h6 id="归一化动态时间规整距离一致性ndtw-consistency">归一化动态时间规整距离一致性（NDTW
+Consistency）</h6>
+<p>NDTW
+用于评估轨迹整体形状的相似性以及时间上的对齐情况。与关注空间偏差的 HSD
+不同，NDTW
+强调的是轨迹的整体形状，以及生成动作在时间顺序和节奏上与真实动作的契合程度。该指标特别适用于捕捉模型应从真实轨迹中学习到的时间因果关系与任务顺序。通过同时对齐轨迹的空间和时间维度，NDTW
+能够评估生成序列在时序和顺序上是否与真实轨迹匹配。最终的相似度得分同样通过取倒数计算：
+<span class="math display">\[
+NDTWscore = \frac{1}{NDTW(G, P)}
+\]</span></p>
+<p>DTW
+最初用在语音识别里，用来比较<strong>两个时间序列的相似性</strong>，即使它们在速度或节奏上有所不同。当我们把轨迹（真实轨迹
+<span class="math inline">\(G\)</span> 和生成轨迹 <span class="math inline">\(P\)</span>）看作时间序列时： HSD
+只看空间偏差（点和点之间最远的距离），关注“最坏情况”。DTW
+则会尝试逐步对齐轨迹点，评估整体形状和顺序的相似度。NDTW（Normalized
+DTW） 是对 DTW 距离做了归一化，让得分更可比。 这样，NDTW
+可以回答两个问题： 1. 形状是否相似？（生成轨迹是不是沿着真实轨迹走？）
+2. 时间顺序是否一致？（动作执行的先后顺序是否和真实轨迹一致？）</p>
+<p>举个直观例子：假设真实轨迹是人走楼梯的动作序列：<strong>上台阶 → 抬手
+→ 推门</strong></p>
+<ul>
+<li><p>如果生成轨迹是：<strong>上台阶 → 抬手 →
+推门</strong>（顺序一致，形状也类似） → NDTW 分数高。</p></li>
+<li><p>如果生成轨迹是：<strong>推门 → 抬手 → 上台阶</strong>（顺序乱了）
+→ 即使空间点差不多，但时间对齐错误 → NDTW 分数会低。</p></li>
+</ul>
+<h6 id="动态一致性dyn">动态一致性（DYN）</h6>
+<p>在机器人控制中，速度和加速度是至关重要的组成部分，它们直接影响生成动作的物理可行性。为了评估预测轨迹与真实运动特性的匹配程度，论文从预测轨迹和真实轨迹中分别提取二维速度与加速度的时间序列，然后计算它们分布之间的
+Wasserstein 距离，以量化两者的差异。Wasserstein
+距离能够捕捉序列间的全局分布对齐，它支持柔性匹配而不需要严格的时间对齐，因此在刻画整个轨迹的连续运动趋势时更加稳健和适用。为了增强该指标在不同运动幅值下的鲁棒性，论文借鉴
+IoU
+的计算思路，引入了幅值归一化因子。具体来说，速度的幅值归一化因子（VR）和加速度的幅值归一化因子（AR）分别通过真实值和预测值的最大值与最小值之差来构造比例关系：</p>
+<p><span class="math display">\[
+VR = \frac{\min\left(\max(v_{gt}) - \min(v_{gt}), \max(v_{pred}) -
+\min(v_{pred})\right) + \epsilon}{\max\left(\max(v_{gt}) - \min(v_{gt}),
+\max(v_{pred}) - \min(v_{pred})\right) + \epsilon}
+\]</span></p>
+<p><span class="math display">\[
+AR = \frac{\min\left(\max(a_{gt}) - \min(a_{gt}), \max(a_{pred}) -
+\min(a_{pred})\right) + \epsilon}{\max\left(\max(a_{gt}) - \min(a_{gt}),
+\max(a_{pred}) - \min(a_{pred})\right) + \epsilon}
+\]</span> 其中， <span class="math inline">\(\epsilon = 1 \times
+10^{-8}\)</span>。通过这种方式，能够消除运动幅值差异带来的影响。最终的动态一致性得分定义为：</p>
+<p><span class="math display">\[
+DYNscore = \alpha \cdot VR \cdot \frac{1}{W(v)} + \beta \cdot AR \cdot
+\frac{1}{W(a)}, \quad \alpha = 0.007, \beta = 0.003,
+\]</span> 其中，<span class="math inline">\(W(\cdot)\)</span> 表示
+Wasserstein 距离，VR 和 AR
+分别是速度与加速度的幅值归一化因子。这些修正确保了低幅值轨迹不会引入数值放大效应，从而保证动态一致性评估的准确性。</p>
+<h5 id="语义评估">语义评估</h5>
+<p>语义评估主要关注两个方面：(1) 任务指令与生成视频之间的对齐程度，以及
+(2) 任务空间内的多样性。</p>
+<p>对于语义对齐，论文使用生成视频的语言 caption
+作为中间表示，并将其与真实标注进行比较，从而计算对齐分数。caption
+在三个层级上进行提取。</p>
+<ul>
+<li><p>全局视频 caption
+表示：在全局层面，一个视频多模态大语言模型（MLLM）会生成一个紧凑的
+caption 来总结整个视频。这个 caption 会与原始任务指令进行比较，并使用
+BLEU 分数来评估任务目标与生成视频内容之间的整体一致性。</p></li>
+<li><p>关键步骤描述：机器人任务通常包含多个关键步骤，而这些步骤可能在全局表示中丢失。为了解决这个问题，视频
+MLLM 会生成任务关键步骤的详细分解描述。这些描述会与由 MLLM
+生成的真实步骤描述（GT）进行比较，并使用 CLIP 分数进行评估。</p></li>
+<li><p>逻辑错误惩罚：逻辑错误（如幻觉或空间不一致）在机器人应用中至关重要，因为它们可能导致不安全的结果。MLLM
+会评估生成视频中的常识性错误，并明确惩罚诸如虚构的物体操作或不合理的空间关系等错误。这些惩罚机制确保模型能够优先生成现实且连贯的任务执行过程。</p></li>
+</ul>
+<p>对于语义多样性，论文使用 CLIP
+模型提取全局视频特征，并将多样性得分计算为 <strong>1 -
+相似度</strong>。这一指标反映了模型在泛化和生成多样化输出方面的能力。</p>
+<h2 id="worldeval-world-model-as-real-world-robot-policies-evaluator"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.19017v1">WorldEval: World Model as
+Real-World Robot Policies Evaluator</a></h2>
+<h2 id="is-the-future-compatible-diagnosing-dynamic-consistency-in-world-action-models"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2605.07514">Is the Future Compatible?
+Diagnosing Dynamic Consistency in World Action Models</a></h2>
+<p>近一年，机器人领域出现了一个非常明显的趋势：研究重点正在从传统
+Vision-Language-Action（VLA）模型逐渐转向 World Action
+Model（WAM）。相比于 VLA 直接根据当前图像和语言指令输出动作，WAM
+试图让机器人在行动之前先“想象未来”。它不仅预测下一步应该执行什么动作，还同时预测执行动作后世界会变成什么样子。这样一来，机器人在决策时就不再只是简单地输出控制命令，而是能够像人一样进行一定程度的后果预演。因此，Cosmos-Policy、Fast-WAM、Motus、GigaWorld
+等一系列工作都开始将未来状态预测纳入机器人控制框架之中。</p>
+<p>然而，这些工作默认了一个重要前提：模型想象出来的未来是可信的。现实情况却未必如此。一个世界模型完全可能生成一段看起来合理的视频，但这段未来并不一定真的对应当前动作会导致的结果。换句话说，未来状态可能“看起来合理”，却并非“由这个动作产生”。作者认为，目前社区过于关注未来预测是否逼真、任务最终是否成功，却很少讨论一个更基础的问题：模型预测的未来状态是否真的与其预测的动作相匹配。于是论文提出了一个新的可靠性维度——Action-State
+Consistency（动作-状态一致性），并尝试回答这样一个问题：当世界模型说“执行这个动作会得到这个未来”时，这个未来究竟有多可信？</p>
+<p>论文首先从理论角度重新审视了 World Action Model。作者指出，目前主流
+WAM 大致分为两类。第一类是 Joint-Prediction WAM，例如 Cosmos-Policy 和
+Fast-WAM。这类模型直接学习未来状态和未来动作的联合分布，即同时生成未来视频和动作序列。由于动作和未来状态是在同一个模型内部共同生成的，因此动作与未来状态之间的兼容性是通过共享隐空间隐式学习得到的。第二类是
+Inverse-Dynamics WAM，例如 LingBot-VA 和
+GigaWorld。这类模型先预测未来状态，再通过逆动力学模块推断实现该未来所需的动作。在这种框架下，动作与未来状态之间的关系更加显式，因为动作本质上是根据未来状态反推出的。论文选择
+Cosmos-Policy 作为联合预测模型代表，选择 LingBot-VA
+作为逆动力学模型代表，对两种主流 WAM 进行系统分析。</p>
+<p>基于这种分析，作者提出了 Action-State Consistency
+的定义。其核心思想非常直观：如果模型预测执行动作 <span class="math inline">\(a\)</span> 后会到达未来状态 <span class="math inline">\(\hat{o}_{t+1}\)</span>，那么真正执行该动作后获得的真实观测
+$o_{t+1} $应该与 <span class="math inline">\(\hat{o}_{t+1}\)</span>
+接近。若二者接近，则说明模型的未来预测与动作产生的实际结果一致；若二者差异较大，则说明模型虽然生成了一个看似合理的未来，但这个未来并不对应所预测动作能够达到的结果。作者将这种一致性定义为预测未来状态与真实未来状态之间的距离函数，并采用潜空间中的
+MSE
+作为度量方式，而不是直接比较像素级图像。这样做的原因在于像素空间容易受到纹理、光照和渲染误差影响，而潜空间更能反映结构层面的语义一致性。
+<span class="math display">\[
+c_t(\hat{o}_{t+\delta},o_{t+\delta}) = \exp(-\alpha *
+d(\hat{o}_{t+\delta},o_{t+\delta})).
+\]</span></p>
+<p>论文最有意思的地方在于，它并不是提出一个新的世界模型，而是在研究世界模型内部究竟学到了什么。作者系统分析了
+Consistency Score 与任务成功率之间的关系。实验发现，无论是
+Joint-Prediction WAM 还是 Inverse-Dynamics
+WAM，成功轨迹通常具有更高的一致性分数，而失败轨迹则往往表现出更低的一致性。这意味着一致性不仅仅反映预测质量，还反映了模型对于真实动力学的理解程度。更进一步地，作者发现仅利用
+episode-level consistency score 就能够有效区分成功和失败轨迹，ROC AUC
+分别达到 0.77 和
+0.88。这说明一致性实际上携带了与任务成功高度相关的决策信息。</p>
+<p>接下来，论文进一步研究了一致性的边界条件，也就是在什么情况下这种指标会失效。作者发现了一种非常有代表性的失败模式，并将其称为
+Background
+Collapse。当机器人执行失败时，某些轨迹会进入一种近乎静止的状态。例如机械臂没有真正接触目标物体，场景基本保持不变，整个视频几乎没有明显运动。这种情况下，未来状态变得异常容易预测，因为模型只需要继续生成一张几乎不变的背景图即可。结果就是，即使任务失败，这种轨迹仍然会获得较高的一致性分数。换句话说，模型虽然预测对了未来，但预测对的是一个“什么都没发生”的未来。作者进一步分析发现，这种现象与时间维度上的
+latent transition magnitude
+密切相关。<strong>当场景运动量极低时，一致性分数会失去区分成功与失败的能力。</strong></p>
+<p>在发现这一现象之后，作者进一步思考：既然一致性能够区分成功与失败，那么是否可以利用它来指导测试时决策？于是论文提出了一种
+Consistency-Guided Test-Time Selection 框架。与很多 Test-Time Scaling
+工作依赖额外 Value Head、Reward Model 或 Verifier
+不同，这个方法完全不需要额外训练。其基本思想是：世界模型在测试阶段生成多个候选未来，每个候选未来对应一条动作轨迹。然后利用一致性分数来评估这些候选轨迹的可靠性，最终选择一致性最高的方案执行。作者提出了两种具体实现方式。第一种称为
+Consistency-Exploring，通过环境探索获得真实下一状态，再计算一致性分数。第二种称为
+Future
+Consensus，不直接依赖奖励函数，而是利用多个未来预测之间的一致程度进行投票和筛选。由于这些方法完全基于世界模型自身的预测结构，因此作者将其称为一种
+Value-Free Planning 方法。</p>
+<p>实验部分主要在 RoboCasa 和 RoboTwin 2.0
+两个当前主流机器人基准上进行。RoboCasa
+更强调厨房环境中的长期家务操作任务，例如开抽屉、放置物体、操作厨房设备等；RoboTwin
+2.0 则更强调双臂机器人操作和强随机化环境下的鲁棒性测试。作者分别使用
+Cosmos-Policy 和 LingBot-VA
+的官方实现作为实验对象，并严格遵循原始论文的推理和评测设置。</p>
+<p>实验结果首先验证了论文最核心的发现：Action-State Consistency
+与任务成功率高度相关。无论在 RoboCasa 还是 RoboTwin 2.0
+中，成功轨迹通常都具有更高的一致性得分。进一步地，当使用一致性分数构建简单分类器时，可以较准确地区分成功与失败轨迹。这说明一致性并非只是一个视觉预测指标，而是反映了世界模型是否真正理解动作与环境动态之间关系的内部信号。</p>
+<p>随后，作者将一致性与价值函数（Value
+Function）进行比较。结果发现，两者在成功轨迹和失败轨迹上的变化趋势非常接近。这意味着一致性在某种程度上承担了类似价值估计的作用：高一致性的轨迹往往更有可能成功，而低一致性的轨迹则更容易失败。这一发现非常重要，因为价值函数通常需要额外训练，而一致性分数则可以直接从世界模型内部获得。</p>
+<p>在测试时选择实验中，一致性指导策略进一步证明了自己的价值。在 RoboCasa
+上，平均成功率从 66.6% 提升到 67.3%；在 RoboTwin 2.0 上，则从 90.2%
+提升到
+93.0%。虽然绝对提升幅度并不算巨大，但值得注意的是，这些提升完全来自测试阶段的选择策略，而不需要额外训练
+Reward Model、Value Head 或
+Verifier。换句话说，作者发现了一个隐藏在世界模型内部的“免费价值信号”。</p>
+<p>从研究定位来看，这篇论文最大的贡献并不在于提出一个更强的世界模型，而是在于提出了一种新的评估视角。过去社区讨论世界模型时，往往关注未来视频是否逼真、任务是否完成、奖励是否提高，但这些指标都无法回答一个更根本的问题：模型想象出来的未来到底是不是由当前动作导致的。Action-State
+Consistency
+正是在这一层面上补上了空白。它关注的是未来预测与动作之间的动态兼容性，而不是未来本身是否好看。作者证明了这种一致性不仅能够揭示世界模型内部的可靠性，还能够作为一种无需奖励函数的测试时规划信号。
+从更大的发展趋势来看，这篇工作实际上与 Motus、GigaWorld、Fast-WAM
+等新一代 World Action Model 形成了很好的互补关系。Motus
+试图统一动作预测和世界建模，GigaWorld
+关注大规模动作中心世界模型，而这篇论文则开始讨论一个更深层的问题：即使模型已经能够预测未来，我们又如何判断这个未来是否值得相信？作者给出的答案是，不仅要看未来是否合理，还要看未来是否与动作动态一致。未来的世界模型或许不仅需要输出动作和未来状态，还需要同时输出自己对于这些预测的可信度估计。Action-State
+Consistency 可以被看作朝着这一方向迈出的第一步。</p>
+<h2 id="do-world-action-models-generalize-better-than-vlas-a-robustness-study"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2603.22078">Do World Action Models
+Generalize Better than VLAs? A Robustness Study</a></h2>
+<h3 id="abstract">Abstract</h3>
+<p>现实世界中的机器人动作规划不仅需要理解当前环境状态，还需要预测其在执行动作后的演化。视觉-语言-动作（VLA）模型通过复用大规模视觉语言模型生成机器人动作，在多种任务中取得了良好效果，但其性能受限于训练数据规模，在未见场景和复杂扰动下泛化能力有限。近年来，基于世界模型的世界动作模型（WAM）重新受到关注，这类方法利用大规模视频数据学习未来视觉状态的动态预测，并将其潜在表示解码为机器人动作。得益于显式的动态建模能力以及从互联网视频中获得的时空先验，WAM
+在泛化方面表现出更强优势。本文对当前先进的 VLA 方法与 WAM
+进行系统对比，在 LIBERO-Plus 和 RoboTwin 2.0-Plus
+基准及多种视觉和语言扰动下进行评估。结果表明，WAM 具有更强的鲁棒性，例如
+LingBot-VA 在 RoboTwin 2.0-Plus 上达到 74.2% 成功率，Cosmos-Policy 在
+LIBERO-Plus 上达到 82.2%。相比之下，部分 VLA
+方法虽在特定任务上表现接近，但通常依赖大量多样化数据和复杂训练策略。融合视频动态建模的混合方法表现居中，说明视频先验的引入方式至关重要。总体来看，WAM
+在鲁棒性与泛化能力上更具潜力，但在实际部署中仍面临挑战。</p>
+<h1 id="视频世界模型与未来状态生成">视频世界模型与未来状态生成</h1>
+<h2 id="flare-robot-learning-with-implicit-world-modeling"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.15659">FLARE: Robot Learning with
+Implicit World Modeling</a></h2>
+<p>论文提出了一种轻量但高效的方法——未来潜在表征对齐（Future LAtent
+REpresentation Alignment,
+FLARE），用于扩展扩散（diffusion）或流匹配（flow-matching）策略模型。该方法通过在潜空间中引入世界建模，并采用未来对齐目标（future
+alignment objective），从而无需进行完整帧的重建。其核心思想是让 FLARE
+从动作去噪网络（action denoising
+network）的隐藏状态中预测机器人未来观测的紧凑潜表示。</p>
+<p>FLARE
+的工作流程分为两个主要阶段。首先，预训练一个紧凑且具备动作感知能力的观测嵌入模型。虽然也可以使用通用的嵌入模型来生成未来目标表示，但我们发现，显式针对下游任务优化的动作感知嵌入能够在性能与效率上取得更佳平衡，因为它既紧凑又与任务目标更契合。接下来，在训练扩散式
+Transformer 时引入少量额外的
+token，用于预测未来的观测嵌入，从而在保持模型轻量化的同时，实现高效的未来潜在表征建模。</p>
+<h3 id="background">Background</h3>
+<p>本研究采用 flow matching
+作为学习目标，用于从人类示范数据中拟合机器人动作。设 <span class="math inline">\(o_t\)</span>
+表示机器人的观测输入，包括来自一个或多个视角的图像输入以及语言指令；<span class="math inline">\(q_t\)</span>
+表示机器人的本体（proprioceptive）状态；而 <span class="math inline">\(A_t = (a_t, \ldots, a_{t+H})\)</span>
+表示从专家示范中提取的动作片段（action
+chunk）。将观测通过视觉语言编码器（Vision-Language
+Encoder）映射为视觉语言 embedding <span class="math inline">\(\phi_t =
+VL(o_t)\)</span>。</p>
+<p>给定视觉语言 embedding <span class="math inline">\(\phi_t\)</span>、动作片段 <span class="math inline">\(A_t\)</span>、流匹配时间步 <span class="math inline">\(\tau \in
+[0,1]\)</span>，以及从标准高斯分布中采样的噪声 <span class="math inline">\(\epsilon \sim \mathcal{N}(0,
+I)\)</span>，构造加噪的动作片段如下： <span class="math display">\[
+A_t^{\tau} = \tau A_t + (1 - \tau)\epsilon.
+\]</span></p>
+<p>模型 <span class="math inline">\(V_{\theta}(\phi_t, A_t^{\tau},
+q_t)\)</span> 被训练来预测去噪方向（denoising direction）<span class="math inline">\(\epsilon -
+A_t\)</span>，即模型要学会在潜空间中将噪声样本逐渐引导回专家动作。其训练目标为流匹配损失（flow-matching
+loss）： <span class="math display">\[
+\mathcal{L}_{\text{fm}}(\theta) = \mathbb{E}*{\tau} [|V_{\theta}(\phi_t,
+A_t^{\tau}, q_t) - (\epsilon - A_t)|_2^2].
+\]</span> 时间步 <span class="math inline">\(\tau\)</span>
+依据如下分布进行采样：<span class="math inline">\(p(\tau) =
+\text{Beta}!(\frac{s - \tau}{s};, 1.5,, 1)\)</span>，其中 <span class="math inline">\(s = 0.999\)</span>。</p>
+<p>在推理阶段，通过 K 步去噪（K-step
+denoising）的方式生成动作片段。首先，从高斯分布采样初始动作片段：<span class="math inline">\(A_t^{0} \sim \mathcal{N}(0,
+I)\)</span>，然后通过前向欧拉积分（forward Euler integration）迭代优化：
+<span class="math display">\[
+A_t^{\tau + 1/K} = A_t^{\tau} + \frac{1}{K} V_{\theta}(\phi_t,
+A_t^{\tau}, q_t).
+\]</span></p>
+<p>在所有实验中，论文按照 GR00T N1 的设置，将步数固定为 <span class="math inline">\(K = 4\)</span>。此外，模型 <span class="math inline">\(V_{\theta}\)</span> 采用与 Diffusion
+Transformer（DiT）相同的架构设计，即在 Transformer
+结构中交替堆叠交叉注意力（cross-attention）与自注意力（self-attention）层，以在生成过程中充分利用机器人的视觉语言嵌入
+<span class="math inline">\(\phi_t\)</span>。</p>
+<h3 id="method">Method</h3>
+<p><img src="/2026/05/01/World_Action_Models/flare1.png"></p>
+<h4 id="通过未来潜在表征对齐的潜在世界建模latent-world-modeling-through-future-latent-representation-alignment">通过未来潜在表征对齐的潜在世界建模（Latent
+World Modeling through Future Latent Representation Alignment）</h4>
+<p>为了让 Diffusion Transformer（DiT）
+模块内部的潜表示能够预测未来的潜在状态，论文在输入序列中加入了 M
+个可学习的未来 token（future token
+embeddings）。因此，模型的输入序列包含以下三个组成部分：</p>
+<ol type="1">
+<li><p>当前的本体状态 <span class="math inline">\(q_t\)</span>，通过状态编码器（state
+encoder）编码；</p></li>
+<li><p>加噪后的动作片段 <span class="math inline">\(A_t^{\tau} = { \tau
+a_t + (1 - \tau)\epsilon }_{t}^{t+H}\)</span>，通过动作编码器（action
+encoder）编码；</p></li>
+<li><p>一组 <span class="math inline">\(M\)</span> 个可学习的未来
+token。</p></li>
+</ol>
+<p>接着，在 DiT 的某一中间层 <span class="math inline">\(L\)</span>
+取出对应于这 <span class="math inline">\(M\)</span> 个未来 token
+的中间表示，通过一个多层感知机（MLP）进行特征投影，并将这些投影结果与冻结的未来观测视觉语言嵌入<span class="math inline">\(\phi_{t+H}\)</span> 进行对齐（如图 2 所示）。</p>
+<p>该方法与 <strong>Representation Alignment（REPA）</strong>
+用于改进文本到图像扩散模型的思想相似，但在潜世界建模的场景下有几个关键区别：</p>
+<ol type="1">
+<li><p><strong>对齐目标不同</strong>：将 DiT
+策略网络与<strong>未来观测嵌入</strong>进行对齐，而不是与当前观测的嵌入对齐。</p></li>
+<li><p><strong>结构设计不同</strong>：我们在模型中引入了可学习的未来
+token，使得 流匹配（flow matching） 与 表示对齐（alignment） 可以在 DiT
+的不同子流中并行进行，并通过自注意力机制（self-attention）交互。</p></li>
+</ol>
+<p>这种设计使得 DiT
+模块在保持动作预测能力的同时，能够在潜空间中内部推理（internally
+reason）未来潜状态，从而实现隐式的世界建模。</p>
+<p>设 <span class="math inline">\(B\)</span> 表示 batch 大小，<span class="math inline">\(D\)</span>
+表示嵌入维度。我们将潜表示对齐目标（latent alignment
+objective）定义为：</p>
+<p><span class="math display">\[
+\mathcal{L}_{\text{align}}(\theta)
+= - \mathbb{E}_{\tau}[\cos (f_{\theta}(\phi_t, A_t^{\tau}, q_t),
+g(\phi_{t+H}))],
+\]</span> 其中：</p>
+<ul>
+<li><p><span class="math inline">\(f_{\theta} : \mathbb{R}^{B \times M
+\times D}\)</span> 表示在层 <span class="math inline">\(L\)</span> 处
+DiT 对应未来 token 的输出表示；</p></li>
+<li><p><span class="math inline">\(g : \mathbb{R}^{B \times M \times
+D}\)</span> 表示未来观测 <span class="math inline">\(\phi_{t+H}\)</span>
+的编码器输出。</p></li>
+</ul>
+<p>最终的整体损失函数定义为： <span class="math display">\[
+\mathcal{L} = \mathcal{L}_{\text{fm}} + \lambda
+\mathcal{L}_{\text{align}}.
+\tag{3}
+\]</span> 实验发现超参数 <span class="math inline">\(\lambda =
+0.2\)</span>
+能够取得最佳效果。这种结合了动作流匹配与未来潜表示对齐的训练策略，使模型能够在潜空间中同时学习<strong>动作生成</strong>与<strong>未来预测</strong>，实现高效的隐式世界建模。</p>
+<h4 id="动作感知未来嵌入模型action-aware-future-embedding-model">动作感知未来嵌入模型（Action-aware
+Future Embedding Model）</h4>
+<p>尽管未来潜表示对齐框架（Future Latent Alignment
+Framework）能够兼容多种嵌入模型，但我们发现，引入动作感知（action-aware）的未来嵌入能够在性能与效率上带来进一步提升。为此，我们提出了一种专为策略学习优化的、紧凑的视觉语言嵌入模型（vision-language
+embedding model），用于表示机器人的当前观测。采用 SigLIP-2 [12]
+的视觉编码器和文本编码器，分别对机器人的图像观测与语言指令进行编码。编码后的
+token 序列通过 四层自注意力 Transformer
+模块进行跨模态融合，以捕获视觉与语言之间的语义关联。随后，我们使用一个
+Q-former 模块将融合后的序列压缩为 32 个可学习的查询
+token，从而获得一个紧凑、固定长度的潜在表示，该表示能够自然适应多摄像头输入场景。为了使嵌入具备动作感知能力，我们将该视觉语言嵌入模型与动作流匹配（action
+flow-matching）目标端到端联合训练。在嵌入模型后接入 8 个 DiT
+模块，直接预测机器人的动作。通过这种方式，所有与任务执行相关的信息都被有效编码进潜在
+token 表示中，保证了嵌入对策略学习的适配性与可解释性。</p>
+<h2 id="enerverse-envisioning-embodied-future-space-for-robotics-manipulation"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2501.01895">EnerVerse: Envisioning Embodied
+Future Space for Robotics Manipulation</a></h2>
+<h2 id="dreamgen-unlocking-generalization-in-robot-learning-through-video-world-models"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.12705">DreamGen: Unlocking
+Generalization in Robot Learning through Video World Models</a></h2>
+<h2 id="do-vision-language-models-have-internal-world-models-towards-an-atomic-evaluation"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2506.21876">Do Vision-Language Models Have
+Internal World Models? Towards an Atomic Evaluation</a></h2>
+<h2 id="v-jepa-2-self-supervised-video-models-enable-understanding-prediction-and-planning"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2506.09985v1">V-JEPA 2: Self-Supervised
+Video Models Enable Understanding, Prediction and Planning</a></h2>
+<h2 id="cosmos-world-simulation-with-video-foundation-models-for-physical-ai"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2511.00062">(20251028, Cosmos) World
+Simulation with Video Foundation Models for Physical AI</a></h2>
+<p>论文介绍了新一代物理 AI 基础模型
+Cosmos-Predict2.5。该模型基于流式架构，将 Text2World、Image2World 和
+Video2World 三种生成能力统一到一个模型中，并结合视觉语言模型
+Cosmos-Reason1，实现更强的文本语义理解与更精细的世界模拟控制。通过在 2
+亿条精选视频数据上训练，并结合强化学习进行后训练优化，Cosmos-Predict2.5
+在视频生成质量和指令对齐方面相较于上一代 Cosmos-Predict1
+有显著提升，同时提供 2B 和 14B
+两种规模版本。这些能力使其在合成数据生成、策略评估以及机器人与自动驾驶的闭环仿真中更加可靠。此外，研究还推出了
+Cosmos-Transfer2.5，用于仿真到现实（Sim2Real）及现实到现实（Real2Real）的转换任务，在模型规模缩小至原来的约三分之一的情况下，实现了更高保真度和更稳定的长时序视频生成。整体而言，这些模型为具身智能的发展提供了强有力的工具支持。</p>
+<h3 id="method-1">Method</h3>
+<h4 id="flow-matching">Flow Matching</h4>
+<p>高分辨率数据（比如高清图像）往往具有很强的冗余性，也就是说相邻像素之间高度相关。如果在训练过程中加入的噪声太小，这种相关性不会被有效破坏，模型就容易“依赖原有结构”，而不是学会真正的底层数据分布。这会导致模型难以学习到更有意义、更通用的结构信息。</p>
+<p>为了解决这个问题，作者提出在训练时<strong>有意让模型更频繁地接触高噪声数据</strong>。具体做法是：先从一个
+logit-normal 分布中采样一个变量 <span class="math inline">\(t\)</span>，这个 <span class="math inline">\(t\)</span>
+可以理解为“噪声强度”或“时间步”。然后，对这个<span class="math inline">\(t\)</span>做一个单调变换，得到新的<span class="math inline">\(t_s\)</span>： <span class="math display">\[
+t_s = \frac{\beta t}{1 + (\beta - 1)t},
+\]</span> 这里的 <span class="math inline">\(\beta\)</span>
+是一个超参数，用来控制“偏移程度”。这个变换的作用是<strong>重新分配 <span class="math inline">\(t\)</span>
+的分布，使其更偏向较大的值（也就是更高噪声）</strong>。直观来说，<span class="math inline">\(\beta\)</span> 越大，采样得到的<span class="math inline">\(t_s\)</span> 越倾向于接近
+1，对应更强的噪声水平。</p>
+<p>这样做的好处是：模型在训练中会更频繁地面对被严重破坏（高噪声）的输入，从而被迫学习如何在强干扰下恢复原始信号。这有助于模型更好地理解数据结构，而不是仅仅依赖局部相关性。当
+<span class="math inline">\(\beta = 1\)</span>
+时，这个变换不会产生任何效果，此时 <span class="math inline">\(t_s =
+t\)</span>，也就是没有对原始分布进行偏移。</p>
+<h4 id="network-architecture">Network Architecture</h4>
+<p>在文本编码器的选择上，作者没有使用传统方法中常见的 T5 编码器（如
+CosmosPredict1 中所用），而是采用了更先进的
+Cosmos-Reason1。与标准做法只使用 Transformer
+某一层的输出不同，这里对每个 token（词或子词）都会收集多个 Transformer
+block
+的激活结果，并将这些来自不同层的信息拼接（concatenate）起来，然后再映射到一个
+1024
+维的向量空间。这种设计受到相关研究的启发，其核心目的是同时保留浅层的局部语义信息和深层的全局语义信息。通过这种方式，最终得到的是一组更丰富的文本嵌入序列（embedding
+vectors），能够更全面地表达语言中的上下文关系，而不仅仅是单一层所捕捉的信息。在训练过程中，这些文本嵌入会通过交叉注意力（cross-attention）机制注入到去噪模型中，使得文本提示（prompt）可以直接影响视频生成的过程。换句话说，模型在逐步生成或还原视频帧时，会不断参考这些文本特征，从而让生成内容更符合输入描述。此外，Cosmos-Reason1
+中的视觉编码器还支持额外的视觉条件输入（例如风格图像），可以用于控制生成视频的风格。不过这一能力在当前工作中还没有被深入使用，而是被作为一个未来值得探索的方向。</p>
+<p>在 Image2World 和 Video2World
+任务中，模型采用了一种“帧替换策略”。具体来说，在生成一段新的视频序列时，并不是完全从头生成所有帧，而是会将生成序列的前几帧，直接用输入的条件帧（例如输入图像或输入视频的前几帧）进行替换。也就是说，输出视频的开头部分是“真实给定的”，而不是模型预测出来的。
+这种做法有两个主要作用。第一，它提供了更高的灵活性，因为可以根据具体任务需要，自由调整“使用多少帧作为条件输入”。例如，有的任务可能只需要一张图作为起点（Image2World），而有的任务可以输入多帧视频（Video2World），这个策略都能适配。第二，它可以显著增强时间一致性（temporal
+consistency），因为视频最开始的几帧是完全忠实于输入的，这就相当于给整个生成过程提供了一个稳定、可靠的起点。由于前几帧是固定且真实的，这些帧中的视觉信息（比如物体外观、布局、运动趋势等）会在后续生成过程中逐渐传播，从而引导后面的帧保持一致性。最终效果就是：生成的视频在时间维度上更加平滑连贯，不容易出现闪烁、形变或内容突变，从而得到更“像一个真实世界延续”的结果。</p>
+<h4 id="training">Training</h4>
+<p>论文采用了一种渐进式（progressive）的训练策略，在训练效率和模型性能之间取得平衡。整个过程首先从多阶段预训练开始，在这一阶段中，训练难度会沿着两个维度逐步提升：一是图像的分辨率，从低分辨率逐渐过渡到高分辨率；二是任务的多样性，从简单、单一的任务逐渐扩展到更加复杂、多样的任务。通过这种“由易到难”的方式，模型可以稳定地学习基础能力，并逐步适应更复杂的场景。</p>
+<p>在完成预训练之后，会进行监督微调（SFT）。这一阶段使用的是经过精心筛选的高质量
+Physical AI
+数据集，目的是强化模型在特定领域中的能力，使其在一些专业任务上表现更加可靠。随后，会将这些在不同数据或任务上训练得到的能力进行融合，形成一个统一的模型。</p>
+<p>最后，在这个融合后的模型基础上，进一步引入强化学习（RL）算法，对生成结果进行优化。通过强化学习，可以根据某些评价标准（例如质量、一致性或符合物理规律的程度）对模型进行反馈和调整，从而进一步提升整体生成效果。</p>
+<h2 id="cosmos-policy-fine-tuning-video-models-for-visuomotor-control-and-planning"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2601.16163">Cosmos Policy: Fine-Tuning Video
+Models for Visuomotor Control and Planning</a></h2>
+<p>这篇论文关注的是一个很重要的问题：如何把大规模视频生成模型转化为真正可用的机器人控制策略。传统视觉语言动作模型（Vision-Language-Action
+model,
+VLA）通常依赖静态图像—文本预训练或大量机器人动作数据来学习控制策略，而视频生成模型本身已经从海量视频中学习到了时间演化、物理交互和运动模式。因此，一个自然的问题是：能否直接利用视频模型的时空先验，让它既能预测机器人动作，又能预测动作执行后的未来状态，甚至还能评估未来状态的价值。</p>
+<p>已有一些工作已经尝试把视频模型用于机器人策略学习，但往往需要复杂的多阶段训练、新增动作头、额外世界模型或单独的价值函数。Cosmos
+Policy
+的动机正是简化这一过程：作者希望用一个统一的视频扩散模型，同时承担
+<strong>policy、world model 和 value function</strong>
+三种角色，而不是分别训练多个模块。论文基于
+<strong>Cosmos-Predict2-2B-Video2World</strong>，这是一个 latent video
+diffusion
+model，原本输入起始图像和文本描述，输出后续视频帧。作者将其改造成机器人策略模型，用单阶段后训练完成从视频生成模型到具身控制模型的迁移。</p>
+<p>这里的value指的是：某个未来状态的预期累计回报，即如果从这个未来状态继续执行任务，最终成功的可能性/任务回报有多高。作用是给不同候选
+action chunk 的 imagined future 打分，帮助模型选择更可能成功的动作。 ###
+核心方法</p>
+<p>Cosmos Policy 的关键方法叫 <strong>Latent Frame
+Injection</strong>。原始视频模型只能处理图像 latent
+sequence，但机器人控制还需要处理机器人本体状态、动作、未来状态和价值估计。作者没有修改视频模型结构，而是把这些新模态也编码成“latent
+frames”，直接插入到视频模型原有的 latent diffusion
+序列中。这样，原本的视频扩散模型不仅可以生成未来图像，也可以在同一个
+latent 序列中生成动作 chunk、未来机器人状态和未来价值。</p>
+<p>具体来说，对于一个包含多相机观测的机器人平台，latent sequence
+中可以依次放入当前机器人状态、腕部相机图像、第三视角图像、动作
+chunk、未来机器人状态、未来图像和未来价值等内容。机器人
+proprioception、action chunk 和 value
+等非图像模态，会被归一化后复制填充到 latent volume
+中，从形式上伪装成视频模型可以处理的 latent
+frame。这样做的好处是，不需要额外设计动作预测头、世界模型头或价值函数头，而是复用视频模型原本的
+latent diffusion denoising 机制。</p>
+<p>训练时，Cosmos Policy 通过不同的 conditioning mask
+来训练三种功能。作为 policy 时，模型根据当前观测和任务描述生成 action
+chunk；作为 world model 时，模型根据当前状态和动作预测未来状态；作为
+value function 时，模型预测未来状态对应的期望累计奖励。论文中每个训练
+batch 会混合 demonstration data 和 rollout data：一部分用于训练
+policy，一部分用于训练 world model，另一部分用于训练 value
+function。初始阶段，rollout dataset 可以等同于 demonstration dataset
+或包含 replay 失败的 demonstration；之后，作者还会收集 policy rollout
+data 来进一步 fine-tune world model 和 value
+function，使其更适合模型自身策略所访问到的状态分布。([arXiv][2])</p>
+<h3 id="训练与规划策略">训练与规划策略</h3>
+<p>Cosmos Policy
+既可以作为直接策略使用，也可以作为带规划能力的模型使用。直接策略模式下，模型只需要生成
+action
+chunk，未来状态和价值预测可以丢弃，因此可以采用并行解码，速度更快。规划模式下，作者使用
+autoregressive decoding 获得更高质量的未来状态和价值预测。</p>
+<p>在模型规划阶段，作者使用 <strong>best-of-N
+sampling</strong>。流程是：首先从 policy model 中采样多个候选 action
+proposals；然后用 planning model 预测每个 action proposal
+导致的未来状态和对应价值；最后选择 predicted value 最高的 action chunk
+执行。为了让 planning model 更可靠，作者将基础 Cosmos Policy 在 policy
+rollout data 上继续微调，并且在这个阶段更强调 world model 和 value
+function 的训练。论文中还使用了多次采样和 “majority mean” 聚合策略，减少
+value prediction 中异常值或双峰分布带来的干扰。</p>
+<p>这套设计的关键意义在于：Cosmos Policy
+不只是一个行为克隆模型。它同时具备“生成动作”“想象未来状态”和“评价未来状态价值”的能力，因此可以在测试时通过内部世界模型进行候选动作搜索。这一点和传统
+VLA
+很不同，后者通常只负责从当前观测直接输出动作，而不显式预测未来状态和价值。</p>
+<h3 id="实验设置与结果">实验设置与结果</h3>
+<p>论文在三个层面进行评测：LIBERO 仿真、RoboCasa 仿真和真实 ALOHA
+双臂机器人任务。LIBERO 包含 Spatial、Object、Goal 和 Long
+四个任务套件，每个套件有 10 个任务、每个任务 50 条
+demonstration。RoboCasa 包含 24
+个厨房操作任务，作者为了考察数据效率，只使用每个任务 50 条人类遥操作
+demonstration，而不是使用更多 MimicGen 数据。真实机器人部分使用 ALOHA
+双臂平台，包括放置物体、折叠衣服、把糖果放入碗中、把糖果放入拉链袋等高精度或多模态动作任务。</p>
+<p>LIBERO 训练时预测 16 timesteps，并在 test time 执行 full chunk。在
+LIBERO 上，Cosmos Policy 达到 98.5% 平均成功率，超过 Diffusion
+Policy、Dita、π0、UniVLA、OpenVLA-OFT、CogVLA
+等强基线。其中四个子集结果分别为 Spatial 98.1%、Object 100.0%、Goal
+98.2%、Long
+97.6%。这说明视频模型预训练带来的时空先验不仅能支持短任务，也能支持长时序任务。</p>
+<p>RoboCasa 训练预测 32 timesteps，执行 16 steps before requerying。在
+RoboCasa 上，Cosmos Policy 使用每个任务 50 条 demonstration，取得 67.1%
+平均成功率，超过多个使用更多数据的强方法。例如 GR00T-N1.5 使用 300 条
+demonstration 达到 64.1%，Video Policy 使用 300 条 demonstration 达到
+66.0%，FLARE 使用 300 条 demonstration 达到 66.4%，而 Cosmos Policy 仅用
+50 条 demonstration 达到
+67.1%。这个结果强调了视频模型预训练在数据效率上的优势。</p>
+<p>ALOHA 任务预测 50 timesteps，full chunk execution。真实 ALOHA
+实验中，Cosmos Policy
+在四个双臂操作任务上取得最高平均表现。论文指出，相比一些 fine-tuned
+VLA，Cosmos Policy
+在高动作多模态和高精度抓取任务中更稳定。例如在“把糖果放进碗里”这类任务中，动作分布高度多模态，简单
+L1 回归容易预测到两个糖果之间的平均位置，而 Cosmos Policy
+借助扩散模型能更好地建模多峰动作分布。在“把糖果放进拉链袋”任务中，毫米级抓取精度很重要，其他方法容易抓不住拉链袋滑块，而
+Cosmos Policy 更可靠。</p>
+<p>论文还做了消融实验。去掉辅助预测目标会导致 LIBERO 平均成功率下降约
+1.5 个百分点；从随机初始化训练而不是使用视频模型预训练，会下降约 3.9
+个百分点。这说明两个因素都重要：一是预训练视频模型本身的物理和时序先验，二是同时预测动作、未来状态和价值带来的多任务监督。</p>
+<p>最后，作者验证了 model-based planning 的价值。由于直接策略在 LIBERO
+和部分真实任务上已经很强，论文重点在 ALOHA
+中更难的两个任务上测试规划效果。作者收集 648 条 policy rollout 数据，对
+world model 和 value function 进行微调，然后用 best-of-N planning
+选择高价值动作。结果显示，model-based planning 在两个挑战任务上带来 12.5
+分的平均提升，并且优于直接学习 Q-value 的 model-free planning
+变体。作者认为，在 rollout 数据有限时，通过 world model
+预测未来状态再评估 state value，比直接学习高维输入下的 Q function
+更稳健。</p>
+<h3 id="总结">总结</h3>
+<p>Cosmos Policy
+的核心贡献在于，它证明了大规模视频生成模型可以被直接改造成机器人控制策略，而且不需要复杂架构修改。通过
+<strong>Latent Frame
+Injection</strong>，动作、未来状态和价值都被统一表示成视频扩散模型中的
+latent frames，使一个模型同时具备 policy、world model 和 value function
+三种能力。它在 LIBERO、RoboCasa 和真实 ALOHA
+任务上都取得强结果，尤其展示了视频模型预训练对于物理交互、多模态动作分布和高精度操作的价值。</p>
+<p>不过，论文也承认目前的 model-based planning
+推理速度较慢，例如生成一个 action chunk 可能需要约 5
+秒，因此更适合相对静态的操作任务，而不适合高速动态环境。此外，有效规划仍依赖一定数量的
+policy rollout data 来改善 world model 和 value
+function。总体来看，这篇工作的重要意义在于提出了一种更统一的机器人策略学习范式：<strong>不再把
+policy、world model 和 value function
+分开设计，而是把它们都放进一个预训练视频模型的 latent diffusion process
+中统一学习。</strong></p>
+<h3 id="与ffdc的区别">与FFDC的区别</h3>
+<p>FFDC 不是每个低层 action step 都检测一次，也不是只在整个 chunk
+结束后检测一次，而是在执行 chunk 过程中，按视觉 token
+对齐的检查点进行检测。也就是大致每隔r 个 action step 检测一次。 Cosmos
+Policy 默认不是按 action-to-video ratio 预测多帧未来图像，而是每个
+action chunk 预测一个未来状态/value。</p>
+<h3 id="推理过程中真实截图">推理过程中真实截图</h3>
+<p>当前截图是每执行一步 action 都获取一帧，不是等整个 action chunk
+执行完才获取一帧。</p>
+<p>具体顺序是：</p>
+<ol type="1">
+<li>前 10 步 NUM_STEPS_WAIT 只执行 dummy action，不保存截图。</li>
+<li>之后每次 while 循环开始时：
+<ul>
+<li>如果启用 wrist image，也 append wrist 图像</li>
+</ul></li>
+<li>如果 action_queue 为空，才用这帧当前 observation 去 query
+model，得到一个 action chunk。</li>
+</ol>
+<ul>
+<li>当前帧获取/保存：
+cosmos_policy/experiments/robot/libero/run_libero_eval.py:455</li>
+<li>action chunk 只在队列空时重新推理：
+cosmos_policy/experiments/robot/libero/run_libero_eval.py:466</li>
+<li>每次只取一个 action 执行：
+cosmos_policy/experiments/robot/libero/run_libero_eval.py:671</li>
+<li>执行环境一步：
+cosmos_policy/experiments/robot/libero/run_libero_eval.py:680</li>
+<li>当前截图获取频率：每循环一步获取一帧，也就是每执行一个 action
+前获取当前帧。</li>
+<li>future image prediction 保存频率：每个 action chunk
+保存一次，因为它只在重新 query model 时 append 到
+future_image_predictions_list。</li>
+</ul>
+<p>换句话说，假设 chunk_size = num_open_loop_steps = 16，那么第一个
+chunk 会基于第 t=10 的截图推理出 16 个 action；随后每执行其中一个
+action，下一轮都会拿到新的环境截图并保存，但不会重新 query 模型，直到这
+16 个 action 执行完、队列为空。</p>
+<p>dummy action
+是指在正式执行动作前，先执行一些无害的动作（例如保持不动），以便让系统稳定下来并获取初始环境状态的截图。这些
+dummy action
+不会对环境造成实际影响，但可以确保模型在开始正式动作之前有一个清晰的环境观测。代码注释写的是
+“let objects stabilize”，也就是让仿真刚 reset / set_init_state
+后，物体和机器人状态在物理引擎里稳定一下。很多仿真环境 reset
+后的前几帧可能有接触、重力、关节控制器初始化等瞬态，直接拿第 0 帧给
+policy 可能不是训练/评估期望的稳定初始状态。 dummy action 在 LIBERO
+这里定义为：return [0, 0, 0, 0, 0, 0, -1]。它的注释是 “dummy/no-op
+action, used to roll out the simulation while the robot does
+nothing”。前 6 维是 0，表示末端位姿/速度类控制量不动；最后一维是 gripper
+action，-1 通常表示保持或关闭方向，具体语义取决于 LIBERO/robosuite 的
+gripper controller，但在这里作者把它当 no-op/等待动作使用。</p>
+<p>时间线是：</p>
+<ul>
+<li><p>t=0..9：执行 10 步 dummy action，不 query policy，不保存 rollout
+图。</p></li>
+<li><p>t=10：第一次拿当前 observation，也就是 10 步 dummy
+后的状态，query policy。</p></li>
+<li><p>policy 返回 chunk_size=16 个 action。</p></li>
+<li><p>接下来执行这 16 个 policy action，对应环境步大致是
+t=10..25。</p></li>
+<li><p>执行完后 t=26，action_queue 为空，再拿当前 observation query
+下一个 chunk。</p></li>
+</ul>
+<p>所以第一个 action chunk 覆盖的是 warmup 后的未来 16 步，不包含前 10
+步 dummy action。</p>
+<h1 id="world-action-model-架构与动作生成">World Action Model
+架构与动作生成</h1>
+<h2 id="worldvla-towards-autoregressive-action-world-model"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2506.21539v1">WorldVLA: Towards
+Autoregressive Action World Model</a></h2>
+<h3 id="introduction">Introduction</h3>
+<p>VLA（视觉-语言-动作）模型在机器人任务中表现出较强的泛化能力。然而，一个显著的局限仍然存在：这些模型通常缺乏对“动作”的全面理解。具体而言，动作仅被视为输出结果，而未被作为输入信息加以整合，从而限制了模型对行为语义的深入分析。与之相比，世界模型（World
+Models）能够基于当前观测和动作预测未来的视觉状态，从而在视觉信息与行为动态之间形成双重理解。尽管世界模型具备这一优势，但其无法直接生成动作输出，这种功能上的缺陷限制了其在需要明确动作规划的场景中的应用。</p>
+<p><img src="/2026/05/01/World_Action_Models/worldvla0.png"></p>
+<p>为了解决视觉-语言-动作（Vision-Language-Action，简称
+VLA）模型和世界模型（world model）各自固有的限制，我们提出了
+<strong>WorldVLA</strong>
+——一种用于统一动作与图像理解和生成的自回归动作世界模型。如图 1
+所示，WorldVLA
+采用了三个独立的分词器（tokenizer）分别对图像、文本和动作进行编码。来自不同模态的
+tokens
+共享相同的词汇表，从而使跨模态的理解与生成能够在单一的大语言模型（LLM）架构中实现统一。在该模型中，<strong>世界模型组件</strong>通过根据输入的动作生成视觉表征来捕捉环境的底层物理动态。这一过程的核心在于对动作的解释与环境物理规律的学习，它是实现有效决策能力的关键。同时，WorldVLA
+内嵌的<strong>动作模型</strong>会反向促进对视觉数据的理解，从而提升世界模型在图像生成任务中的精度。这种双向增强机制使得模型在理解与生成动作和图像两方面都更加稳健和全面。</p>
+<p>研究表明，动作分块（action chunking）和并行解码（parallel
+decoding）对动作模型的性能有显著影响。然而，我们发现，在自回归模型中顺序生成多个动作会导致性能下降。其主要原因在于，预训练的多模态语言模型主要接触的是图像和文本数据，而非动作数据，因此其动作泛化能力有限。在自回归生成中，后续动作依赖于先前的预测结果，一旦早期预测出现错误，这些错误就会随着序列传播并累积，导致性能显著下降。为缓解这一问题，我们提出了一种<strong>动作注意力掩码策略（action
+attention
+masking）</strong>，在当前动作生成过程中有选择地屏蔽部分先前动作的信息。该方法有效地抑制了错误传播问题，并在动作分块生成任务中取得了显著的性能提升。</p>
+<h3 id="problem-formulation">Problem Formulation</h3>
+<p><img src="/2026/05/01/World_Action_Models/worldvla1.png"></p>
+<p>本研究探讨了如何学习一个能够同时执行<strong>动作预测（action
+prediction）</strong>和<strong>世界状态预测（world state
+forecasting）</strong>的统一模型。具体而言，定义两个主要组件：动作模型（或策略模型）<span class="math inline">\(\pi_{\theta}\)</span> 与世界模型 <span class="math inline">\(f_{\phi}\)</span>。其中，动作模型 <span class="math inline">\(\pi_{\theta}\)</span> 负责在给定历史图像观测序列
+<span class="math inline">\(\{o_{t-h}, o_{t-h+1}, \ldots, o_t\}\)</span>
+以及语言指令 <span class="math inline">\(l\)</span>
+的条件下，生成当前时刻的动作 <span class="math inline">\(a_t\)</span>。这一过程可形式化表示为： <span class="math display">\[
+a_t = \pi_{\theta}(a_t \mid o_{t-h:t}, l).
+\]</span></p>
+<p>与此同时，世界模型 <span class="math inline">\(f_{\phi}\)</span>
+用于根据过去的观测序列 <span class="math inline">\(\{o_{t-h}, o_{t-h+1},
+\ldots, o_{t-1}\}\)</span> 以及对应的动作序列 <span class="math inline">\(\{a_{t-h}, a_{t-h+1}, \ldots,
+a_{t-1}\}\)</span>，预测下一帧的观测 <span class="math inline">\(o_t\)</span>。该关系可形式化表示为：</p>
+<p><span class="math display">\[
+o_t = f_{\phi}(o_t \mid o_{t-h:t-1}, a_{t-h:t-1}).
+\]</span></p>
+<p>目标是开发一个统一的<strong>动作-世界模型（action-world
+model）</strong> <span class="math inline">\(M_{\psi}\)</span>，使其能够同时执行动作生成与未来状态预测两种功能。形式上，统一模型
+<span class="math inline">\(M_{\psi}\)</span> 定义为： <span class="math display">\[
+\begin{align*}
+M_{\psi} :
+\begin{cases}
+a_t &amp;= M^{\text{policy}}_{\psi}(a_t \mid o_{t-h:t}, l), \\
+o_t &amp;= M^{\text{world}}_{\psi}(o_t \mid o_{t-h:t-1}, a_{t-h:t-1}),
+\end{cases}
+\end{align*}
+\]</span> 其中，<span class="math inline">\(M^{\text{policy}}_{\psi}\)</span>
+表示模型中的策略生成组件，而 <span class="math inline">\(M^{\text{world}}_{\psi}\)</span>
+表示世界状态预测组件。通过学习这样一个统一模型，期望构建一个紧凑且高效的框架，在决策制定与环境建模任务之间共享表示，从而提升整体学习与推理的能力。</p>
+<h3 id="training-strategy">Training Strategy</h3>
+<p>我们将<strong>动作模型数据</strong>与<strong>世界模型数据</strong>混合训练，以优化统一模型
+<strong>WorldVLA</strong>。引入世界模型数据来增强动作生成能力主要有以下三个原因。首先，世界模型通过学习基于当前状态和已执行动作来预测未来观测，从而获得对环境物理规律的理解，这种对环境动力学的建模能力对操作任务非常有帮助。其次，世界模型能够模拟和评估候选动作的潜在结果，从而帮助系统避免导致不良状态的动作。第三，世界模型需要对动作输入进行精确的语义理解，这反过来促进了动作模型生成更有效且语境相关的动作。另一方面，动作模型的引入增强了视觉理解能力，从而提升了世界模型的视觉生成性能。</p>
+<p>动作模型的目标是在给定<strong>文本指令</strong>和<strong>图像观测</strong>的条件下生成动作。文本输入的形式为：</p>
+<blockquote>
+<p>“What action should the robot take to + 任务指令 + ?”</p>
+</blockquote>
+<p>整体的 token 序列如下所示：</p>
+<p><img src="/2026/05/01/World_Action_Models/worldvla2.png"></p>
+<p>世界模型的目标是根据<strong>当前图像观测</strong>和<strong>动作</strong>生成<strong>下一帧图像</strong>，无需任务指令，因为动作本身即可决定下一个状态。文本输入为：</p>
+<blockquote>
+<p>“Generate the next frame based on the current image and the
+action.”</p>
+</blockquote>
+<p>整体 token 序列如下： <img src="/2026/05/01/World_Action_Models/worldvla3.png"></p>
+<h4 id="注意力掩码attention-mask">注意力掩码（Attention Mask）</h4>
+<p>在自回归模型中，标准注意力机制通常使用<strong>因果注意力掩码（causal
+attention mask）</strong>，即当前 token 只能访问先前的
+token，不能访问未来信息，如图 3(a)
+所示。然而，这种标准掩码在生成<strong>动作片段（action
+chunks）</strong>时并不理想。尽管底层多模态语言模型（MLLM）在图像与文本领域具有强大的泛化能力，但在动作领域的泛化能力相对较弱，因而早期动作的错误会在后续动作生成中累积并放大。</p>
+<p>为了解决这一问题，我们提出了一种<strong>专为动作生成设计的注意力掩码</strong>（见图
+3(b)），该掩码使当前动作只能依赖文本与视觉输入，而无法访问先前生成的动作，从而实现多个动作的并行生成。这种设计与
+(Kim et al., 2025; Black et al., 2024)
+的方法一致。另一方面，世界模型部分仍采用标准的因果注意力掩码，如图 3(c)
+所示。 <img src="/2026/05/01/World_Action_Models/worldvla4.png"></p>
+<p>我们将动作模型数据与世界模型数据混合训练，使自回归的动作-世界模型能够同时具备两种功能。总体损失函数定义为：</p>
+<p><span class="math display">\[
+L = L_{\text{action}} + \alpha L_{\text{world}},
+\]</span> 其中，(L_{}) 与 (L_{})
+分别表示动作模型数据与世界模型数据的交叉熵损失。由于图像 token
+数量远多于动作 token（例如，(256 ) 图像对应 256 个 token，而 (512 )
+图像对应 1024 个 token，而动作仅有约 7 个 token），因此我们引入平衡系数
+() 来调节两部分损失的贡献。</p>
+<h2 id="wam-world-action-models-are-zero-shot-policies"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2602.15922">(20260217, WAM) World Action
+Models are Zero-shot Policies</a></h2>
+<p>DreamZero
+提出了一种基于预训练视频扩散模型的世界动作模型（WAM），旨在解决视觉-语言-动作模型（VLA）在新环境中对未知物理运动泛化能力不足的问题。与
+VLA 不同，WAM
+通过预测未来世界状态和动作，将视频作为描述世界动态变化的密集表示，从而学习物理规律。DreamZero
+通过联合建模视频与动作，能够从多样化的机器人数据中高效学习技能，而无需依赖重复示范。在真实机器人实验中，其在新任务和新环境上的泛化能力相比现有最先进
+VLA 模型提升超过 2 倍。同时，通过模型与系统优化，实现了一个 140
+亿参数的自回归视频扩散模型以 7Hz 频率进行实时闭环控制。此外，DreamZero
+还展示了跨具身迁移能力：仅利用 10 至 20
+分钟的人类或其他机器人视频演示即可使未知任务表现提升超过 42%，并且只需约
+30
+分钟的少量交互数据即可完成新具身的快速适应，同时保持零样本泛化能力。</p>
+<p><img src="/2026/05/01/World_Action_Models/dreamzero.png"></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/7CbHuCTeDRhyY_CoDJtQzA">世界模型
+EP01：对话高深远——DreamZero&amp;DreamDojo
+世界模型与机器人智能的新范式</a></p>
+<h2 id="fast-wam-fast-wam-do-world-action-models-need-test-time-future-imagination"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2603.16666">(20260323, Fast-WAM) Fast-WAM:
+Do World Action Models Need Test-time Future Imagination?</a></h2>
+<p>本文探讨了世界动作模型（WAMs）在具身控制中的作用，特别是其在测试阶段是否必须依赖显式的未来想象。传统
+WAM
+通常采用“先生成未来视频再执行动作”的范式，这种方法虽然有效，但由于需要迭代式视频去噪，导致推理延迟较高。作者提出
+Fast-WAM，用于区分训练阶段的视频建模与测试阶段的未来生成的作用：该方法在训练时保留视频联合训练，但在推理时不再生成未来观测，从而实现实时控制。实验结果表明，Fast-WAM
+在多个仿真与真实任务中依然能够达到与主流方法相当甚至接近的性能，同时显著降低延迟（约
+190 毫秒，比传统方法快 4
+倍以上）。进一步对比分析发现，模型性能下降主要来自于去除训练阶段的视频共训练，而非去掉测试时的未来想象。这说明
+WAM
+的关键收益更多来自于视频建模对表征学习的提升，而非推理阶段的显式未来生成。</p>
+<p><img src="/2026/05/01/World_Action_Models/wam.png"></p>
+<p><img src="/2026/05/01/World_Action_Models/fast_wam.png"></p>
+<h2 id="dit4dit-jointly-modeling-video-dynamics-and-actions-for-generalizable-robot-control"><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2603.10448">DiT4DiT: Jointly Modeling Video
+Dynamics and Actions for Generalizable Robot Control</a></h2>
+<p>现有 VLA
+模型虽然在语言理解和视觉语义上很强，但它们的大部分表示能力来自静态图文预训练，真正的物理动态、接触关系、连续运动和状态转移，仍然主要依赖有限的机器人轨迹数据来学习。作者认为，这正是
+VLA
+在复杂操作任务中泛化不足的根源。相比之下，视频生成模型在大规模视频上学习过“世界如何随时间变化”，天然包含时空连续性、运动规律和隐式物理先验。因此，DiT4DiT
+想回答一个问题：<strong>能不能把视频生成模型不只是当作辅助模块，而是当作机器人策略学习的核心
+backbone？</strong>
+论文给出的答案是肯定的：视频生成不仅可以预测未来画面，还可以作为 action
+policy
+的可扩展训练目标和条件表示。过去很多方法要么把视频模型用于生成额外数据，要么先预测未来视频，再训练一个
+inverse dynamics model
+从未来状态反推动作。这些方法虽然利用了视频动态，但通常是多阶段、松耦合的：视频模型学视频，动作模型再单独学动作，中间的表示未必真正为控制服务。DiT4DiT
+的关键转变是：它提出一个端到端的 Video-Action Model，用一个 Video DiT
+建模未来视觉动态，再用一个 Action DiT
+根据视频生成过程中的中间特征预测机器人动作，两个 DiT 通过 joint training
+同时优化。</p>
+<p>DiT4DiT
+的方法核心不是“先生成最终未来帧，再把未来帧喂给动作模型”。作者认为，最终解码出来的视频虽然直观，但它可能过度关注像素级重建细节，反而不是最适合控制的表示。真正有价值的是视频扩散生成过程中的<strong>中间去噪特征</strong>。因此，DiT4DiT
+在 Video DiT 的去噪过程中插入 hook，从特定 flow timestep <span class="math inline">\(\tau_f\)</span> 抽取 hidden states，把这些
+intermediate generative features 作为 Action DiT
+的条件。这样，动作模型看到的不是静态图像语义，也不是最终 RGB
+视频，而是视频生成模型在“想象未来”过程中形成的时空动态表示。
+整个框架可以理解成“双 DiT 级联”。第一个 DiT 是 Video DiT，初始化自
+Cosmos-Predict2.5-2B，用 causal video VAE 把当前观测和未来帧压缩到
+latent 空间，再通过 diffusion transformer 学习未来视觉动态。第二个 DiT
+是 Action DiT，结构上借鉴 GR00T-N1 的 action diffusion
+transformer，用机器人 proprioceptive state、noisy action trajectory 和
+learnable future tokens 作为输入，并通过 cross-attention 读取 Video DiT
+抽取的中间视觉动态特征，最终输出连续机器人动作。论文图 2
+展示了这个流程：当前观测和语言指令进入 Video DiT，Video DiT
+预测未来动态并暴露中间 generative features，Action DiT 再根据这些
+features 生成控制轨迹。</p>
+<p><img src="/2026/05/01/World_Action_Models/dit4dit.png"></p>
+<p>训练上，DiT4DiT 使用 dual flow-matching
+objective，把视频生成和动作生成统一起来。Video DiT 学习从噪声 latent
+生成未来视频 latent；Action DiT 学习从 noisy action trajectory
+去噪出真实动作。两者不是简单共享一个 diffusion
+timestep，而是使用不对称的 tri-timestep 设计：视频模块的 <span class="math inline">\(\tau_v\)</span> 使用 uniform
+sampling，以覆盖完整去噪轨迹；动作模块的 <span class="math inline">\(\tau_a\)</span> 使用 Beta
+sampling，使训练更关注关键控制阶段；视觉特征抽取则使用固定 timestep
+<span class="math inline">\(\tau_f\)</span>，保证 Action DiT
+每次接收到稳定、一致的中间视频特征。这一设计背后的直觉是，视频生成需要学习完整未来动态，而动作控制更需要稳定的、可执行的中间表示。</p>
+<p>推理阶段，DiT4DiT
+很灵活：它既可以单独生成未来视频，也可以单独预测动作，还可以同时做两者。<strong>若执行动作预测，系统并不需要完整跑完多步视频解码后再输入给
+action model，而是在固定 <span class="math inline">\(\tau_f\)</span>
+处通过一次 video backbone 前向抽取 hidden states，然后 Action DiT 以这些
+hidden states
+和机器人状态为条件，从噪声动作轨迹中迭代去噪得到最终动作</strong>。这个设计的好处是，它把视频生成模型的物理动态先验转移给动作模型，但避免把控制完全建立在最终像素视频上。</p>
+<p>在实验设置上，论文先验证了一个基础问题：视频生成是否真的是一个比
+grounding 或 VLM-style latent prediction 更好的 policy learning
+proxy。作者在 RoboCasa-GR1 的 24 个 tabletop manipulation tasks
+上比较了三类预训练目标：object-level grounding、FLARE-style latent
+modeling，以及 video generation。结果显示，video generation objective
+在样本效率和收敛速度上明显更好，最高带来超过 10× 的数据效率提升和最多 7×
+的收敛速度提升。这一点是论文的关键论证：作者不是一上来就说 Video DiT
+很强，而是先证明“学习未来视频动态”本身比静态语义对齐更适合作为机器人控制的
+scaling proxy。</p>
+<p>正式评测覆盖了仿真和真实机器人。仿真方面，DiT4DiT 在 LIBERO 上取得
+98.6% 的平均成功率，其中 LIBERO-Object 为 99.6%，LIBERO-Goal 为
+98.6%，LIBERO-Long 为 97.6%，整体超过多个强 VLA
+baseline。更重要的是，DiT4DiT 是 from scratch 训练的，也就是没有使用当前
+benchmark 之外的额外 action
+数据，这使得结果更能说明视频动态建模本身的贡献。在更复杂的 RoboCasa-GR1
+tabletop benchmark 上，DiT4DiT 的平均成功率达到 50.8%，超过 GR00T-N1.5
+的 41.8%、GR00T-N1.6 的 40.8%，也明显高于参数规模相近的 Qwen3DiT
+baseline 的 36.2%。这个对比尤其重要，因为 Qwen3DiT 使用的是 Qwen3-VL
+作为视觉语言基础模型，再接同样的 Action DiT；DiT4DiT 则把 Qwen3-VL
+替换成视频生成 backbone。二者的差距说明，对复杂 inverse dynamics
+来说，静态图文语义先验不如视频生成模型中的时空物理先验有效。</p>
+<p>真实机器人实验部署在 Unitree G1 上，机器人使用双 7-DoF 手臂和 ALOHA2
+夹爪，共 16-DoF 连续动作空间，并且只依赖 egocentric camera
+作为视觉输入。任务包括 pick and place、arrange the flower、stack up the
+cups、insert plate into the rack、box packaging、move the spoon 和
+drawer interaction，每个任务采集 200 条人类示范，评测时每个任务做 20
+次真实 rollout。结果显示，DiT4DiT 在七个真实任务上整体优于 GR00T-N1.5 和
+Qwen3DiT；比如 Arrange Flower 达到 75%，而 GR00T-N1.5 为 25%；Stack Cup
+为 60% vs. 25%；Move Spoon 为 40% vs. 15%。在 Drawer Interaction 和 Box
+Packaging 这类多阶段长程任务中，DiT4DiT 分别达到 90% 和
+50%，说明它不仅能做短程抓取，也能支持更长 horizon 的物理执行。</p>
+<p>论文还专门分析了泛化能力。在 RoboCasa 的 object-substitution
+设置中，训练只涉及 bottle，测试时替换成 can、cup、milk、wine
+等未见物体，DiT4DiT 在 ToDrawerClose、ToCabinetClose、ToMicrowaveClose
+等任务上都明显超过
+Qwen3DiT。真实机器人中也测试了材质、形状、目标物体和数量变化，例如把塑料杯换成金属/玻璃杯、把
+eggplant 换成 corn、改变杯子数量并增加
+distractors。作者认为，视频生成特征学习到的是更底层的物理交互和场景动态，因此比静态
+VLM 表示更能抵抗表面外观变化。</p>
+<p>消融实验进一步解释了为什么 DiT4DiT 有效。首先，抽取 Video DiT 哪一层
+hidden states
+很重要：早层主要编码低级纹理，控制效果差；中深层效果最好，默认选择 layer
+18；最终层反而性能下降，因为它们过度服务于像素级视频重建，丢失了更抽象的控制相关表示。其次，动作条件并不需要多步视频去噪特征，单次
+forward step 反而最好；随着 denoising steps
+增加，性能单调下降，说明过度贴合具体未来像素细节会伤害可泛化 action
+prior。最后，joint training 比 video/action
+分离训练更能形成平滑的时间阶段表示，t-SNE 中 early/middle/late phase
+的分布更清晰，silhouette score 也接近翻倍。</p>
+<p>从效率角度看，DiT4DiT 并不是完全没有代价。它有 2.2B trainable
+parameters，部署频率为 6Hz，低于 Qwen3DiT 的 9Hz 和 GR00T-N1.5 的
+13Hz。但作者认为这是视频生成 backbone 带来的合理
+trade-off，因为模型获得了更强的时空动态理解和真实世界迁移能力。更关键的是，消融实验中单步隐藏特征抽取已经证明：动作控制不需要完整多步视频生成，这为后续做更高频、异步、缓存式
+Video Planner/Action Executor 提供了直接启发。</p>
+<h2 id="aha-wamasynchronous-horizon-adaptive-world-action-modeling-with-observation-guided-context-routing"><a target="_blank" rel="noopener" href="https://serene-sivy.github.io/aha-wam/static/aha-wam.pdf">AHA-WAM:Asynchronous
+Horizon-Adaptive World-Action Modeling with Observation-Guided Context
+Routing</a></h2>
+<p>随着 Cosmos-Policy、Motus、GigaWorld 等 World Action
+Model（WAM）的出现，机器人开始从“看到状态直接输出动作”的 VLA
+范式，逐渐转向“先想象未来，再决定动作”的世界模型范式。然而现有 WAM
+普遍面临一个矛盾：高质量未来预测通常需要长时间范围的视频规划，但长
+horizon
+视频生成成本极高；另一方面，机器人控制又要求高频闭环更新，必须快速响应环境变化。如果每执行一步动作都重新生成长
+horizon
+未来视频，推理成本会非常高；如果长期复用旧的未来规划，又会因为环境变化导致规划逐渐失效。AHA-WAM
+的核心问题正是：如何同时获得长程规划能力和高频闭环控制能力。</p>
+<p>AHA-WAM 的核心思想是将传统 WAM
+中耦合的世界建模和动作生成彻底解耦。论文将系统分成两个时间尺度：一个低频运行的
+Video Planner 和一个高频运行的 Action Executor。Video Planner
+负责建模较长 horizon 的未来视觉动态，例如未来 64
+步内场景可能如何变化；Action Executor 只负责生成较短 horizon
+的可执行动作 chunk，例如未来 16
+步动作。这样，机器人不需要每一步都重新生成完整未来视频，而是让昂贵的长程规划低频运行，让廉价的动作生成高频运行，从而同时兼顾规划能力和推理效率。</p>
+<p>具体来说，Video Planner 使用 Video Diffusion Transformer 建模未来视频
+latent，并产生一组长期规划上下文（planner context）。这些 planner
+context 本质上是 Video DiT 各层产生的 Key/Value
+状态，可以理解为压缩后的“未来世界计划”。Action Executor 则是一个 Action
+Diffusion
+Transformer，它在生成动作时不仅关注当前观测和机器人状态，还会通过 Joint
+Attention 读取 planner
+context。这样，动作生成始终受到长程未来规划的指导，而不是仅依赖当前观测进行局部决策。</p>
+<p>但真正有意思的问题出现在这里：由于 Video Planner 更新频率远低于
+Action Executor，同一个 planner context 会被连续多个动作 chunk
+复用。当机器人已经执行了若干步动作后，当前状态可能已经位于原始规划窗口的中后段。例如
+planner 在时刻 <span class="math inline">\(t\)</span> 生成了一份未来
+<span class="math inline">\(64\)</span> 步规划，而机器人执行到 <span class="math inline">\(t+8\)</span> 时仍在使用这份规划。此时 Action
+Executor 面临的挑战是：如何知道自己当前处于长期规划的哪个阶段？</p>
+<p>AHA-WAM 的解决方案有两个。首先是 Observation-Conditioned Visual
+Context Routing（OVCR）。每次动作生成前，当前观测都会作为 Query
+去重新访问 planner
+context，对原始规划进行状态对齐和重路由，从而得到当前时刻专属的 planner
+context。换句话说，Action Executor 实际使用的不是 Planner
+在过去生成的原始未来计划，而是经过当前观测校正后的计划表示。</p>
+<p>其次是论文最核心的 Horizon-Adaptive Offset
+Training。训练阶段，作者故意随机打乱 Action Executor 与 Planner
+的时间对齐关系。假设 Planner 的 horizon 为 64，Action chunk 长度为
+16，那么训练时会随机采样一个 offset <span class="math inline">\(\delta
+\in [0,15]\)</span>，让动作 chunk
+从规划窗口中的不同位置开始学习。这样模型会反复看到“我位于长期计划开始阶段”“我位于长期计划中间阶段”“我位于长期计划末尾阶段”等各种情况。经过这种训练后，Action
+Executor 学会了根据当前观测和 planner context
+自动判断自己处于长期规划的哪个阶段，并生成对应动作。需要强调的是，AHA-WAM
+并不会动态选择动作 horizon 或执行步长，动作 chunk
+长度始终固定；真正自适应的是 Action Executor 对长期规划不同相位（phase
+offset）的理解能力。</p>
+<p>训练方面，AHA-WAM 使用统一的 Flow Matching
+框架，同时优化视频分支和动作分支。Video Planner 学习未来视觉动态，Action
+Executor
+学习动作生成，两者共享当前观测、机器人状态和语言指令。训练完成后，推理阶段不再需要频繁解码未来视频，只保留
+Planner Context 作为长程指导信号，从而显著降低计算开销。</p>
+<p>实验主要在 RoboCasa 和 RoboMimic
+等机器人操作基准上进行。结果表明，相比传统同步式 WAM，AHA-WAM
+在保持长程规划能力的同时显著降低推理延迟。在 RoboCasa
+长程任务上，AHA-WAM
+能够获得更高成功率，尤其是在需要多阶段操作和长期目标跟踪的任务中优势明显。消融实验进一步证明，OVCR
+和 Offset Training 都是关键组件：去掉 OVCR
+后，旧规划与当前状态逐渐失配；去掉 Offset Training 后，Action Executor
+难以适应异步执行过程中的相位偏移，性能明显下降。</p>
+<p>从研究定位来看，AHA-WAM
+并不是提出一个更大的世界模型，而是提出了一种新的系统架构。过去的 WAM
+更多关注“如何预测未来”，而 AHA-WAM
+开始思考“如何高效利用未来”。它证明了长 horizon 世界建模和短 horizon
+动作控制并不一定需要同步运行，只要通过 Planner Context、OVCR 和 Offset
+Training
+建立连接，机器人就能够在保持长期规划能力的同时实现高频闭环控制。这种
+Planner–Executor
+解耦思路也为后续世界模型系统提供了一个重要方向：未来的机器人世界模型未必需要更大的模型规模，而可能需要更合理的时间尺度组织方式。</p>
+<h2 id="motus-a-unified-latent-action-world-model"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2512.13030">Motus: A Unified Latent Action
+World Model</a></h2>
+<p>Motus
+这篇工作的核心问题可以概括为一句话：一个真正通用的具身智能体，不应该把“看懂场景”“理解指令”“想象未来”“预测动作后果”和“输出机器人动作”拆成彼此孤立的模块，而应该在同一个模型中统一完成这些能力。现有机器人基础模型往往各自解决一个局部问题：VLA
+模型从视觉和语言直接预测动作，World Model 根据动作预测未来观测，IDM
+从前后状态反推动作，Video Generation Model
+根据初始图像和语言生成未来视频，而 Video-Action Joint Prediction Model
+则同时预测未来视频和动作。Motus
+的出发点是，这些能力本质上不应该割裂，因为一个具身智能体在执行任务时，必须先理解当前场景和语言目标，再想象可能发生的未来变化，最后把这种预测转化为可执行动作。因此，Motus
+试图用一个统一的 latent action world
+model，把视觉语言理解、视频生成、世界建模、逆动力学推断和动作预测放进同一个生成框架中。</p>
+<p>这篇工作的研究背景来自具身智能中的两个核心瓶颈。第一个瓶颈是模型能力碎片化。很多方法要么擅长理解语言和图像，但缺少对物理交互过程的生成能力；要么擅长视频预测，却不能直接输出机器人动作；要么可以控制机器人，但严重依赖特定机器人的有标注轨迹数据。第二个瓶颈是数据利用效率低。真实机器人轨迹很贵，而且不同机器人之间的
+action space
+差异很大，例如机械臂的关节结构、末端执行器控制方式、夹爪维度、动作范围都可能不同。因此，一个机器人上的真实
+action label
+很难直接迁移到另一个机器人上。与此同时，互联网视频、人类第一视角视频和仿真视频中包含大量物体运动和物理交互信息，但这些视频通常没有机器人动作标签。Motus
+要解决的关键问题就是：如何从这些没有 action label
+的视频中提取可用于机器人动作学习的运动知识。</p>
+<p>Motus 的一个重要答案是 optical flow。Optical flow 不是 latent
+embedding，也不是机器人动作本身，而是两帧图像之间每个像素的显式运动场。简单说，如果第一帧中杯子在画面左侧，第二帧中杯子被推到了右侧，那么
+optical flow
+会在杯子对应的像素区域显示向右的位移；如果背景没有动，那么背景区域的
+flow 接近零。它通常可以表示为一个 <span class="math inline">\(H \times W
+\times 2\)</span>
+的二维位移场，其中每个像素都有水平方向和垂直方向的位移。相比 RGB
+图像，optical flow
+更直接描述“画面里什么东西发生了运动、往哪里运动、运动了多少”，因此更接近动作带来的视觉后果。Motus
+把 optical flow 看成一种跨 embodiment
+的通用运动表达：人手移动杯子、Aloha
+机械臂移动杯子、另一个双臂机器人移动杯子，它们的真实控制信号可能完全不同，但画面中的物体运动模式可能具有相似性。</p>
+<p>在 Motus 中，latent action 正是从 optical flow
+中进一步压缩得到的。具体流程是，模型先取连续两帧图像 <span class="math inline">\(o_t\)</span> 和 <span class="math inline">\(o_{t+1}\)</span>，然后使用 DPFlow 计算两帧之间的
+optical flow。得到的 optical flow
+仍然是高维像素级表示，不能直接作为机器人动作使用，因为它的维度通常远大于真实机器人
+action space。比如一张 <span class="math inline">\(224 \times
+224\)</span> 的图像，对应的 optical flow 可能有十万维左右，而真实机器人
+action 往往只有 7 维、14 维或几十维。因此，Motus 使用 deep convolutional
+variational autoencoder，也就是 DC-AE / DC-VAE，对 optical flow
+进行压缩和重建。DC-AE 的 encoder 会把 optical flow 编码成四个 512 维
+token，随后一个轻量级 encoder 将这 <span class="math inline">\(4 \times
+512\)</span> 的特征进一步投影成 14 维向量。这个 14 维向量就是 Motus
+所说的 latent
+action，它不是原始光流，也不是机器人真实控制量，而是一种从视觉运动中提取出的低维“类动作”隐变量。
+这个过程并不是简单调用一个现成 VAE 就结束。Motus 借用了预训练的 DC-AE
+作为基础压缩模型，也使用现成的 DPFlow 来估计 optical flow，但真正让
+latent action 具有机器人动作意义的，是后续的重建训练和动作分布对齐。训练
+latent action VAE 时，Motus
+混合使用两类数据：一类是没有真实动作标签的视频数据，另一类是带有真实
+action label 的机器人轨迹数据。无标签数据占 90%，用于自监督 optical flow
+reconstruction；有标签轨迹占 10%，用于弱动作监督。也就是说，对于没有
+action label 的视频，模型只能学习“从 optical flow 压缩成 latent，再从
+latent 重建回 optical flow”；而对于有真实 action label
+的机器人数据，模型还会额外学习让 latent action
+或其预测动作靠近真实机器人 action。</p>
+<p>这里的 <span class="math inline">\(L_{recon}\)</span>，也就是 optical
+flow 重建损失，是 latent action 学习中最基础的一项约束。它的作用是要求
+encoder 压缩出来的 latent action 必须保留足够的运动信息，使 decoder
+能够根据这个低维 latent 还原出原来的 optical
+flow。可以直观理解为，如果机械臂把杯子向右推，真实 optical flow
+中杯子区域应该向右移动；如果 latent action
+真的捕捉到了这个动作造成的视觉变化，那么 decoder 重建出的 optical flow
+也应该显示杯子区域向右移动。此时真实 optical flow 和重建 optical flow
+之间的差距小，$L_{recon}
+$就小。反过来，如果重建结果显示杯子没动、往错误方向动，或者整张图的运动场混乱，那么
+<span class="math inline">\(L_{recon}\)</span> 就会变大。因此，<span class="math inline">\(L_{recon}\)</span> 的核心作用不是让 latent action
+直接等于真实动作，而是保证 latent action 至少是一个有效的运动表示。</p>
+<p>Motus 的 latent action 训练损失由三部分组成：第一部分是 optical flow
+reconstruction loss，也就是 <span class="math inline">\(L_{recon}\)</span>，用来保证 latent action
+能重建原始光流；第二部分是 action alignment loss，用少量真实 action
+label 约束 latent 表示靠近真实机器人动作分布；第三部分是 KL
+regularization，用来正则化 latent
+space，使隐空间更平滑、更稳定。这里最关键的区别是，<span class="math inline">\(L_{recon}\)</span> 保证 latent action 像“运动”，而
+action alignment loss 保证 latent action
+更像“机器人动作”。如果只有重建损失，latent action
+可能只是一个普通视频运动特征，不一定能和机器人控制空间对应；如果加入少量真实
+action
+监督，它就会被锚定到可执行动作附近，从而成为视觉动态和机器人控制之间的桥梁。</p>
+<p>基于这种 latent action 设计，Motus 的训练框架分为三个阶段。第一阶段是
+Learning Visual
+Dynamics，也就是学习视觉动态。这个阶段主要适配视频生成专家，让它从多机器人轨迹和人类视频中学习物体运动、机械臂交互和未来画面变化。此时模型重点学的是“给定当前图像和语言指令，未来画面可能如何变化”，还没有真正要求输出目标机器人的真实动作。第二阶段是
+Learning Action
+Representations，也就是学习动作表示。这个阶段会训练完整的 Motus，但冻结
+VLM，并使用视频、语言和 latent actions 进行统一训练。这里的 action
+不是机器人真实控制量，而是前面通过 optical flow、DC-AE 和轻量 encoder
+得到的 latent action。它的作用是让 action expert 也能像 VLM 和 VGM
+一样进行大规模预训练，从无标签视频和多机器人数据中吸收通用运动先验。第三阶段是
+Specializing for the Target
+Robot，也就是针对目标机器人进行动作微调。这个阶段使用 target-robot task
+trajectory data，训练目标从 latent action 切换到真实
+action，使模型最终能够输出目标机器人真正可执行的控制命令。因此，Stage 2
+的 latent action 和 Stage 3 的真实 action 有本质区别。Stage 2 的 latent
+action 来源于视频帧之间的 optical
+flow，是从视觉运动中压缩出来的隐式动作表示，通常不能直接控制机器人。它回答的是“从画面变化来看，这里发生了什么样的运动”。Stage
+3 的 action
+则来自目标机器人示范轨迹，是数据采集时机器人控制系统真实记录下来的控制量，例如末端执行器位姿增量、旋转增量、夹爪开合、双臂控制量或关节控制量。它回答的是“这个具体机器人下一步应该执行什么控制命令”。一句话说，Stage
+2 学的是动作造成的视觉变化规律，Stage 3
+学的是如何把这些规律落到具体机器人的可执行控制上。</p>
+<p>在模型架构上，Motus 使用 Mixture-of-Transformers，也就是
+MoT。它不是从零训练一个巨大
+Transformer，而是把三个专家模型连接起来：视频生成专家、动作专家和视觉语言理解专家。视频生成专家提供未来画面生成和物理动态先验，动作专家负责建模
+latent action 或真实 action，理解专家来自预训练
+VLM，提供语言理解、场景理解和空间语义能力。三者通过 Tri-model Joint
+Attention 进行信息交互。每个专家保留自己的 Transformer
+模块和功能角色，但在多头自注意力层面实现跨模态融合。这样做的好处是，模型既不会完全破坏已有
+VLM/VGM 的预训练能力，又能让“理解、想象和行动”之间真正交换信息。</p>
+<p>Motus 还使用了 UniDiffuser-style
+scheduler，使同一个模型能够灵活切换不同推理模式。这里需要区分 rectified
+flow timestep 和 optical flow。Optical flow
+是图像两帧之间的像素运动场，而 rectified flow timestep
+是生成模型训练中的噪声时间步。Motus
+同时生成视频和动作，但视频和动作的维度、噪声尺度、分布形态不同，因此它给视频生成专家和动作专家分配不同的
+rectified flow timestep 和 noise
+scale。这样一来，当模型只根据当前观测和语言预测动作时，它可以表现得像
+VLA；当模型根据动作预测未来观测时，它可以表现得像 World
+Model；当模型根据前后观测反推动作时，它可以表现得像
+IDM；当模型只生成未来视频时，它可以表现得像 Video Generation
+Model；当模型同时预测未来视频和动作时，它又变成 Video-Action Joint
+Prediction Model。Motus
+的统一性正体现在这里：它不是为每种能力训练一个独立模型，而是在同一生成框架中覆盖这些不同的条件分布和联合分布。</p>
+<p>Motus 的数据设计也服务于这种统一训练目标。论文提出了一个六层 embodied
+data pyramid，从底层到高层依次包括 web data、egocentric human
+videos、synthetic data、task-agnostic data、multi-robot task trajectory
+data 和 target-robot task trajectory
+data。越底层的数据规模越大，但和目标机器人动作之间的对应关系越弱；越高层的数据越贴近目标机器人，但规模更小、采集成本更高。Optical
+flow-based latent action
+的作用，就是让模型能够利用底层和中层的大量无动作标签视频数据，把其中的运动知识转化为
+action expert
+可学习的信号。随后，第三阶段再用少量目标机器人数据进行落地适配，使通用运动先验转化为具体机器人可执行的动作策略。</p>
+<p>实验方面，Motus
+在仿真和真实机器人两类场景中进行了验证。仿真实验主要使用 RoboTwin
+2.0，这是一个偏向双臂机器人操作和强 domain randomization 的
+benchmark。论文从 RoboTwin 2.0 中选取 50 个代表性操作任务，并分别在
+clean 和 heavily randomized 两种环境下测试。clean 设置中，每个任务使用
+50 条示范轨迹；randomized 设置中，每个任务使用 500
+条示范轨迹。随机化因素包括背景、桌面杂乱程度、桌高扰动和光照变化。评价指标是每个任务
+100 次执行的 success rate。对比方法包括 π0.5、X-VLA、无预训练
+Motus、只经过 Stage 1 预训练的 Motus，以及完整三阶段训练的 Motus。
+RoboTwin 2.0 的结果显示，完整 Motus 在 clean 设置下平均成功率达到
+88.66%，在 randomized 设置下达到 87.02%。相比之下，π0.5 在 clean 和
+randomized 中分别为 42.98% 和 43.84%，X-VLA 分别为 72.80% 和
+72.84%，无预训练版本为 77.56% 和 77.00%，Stage 1 版本为 82.26% 和
+81.86%。这个结果说明，Motus 的提升不是单纯来自更强的
+backbone，而是来自统一架构、视频动态预训练、latent action
+预训练以及目标机器人动作微调的组合。尤其是 Stage 2 的 latent action
+pretraining 带来了明显增益，说明 action expert 确实可以通过 optical
+flow-based latent actions
+从大规模异构数据中学习到更通用的运动和交互先验。
+真实机器人实验进一步验证了 Motus 的实际价值。论文在 AC-One 和
+Agilex-Aloha-2
+两个双臂机器人平台上测试，任务包括折毛巾、用咖啡机冲咖啡、用研磨机磨咖啡豆、从饮水机接水、把方块放进盘子、按指定键盘键、把面包放进烤箱等。这些任务不仅要求视觉理解，还涉及长程规划、双臂协作、精细操作和柔性物体交互。由于部分任务可以分解为多个子目标，论文采用
+partial success rate
+来评估完成程度，而不是只看最终是否完全成功。结果显示，Motus 在 AC-One
+平台上的平均 partial success rate 为 63.22%，明显高于 π0.5 的 14.79%
+和无预训练版本的 25.86%；在 Agilex-Aloha-2 平台上，Motus 平均为
+59.30%，也高于 π0.5 的 48.60% 和无预训练版本的
+26.60%。这些结果说明，Motus 的 latent action pretraining
+不仅在仿真中有效，也能帮助真实机器人处理复杂长程任务。</p>
+<p>总体来看，Motus 的贡献不只是提出一个新的
+VLA，也不只是做一个视频预测模型，而是提出了一条更系统的具身基础模型路线。它用
+MoT 架构把 VLM、VGM 和 action expert 连接起来，用 Tri-model Joint
+Attention 实现理解、生成和行动之间的信息交互，用 UniDiffuser-style
+scheduler 支持多种条件生成和联合生成模式，再用 optical flow-based latent
+action
+把大量没有动作标签的视频转化为动作专家可以学习的预训练信号。尤其是
+latent action 的设计，是 Motus
+区别于传统机器人策略学习的重要部分：它先通过 optical flow
+捕捉像素级运动，再通过 DC-AE/VAE 和轻量 encoder
+压缩成低维动作隐变量，随后通过 optical flow 重建和少量真实 action
+监督进行训练与对齐，最后在目标机器人数据上切换为真实 action
+微调。这样，Motus
+既能利用大规模无标签视频中的运动知识，又能最终输出具体机器人可执行的动作。
+从更大的研究趋势看，Motus
+代表了一种从“直接模仿动作”走向“先学习世界运动规律，再适配具体机器人动作”的路线。它承认不同机器人的真实控制空间难以直接统一，但认为视觉运动模式可以作为中间桥梁。Optical
+flow 提供了跨 embodiment 的显式运动表示，latent action
+则把这种运动压缩为可训练、可对齐、接近动作空间的隐变量。通过这种方式，Motus
+让 action expert 也获得了类似 VLM 和 VGM
+的大规模预训练机会。最终，模型不只是学会“看到图像后输出动作”，而是学会在视觉、语言、未来想象、物理变化和机器人控制之间建立统一映射。这也是
+Motus 这篇工作的核心价值所在。</p>
+<h2 id="maskwam-unifying-mask-prompting-and-prediction-for-world-action-models"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2606.13515">MaskWAM: Unifying Mask Prompting
+and Prediction for World-Action Models</a></h2>
+<p>随着 DreamZero、Motus、FastWAM 等 World Action
+Model（WAM）的出现，机器人控制开始从传统的
+Vision-Language-Action（VLA）范式转向“先预测未来世界，再生成动作”的范式。相比直接从图像和语言生成动作，WAM
+通过未来视频预测学习物理动态，因此通常具有更强的运动泛化能力。然而，作者指出，现有
+WAM
+普遍存在一个被忽视的空间感知瓶颈：模型虽然能够预测未来视频，但并不一定真正知道“任务目标是谁”。在复杂场景中，当桌面同时存在多个相似物体时，文本指令中的“拿起红色杯子”或“移动左边的盒子”往往存在指代歧义；另一方面，即使未来视频预测正确，RGB
+视频本身也包含大量背景、光照和无关物体信息，导致世界模型学习到的表示容易受到任务无关区域干扰。</p>
+<p>MaskWAM 的核心观点非常直接：既然 WAM
+本质上是视觉驱动模型，那么相比语言提示，一个显式的目标掩码（mask）更适合作为任务条件。作者认为，现有方法过于依赖语言作为空间定位信号，而语言本身并不是最自然的空间监督方式。对于机器人而言，一个明确标出目标物体位置的
+mask，实际上比一句“抓住左边那个杯子”更精确。因此，MaskWAM 提出
+Object-Centric World Action Model，将 mask
+同时作为输入条件和预测目标，从而让世界模型围绕目标对象而不是整张图像进行建模。</p>
+<p><img src="/2026/05/01/World_Action_Models/maskwam.png"></p>
+<p>整个框架最有意思的地方在于它同时解决了“输入阶段”和“预测阶段”的空间对齐问题。首先，在输入端，MaskWAM
+不再仅使用语言指令，而是在第一帧中引入目标物体 mask。这个 mask
+作为明确的空间锚点（spatial
+anchor），告诉模型“未来所有规划都围绕这个物体展开”。这样，当场景中出现多个相似物体时，模型无需依赖模糊语言推断目标位置，而是直接获得精确目标区域。作者称之为
+Mask Prompting。相比语言提示，这种方式能够显著减少 referential
+ambiguity，即指代歧义问题。</p>
+<p>但作者认为，仅仅在输入端提供 mask 还不够。现有 WAM
+的另一个问题在于未来预测通常只监督 RGB 视频，而 RGB
+重建目标会鼓励模型关注背景纹理、桌面颜色和光照变化等与任务无关的信息。于是
+MaskWAM 进一步提出 Future Mask Prediction，让模型在预测未来 RGB
+视频的同时，也预测未来目标物体的
+mask。换句话说，世界模型不仅要回答“未来画面会变成什么样”，还要回答“未来目标物体会在哪里”。通过这种方式，模型被迫持续跟踪目标对象，而不是把容量浪费在背景建模上。作者认为，这种联合
+RGB-Mask 预测实际上提供了一种更强的 object-centric world modeling
+监督。</p>
+<p>从架构角度来看，MaskWAM 延续了近期 WAM 中常见的
+Mixture-of-Transformers（MoT）设计思想。系统由视频生成分支、动作生成分支和
+mask 分支共同组成。其中视频分支负责未来 RGB
+视频生成，动作分支负责机器人动作预测，而 mask
+分支则负责未来目标区域预测。与传统 WAM 不同的是，mask
+不再只是额外监督，而是贯穿整个生成过程：输入时作为显式空间提示，预测时作为未来状态的一部分。这样一来，世界模型内部表示天然具有目标对象中心（object-centric）结构，而不是传统
+RGB-centric 结构。</p>
+<p>从更深层的角度理解，MaskWAM 实际上是在重新定义 WAM
+中“世界状态”的表示方式。过去的世界模型默认未来状态就是未来 RGB 图像，而
+MaskWAM
+认为未来状态应该由两部分组成：未来视觉观测和未来目标对象状态。RGB
+告诉模型未来世界长什么样，Mask
+告诉模型任务相关对象在哪里。这种设计与之前 Action-State
+Consistency、AGRA
+等工作有相似之处：它们都在尝试让世界模型关注真正与动作相关的区域，而不是仅仅追求生成逼真的未来视频。</p>
+<p>实验部分主要在 LIBERO、RoboTwin 2.0 和真实机器人平台上展开。LIBERO
+包含大量多任务操作场景，是当前评估机器人泛化能力的重要基准；RoboTwin 2.0
+更强调双臂操作和强随机化环境；真实机器人实验则专门设计了语言明确（language-clear）和语言歧义（language-ambiguous）两类任务，以验证
+Mask Prompting 是否真正缓解了目标定位问题。</p>
+<p>实验结果表明，MaskWAM 在几乎所有基准上都优于现有 WAM 和 VLA 方法。在
+LIBERO 上，作者将其与 WorldVLA、GR00T-N1、π0、π0.5、Motus 和 FastWAM
+等方法进行比较，MaskWAM
+获得了最高成功率。尤其是在存在多个相似物体的任务中，其优势更加明显。作者发现，传统语言驱动
+WAM 经常选择错误目标，而 Mask Prompting 能显著降低这种错误。</p>
+<p>真实机器人实验进一步验证了这一点。在语言清晰任务中，MaskWAM
+相比基线已经具有稳定优势；而在语言歧义任务中，提升更加显著。论文指出，在存在多个相似物体、语言描述无法唯一确定目标的场景下，Mask
+Prompting 带来的相对提升可达到 60%
+以上。这说明其收益并不仅来自更强的视觉编码器，而是真正来自目标对象的显式空间对齐。</p>
+<p>作者还进行了多组消融实验。仅使用 RGB 预测、不预测未来 mask
+时性能明显下降；只使用输入 mask 而不进行未来 mask
+预测时性能也有所退化。这说明 Mask Prompting 和 Future Mask Prediction
+两部分是互补关系：前者解决目标定位问题，后者解决目标跟踪问题。进一步的
+mask corruption 实验表明，即使输入 mask
+存在侵蚀、膨胀、位置偏移或局部缺失等噪声，MaskWAM
+仍然能够保持较好的性能，说明其并不过度依赖精确像素级标注。</p>
+<p>从研究定位来看，MaskWAM
+并没有重新设计世界模型的生成机制，也没有引入新的规划算法。它关注的是一个更加基础但长期被忽略的问题：世界模型究竟应该围绕什么对象进行建模。过去的
+WAM 默认世界状态等于 RGB 视频，因此学习目标天然偏向视觉重建；而 MaskWAM
+认为，对于机器人操作而言，更重要的是目标对象本身。通过统一 Mask
+Prompting 和 Future Mask Prediction，MaskWAM 将世界建模从 scene-centric
+推向
+object-centric，使未来预测不仅描述“未来会发生什么”，还明确描述“目标物体未来会在哪里”。这一思想与近期
+WAM
+社区从单纯追求视觉真实性转向关注动作相关性、目标对齐和决策可用性的趋势高度一致。</p>
+<p>一句话总结，MaskWAM
+的核心贡献不是让世界模型预测得更逼真，而是让世界模型始终知道自己应该关注谁。通过把
+mask
+同时作为输入提示和未来预测目标，它将目标对象显式地嵌入世界模型的表示与推理过程，从而显著提升了复杂场景中的目标定位能力、抗干扰能力和跨场景泛化能力。</p>
+<h2 id="oa-wam-object-addressable-world-action-model-for-robust-robot-manipulation"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2605.06481">OA-WAM: Object-Addressable World
+Action Model for Robust Robot Manipulation</a></h2>
+<p>作者分析了现有 Object-centric
+世界模型的不足。近年来，越来越多的工作开始采用
+<strong>Object-centric（目标中心）表示</strong>
+来替代传统整幅图像表示。所谓
+Object-centric，就是不再把整个场景编码成一个统一的全局特征，而是将场景拆分成多个独立对象，每个对象分别进行建模。这种方式相比传统
+holistic representation
+有两个优势：一方面，每个对象拥有独立表示，可以更容易学习对象之间的关系，提高模型的样本效率和推理能力；另一方面，对象表示可以直接与语言中的目标对象对应，例如语言中的“拿起杯子”可以直接对应到“杯子”这一对象表示，而不是在整张图像特征中寻找杯子的隐含信息，因此对象表示成为语言和动作之间更加自然的桥梁。</p>
+<p>但是，作者认为现有 Object-centric
+方法仍然存在一个核心问题。很多工作采用 <strong>Slot Attention</strong>
+来自动发现场景中的对象，将场景分解为多个
+<strong>slot</strong>。这里需要先解释 <strong>slot</strong> 的概念。</p>
+<p><strong>Slot 可以理解为模型内部用于表示一个对象的向量（object
+token）</strong>。假设场景中有桌子、杯子、机械臂、抽屉四个对象，那么经过
+Slot Attention 后，模型会得到四个对应的 slot：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">Slot 1 → 杯子
+Slot 2 → 桌子
+Slot 3 → 机械臂
+Slot 4 → 抽屉<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>每个 slot 本质上都是一个高维向量，例如 1024
+维，它包含了这个对象的各种信息，包括：</p>
+<ul>
+<li>对象身份（是什么）</li>
+<li>外观（颜色、纹理）</li>
+<li>空间位置（pose）</li>
+<li>当前状态（是否打开、是否移动）</li>
+<li>周围局部环境信息</li>
+</ul>
+<p>因此，一个 slot
+并不是单纯表示“杯子”这个身份，而是把身份、位置、外观等所有信息全部混合在同一个向量里面。</p>
+<p>作者指出，这种混合表示容易产生问题。首先，Slot Attention
+本身需要从零开始发现对象，对 slot
+数量比较敏感，当场景复杂、存在遮挡或者背景杂乱时，很容易把多个对象混到同一个
+slot 中，或者不同时间同一个对象对应不同 slot。其次，即使 slot
+已经比较稳定，由于身份信息和内容信息混合在同一个向量中，当环境发生变化时，例如光照改变、背景变化、物体移动，Transformer
+在不断更新 slot 时，也可能把原本代表杯子的 slot
+更新成代表桌子，或者让动作模块错误关注到另一个相似物体。这就是作者所说的：</p>
+<blockquote>
+<p><strong>scene-context shifts can rewrite which slot the action head
+reads from</strong></p>
+</blockquote>
+<p>也就是说，动作生成模块原本应该读取“杯子”的 slot，但因为场景变化，这个
+slot 内部表示发生漂移，最终动作可能跟随错误对象。</p>
+<p>针对这一问题，OA-WAM 提出了 <strong>Object-Addressable World Action
+Model</strong>。它的核心思想是：<strong>不要让对象身份随着时间变化，而是把对象身份固定下来，只更新对象状态。</strong></p>
+<p>OA-WAM 关注的是 WAM
+中一个比“未来预测是否逼真”更具体的问题：当语言指令指向某个物体时，模型内部有没有一个稳定、可查询的对象接口。现有
+World Action Model 通常把未来世界表示成整帧图像、视频 token 或全局
+latent，这类表示虽然能提供时序监督，但目标物体的身份、外观、姿态和背景上下文会被混在同一组
+token
+里。这样在相机视角、物体布局或机器人初始位姿变化时，目标物体仍然可见，但
+action decoder
+可能已经把“应该操作谁”绑定到了训练分布中的视觉上下文。OA-WAM
+将这种失败模式概括为缺少 object
+addressability，也就是世界模型缺少可被动作头稳定寻址的对象状态。</p>
+<p><img src="/2026/05/01/World_Action_Models/oa_wam_framework.png"></p>
+<p>方法上，OA-WAM 把每一帧分解成 robot slot 和 object slots，每个 slot
+又被拆成两部分：固定的 identity address 和随时间变化的 content。identity
+address 在 episode 初始时由语言标签和初始 DINOv3
+特征计算得到，并在之后保持冻结；content 则由 SAM3 + DINOv3
+根据当前帧持续刷新，负责描述物体外观、位置和状态变化。随后，模型把 BPE
+文本 token、Chameleon VQ-GAN 图像 token、对象 slot token、本体状态 token
+和历史动作 token 组装成 block-causal 序列，并以 <code>[ACT-Q]</code>
+action query
+作为动作头读取入口。这样，世界状态不再只是一个全局未来视频，而是一组带身份地址的对象状态。</p>
+<p>OA-WAM 最关键的结构约束在于 object-addressable attention。对于 slot
+token，Transformer 中跨 slot 注意力的 key projection 只能读取 address
+子向量，而不能读取 time-varying content；同时每一层之后都会把残差流中的
+address slice 重置回缓存的冻结 identity
+address，防止它被后续计算改写。这个设计的目的不是让模型自动获得完美语义
+grounding，而是从张量结构上限制“选择哪个
+slot”只能由对象身份地址决定，而不能被当前背景、姿态或邻近干扰物改写。content、pose
+和语言信息仍然可以通过 value
+和残差流参与动作生成，因此模型仍然能利用状态变化，但目标绑定路径被显式隔离出来。</p>
+<p>训练和预测头也延续了 WAM 的联合建模思路。world head 读取每个 slot 的
+hidden state，预测下一帧对象 content 和 pose，作为 object-level future
+prediction 的辅助监督；action head 读取 <code>[ACT-Q]</code> hidden
+state，用 flow-matching MLP 一次解码 16 步连续 action chunk。总损失由
+slot-level world loss、action flow-matching loss、辅助 image-VQ
+loss，以及面向 distractor permutation / insertion 的一致性正则和弱 role
+hint 组成。与 MaskWAM 用 mask 提供对象中心监督不同，OA-WAM
+更强调“地址”和“内容”的结构性解耦：mask 或 slot extraction
+仍然是前端感知的一部分，但真正被验证的是动作头是否通过固定对象地址进行目标选择。</p>
+<p>实验覆盖 LIBERO、SimplerEnv WidowX Visual Matching 和
+LIBERO-Plus。标准基准上，OA-WAM 在 LIBERO 四个 suite 的平均成功率为
+<strong>97.8%</strong>，高于表中 VLA-JEPA 的 97.2% 和 OpenVLA-OFT 的
+96.9%；在 SimplerEnv WidowX 上平均为 <strong>79.3%</strong>，高于 CoWVLA
+的 76.0% 和 MemoryVLA 的 71.9%。更能体现论文假设的是 LIBERO-Plus
+鲁棒性评测：OA-WAM 在 Camera、Robot init、Layout 三个几何扰动轴上的 Geo
+Avg 达到 <strong>84.3%</strong>，高于 Cosmos-Policy 的 73.8% 和 VLA-JEPA
+的 71.9%；七类扰动总体平均为 <strong>83.9%</strong>，接近但低于 π0.5 的
+85.7%。论文特别指出，OA-WAM 在 Sensor Noise 上只有 75.6%，明显低于
+Cosmos-Policy 的 92.7% 和 π0.5 的 89.7%，主要因为光度噪声会破坏前端 slot
+extraction，而不是 addressable policy 本身一定失效。</p>
+<p>消融实验进一步把收益定位到 OA 结构，而不是单纯的 SAM3/DINOv3
+感知前端。完整 OA-WAM 的 LIBERO-Plus camera 成功率为
+<strong>80.5%</strong>，关掉 key mask 后降到 67.2%，完全去掉 OA 约束后为
+60.5%；与此同时 LIBERO in-distribution 变化很小，说明 OA
+主要带来的是几何 OOD 下的目标绑定稳定性，而不是普通容量增益。更直接的
+causal slot intervention 测试中，作者在测试时交换语言绑定目标 slot
+和另一个场景 slot 的 address，观察末端轨迹是否转向被交换的新目标。完整
+OA-WAM 的 swap-binding cosine 达到 <strong>0.87</strong>，而
+OpenVLA、WorldVLA、VLA-JEPA、Cosmos-Policy、GE-Act 等 holistic baseline
+都在 0.04 到 0.09 附近。这说明模型确实把“操作谁”的决策通道放在 address
+subspace 上。</p>
+<p>从研究定位看，OA-WAM 和 MaskWAM 都在反思 RGB-centric / holistic WAM
+的局限，但切入点不同：MaskWAM 用目标 mask
+让世界模型始终关注任务对象，OA-WAM 则把对象表示拆成 frozen address 和
+dynamic
+content，并在注意力路由层面强制保持对象可寻址性。它的价值在于把鲁棒操作问题从“再多做一些数据增强”推进到“世界模型内部是否有稳定对象接口”。局限也很清楚：目前验证仍主要在仿真基准上，方法强依赖
+Qwen3-VL、SAM3、DINOv3 等前端感知和 slot
+初始化；如果小物体、透明物体、遮挡或噪声导致 slot 本身错误，addressable
+attention 无法凭空修复。因此 OA-WAM 更像是给 WAM
+提供了一种可解释、可干预的对象绑定结构，而不是完整解决真实机器人感知鲁棒性的最终方案。</p>
+<h2 id="dswam-a-dual-system-world-action-foundation-model-for-fine-grained-robot-manipulation"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2607.04927">DSWAM: A Dual-System World
+Action Foundation Model for Fine-Grained Robot Manipulation</a></h2>
+<p>DSWAM 讨论的是 WAM
+在真实机器人系统里如何同时兼顾“会做事”和“能拆任务”。传统 VLA
+的优势是语言接口清晰，粗粒度指令可以借助 VLM 进行任务分解；WAM
+的优势则是通过视频世界建模获得更密集的物理动态监督，在接触、形变、双臂协作这类任务上更适合学习动作后果。但很多
+WAM
+仍然主要是执行策略，面对“整理桌面”“折衣服”这类包含多个阶段的家庭任务时，缺少显式的语言级子任务组织能力；另一方面，如果每次控制都要显式生成未来视频，真实机器人上的推理延迟又会很高。DSWAM
+的思路是把这两个问题拆开：System 1 始终是低层 WAM
+executor，负责闭环动作生成；System 2 是可选的高层 VLM
+planner，只在任务确实需要分解时启动。</p>
+<p><img src="/2026/05/01/World_Action_Models/dswam_overview.png"></p>
+<p>整体框架可以理解成“默认快执行，必要时慢规划”。在没有启动 System 2
+时，System 1 直接接收当前多视角 RGB、语言指令和机器人
+proprioception，输出一个连续动作 chunk；这也是论文在真实折衣 benchmark
+中采用的设置，用来公平比较 WAM-style execution 和 DeMaVLA 这类 VLA
+policy。启动 System 2 时，planner 会读取最近一小段视觉历史和全局任务
+prompt，把粗指令转成当前应该执行的细粒度子任务，例如先把玩具车放进盒子，再把面包放到盘子上。System
+1 不需要知道全局任务树，只需要把当前 subtask
+当作语言条件来执行。这样，语义分解和物理执行被解耦：System 2
+决定“下一步做什么”，System 1 决定“这一步具体怎么做”。</p>
+<p>训练流程分成两个相互关联但目标不同的部分。System 2 planner
+的训练来自机器人轨迹视频，作者先用预训练视觉语言标注器把长视频切成子任务区间，并给每段分配子任务标签和边界。训练时，planner
+以 1 FPS 采样得到的短期视觉窗口和全局任务 prompt 为输入，用
+autoregressive language modeling
+预测当前或下一条可执行子任务；特别地，监督是 transition-aware
+的，也就是在接近子任务边界时，模型要学会输出下一阶段指令，而不是只复述当前阶段。部署时，System
+1 每隔一段时间把最近 5 帧送给 planner，planner 返回新的
+subtask，并在下一次更新前作为 executor 的语言条件。这个设计让 planner
+的调用频率远低于低层控制频率，避免把 VLM 规划放进每个动作 step
+的关键路径。</p>
+<p>System 1 executor 的训练更接近近期 Fast-WAM / GigaWorld-Policy
+这条“训练时学世界，推理时直接出动作”的路线。模型把当前多模态上下文编码成
+latent world features，然后 action expert 用 conditional flow matching
+预测连续动作 chunk。关键是它不是只做 imitation learning，而是同时加入
+auxiliary video co-training：同一个 flow-matching 框架既用于动作
+chunk，也用于未来 latent visual tokens。这样未来视觉 token
+在训练时提供世界建模监督，鼓励视觉骨干编码物体运动、接触变化和场景演化；但论文明确限制
+action token 不能把未来视觉 token 当作 privileged information
+使用。换句话说，未来视频只在训练阶段提供“物理动态老师信号”，推理阶段策略仍然只能看到当前观测、语言和机器人状态，这样训练和部署条件保持一致。</p>
+<p>推理流程因此非常直接。给定当前多视角图像、当前语言条件和
+proprioception，executor 只做一次当前上下文前向计算，得到 latent world
+features，再通过 action branch denoise / flow-matching 生成一个连续动作
+chunk。它不会像某些 imagine-then-execute WAM
+那样先采样、去噪或解码未来视频，再根据未来视频反推动作。这个区别很重要：DSWAM
+保留了 WAM
+的训练优势，但把测试时显式未来生成从控制路径上拿掉，因此更适合真实机器人低延迟执行。System
+2 如果开启，只改变语言条件的来源；如果不开启，System 1
+直接用原始任务指令运行，真实折衣实验就是这个 WAM-only 模式。</p>
+<p>论文 3.3.2 的 real-time chunking and deployment
+主要解决的是另一个工程问题：即使模型推理已经不生成未来视频，Transformer
+policy 查询仍然可能比底层控制周期慢。如果同步执行，机器人每执行完一个
+chunk 都要停下来等下一次 policy query，接触任务会变得不稳定。DSWAM 采用
+inference-time RTC 和异步执行，把 policy worker 和 robot controller
+分开：controller 按固定低层频率继续执行当前 action
+chunk；与此同时，policy worker 用最新观测在后台预测下一段完整 action
+chunk。新 chunk 准备好后再进入控制队列或替换后续执行片段，因此 policy
+latency
+不会阻塞底层控制。作者特别强调，这只是部署时机制：训练时并没有采用
+action conditioning，也没有使用 suffix-only loss；executor
+仍然按前面完整 action chunk 目标来训练。</p>
+<p>为了进一步降低延迟，DSWAM 把执行路径中最重的 Transformer 部分编译成
+TensorRT，而且不是导出一个单体大图，而是拆成两个 engine。第一个是
+visual-context engine，根据 video latent、diffusion
+timestep、语言/proprioception 上下文和视觉 attention mask 构建每层
+cache；第二个是 action-denoising engine，读取 action
+latents、相同上下文、缓存的视觉状态和 joint video-action attention
+mask，执行一次 action chunk 的 denoising
+update。这样拆分后，预处理、文本编码、VAE、归一化和外层 policy wrapper
+可以保持原有接口，而耗时的视觉和动作 Transformer 计算交给
+TensorRT。实验中使用 BF16 TensorRT，在 RTX 5090 上把 warmed end-to-end
+policy latency 从 <strong>198.2 ms</strong> 降到 <strong>73.8
+ms</strong>，加速 <strong>2.69×</strong>，与 PyTorch 参考的 action
+cosine similarity 为 <strong>0.99977</strong>。</p>
+<p>实验上，DSWAM 在 RoboTwin 2.0 的 50 个双臂仿真任务上达到 clean
+<strong>92.38%</strong>、randomized <strong>91.90%</strong>
+平均成功率，高于 DeMaVLA、Motus 和 Fast-WAM；相对 Fast-WAM
+的提升不大但稳定，说明它主要是在保留高效 WAM
+执行能力的基础上增强了系统组织和真实部署能力。真实折衣 benchmark
+中，作者严格匹配 DeMaVLA
+的机器人平台、预训练数据、后训练数据、任务流程和成功标准，并关闭 System
+2，只比较执行策略本身。DSWAM 的平均成功率为 <strong>96.3%</strong>，高于
+DeMaVLA 的 <strong>92.5%</strong>，其中裤子任务从 75.0% 提升到
+90.0%。System 2 的单独消融在桌面排序任务上进行：粗指令直接训练时成功率约
+71.4% 到 80.0%，而子任务级指令监督达到 <strong>100.0%</strong>，平均
+rollout mistakes 从 3.53 降到 0.65，说明 planner
+不是所有任务都需要，但在粗指令有清晰阶段结构时能减少错误积累。</p>
+<p>从研究定位看，DSWAM 不是提出一个更复杂的未来视频生成器，而是把 WAM
+系统工程化成可部署的双系统机器人策略。它的关键取舍是：训练时利用未来视觉
+token 做 world-modeling
+supervision，推理时不显式生成未来；语义规划只在必要时作为 System 2
+出现，默认控制路径仍然是低延迟 System 1；真实部署中再用异步 RTC 和
+TensorRT 把 policy latency 从控制回路里剥离出去。这使它与
+AHA-WAM、Fast-WAM、Motus
+等工作形成互补：前者强调规划和执行时间尺度解耦，Fast-WAM
+强调去掉测试时未来想象，Motus 强调统一 latent action world model，而
+DSWAM 更强调在同一真实机器人协议下证明 WAM-style execution
+的实际优势，并把 planner、executor
+和部署加速组织成一个可运行系统。局限也比较明确：System 2
+的收益目前主要在结构清楚的排序任务中展示，折衣主实验反而关闭了
+planner；同时 TensorRT/RTC
+的效果依赖具体硬件和工程实现，因此它更像是一套面向真实部署的 WAM
+系统范式，而不是单一模型结构的纯算法突破。</p>
+<p>是否使用 System 2 不是由模型自动实时判断的，而是一个 系统配置 /
+任务设置选择。DSWAM 把 System 2 设计成 optional
+planner，由任务类型或部署者决定是否启用；论文没有提出一个自动 gate /
+classifier 来判断是否需要 System 2。论文里的逻辑是：</p>
+<ul>
+<li><p>细粒度指令或单阶段任务：直接使用 System 1 WAM
+executor。例如真实折衣 benchmark 中，作者为了和 DeMaVLA
+公平比较，明确关闭 System 2，只测试 WAM executor 本身。</p></li>
+<li><p>粗粒度、多阶段任务：启用 System 2 planner。例如桌面整理 / sorting
+这类任务，原始指令可能是“整理桌上的物体”，需要拆成“把 toy car 放进
+box”“把 bread 放到 plate”等子任务，这时 System 2 会周期性生成 subtask
+instruction，再交给 System 1 执行。 所以它不是像一个 learned router
+那样自动判断“现在该不该调用 System 2”。</p></li>
+</ul>
+<h2 id="imagewam-do-world-action-models-really-need-video-generation-or-just-image-editing"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2606.19531">ImageWAM: Do World Action Models
+Really Need Video Generation, or Just Image Editing?</a></h2>
+<p>ImageWAM 讨论的是一个很直接但重要的问题：如果 World Action Model
+的目标最终是帮助机器人生成动作，那么它真的需要在推理时生成一整段未来视频吗？现有
+video-based WAM
+通常把当前观测和语言指令送入视频生成模型，先想象未来多帧视觉轨迹，再由动作专家根据这个未来视频预测
+action
+chunk。这条路线的好处是把“先理解世界变化，再行动”的结构显式化，但代价也很明显：未来视频
+token 很密集，推理 FLOPs
+和延迟高；完整视频生成会浪费大量能力去还原背景、光照、相机细节和时间连续性；更麻烦的是，如果长时域视频想象中出现物体形变、接触关系或目标位置错误，动作预测器反而会被错误未来误导。</p>
+<p>论文的核心判断是，机器人操作真正需要的不是 photorealistic future
+video，而是“当前画面在语言指令下应该发生什么任务相关变化”。例如“把鞋放进盒子”并不要求模型生成每一帧鞋如何移动，只要它能形成一个从当前观测到目标视觉状态的紧凑变化表征，就足以为动作生成提供世界模型信息。因此
+ImageWAM 把视频生成替换成图像编辑：给定当前观测 <span class="math inline">\(o_t\)</span> 和语言指令 <span class="math inline">\(l\)</span>，不预测完整的 <span class="math inline">\(\hat{o}_{t+1:t+H+1}\)</span>，而只学习一个
+source-grounded、instruction-guided 的未来端点图像 <span class="math inline">\(\hat{o}_{t+H+1}\)</span>。更关键的是，推理时它甚至不需要把这张
+edited image 解码出来，而是复用图像编辑扩散模型在去噪过程中产生的中间 KV
+cache，把它作为动作专家的 compact world-action context。</p>
+<p><img src="/2026/05/01/World_Action_Models/imagewam_pipeline.png"></p>
+<p>架构上，ImageWAM 建在预训练图像编辑模型之上，例如
+OmniGen2、Ovis-U1、FLUX.2。整体由冻结的视觉语言理解部分、可训练的 image
+editing diffusion branch，以及一个可训练的 Action Expert 组成。冻结的
+VLM
+负责把语言和当前图像编码成稳定的多模态条件，图像编辑分支学习从当前观测到未来目标观测的任务相关视觉变换；Action
+Expert 则是一个 flow-matching / DiT
+风格的动作生成器，它读取当前机器人状态、动作噪声，以及图像编辑分支每层产生的
+key-value caches。论文把这些 cache 写成 <span class="math inline">\(C_{\text{edit}}^\tau=\{(K_l^\tau,V_l^\tau)\}_{l=1}^L\)</span>，其中
+<span class="math inline">\(\tau\)</span>
+是图像编辑扩散过程中的去噪时间步。直观地说，这些 KV cache
+已经包含了“语言指令和当前图像交互后，哪些区域需要改变、怎样改变”的信息，因此可以作为比未来视频更轻量的世界模型表示。</p>
+<p>训练流程可以理解成两个目标联合优化。第一，图像编辑分支要在 VAE latent
+空间里预测未来端点观测 <span class="math inline">\(o_{t+H+1}\)</span>，对应 image flow matching loss
+<span class="math inline">\(\mathcal{L}_{img}\)</span>；这里的 future
+observation 不是每一帧视频，而是 action chunk
+末端之后的目标视觉状态。第二，Action Expert 用 action flow matching
+学习从噪声动作恢复专家 action
+chunk，条件包括当前观测、语言、机器人状态，以及图像编辑分支在随机采样去噪时间步
+<span class="math inline">\(\tau\)</span> 下产生的 <span class="math inline">\(C_{\text{edit}}^\tau\)</span>，对应 <span class="math inline">\(\mathcal{L}_{act}\)</span>。总损失是 <span class="math inline">\(\mathcal{L}=\mathcal{L}_{act}+\mathcal{L}_{img}\)</span>。这种训练设计很关键：图像编辑分支仍然通过端点图像监督学习“世界会如何变化”，但动作专家真正使用的是中间
+cache，而不是最后解码出来的图像像素。</p>
+<p>推理流程比 video WAM 更短。给定当前观测和指令，ImageWAM
+选择一个固定的图像编辑去噪时间步 <span class="math inline">\(\tau^\*\)</span>，只运行一次 editing branch
+前向计算来得到 <span class="math inline">\(C_{\text{edit}}^{\tau^\*}\)</span>；随后 Action
+Expert 在这个 cache 条件下迭代去噪动作样本，输出未来 action
+chunk。整个过程中不生成未来视频，也不需要把 edited target image 解码成
+RGB 图像。也就是说，ImageWAM
+的世界模型能力体现在“图像编辑模型的中间表征”而不是显式视觉
+rollout：它先借助编辑模型形成任务相关的视觉变化上下文，再用动作专家把这个上下文转成动作。论文在
+LIBERO 和 RoboTwin 设置中使用的 action chunk 长度为
+<strong>16</strong>，未来端点观测也是向前 <strong>16</strong>
+帧的位置；真实世界实验同样预测 16 步动作。</p>
+<p>实验结果说明，这种 image-editing WAM
+并没有因为不生成视频而损失性能。RoboTwin 2.0 上，ImageWAM 在 Clean /
+Random / Average 上达到 <strong>93.20 / 93.56 / 93.38</strong>，高于
+FastWAM 的 <strong>91.88 / 91.78 / 91.83</strong>，也高于 <span class="math inline">\(\pi_0\)</span>、<span class="math inline">\(\pi_{0.5}\)</span>、Motus、LingBot-VA
+等基线，而且不需要额外 embodied policy pretraining。LIBERO 四个 suite
+上，ImageWAM 的平均成功率为 <strong>98.4%</strong>，接近 LingBot-VA 的
+<strong>98.5%</strong>，高于 Fast-WAM 的
+<strong>97.6%</strong>。更能体现鲁棒性的是 LIBERO-Plus：ImageWAM FLUX.2
+4B 版本平均 <strong>83.1%</strong>，显著高于 FastWAM 的
+<strong>51.5%</strong> 和 WorldVLA 的 <strong>25.0%</strong>；更大的
+FLUX.2 backbone 还可以把平均结果提升到
+<strong>85.21%</strong>。真实双臂实验中，ImageWAM 平均成功率
+<strong>84.5%</strong>，高于 <span class="math inline">\(\pi_0\)</span>
+的 <strong>55.8%</strong>、<span class="math inline">\(\pi_{0.5}\)</span> 的 <strong>72.3%</strong> 和
+FastWAM 的
+<strong>79.0%</strong>，其中折毛巾任务提升最大，说明对形变和目标状态变化的编辑式表征确实有帮助。</p>
+<p>效率上，ImageWAM 的收益来自两个层面。第一，它避免了密集未来视频 token
+和多帧解码，论文摘要报告 FLOPs 约降到 video WAM 的
+<strong>1/6</strong>，延迟约降到 <strong>1/4</strong>。第二，它可以和
+prefix-only 推理、编译 action
+loop、静态图等工程优化结合。论文的延迟表显示，FastWAM 单次 video denoise
+约 <strong>302 ms</strong>，ImageWAM 单次 denoise 约 <strong>263
+ms</strong>；进一步使用 prefix-only 和编译后，ImageWAM 最快可以到
+<strong>69 ms</strong>，相对原始 FastWAM 达到 <strong>4.38×</strong>
+加速。注意这里的关键并不是“图像编辑模型一定比视频模型小”，而是它在推理路径上只保留对动作有用的编辑中间状态，丢掉了完整视频生成和
+RGB 解码这两个昂贵环节。</p>
+<p>从研究定位看，ImageWAM 是对 WAM
+的一次“去视频化”尝试。它同意世界模型对机器人动作有价值，但反对把世界模型能力等同于未来视频生成；相反，任务相关的视觉变化、局部目标状态和语言对齐可能已经足够。它和
+DREAM-Chunk 一样避免在推理时生成未来视频，但 DREAM-Chunk 用 latent world
+model 在多条候选 action chunks 之间做执行时选择，ImageWAM
+则把预训练图像编辑模型改造成动作生成的条件表征器。它的局限也相应清楚：性能依赖图像编辑
+backbone
+的质量，长时序接触和多阶段任务仍然被压缩到一个端点编辑表征中；如果任务需要明确推理中间状态序列，单帧
+endpoint editing
+可能不如真正的视频动态模型。但这篇论文给出的证据很有启发性：对许多
+manipulation 任务来说，WAM
+的有效信息可能不是“生成一段未来”，而是“知道当前画面应该朝哪个任务相关状态改变”。</p>
+<h1 id="训练目标潜空间模型与不确定性">训练目标、潜空间模型与不确定性</h1>
+<h2 id="next-forcing-causal-world-modeling-with-multi-chunk-prediction"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2606.11187">Next Forcing: Causal World
+Modeling with Multi-Chunk Prediction</a></h2>
+<p>Next Forcing 关注的是 WAM / 视频世界模型训练目标本身的低效问题。现有
+autoregressive video-action WAM 通常采用 teacher-forced next-chunk
+denoising：给定真实历史 video chunks 和语言条件，只去噪当前
+chunk。这和闭环机器人部署比较匹配，因为执行后会不断拿到真实观测；但在训练上会产生一个
+myopic supervision （短视监督）问题。相邻 chunks
+尤其在高帧率下外观差异很小，模型很容易学到从 clean context 到 current
+chunk
+的近似复制或小残差修正，而不是学习真正支配物体运动、接触和场景演化的长程动态。论文把这个问题称为
+appearance shortcut，并指出它在 50 fps 这类高帧率设置下尤其严重。</p>
+<p>更通俗地说，这篇工作的动机是：视频世界模型看起来在学“预测未来”，但如果只让它预测紧挨着的下一小段视频，它很可能只是在复制上一段画面。特别是高帧率视频里，前后两段几乎一模一样，机械臂和物体只移动了一点点，模型靠“照着上一帧改一点”就能把训练
+loss
+做低。这样得到的模型未必真的理解动作之后物体为什么移动、接触后会怎样变化、几步之后场景会发展到哪里。</p>
+<p>Next Forcing
+的做法也很直接：不要只考模型“下一段视频是什么”，而是同时考它“下下一段、再下一段会是什么”。主模型仍然预测当前
+chunk，旁边加几个轻量 MCP 辅助模块，分别预测未来第 1、第 2、第 3 个
+chunks。越往后的画面和当前画面差异越大，单纯复制就不够用了，模型必须在内部学到更长时间尺度的动态规律。训练结束后，这些辅助模块可以丢掉，只保留主模型，因此可以在不增加推理成本的情况下获得更好的世界动态表示；也可以保留第一个辅助模块，让主模型预测当前
+chunk 的同时并行预测下一个 chunk，用来做约 <span class="math inline">\(2\times\)</span> 的视频生成加速。</p>
+<p><img src="/2026/05/01/World_Action_Models/next_forcing_overview.png"></p>
+<p>方法上，Next Forcing 借鉴大语言模型里的 multi-token prediction，把
+WAM 的局部 next-chunk 目标扩展成 multi-chunk
+prediction（MCP）。主模型仍然按原来的 flow matching 目标去噪当前 video
+chunk；额外加入三个轻量 MCP modules，分别预测 next<span class="math inline">\(^1\)</span>、next<span class="math inline">\(^2\)</span>、next<span class="math inline">\(^3\)</span> 未来 chunks。给定训练视频 latent <span class="math inline">\(\mathbf{x}_0\)</span>，每个 chunk 含 <span class="math inline">\(M\)</span> 帧，训练时随机从 <span class="math inline">\(\{1,\ldots,M_{\text{max}}\}\)</span> 采样 <span class="math inline">\(M\)</span>，实验中 <span class="math inline">\(M_{\text{max}}=4\)</span>。对于 MCP 深度 <span class="math inline">\(k\in\{1,2,3\}\)</span>，目标不是当前
+chunk，而是时间上向前平移 <span class="math inline">\(k\)</span> 个
+chunks 的 <span class="math inline">\(\mathbf{x}_0^{[k]}\)</span>；每个
+shifted target 独立加噪，并用自己的 flow matching loss
+监督。这样模型每次训练不只被要求解释“下一小段像什么”，还要解释更远几个
+temporal horizons 的视觉后果。</p>
+<p>MCP modules
+的结构设计服务于一个目标：让未来预测的监督真正回流到主模型，而不是被辅助头自己吸收掉。它首先从主模型多个中间层抽取
+video stream features，例如图中不同深度层 <span class="math inline">\(L=4,12,20,30\)</span>，用 multi-layer fusion MLP
+融合成主模型的轨迹表示。然后每个 MCP module 把对应的 noisy future chunk
+embedding 和上一深度输出 concat，经过 linear projection 和轻量
+Transformer blocks 预测该未来 chunk 的 flow matching velocity。三个 MCP
+modules 形成 causal chain：next<span class="math inline">\(^2\)</span>
+的预测依赖 next<span class="math inline">\(^1\)</span> 的输出，next<span class="math inline">\(^3\)</span> 又依赖 next<span class="math inline">\(^2\)</span>，因此近未来预测可以作为更远未来预测的中间表征。论文还设置
+<span class="math inline">\(s_{\text{mcp}}&gt;s_{\text{main}}\)</span>，让 MCP
+modules
+在更高噪声水平下学习；因为输入自身信息更少，辅助模块被迫更多依赖主模型表征，从而把梯度压力传回主干。</p>
+<p>Next Forcing 继承 LingBot-VA 的 joint video-action
+architecture。视频部分用预训练 VAE latent 和 Wan2.2 Transformer backbone
+进行自回归 chunk 生成；动作部分通过 inverse dynamics
+读取当前和预测未来视觉状态来解码动作。主训练目标包含 video flow matching
+loss 和 action flow matching loss，MCP loss 则加权为 <span class="math inline">\(\sum_{k=1}^{3}w_k\mathcal{L}_{k}^{\text{MCP}}\)</span>，实验中
+<span class="math inline">\(w_1=0.5,w_2=0.2,w_3=0.1\)</span>。这意味着
+MCP 主要改善视频世界模型的动态表征，而动作流通过 shared cross-modal
+attention 间接受益。和 DREAM-Chunk 这类测试时利用 latent world model
+做执行选择的方法不同，Next Forcing
+的核心收益首先来自训练时监督变密、变远；它不是在执行时比较多条动作轨迹，而是在
+WAM 主干里学到更好的 causal video dynamics。</p>
+<p>推理时，论文提供两种模式。第一种是 zero-overhead mode：丢弃所有 MCP
+modules，只保留训练好的主模型，推理结构、延迟和显存与原 LingBot-VA 风格
+baseline 相同，收益完全来自训练阶段 MCP 监督对主干表征的塑形。第二种是
+parallel chunk generation mode：保留 depth-1 MCP module，让主模型在一次
+denoising trajectory 中生成当前 chunk，同时由 MCP module 并行生成下一个
+chunk；由于 MCP blocks 比主模型轻很多，这相当于每个自回归 step 推进两个
+chunks，从而获得约 <span class="math inline">\(2\times\)</span>
+视频生成加速。论文没有使用 depth-2 和 depth-3
+做更高倍加速，因为更远的辅助预测会带来累计漂移风险；这也说明 MCP
+在推理加速里更像 speculative / Medusa
+式并行头，而不是完全替代主模型。</p>
+<p>实验主要在 RoboTwin、PhyWorld 和通用视频预训练上验证。RoboTwin 是 50
+个双臂操作任务，Clean 表示固定初始配置，Random
+表示物体姿态和场景布局随机化。Next Forcing 在 RoboTwin 上达到
+<strong>94.1% / 93.5%</strong> Clean / Random 平均成功率，高于
+LingBot-VA 的 <strong>92.9% / 91.5%</strong>，也高于
+Fast-WAM、Being-H0.7、Motus、<span class="math inline">\(\pi_0\)</span>、<span class="math inline">\(\pi_{0.5}\)</span> 和 X-VLA
+等对比方法。训练收敛上，12 fps 时 Next Forcing 约以 <span class="math inline">\(2\times\)</span> 速度达到 90% 左右成功率；50 fps
+时优势更明显，5k steps 就达到 <strong>70.2% / 61.6%</strong>，而
+LingBot-VA 只有 <strong>45.5% / 31.9%</strong>，到 50k steps 时 Next
+Forcing 为 <strong>91.8% / 90.5%</strong>，baseline 为 <strong>88.6% /
+85.2%</strong>。这直接支持论文的核心解释：帧率越高，相邻 chunks
+越相似，next-chunk denoising 越容易走 appearance
+shortcut，而多步未来预测迫使模型学习真实动态。</p>
+<p>PhyWorld 上，作者去掉 action
+stream，只比较视频生成是否符合物理规律，指标包括 FVD 和 Abnormal
+Ratio。Next Forcing 在 out-of-template / in-template 设置下 FVD 从
+LingBot-VA 的 <strong>5.3 / 3.5</strong> 降到 <strong>4.7 /
+3.2</strong>，物理异常比例从 <strong>12% / 3%</strong> 降到 <strong>8% /
+2%</strong>。在 350 万条通用视频 clips 的预训练实验中，Next Forcing
+同样降低 FVD：50k steps 时 Test Set 1 为 <strong>94 vs.
+225</strong>，降低 <strong>58%</strong>；Test Set 2 为 <strong>97 vs.
+204</strong>，降低 <strong>52%</strong>，而且 10k steps 的 Next Forcing
+已经超过 50k steps 的 LingBot-VA。这说明 MCP 不是只适用于 RoboTwin
+的机器人数据，而是对一般视频动态建模也有效。</p>
+<p>消融实验进一步说明哪些设计真正重要。在 RoboTwin Clean subset 上训练
+20k steps，默认 LingBot-VA baseline 为 <strong>75.6%</strong>，加入默认
+MCP 后达到 <strong>85.8%</strong>，提升 <strong>10.2</strong>
+个百分点。去掉 noisy history augmentation 会降到
+<strong>69.8%</strong>，说明防止模型直接复制 clean context 仍然关键；MCP
+侧如果把 <span class="math inline">\(s_{\text{mcp}}\)</span> 从 10 降到
+5，成功率为 <strong>83.2%</strong>，去掉 multi-layer fusion 为
+<strong>83.6%</strong>，不从主模型初始化权重为
+<strong>83.8%</strong>。这些结果表明，MCP
+的收益并不是单纯多加几个辅助头，而是来自更远预测目标、高噪声
+shift、跨层特征融合和与主模型紧耦合的组合。局限也比较清楚：MCP modules
+在训练阶段带来额外计算成本；推理加速模式虽然能 <span class="math inline">\(2\times\)</span> 并行生成，但更高阶 MCP
+直接用于多步跳跃可能积累漂移。因此 Next Forcing 更像是对 WAM
+训练目标的一次重要修正：把“预测下一帧/下一段”的局部监督，扩展成要求模型理解多尺度未来动态的长期监督。</p>
+<h2 id="wimle-uncertaintyaware-world-models-with-imle-for-sampleefficient-continuous-control"><a target="_blank" rel="noopener" href="https://openreview.net/pdf?id=mzLOnTb3WH">WIMLE: Uncertainty‑Aware
+World Models with IMLE for Sample‑Efficient Continuous Control</a></h2>
+<p>为什么基于模型的强化学习（MBRL）在历史上一直很难超越强大的无模型（Model-free）基线算法。其核心痛点在于“复合展开误差”，即
+AI
+在利用内部模型进行多步未来推演时，预测误差会像滚雪球一样不断累积，最终导致训练产生偏差并误导策略的学习。作者将这种致命误差的根源归结为两个关键问题：第一，由于环境存在信息不全（部分可观测性）、密集的物理接触或固有的随机性，相同的“状态-动作”组合往往会产生不同甚至相互冲突的结果反馈，这让标准的预测模型难以应对；第二，模型在进行预测时缺乏对“不确定性”的感知能力，导致它在面对自身不熟悉或物理规律极度复杂的区域时表现得盲目自信。因此，尽管学术界曾进行过多次尝试来修正这些缺陷，但在实际操作中，MBRL
+至今仍然无法稳定且持续地击败那些表现强劲的无模型算法。</p>
+<p>这篇论文的核心逻辑：<strong>既然模型“想象（推演）”出的未来数据不一定靠谱，那我们就根据模型对预测的“自信程度”来决定多大程度上相信这些数据。</strong></p>
+<h3 id="核心思想-the-key-idea">1. 核心思想 (The Key Idea)</h3>
+<p>在模型进行推演 (rollout)
+时，它不仅会预测下一个状态，还会输出一个<strong>预测不确定性 (Predictive
+Uncertainty)</strong>，记为 <span class="math inline">\(\sigma(s,
+a)\)</span>。 * 如果模型对这一步预测非常有把握（<span class="math inline">\(\sigma\)</span>
+小），在训练时就给这条数据<strong>高权重</strong>。 *
+如果模型对这一步预测很没底（<span class="math inline">\(\sigma\)</span>
+大），在训练时就给这条数据<strong>低权重</strong>。 *
+<strong>自然衰减：</strong>
+因为在连续推演中，误差会累积，越往后的预测模型自然越不确定。因此，这种机制会自动降低推演轨迹中靠后步骤的权重，有效遏制了复合误差的负面影响。</p>
+<h3 id="不确定性的计算-uncertainty-estimation">2. 不确定性的计算
+(Uncertainty Estimation)</h3>
+<p>在基于模型的强化学习（MBRL）中，判断“什么时候该相信模型的预测”是防止策略跑偏的关键。WIMLE
+并没有像以往的方法（例如直接截断不可靠推演的
+Infoprop）那样采取一刀切的策略。相反，它选择了一种更平滑、更优雅的方式：<strong>为模型生成的每一步虚拟推演计算一个“置信度（不确定性）”，并将这个置信度直接作为权重，融入到强化学习的优化目标中。</strong>
+这样一来，既保留了宝贵的推演数据，又有效抑制了糟糕预测带来的偏差。</p>
+<h4 id="怎么计算不确定性集成-采样">怎么计算不确定性？（集成 +
+采样）</h4>
+<p>WIMLE 使用一个单一的标量 <span class="math inline">\(\sigma(s,
+a)\)</span> 来反映模型对预测下一步的“没底程度”。
+为了得到这个值，作者采用了两层机制：</p>
+<ol type="1">
+<li><p><strong>模型集成 (Ensemble)：</strong> 同时维护 <span class="math inline">\(K\)</span> 个独立的 IMLE 世界模型。</p></li>
+<li><p><strong>潜在采样 (Latent Sampling)：</strong>
+对于每一个模型，输入 <span class="math inline">\(m\)</span>
+个不同的随机潜在噪声（Latent samples）来生成预测。</p></li>
+</ol>
+<p>把这 <span class="math inline">\(K \times m\)</span>
+个预测结果汇总起来，计算它们的<strong>标准差 (Standard
+Deviation)</strong>，就得到了不确定性指标： <span class="math display">\[\sigma(s, a) = \text{std}_{k,j}
+\left[g_{\theta_k}(s, a, z_j) \right]\]</span></p>
+<h4 id="理论深度方差的优雅拆解">理论深度：方差的优雅拆解</h4>
+<p>这段内容最精彩的理论贡献在于，它利用“全方差定律 (Law of total
+variance)”，将总的预测方差 <span class="math inline">\(\sigma^2(s,
+a)\)</span> 拆解成了两个本质完全不同的部分：</p>
+<p><span class="math display">\[\sigma^2(s, a) =
+\underbrace{\text{Var}_k \left[ \mathbb{E}_z \left[g_{\theta_k}(s, a, z)
+\right] \right]}_{\text{模型集成 / 认知不确定性}} +
+\underbrace{\mathbb{E}_k \left[ \text{Var}_z \left[g_{\theta_k}(s, a, z)
+\right] \right]}_{\text{潜在采样 / 偶然不确定性}}\]</span></p>
+<ul>
+<li><p><strong>认知不确定性 (Epistemic Uncertainty)：</strong>
+左侧代表由于“见识少”带来的不确定性。当训练数据不足时，几个不同的集成模型（模型
+<span class="math inline">\(k\)</span>
+之间）会产生分歧，导致方差变大。随着数据喂入，这部分不确定性是可以被消除的。</p></li>
+<li><p><strong>偶然不确定性 (Aleatoric Uncertainty)：</strong>
+右侧代表“世界固有的随机性”。物理环境本身可能是多模态的（同一个动作可能有多种合理结果），这部分方差是通过输入不同的隐变量
+<span class="math inline">\(z\)</span>
+来捕捉的，即使模型训练得再完美，这部分客观存在的随机性也无法消除。</p></li>
+</ul>
+<p>通过这种方式，WIMLE
+的不确定性估计不仅在工程上极具指导意义（对应平方误差损失下的贝叶斯风险），在统计学基础上也十分严谨。</p>
+<h3 id="权重的数学设计">3. 权重的数学设计</h3>
+<p>理论上（基于异方差回归的统计学原理），最优的权重应该与方差的倒数成正比（即
+<span class="math inline">\(\propto
+1/\sigma^2\)</span>）。但在实际的深度学习训练中，直接用倒数很容易导致权重过大，引发“梯度爆炸”。</p>
+<p>为了保证训练的稳定性，作者设计了一个有界的替代公式： <span class="math display">\[w(s, a) = \frac{1}{\sigma(s, a) + 1}\]</span> *
+<strong>精妙之处：</strong> 当不确定性 <span class="math inline">\(\sigma = 0\)</span>（完全确定）时，权重 <span class="math inline">\(w = 1\)</span>（满分信任）。随着 <span class="math inline">\(\sigma\)</span> 增大，权重逐渐向 <span class="math inline">\(0\)</span>
+递减。这既保留了“越不确定权重越小”的排序关系，又将权重严格限制在了 <span class="math inline">\((0, 1]\)</span> 的区间内，非常安全。</p>
+<h3 id="结合到强化学习的损失函数中">4. 结合到强化学习的损失函数中</h3>
+<p>算出了每一步的权重 <span class="math inline">\(w_i\)</span>
+后，怎么用在强化学习的训练里呢？作者修改了 Critic
+网络（评估状态价值的网络）的时间差分（TD）损失函数（公式 15）： <span class="math display">\[\mathcal{L}_{\text{critic}} = \mathbb{E}_{(s_i,
+a_i, r_i, s'_i) \sim \mathcal{D}} \left[w_i \cdot \delta_i^2
+\right]\]</span> * 这里的 <span class="math inline">\(\delta_i\)</span>
+是标准的 TD 误差。 *
+在计算每一条<strong>合成数据（模型想象出来的数据）</strong>的损失时，直接乘上前面算出的权重
+<span class="math inline">\(w_i\)</span>。 * <strong>特别注意：</strong>
+论文提到，如果这条数据是来自<strong>真实环境</strong>的交互，因为它是绝对真实的，不存在模型预测的误差，所以直接强制令权重
+<span class="math inline">\(w_i = 1\)</span>。</p>
+<p>这种做法的优势：它允许算法继续享受 MBRL “利用合成数据提高样本效率”
+的巨大红利，同时又给 TD
+更新上了一把安全锁。那些高方差、不确定的“糟糕想象数据”对神经网络参数更新的影响被大幅削弱了，从而在不丢弃任何数据、也不引入人为偏差的情况下，驯服了那些充满噪音的更新信号。</p>
+<h2 id="uncertainty-aware-robotic-world-model-makes-offline-model-based-reinforcement-learning-work-on-real-robots"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2504.16680">Uncertainty-Aware Robotic World
+Model Makes Offline Model-Based Reinforcement Learning Work on Real
+Robots</a></h2>
+<p>Static datasets are often biased toward the behavior policy that
+generated them and cover a narrow subset of the state-action space.
+These issues lead to distribution shift, where deployed policies
+encounter states outside the dataset’s support, making predictions
+unreliable. Some model-free offline RL methods mitigate this by
+enforcing strict constraints to keep the policy within the dataset’s
+support, but at the cost of limiting generalization beyond observed
+transitions. In contrast, model-based RL (MBRL) tackles the problem by
+learning a predictive dynamics model and applying techniques such as
+uncertainty-aware modeling and uncertainty-penalized policy optimization
+to reduce the risk of unreliable predictions. While these methods have
+shown success in controlled simulation benchmarks, their reliable
+deployment in real robotics remains challenging, as noisy, biased, and
+partially observed datasets demand both accurate long-horizon modeling
+and stable policy learning, thereby constraining the applicability of
+existing methods to the real world.</p>
+<h3 id="研究背景">研究背景</h3>
+<p>离线强化学习（Offline Reinforcement Learning, Offline
+RL）的核心设定是：智能体不能像在线强化学习那样与环境持续交互，而只能依赖一个已经收集好的固定数据集进行训练。这个数据集通常由一个或多个行为策略采集而来，包含有限数量的状态、动作、奖励和下一状态转移样本。由于数据集是静态的，智能体在训练过程中无法主动探索新的状态和动作，也无法通过试错来修正自身策略。因此，离线强化学习的性能很大程度上取决于已有数据的质量、覆盖范围以及数据分布是否足够接近未来部署时智能体会遇到的真实环境分布。</p>
+<p>然而，静态数据集往往存在明显的偏差。因为数据是由特定的行为策略生成的，所以它天然更集中于这些行为策略曾经访问过的状态和动作区域，而无法全面覆盖整个状态—动作空间。如果数据集中的行为策略本身能力有限、探索不足，或者采集环境过于单一，那么最终得到的数据就会只覆盖真实环境中的一小部分情况。这会导致一个关键问题：当训练好的策略被部署到真实环境中时，它可能会遇到训练数据中很少出现甚至完全没有出现过的状态或动作组合。此时，价值函数、策略函数或动力学模型都需要对数据集支持范围之外的区域进行预测，而这些预测往往是不可靠的。这种训练数据分布与部署时实际访问分布不一致的问题，通常被称为分布偏移（distribution
+shift）。</p>
+<p>分布偏移是离线强化学习中的核心难点之一。在线强化学习可以通过不断与环境交互来发现错误、修正估计并收集新数据，而离线强化学习没有这种机会。一旦策略在训练过程中学到了某些看似高价值、但实际上位于数据分布之外的动作，它就可能在部署时产生严重的外推误差（extrapolation
+error）。这类误差会被策略优化过程进一步放大，因为策略会倾向于选择模型或价值函数错误高估的动作，从而导致最终策略偏离真实可行的行为范围。</p>
+<h4 id="现有方法一模型无关离线强化学习及其局限性">现有方法一：模型无关离线强化学习及其局限性</h4>
+<p>一类主流方法是模型无关离线强化学习（model-free offline
+RL）。这类方法不显式学习环境的动力学模型，而是直接从固定数据中学习价值函数或策略。为了应对离线数据带来的分布偏移问题，许多模型无关方法采用保守约束或行为克隆式约束，使学习到的策略尽量不要偏离数据集中已有行为策略的支持范围。换句话说，这些方法会限制策略只能选择那些在数据集中出现过、或者与数据集中动作比较接近的行为。</p>
+<p>这种思路的优点是相对安全。由于策略被约束在数据分布附近，它不太容易选择完全没有数据支撑的动作，因此可以减少外推误差和价值过估计问题。在数据质量较高、行为策略本身较强的情况下，这类方法往往能够稳定地学习出不错的策略。</p>
+<p>但它的局限性也很明显。过强的保守约束会限制策略的泛化能力。也就是说，智能体虽然可以避免做出数据之外的危险动作，但也很难发现比原始行为策略更优的行为。如果数据集中的行为策略本身表现一般，或者数据只包含有限的轨迹，那么模型无关离线强化学习方法往往只能在已有经验附近做小幅改进，而难以真正超越数据中观察到的转移模式。因此，这类方法在安全性和泛化性之间存在明显矛盾：约束越强，策略越稳定，但越难泛化；约束越弱，策略可能更有潜力，但也更容易产生分布外错误。</p>
+<h4 id="现有方法二基于模型的强化学习及其优势">现有方法二：基于模型的强化学习及其优势</h4>
+<p>另一类方法是基于模型的强化学习（Model-Based Reinforcement Learning,
+MBRL）。与模型无关方法不同，MBRL
+会先学习一个预测环境动态的模型，也就是通常所说的世界模型或动力学模型。这个模型用于预测在某个状态下采取某个动作之后，环境会转移到什么状态、获得什么奖励。学习到动力学模型之后，智能体可以在模型内部进行“想象式”训练，也就是通过模型生成合成轨迹，再利用这些虚拟交互数据来优化策略。</p>
+<p>在离线强化学习场景中，MBRL
+的吸引力在于它可以在不真实接触环境的前提下扩展有效训练数据。静态数据集本身覆盖范围有限，但如果模型能够较准确地学习环境规律，那么智能体就可以利用模型模拟更多状态转移，从而在一定程度上缓解数据稀缺和覆盖不足的问题。这使得
+MBRL
+相比纯模型无关方法具有更强的样本效率和潜在泛化能力。它不只是被动模仿已有数据，而是尝试从已有数据中学习环境结构，并基于这种结构推演新的可能轨迹。</p>
+<p>尤其是在离线任务中，MBRL 可以通过短步长模型
+rollout、模型集成、不确定性估计等方式，在一定程度上平衡探索性和安全性。它既不完全受限于原始数据轨迹，又可以通过模型不确定性来判断哪些区域可能不可靠，从而避免过度依赖错误预测。</p>
+<h4 id="现有方法三不确定性感知建模与不确定性惩罚策略优化">现有方法三：不确定性感知建模与不确定性惩罚策略优化</h4>
+<p>为了降低模型预测错误带来的风险，许多基于模型的离线强化学习方法引入了不确定性感知建模（uncertainty-aware
+modeling）。这类方法通常会估计模型对不同状态—动作区域的预测置信度。如果某些状态或动作附近有大量数据支撑，模型预测通常更可靠；如果某些区域远离训练数据分布，模型的不确定性就会升高。通过显式估计这种不确定性，智能体可以知道哪些模型预测更可信，哪些预测可能存在较大风险。</p>
+<p>在策略优化阶段，研究者还会使用不确定性惩罚（uncertainty
+penalty）。具体来说，当策略选择的动作会把智能体带到模型高度不确定的区域时，算法会降低这些动作或轨迹的价值估计，从而鼓励策略留在模型较有把握的区域。这种方法并不是像模型无关保守方法那样简单地把策略限制在数据集支持范围内，而是通过模型的不确定性来进行更细粒度的风险控制。它允许策略在一定程度上泛化到未完全观察过的区域，但同时避免过度依赖模型无法可靠预测的区域。</p>
+<p>这类方法的优势在于，它比严格的数据支持约束更灵活，也比完全自由的模型
+rollout
+更安全。它试图在“利用模型进行泛化”和“避免模型错误累积”之间取得平衡。因此，在许多受控仿真基准中，这类方法已经展现出较好的效果。</p>
+<h4 id="基于模型方法的核心局限性">基于模型方法的核心局限性</h4>
+<p>尽管 MBRL
+在理论上能够缓解离线数据覆盖不足的问题，但它自身也面临严重挑战。最主要的问题是模型误差会在长时序预测中不断累积。即使模型在单步预测上表现不错，当它连续预测很多步之后，小的误差也可能逐渐放大，最终导致合成轨迹偏离真实环境。这种错误轨迹如果被用于策略优化，就会引入偏差，甚至让策略学到在真实环境中不可行或危险的行为。</p>
+<p>这一问题在长时序任务中尤其突出。强化学习任务通常不是只关注下一步预测，而是关注一连串动作带来的长期回报。如果模型不能准确预测长时间范围内的状态演化，那么基于模型生成的训练数据就可能误导策略学习。因此，准确的长时序建模是
+MBRL 在离线强化学习中能否成功的关键。</p>
+<p>此外，模型不确定性估计本身也并不容易。模型可能在某些区域表现出过度自信，即虽然预测是错误的，但不确定性估计却很低。相反，模型也可能对一些实际上可行的区域过度保守，导致策略错失潜在的高价值行为。因此，不确定性感知方法虽然能够减少风险，但并不能完全解决模型误差问题。</p>
+<h4 id="真实机器人场景中的挑战">真实机器人场景中的挑战</h4>
+<p>在受控仿真环境中，数据往往相对干净，状态可观测性较强，环境动力学较稳定，任务边界也更清晰。因此，许多离线
+MBRL 方法可以在这些 benchmark
+上取得较好结果。但真实机器人场景要复杂得多。真实数据通常存在噪声、偏差、传感器误差、动作执行误差以及部分可观测问题。机器人采集到的数据可能并不能完整反映环境真实状态，而只是一些受传感器限制的观测结果。</p>
+<p>同时，真实机器人的动力学往往更复杂。接触、摩擦、物体形变、执行器延迟、环境变化等因素都会增加建模难度。一个在仿真中表现良好的模型，迁移到真实机器人时可能会因为现实环境中的细微差异而失效。更重要的是，机器人任务对安全性和稳定性要求很高。如果策略在真实环境中因为模型误差采取了错误动作，可能造成硬件损坏、任务失败，甚至带来安全风险。</p>
+<p>因此，虽然基于模型的离线强化学习为解决静态数据偏差和分布偏移提供了一条有前景的路径，但其真实部署仍然受到明显限制。要让这类方法真正适用于真实机器人系统，不仅需要更准确的长时序动力学建模，还需要更可靠的不确定性估计、更稳定的策略优化机制，以及能够处理噪声、偏差和部分可观测数据的鲁棒学习框架。</p>
+<h4 id="the-trade-off-between-policy-improvement-and-model-reliability">the
+trade-off between policy improvement and model reliability</h4>
+<p>It is essential to balance the trade-off between policy improvement
+and model reliability: leveraging model-based imagination to explore
+high-return policies beyond the support of the dataset while mitigating
+the risk of policy degradation due to overfitting to model errors in
+regions with high uncertainty.</p>
+<p>Policy improvement
+指的是：学出来的策略不能只是复制数据集里的行为策略，而是要比原来的行为策略更好。policy
+improvement 需要策略有一定探索和外推能力。Model reliability
+指的是：世界模型 /
+动力学模型预测出来的状态转移、奖励和长期结果是否可信。model reliability
+要求策略尽量待在模型有把握的区域里。</p>
+<p>想提升策略，就要尝试数据之外可能更优的动作；想保证模型可靠，就要避免进入数据之外不确定的区域。如果太追求
+policy improvement，允许策略在模型中大胆
+imagination，它可能会找到一些看起来回报很高的轨迹。但这些高回报可能不是真实存在的，而是模型在不熟悉区域犯错造成的“假高分”。</p>
+<p>例如模型错误地预测：机器人手臂用某个奇怪角度移动，可以瞬间抓住物体，而且不会碰撞。</p>
+<p>策略看到这个预测后，就会不断利用这个“漏洞”。在模型里它表现很好，但放到真实机器人上可能直接失败。这就是
+overfitting to model
+errors：策略不是学到了真实世界的好动作，而是学会了钻模型错误的空子。反过来，如果你太强调
+model
+reliability，强行让策略只在数据集支持范围内行动，那么模型预测确实更可信，但策略只能接近原始数据中的行为，难以发现更好的策略。这样就牺牲了
+policy improvement。</p>
+<p>总之，这种权衡产生的原因在于，策略改进通常需要智能体利用模型生成的
+rollout，探索离线数据集经验支持范围之外的潜在高回报行为；然而，这些分布外区域恰恰是学习到的动力学模型最不可靠的地方，因为模型在这些区域缺乏足够的训练样本。因此，过于激进的策略优化可能会过拟合模型的错误预测，使策略在想象环境中表现良好，但在真实环境中退化。相反，过于保守的约束虽然可以通过让策略接近数据分布来提高模型预测可靠性，却会限制策略发现优于数据集中行为策略的新行为。</p>
+<h3 id="基于不确定性感知的机器人世界模型与离线策略优化">基于不确定性感知的机器人世界模型与离线策略优化</h3>
+<p>论文提出了 Uncertainty-Aware Robotic World Model，简称
+RWM-U。它的核心思想是在原有 Robotic World Model，简称
+RWM，的动力学模型基础上显式引入不确定性估计，使模型不仅能够预测下一步观测，还能够判断自己对预测结果是否有把握。这样，策略在利用世界模型进行想象式训练时，就可以根据模型的不确定性调整优化方向，避免在高不确定区域中被错误预测误导。RWM-U
+的目标是设计一个不确定性估计器，同时捕捉两类不确定性：认知不确定性和偶然不确定性。认知不确定性，epistemic
+uncertainty，主要来自训练数据不足。当某些状态--动作区域在离线数据集中很少出现，模型对这些区域的预测就会缺乏把握。偶然不确定性，aleatoric
+uncertainty，则来自环境本身的随机性。即使训练数据充足，真实环境也可能由于传感器噪声、执行误差或环境随机变化而表现出不可消除的不确定性。</p>
+<p>为了同时建模这两类不确定性，RWM-U 引入了 bootstrap ensemble
+的结构。具体来说，模型首先通过一个共享的循环特征提取器，例如
+GRU，对历史观测和动作信息进行编码，得到隐藏特征表示。随后，在观测预测头部分使用多个
+ensemble 成员，每个成员独立地预测下一步观测的高斯分布参数。对于第 <span class="math inline">\(b\)</span> 个 ensemble 成员，其预测形式为：</p>
+<p><span class="math display">\[
+o_{t+k}^{\prime b} \sim \mathcal{N}
+\left(
+\mu_{o_{t+k}}^{b},
+\sigma_{o_{t+k}}^{2,b}
+\right),
+\tag{3}
+\]</span> 其中，<span class="math inline">\(\mu_{o_{t+k}}^{b}\)</span>
+表示第 <span class="math inline">\(b\)</span> 个 ensemble
+成员预测的下一时刻观测均值，<span class="math inline">\(\sigma_{o_{t+k}}^{2,b}\)</span>
+表示对应的预测方差。这里的方差项主要用于刻画偶然不确定性，也就是模型认为环境本身存在多大随机波动。</p>
+<p>这种设计可以理解为：同一个历史状态和动作输入会被送入多个预测头，每个预测头都会给出自己对未来观测的预测。如果多个预测头给出的结果比较接近，说明模型整体比较有把握；如果不同预测头之间分歧很大，说明模型对当前区域缺乏足够训练证据，也就是认知不确定性较高。</p>
+<p>在训练阶段，模型的目标函数是对所有 ensemble
+成员的损失取平均。这样，每个成员都参与动力学学习，但由于 bootstrap
+ensemble
+的机制，不同成员会形成略有差异的预测结果。这种差异正好可以在推理阶段用于估计认知不确定性。</p>
+<h3 id="推理阶段的不确定性估计">推理阶段的不确定性估计</h3>
+<p>在推理阶段，RWM-U 使用所有 ensemble
+成员预测均值的平均值作为最终的下一步观测预测结果。具体公式为：</p>
+<p><span class="math display">\[
+o_{t+1}^{\prime}
+=\mathbb{E}_{b}\left[\mu_{o_{t+1}}^{b}\right]. \tag{4a}
+\]</span> 也就是说，最终预测不是直接采用某一个单独模型的结果，而是把多个
+ensemble 成员的预测均值进行平均，从而得到更稳定的预测。</p>
+<p>同时，RWM-U 使用不同 ensemble
+成员预测<strong>均值</strong>之间的方差来估计认知不确定性：</p>
+<p><span class="math display">\[
+u_{t+1}=u_{p_{\phi}}\left(o_{t-M+1:t},a_{t-M+k:t}\right)=\mathrm{Var}_{b}\left[\mu_{o_{t+1}}^{b}
+\right]. \tag{4b}
+\]</span></p>
+<p>其中，<span class="math inline">\(u_{p_{\phi}}\)</span>
+表示由世界模型 <span class="math inline">\(p_{\phi}\)</span>
+产生的不确定性估计，<span class="math inline">\(o_{t-M+1:t}\)</span>
+表示一段历史观测序列，<span class="math inline">\(a_{t-M+k:t}\)</span>
+表示对应的动作序列。<span class="math inline">\(\mathrm{Var}_{b}[\cdot]\)</span> 表示在不同
+ensemble 成员之间计算方差。</p>
+<p>这个公式的含义非常重要：如果多个 ensemble
+成员对下一步观测的预测差异很大，那么 <span class="math inline">\(\mathrm{Var}_{b}\)</span>
+就会较大，说明模型对这个状态--动作区域没有足够把握；如果多个成员预测比较一致，那么不确定性就较低，说明该区域更接近训练数据分布，模型预测更可靠。因此，RWM-U
+不只是一个普通的动力学预测模型，而是一个能够判断自身预测可靠性的世界模型。通过显式量化认知不确定性，模型可以在长时序
+rollout
+过程中持续传播不确定性信息，使后续策略优化能够区分“可信的想象轨迹”和“不可信的想象轨迹”。</p>
+<h3 id="基于不确定性惩罚想象的策略优化">基于不确定性惩罚想象的策略优化</h3>
+<p>在获得不确定性感知的世界模型之后，论文进一步提出了基于不确定性惩罚想象的策略优化方法，即
+MOPO-PPO。它可以理解为将 MOPO 框架中的不确定性惩罚思想，与 PPO
+的策略优化机制结合起来。在离线 MBRL 中，策略通常会利用世界模型生成的
+imagined rollouts
+进行训练。这样做的好处是，策略可以不局限于原始离线数据，而是通过模型想象探索更高回报的行为。但是，问题也随之出现：如果某些想象轨迹处于模型高不确定性区域，模型给出的高回报预测可能是错误的。策略如果直接最大化这些预测回报，就可能过拟合模型错误，从而在真实环境中表现很差。因此，MOPO-PPO
+对原始奖励函数进行了修改，在奖励中加入一个由模型不确定性决定的惩罚项。修改后的奖励函数为：</p>
+<p><span class="math display">\[
+\tilde{r}(o_t, a_t)=r_t(o_t, a_t)-\lambda
+u_{p_{\phi}}\left(o_{t-M+1:t},a_{t-M+k:t}\right),\tag{5}
+\]</span></p>
+<p>其中，<span class="math inline">\(\tilde{r}(o_t, a_t)\)</span>
+表示经过不确定性惩罚后的奖励，<span class="math inline">\(r_t(o_t,
+a_t)\)</span> 表示原始奖励，<span class="math inline">\(u_{p_{\phi}}(\cdot)\)</span>
+表示世界模型估计出的认知不确定性，<span class="math inline">\(\lambda\)</span> 是控制惩罚强度的超参数。</p>
+<p>这个公式的直观含义是：如果某个状态--动作转移的模型不确定性很高，那么即使模型预测它有较高奖励，最终用于策略优化的奖励也会被扣减。<span class="math inline">\(\lambda\)</span>
+越大，说明算法越保守，越不愿意相信高不确定区域中的模型预测；<span class="math inline">\(\lambda\)</span>
+越小，说明算法越激进，更愿意利用模型想象去探索数据集之外的高回报策略。</p>
+<p>因此，MOPO-PPO
+的关键作用是让策略更关注世界模型高置信度区域中的行为，而不是盲目追逐模型在不可靠区域中预测出的虚假高回报。它并不是完全禁止策略走出数据集分布，而是允许策略进行谨慎泛化：当模型对某些区域仍然有较高置信度时，策略可以利用这些模型生成的轨迹进行改进；当模型不确定性较高时，策略会受到惩罚，从而减少对这些区域的依赖。</p>
+<h3 id="为什么这种设计能够缓解离线强化学习中的分布偏移">为什么这种设计能够缓解离线强化学习中的分布偏移</h3>
+<p>离线强化学习中的分布偏移问题，本质上来自训练数据和策略实际访问状态之间的不一致。传统保守型离线
+RL
+方法通常通过约束策略接近行为策略来降低风险，但这会限制策略提升空间。RWM-U
+和 MOPO-PPO
+的设计则提供了一种更灵活的方式：不是简单要求策略永远待在数据分布内部，而是让模型告诉策略哪些区域可靠、哪些区域不可靠。</p>
+<p>当策略在世界模型中进行 rollout 时，RWM-U
+会持续输出预测观测和对应的不确定性。如果策略进入了训练数据覆盖较好的区域，不同
+ensemble
+成员的预测会比较一致，不确定性较低，惩罚较小，策略可以正常利用这些轨迹进行优化。如果策略进入了训练数据稀疏、模型预测分歧较大的区域，不确定性会升高，奖励会被惩罚，策略就不容易被这些不可靠预测吸引。</p>
+<p>因此，这一方法在 policy improvement 和 model reliability
+之间建立了一个动态平衡。一方面，模型想象允许策略探索数据集支持范围之外的潜在高回报行为，从而实现比行为策略更好的性能；另一方面，不确定性惩罚可以抑制策略对模型错误的过拟合，避免策略在高不确定区域中获得虚假的高回报信号。</p>
+<p>整体来看，RWM-U 和 MOPO-PPO
+的流程可以概括为：首先使用离线数据训练一个带有 ensemble
+预测头的机器人世界模型，使其能够预测未来观测分布；然后在推理和 rollout
+阶段，使用 ensemble 均值作为下一步观测预测，并使用 ensemble
+成员之间的预测方差作为认知不确定性估计；接着，在模型生成的想象轨迹中，根据不确定性对奖励进行惩罚；最后，使用
+PPO 在这些经过不确定性惩罚的 imagined rollouts
+上进行策略优化。这种方法的核心贡献不只是提高模型预测能力，而是把不确定性显式接入到策略优化过程中。也就是说，世界模型不再只是一个用于生成未来轨迹的模拟器，而是一个带有置信度判断的模拟器。策略也不再单纯最大化模型预测回报，而是在考虑模型可靠性的前提下进行优化。</p>
+<p><img src="/2026/05/01/World_Action_Models/rwm_u.png"></p>
+<h1 id="执行时适应验证与自改进">执行时适应、验证与自改进</h1>
+<h2 id="adaptive-action-chunking-when-to-trust-imagination-adaptive-action-execution-for-world-action-models"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2605.06222v1">(Adaptive action chunking)
+When to Trust Imagination: Adaptive Action Execution for World Action
+Models</a></h2>
+<p>现有 <strong>World Action Model，WAM</strong>
+不仅会预测动作，还会预测未来视觉观测。也就是说，给定当前观测和语言指令，WAM
+会同时输出： <span class="math inline">\((\hat{A}_{t+1:t+H},
+\hat{O}_{t+1:t+H}) = \pi_\theta(o_t, \ell)\)</span>, 其中，<span class="math inline">\(\hat{A}\)</span> 是未来动作 chunk，<span class="math inline">\(\hat{O}\)</span> 是未来视觉 token。论文基于 Motus
+这个 WAM backbone，并用 action prediction loss 和 video prediction loss
+联合训练。 问题是，传统 WAM 执行时通常固定执行一个 action
+chunk，比如每次执行 16、32 或 64 步，再重新调用模型。固定短 chunk
+比较安全但推理成本高；固定长 chunk
+更高效，但如果现实环境偏离模型想象，就会错误累积，尤其在接触丰富或高精度操作阶段容易失败。</p>
+<p>论文提出 <strong>FFDC-WAM</strong>。它不是重新设计一个新的
+WAM，而是在 WAM 上加一个轻量级 verifier，叫：<strong>Future Forward
+Dynamics Causal Attention，FFDC。</strong></p>
+<p>它的作用是判断：</p>
+<blockquote>
+<p>当前 WAM 预测出来的剩余动作序列，还能不能继续相信？</p>
+</blockquote>
+<p>执行过程中，机器人会比较：</p>
+<ul>
+<li><p>WAM 预测的未来视觉动态；</p></li>
+<li><p>当前真实观测；</p></li>
+<li><p>剩余计划动作；</p></li>
+<li><p>语言指令。</p></li>
+</ul>
+<p>如果它们仍然因果一致，机器人继续执行当前
+chunk；如果出现不一致，就停止执行并从最新真实观测重新规划。论文把这个过程形式化为
+verifier 输出置信度 <span class="math inline">\(e_t\)</span>，当 <span class="math inline">\(e_t \geq 0.5\)</span>
+时继续执行，否则重新规划。</p>
+<h3 id="ffdc-的结构">FFDC 的结构</h3>
+<p>FFDC 的输入包括：</p>
+<p><span class="math display">\[
+X_t = [L, \hat{O}_{tp}, O_t, \hat{O}_{tf}, \hat{A}_t, [CLS]]
+\]</span></p>
+<p>其中：</p>
+<ul>
+<li><p><span class="math inline">\(L\)</span>：语言指令相关语义
+token；</p></li>
+<li><p><span class="math inline">\(\hat{O}_{tp}\)</span>：WAM
+预测的历史视觉 token；</p></li>
+<li><p><span class="math inline">\(O_t\)</span>：当前真实观测
+token；</p></li>
+<li><p><span class="math inline">\(\hat{O}_{tf}\)</span>：WAM
+预测的未来视觉 token；</p></li>
+<li><p><span class="math inline">\(\hat{A}_t\)</span>：剩余未来动作片段；</p></li>
+<li><p>[CLS]：用于聚合全局信息。</p></li>
+</ul>
+<p>FFDC 使用一个带结构化可见性 mask 的 Transformer。这个 mask 让未来视觉
+token 和未来动作 token
+只能关注时间上因果合理的历史和局部未来信息，避免信息泄漏，同时让模型学习“动作—视觉变化—真实观测”之间是否一致。最后用
+[CLS] 的输出经过 MLP 和 sigmoid 得到置信度 <span class="math inline">\(e_t\)</span>。</p>
+<p><img src="/2026/05/01/World_Action_Models/ffdc.png"></p>
+<h3 id="训练策略一mixture-of-horizon-training">训练策略一：Mixture-of-Horizon
+Training</h3>
+<p>为了让 WAM 更适合长时序推理，论文提出 <strong>Mixture-of-Horizon
+Training</strong>。</p>
+<p>普通训练可能偏向 episode 前半段，导致模型在后期状态或长 horizon
+情况下覆盖不足。论文做法是：在一条长度为 <span class="math inline">\(T\)</span> 的轨迹中，均匀采样任意一个 conditioning
+timestep <span class="math inline">\(s\)</span>，然后从这个位置开始采样未来 <span class="math inline">\(H\)</span> 步 action 和低频视觉帧。如果超出
+episode 末尾，就重复最后一个有效动作或帧进行 padding。这样可以让训练覆盖
+episode 中不同阶段，包括后期状态，减少模型只学早期前缀的偏置。</p>
+<h3 id="训练策略二构造-ffdc-二分类验证数据">训练策略二：构造 FFDC
+二分类验证数据</h3>
+<p>FFDC 被训练成一个二分类器，判断剩余 action segment 是否可执行：<span class="math inline">\(y=1\)</span>表示这个片段可靠、可以继续执行；<span class="math inline">\(y=0\)</span>表示这个片段容易导致失败，需要重新规划。</p>
+<p>正样本来自： * demonstration 中的有效片段；</p>
+<ul>
+<li>少量 successful rollouts 中的有效片段。</li>
+</ul>
+<p>负样本来自：</p>
+<ul>
+<li><p>少量 failed rollouts；</p></li>
+<li><p>从成功示范中合成出来的 corrupted action segments。</p></li>
+</ul>
+<p>论文使用的合成 corruption 包括：</p>
+<ul>
+<li><p>temporal swap：交换动作顺序；</p></li>
+<li><p>gripper flip：翻转夹爪动作维度；</p></li>
+<li><p>late-stage Gaussian noise：对后半段动作加入高斯噪声；</p></li>
+<li><p>tail scaling：缩放动作序列尾部。</p></li>
+</ul>
+<p>最后用二分类交叉熵训练 FFDC。</p>
+<h3 id="推理时怎么执行">推理时怎么执行？</h3>
+<p>推理流程可以理解为：</p>
+<p>WAM 先根据当前观测和语言指令生成一段长动作 chunk 和对应未来视觉
+token。机器人开始执行动作，但不是盲目执行完整 chunk。每隔一段时间，FFDC
+用当前真实观测与 WAM 之前预测的未来视觉
+token、剩余动作和语言指令做比较。</p>
+<p>如果 FFDC 置信度高：</p>
+<blockquote>
+<p>说明现实仍然符合 WAM 的想象，继续执行，节省 WAM 推理次数。</p>
+</blockquote>
+<p>如果 FFDC 置信度低：</p>
+<blockquote>
+<p>说明现实已经偏离想象，停止当前 chunk，重新调用 WAM 生成新计划。</p>
+</blockquote>
+<p>所以有效 action chunk size 不再是人工固定的超参数，而是由
+<strong>future–reality consistency</strong>
+自动决定。论文总结为：世界可预测时执行长一点，现实偏离时执行短一点。</p>
+<h3 id="实验结论">实验结论</h3>
+<ul>
+<li><p>固定 baseline：执行 16 / 32 / 48 / 64 个动作。</p></li>
+<li><p>FFDC-WAM：一次预测最多 64 个动作，但实际执行多少步由 verifier
+动态决定，不是固定 action chunk size。</p></li>
+</ul>
+<p>论文在 RoboTwin 和真实机器人上验证。RoboTwin 包含 50
+个操作任务，并设置 clean 和 random 两种环境；random setting
+会引入背景变化、桌面杂物、高度扰动和光照变化，用来测试分布偏移下的泛化能力。
+结果显示，FFDC-WAM 在鲁棒性和效率之间取得了更好的平衡。在 RoboTwin
+上，它相较 Base-Motus 减少了 69.10% 的 WAM forward passes，同时在 hard
+tasks 上显著提高成功率，例如 Rand.hard 从 54.20% 提升到
+76.40%，Clean.hard 从 57.80% 提升到 76.00%。在 easy tasks
+上，它能保持相近成功率并减少任务完成时间。</p>
+<p>真实机器人实验中，FFDC-WAM 在两个 pick-and-place 任务上把平均成功率从
+LC-16 的 45% 提升到 80%。论文认为这是因为 FFDC
+能在线检测执行漂移，并在真实场景偏离预测 rollout 时触发重新规划。</p>
+<h3 id="r-是什么意思">r 是什么意思？</h3>
+<p>action 的频率比 video token / visual prediction 的频率高,
+论文里：<span class="math inline">\(\hat{A}*t=[\hat{a}*t,\hat{a}*{t+1},...,\hat{a}*{t+k}]\)</span>,
+表示从当前检查时刻 (t) 开始，剩余的 <strong>低层动作序列</strong>。</p>
+<p>而：<span class="math inline">\(\hat{O}*{tf}=[\hat{o}*{t+r},\hat{o}*{t+2r},...,\hat{o}*{t+k}]\)</span>
+表示 WAM 预测的未来视觉 token / latent frame。</p>
+<p>其中：<span class="math inline">\(r\)</span> 是
+<strong>action-to-video frequency ratio</strong>，也就是：</p>
+<blockquote>
+<p>每执行 (r) 个 action step，才对应一个预测视觉帧 / visual token。</p>
+</blockquote>
+<p>例如：<span class="math inline">\(r=4\)</span>, 表示：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">动作：$a_t, a_{t+1}, a_{t+2}, a_{t+3}$
+视觉：对应预测一帧 $\hat{o}_{t+4}$<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>所以视觉预测不是每个 action step 都有一帧，而是低频的。</p>
+<h3 id="每次-action-chunk-size-是-k-吗">每次 action chunk size 是 (k)
+吗？</h3>
+<p>在 FFDC 检测时，<span class="math inline">\(\hat{A}_t=[\hat{a}*t,...,\hat{a}*{t+k}]\)</span>
+表示<strong>当前检查时刻剩余待验证的 action segment
+长度</strong>，可以理解为 verifier 当前看的窗口长度是 (k)。</p>
+<p>但整个 WAM 一次生成的完整 action chunk 可能更长，比如论文实验里的
+long-chunk backbone 是 <strong>64 actions</strong>。FFDC
+在执行过程中会检查当前剩余部分是否可信，而不是固定每次都重新生成 (k)
+个动作。论文说明 LC-16/32/48/64 是训练 chunk size 64 的长 chunk
+backbone，分别执行前 16、32、48、64 个动作；FFDC-WAM
+则是自适应执行方法。([arXiv][1])</p>
+<p>所以：<span class="math inline">\(k\)</span>更像是 <strong>FFDC
+当前验证窗口 / remaining segment horizon</strong>，不一定等同于完整 WAM
+chunk size。</p>
+<h3 id="一个-action-chunk-下会预测多少帧未来图像状态">一个 action chunk
+下会预测多少帧未来图像状态？</h3>
+<p>如果 action chunk 长度是：<span class="math inline">\(H\)</span>,
+action-to-video frequency ratio 是：<span class="math inline">\(r\)</span>, 那么未来视觉 token 数量大约是：<span class="math inline">\(\frac{H}{r}\)</span></p>
+<p>例如：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">action chunk size = 64
+r = 4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>那么大约预测：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">16 个未来视觉 token / latent frames<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>对应：<span class="math inline">\(\hat{o}*{t+4},\hat{o}*{t+8},...,\hat{o}_{t+64}\)</span></p>
+<p>论文中也写到未来视觉 segment 是：<span class="math inline">\(\hat{O}*{tf}=[\hat{o}*{t+r},\hat{o}*{t+2r},...,\hat{o}*{t+k}]\)</span>,
+其中 <span class="math inline">\(r\)</span> 就是 action-to-video
+frequency ratio。</p>
+<h3 id="ffdc-是每个-step-检测一次还是每个-chunk-检测一次">FFDC 是每个
+step 检测一次，还是每个 chunk 检测一次？</h3>
+<p>更准确地说：</p>
+<blockquote>
+<p><strong>FFDC 不是每个低层 action step 都检测一次，也不是只在整个
+chunk 结束后检测一次，而是在执行 chunk 过程中，按视觉 token
+对齐的检查点进行检测。</strong></p>
+</blockquote>
+<p>也就是大致每隔 (r) 个 action step 检测一次。</p>
+<p>例如：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">WAM 预测 64 个 actions
+r = 4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>那么可以在：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">t+4, t+8, t+12, ...<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这些与预测视觉 token 对齐的位置进行检查。</p>
+<p>每次 FFDC 判断：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">当前真实观测是否仍然支持继续执行剩余 action segment？<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果置信度高，就继续执行；如果低，就提前停止并 replanning。</p>
+<h3 id="检测时真实图像是每步获取还是每个-chunk-获取一次">检测时真实图像是每步获取，还是每个
+chunk 获取一次？</h3>
+<p>真实机器人通常可以持续获取相机图像，但 <strong>FFDC 不需要每个低层
+action step
+都编码和判断一次</strong>。它需要在每个检查点获取当前真实图像：<span class="math inline">\(o_t^{real}\)</span>. 然后编码成真实视觉
+token：<span class="math inline">\(O_t\)</span>, 再和 WAM 预测的
+past/future visual tokens、剩余 actions、语言指令一起输入 FFDC：</p>
+<p><span class="math inline">\(X_t=[L,\hat{O}*{tp},O_t,\hat{O}*{tf},\hat{A}_t,[CLS]]\)</span></p>
+<p>论文明确给出了这个 verifier 输入形式。([arXiv][1])</p>
+<p>所以实际是：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">执行若干个 action step
+→ 获取当前真实图像
+→ 编码成 O_t
+→ FFDC 检查
+→ 继续或重规划<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>不是：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">每个 action step 都必须跑 FFDC<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>也不是：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">整个 chunk 执行完才看一次<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="用一个具体例子理解">用一个具体例子理解</h3>
+<p>假设：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">WAM 一次预测 64 个 actions
+r = 4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>那么 WAM 可能预测：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">Actions:
+a_1, a_2, ..., a_64
+
+Future visual tokens:
+o_4, o_8, o_12, ..., o_64<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行流程类似：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">执行 $a_1$ 到 $a_4$
+获取真实图像 $o_4^real$
+FFDC 检查：真实 $o_4$ 是否符合预测 $\hat{o}_4$，以及剩余动作 $a_5...a_64$ 是否还可信
+
+如果可信：
+继续执行 $a_5$ 到 $a_8$
+
+获取真实图像 $o_8^real$
+再次 FFDC 检查
+
+如果不可信：
+停止当前 chunk
+重新调用 WAM，从最新真实观测重新规划<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><span class="math inline">\(\hat{A}_t=[\hat{a}*t,...,\hat{a}*{t+k}]\)</span>：当前剩余待验证的动作片段。</li>
+<li><span class="math inline">\(\hat{O}*{tf}=[\hat{o}*{t+r},\hat{o}*{t+2r},...,\hat{o}*{t+k}]\)</span>：与动作片段对应的低频未来视觉
+token。</li>
+<li><span class="math inline">\(r\)</span>：每 <span class="math inline">\(r\)</span> 个 action step 对应一个 future visual
+token。</li>
+<li>完整 action chunk size 不一定是 <span class="math inline">\(k\)</span>，实验里 WAM 可一次预测 64 个
+actions。</li>
+<li>未来视觉帧数量约为：<span class="math inline">\(H/r\)</span></li>
+<li>FFDC 通常按视觉对齐点检测，而不是每个低层 action step 检测。</li>
+<li>检测时需要获取当前真实图像，并编码成 (O_t)，但不是只在整个 chunk
+结束后才获取。</li>
+</ul>
+<h2 id="dream-chunk-reactive-action-chunking-with-latent-world-model"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2606.18589">DREAM-Chunk: Reactive Action
+Chunking with Latent World Model</a></h2>
+<p>DREAM-Chunk 讨论的也是 action chunking 的开环脆弱性，但它和
+VLA-Corrector 的切入点不同。Action chunking 让 VLA 一次输出未来 <span class="math inline">\(H\)</span>
+步动作，低频推理、高频执行，因此很适合真实机器人部署；问题是 chunk
+一旦开始执行，中间的随机动力学、硬件误差、接触滑移或外部扰动都会让真实状态偏离策略原本假设的轨迹。Naive
+open-loop 只能等到下一个 policy query 才纠偏，Real-Time Chunking
+主要缓解异步推理延迟，Adaptive Chunking 则调整执行 horizon。DREAM-Chunk
+的问题定义更具体：不微调已有 action-chunked
+policy，也不要求策略每一步重新推理，而是在测试时多采样几条候选 action
+chunks，用一个轻量 latent world model
+预测它们各自会把世界带到哪里，再根据真实观测在这些候选轨迹之间实时切换。</p>
+<p><img src="/2026/05/01/World_Action_Models/dream_chunk_framework.png"></p>
+<p>整体流程可以分成“采样、做梦、匹配、执行”四步。每次重新规划时，固定的
+VLA policy 从当前观测 <span class="math inline">\(o_t\)</span>
+和语言条件出发，采样 <span class="math inline">\(N\)</span> 条候选
+action chunks。与此同时，world model 的 encoder <span class="math inline">\(e\)</span> 把当前观测编码成 latent state <span class="math inline">\(s_t=e(o_t)\)</span>，然后把这个 latent 复制到
+<span class="math inline">\(N\)</span> 个候选分支上。对于每一条候选
+action chunk，latent dynamics model <span class="math inline">\(f\)</span> 按动作序列向前 rollout，得到一串
+dreamed states，也就是模型认为“如果执行这条 chunk，未来每个 phase
+应该到达的潜在状态”。这些 dreamed states
+不会被未来真实观测重置，它们是由初始观测和候选动作诱导出来的预测轨迹。</p>
+<p>执行阶段，机器人并不是固定执行某一条 sampled chunk
+到底。每到一个控制步，新相机观测都会被 encoder 编成真实 latent
+state，然后系统只在同一个 phase 上比较真实 latent 和所有候选 dreamed
+states 的距离，选出最相似的那条候选 chunk，并执行该候选在当前 phase
+对应的动作。这里的 phase-aligned matching
+很关键：模型不会把当前真实状态拿去和候选轨迹更早或更晚的状态比较，因此不会因为时间错位而跳到错误动作。直观地说，DREAM-Chunk
+不是先预测一个未来 latent
+再把它喂给动作生成器，而是先由原始策略生成多条可行动作轨迹，再用世界模型预测这些轨迹的未来
+latent，并在执行过程中选择“哪条候选轨迹最符合真实世界已经发生的变化”。世界模型在这里承担的是反应式选择器和状态兼容性评估器，而不是动作生成器。</p>
+<p>训练上，DREAM-Chunk 保持 base policy 完全冻结，只额外训练一个轻量
+latent world model，训练数据就是和 policy
+相同的离线示范轨迹。论文讨论了两类 world model：一类是 RSSM / R2-Dreamer
+风格的随机 recurrent state-space model，另一类是 LEWM、EB-JEPA
+风格的确定性 JEPA latent prediction model。硬件实验中使用的 JEPA world
+model 量级大约 <strong>15M</strong> 参数，而 SmolVLA 约
+<strong>450M</strong> 参数，更大的 VLA 可以超过 <strong>2B</strong>
+参数；因此 world model 的编码、预测和匹配延迟远小于 VLA
+本体。附录里的实现细节也说明，这里的 latent dynamics
+并不是重型视频生成器：RSSM 版本使用 MLP encoder 和 GRU-like recurrent
+transition，JEPA 版本则由 observation encoder、action encoder、MLP
+predictor、projector 和正则项组成，目标是得到足够稳定的 latent
+matching，而不是生成可视化逼真的未来视频。</p>
+<p>从推理角度看，DREAM-Chunk 是一种 test-time scaling 方法。增加 <span class="math inline">\(N\)</span> 并不会改变 policy
+参数，而是让系统在同一次重规划时获得更多候选动作 chunk 和更多 dreamed
+latent futures。只要 policy 的采样分布里包含某些纠偏行为，真实状态偏离
+nominal rollout 后，phase-aligned matching 就可能切换到更合适的候选
+chunk。论文特别强调，这种机制不会凭空发明新技能：它只能从策略已经能采样出的候选行为中选择。因此方法有效需要两个条件同时成立：第一，候选
+action chunks 覆盖到足够多的局部修正轨迹；第二，world model 的 latent
+space 能可靠地区分哪条 predicted rollout
+更接近真实执行结果。如果示范数据中没有包含对随机动力学的纠偏行为，或者
+latent matching 在长 horizon 下漂移，单纯增大采样数并不能保证更好。</p>
+<p>仿真实验在 Kinetix 2D agentic benchmark 上验证了这个假设。作者用 RL
+expert 生成示范，并在执行中加入 action noise，比较 naive async
+execution、RTC、BID、Adaptive Chunking 等方法。结果显示，当 action noise
+增大时，DREAM-Chunk 的收益更明显；随着采样 chunk 数量增加，真实 encoded
+state 到最近 dreamed state 的距离下降，说明多候选 rollout
+确实提高了“附近有一条可匹配未来”的概率。更有意思的是示范数据分布的消融：如果
+expert demos 本身来自高噪声环境，包含更多恢复行为，DREAM-Chunk
+的收益更大；如果 demos 只来自低噪声环境，候选 chunks
+缺少足够多纠偏动作，增加 <span class="math inline">\(N\)</span>
+的帮助就有限。</p>
+<p>世界模型消融进一步说明，DREAM-Chunk 的关键不是某一个固定架构，而是
+latent representation 是否适合 phase-aligned matching。论文比较了 RSSM /
+R2-Dreamer、LeWorldModel、EB-JEPA，以及直接使用冻结 policy encoder
+的变体。EB-JEPA 在长 horizon 上容易退化，冻结 policy encoder
+变体接近随机切换，LEWM 则可以和 RSSM
+竞争甚至在部分设置中更好。这说明动作策略内部的视觉特征未必天然适合预测性匹配，world
+model 需要学习一个既能表达动作后果、又能在执行 phase
+上稳定比较的潜在空间。</p>
+<p>真实机器人实验覆盖 SO-101 和 Franka 两类平台。SO-101 上使用
+SmolVLA，任务包括 USB unplug/insert、抓取移动物体、pick and insert
+toy，每个任务 50 到 100 条遥操作示范，控制频率 30Hz；Franka 上使用 <span class="math inline">\(\pi_{0.5}\)</span>，任务是带扰动的 can
+insertion，控制频率 10Hz。SO-101 的 20 次 rollout 结果中，USB
+unplug/insert 从 <strong>75%</strong> 提升到 <strong>95%</strong>，pick
+moving object 从 <strong>60%</strong> 到 <strong>80%</strong>，pick and
+insert toy 从 <strong>35%</strong> 到 <strong>45%</strong>。Franka can
+insertion 更能体现扰动恢复：naive open-loop 本地推理 <span class="math inline">\(N=1\)</span> 成功率只有
+<strong>10%</strong>，DREAM-Chunk 本地 <span class="math inline">\(N=5\)</span> 提升到
+<strong>65%</strong>。不过远程推理下 <span class="math inline">\(N=10/15/20\)</span> 分别为
+<strong>40%/30%/35%</strong>，说明更多候选并不总是更好，VLA
+批量采样带来的端到端延迟会抵消一部分反应性收益。</p>
+<p>延迟分析也支持论文的系统定位：DREAM-Chunk 的主要开销来自对 VLA 做
+batched candidate sampling，而不是 latent world model 本身。Franka
+实验中，world model encoder、predictor、matching 在 <span class="math inline">\(N=5\)</span> 时分别约 <strong>1.41 ms / 1.83 ms /
+0.16 ms</strong>，即使 <span class="math inline">\(N=20\)</span>，predictor 也只有约 <strong>3.09
+ms</strong>。附录中 SO-101 设置下，SmolVLA baseline inference 约
+<strong>129.25 ms</strong>，DREAM-Chunk 的 action inference 随 <span class="math inline">\(N=5/10/15\)</span> 增至
+<strong>303.70/326.72/358.51 ms</strong>，而 world model 的
+encoder、predictor、matching
+仍只有数毫秒量级。因此它适合的部署场景是：VLA 可以批量采样若干候选
+chunk，底层控制器在 chunk 内高频执行，轻量 world model
+在每个新观测到来时快速选择当前最可信的候选分支。</p>
+<p>从研究定位看，DREAM-Chunk 把 WAM 能力用在了“执行时选择动作
+chunk”而不是“显式想象未来再生成动作”。它和 DSWAM
+一样避免在推理路径上生成未来视频，也和 VLA-Corrector 一样不微调原始
+VLA；但 VLA-Corrector 是发现当前 chunk stale 后触发重新规划和 OGG
+引导，DREAM-Chunk 则是在同一个 chunk horizon 内维护多个并行候选
+rollout，用 latent world model
+做持续选择。它的局限也很明确：需要额外测试时算力来批量采样候选动作；纠偏能力受限于
+generative policy 已经覆盖的动作分布；候选 chunks
+多数是局部变体，未必覆盖真正不同的高层策略；同时方法依赖示范数据中存在对随机动力学和扰动的响应。换句话说，DREAM-Chunk
+展示的是一种非常实用的 latent world model
+用法：不把世界模型当作慢速规划器，而是当作低延迟的执行时一致性判别器，在多条已有动作候选之间做反应式切换。</p>
+<h2 id="world-action-verifier-self-improving-world-models-via-forward-inverse-asymmetry"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2604.01985">World Action Verifier:
+Self-Improving World Models via Forward-Inverse Asymmetry</a></h2>
+<p>这篇论文提出的方法叫 <strong>WAV（World Action
+Verifier）</strong>，核心目标是：<strong>让 action-conditioned world
+model
+能够自己发现哪些状态转移是它当前预测不好的，并主动选择这些高价值交互数据来提升自身世界模型质量。</strong></p>
+<h3 id="研究背景为什么需要-world-action-verifier">研究背景：为什么需要
+World Action Verifier？</h3>
+<p>机器人世界模型通常被定义为一个 <strong>action-conditioned forward
+dynamics model</strong>，也就是给定当前状态和动作，预测下一状态： <span class="math inline">\(s_{t+1} = f(s_t, a_t)\)</span></p>
+<p>这类模型很重要，因为它可以用于：</p>
+<ul>
+<li>policy evaluation；</li>
+<li>model-based planning；</li>
+<li>imagination-based policy learning；</li>
+<li>action-conditioned future prediction。</li>
+</ul>
+<p>但论文指出，世界模型和普通策略学习不一样。策略学习主要关心“专家或最优动作附近”的分布，而世界模型必须对更广泛的动作分布都可靠，包括次优动作、探索动作、随机动作，甚至失败动作。问题是，大规模收集
+action-labeled robot interaction data
+很贵、很慢，而且真实机器人中还可能不安全。现在很多方法会用两类数据训练世界模型：少量带动作标签的机器人交互数据，以及大量没有动作标签的视频数据。没有动作标签的视频通常覆盖更广泛的状态变化，但无法直接告诉模型“哪个动作导致了这个变化”。因此，一个核心问题是：<strong>如何利用大量
+action-free video data 来帮助 action-conditioned world model
+学会更广泛、更可靠的动作条件动态？</strong></p>
+<h3 id="论文核心思想不要直接估计世界模型误差而是做验证">论文核心思想：不要直接估计世界模型误差，而是做“验证”</h3>
+<p>如果我们想提升世界模型，最理想的做法是找到那些当前世界模型预测误差最大的交互样本，然后优先收集或标注这些样本。</p>
+<p>也就是说，对于候选动作 (a)，如果当前世界模型预测：<span class="math inline">\(\hat{s}_{t+1} = f(s_t, a)\)</span>, 但真实环境结果
+<span class="math inline">\(s_{t+1}\)</span>
+和它差很多，那么这个样本最值得加入训练。</p>
+<p>问题是：<strong>在真正执行动作之前，真实下一状态并不知道，所以无法直接计算世界模型误差。</strong></p>
+<p>已有方法通常会用：</p>
+<ul>
+<li>epistemic uncertainty；</li>
+<li>ensemble disagreement；</li>
+<li>learning progress；</li>
+</ul>
+<p>来估计“哪些样本更有价值”。但论文认为，这些方法依赖当前世界模型自己的判断，而当前世界模型在
+under-explored regimes 中本来就不可靠，所以这些估计也可能不准。WAV
+的做法是换一个角度：不直接问“世界模型预测误差多大”，而是把正确的
+action-conditioned prediction 拆成两个更容易验证的问题：</p>
+<ol type="1">
+<li><p><strong>State
+Plausibility：预测的未来状态是否像真实世界中可能出现的状态？</strong></p></li>
+<li><p><strong>Action
+Reachability：这个未来状态是否真的可以由给定动作从当前状态到达？</strong></p></li>
+</ol>
+<p>论文认为，一个正确的世界模型预测必须同时满足这两个条件：未来状态本身要合理，同时这个状态变化要和给定动作一致。</p>
+<h3 id="方法组成subgoal-generator-sparse-inverse-dynamics-model-world-model">方法组成：Subgoal
+Generator + Sparse Inverse Dynamics Model + World Model</h3>
+<p>WAV 主要由三个模块组成。</p>
+<h4 id="subgoal-generator生成合理的未来状态">Subgoal
+Generator：生成合理的未来状态</h4>
+<p>第一个模块是 <strong>subgoal generator</strong>。它从大量 action-free
+video data
+中学习“环境中可能出现的状态变化”。由于视频数据不需要动作标签，所以规模可以比机器人交互数据大得多。</p>
+<p>给定当前状态 <span class="math inline">\(s_t\)</span>，subgoal
+generator 会生成多个候选未来状态：<span class="math inline">\(s_g \sim
+v(s_t)\)</span>,</p>
+<p>这些 <span class="math inline">\(s_g\)</span> 可以理解为：</p>
+<blockquote>
+<p>“从当前状态出发，真实世界中看起来合理的未来状态。”</p>
+</blockquote>
+<p>它的作用是检查 <strong>state
+plausibility</strong>：候选未来状态是否在真实视频数据支持的动态流形上。论文强调，action-free
+video data 提供了比少量 action-labeled data
+更广的状态转移覆盖，因此可以作为更强的未来状态先验。</p>
+<h4 id="sparse-inverse-dynamics-model从状态变化中反推出动作">Sparse
+Inverse Dynamics Model：从状态变化中反推出动作</h4>
+<p>第二个模块是 <strong>sparse inverse dynamics model，Sparse
+IDM</strong>。</p>
+<p>普通 inverse dynamics model 学的是：<span class="math inline">\(a_t =
+h(s_t, s_{t+1})\)</span></p>
+<p>也就是根据当前状态和下一状态反推出中间动作。</p>
+<p>但论文认为，在机器人任务中，动作往往只影响状态的一小部分关键变量，例如：</p>
+<ul>
+<li>end-effector pose；</li>
+<li>gripper state；</li>
+<li>manipulated object motion；</li>
+<li>agent-centric proprioception。</li>
+</ul>
+<p>因此，没有必要用完整高维图像或完整状态来反推动作。WAV 使用
+<strong>sparse inverse model</strong>，学习一个
+mask，只选择动作相关的状态特征，再从这些低维特征中推断动作。论文称这种方式利用了
+<strong>dimensionality
+asymmetry</strong>：反推动作通常比完整预测未来状态更低维、更容易学习。</p>
+<p>这一步对应 <strong>action reachability</strong>：</p>
+<blockquote>
+<p>如果 subgoal generator 生成了一个未来状态，那么 Sparse IDM
+尝试反推“什么动作能导致这个未来状态”。</p>
+</blockquote>
+<h4 id="world-model验证这个动作是否真的能达到-subgoal">World
+Model：验证这个动作是否真的能达到 subgoal</h4>
+<p>第三个模块就是当前正在训练的 action-conditioned world model：<span class="math inline">\(s_p = f(s_t, a)\)</span>, 其中 <span class="math inline">\(a\)</span> 是 Sparse IDM 根据 <span class="math inline">\(s_t\)</span> 和 <span class="math inline">\(s_g\)</span> 反推出的动作。</p>
+<p>然后 WAV 比较：<span class="math inline">\(s_p\)</span> 和 <span class="math inline">\(s_g\)</span></p>
+<p>如果二者差距很大，说明：</p>
+<blockquote>
+<p>subgoal generator 认为这个未来状态是合理的，Sparse IDM
+也能推断出一个动作，但当前 world model
+执行这个动作后却预测不到这个状态。</p>
+</blockquote>
+<p>这就说明当前 world model
+在这个区域存在缺口。于是这类样本就是高价值探索样本，应该优先收集真实交互数据来更新世界模型。</p>
+<h3 id="算法部分wav-guided-exploration">算法部分：WAV-Guided
+Exploration</h3>
+<p>论文中的 Algorithm 1 可以概括为一个
+<strong>反向验证循环</strong>。</p>
+<p>传统思路可能是： <span class="math inline">\(\text{sample action}
+\rightarrow \text{world model rollout} \rightarrow \text{inverse model
+check}\)</span></p>
+<p>但论文认为这种 forward-first cycle 很脆弱，因为早期世界模型可能会生成
+off-manifold 的不真实状态，这时 inverse model 也不可靠。</p>
+<p>WAV 反过来做：<span class="math inline">\(\text{sample plausible
+subgoal} \rightarrow \text{infer action} \rightarrow \text{forward
+rollout} \rightarrow \text{compare}\)</span></p>
+<p>具体算法如下： #### Step 1：从当前状态采样多个 plausible subgoals</p>
+<p>给定当前状态 (s)，subgoal generator (v) 采样 (K)
+个候选未来状态：<span class="math inline">\(s_g^{(1)}, s_g^{(2)}, \dots,
+s_g^{(K)}\)</span>, 这些状态来自 action-free video
+prior，因此它们通常是物理上合理、视觉上可信的未来状态。</p>
+<h4 id="step-2用-sparse-idm-为每个-subgoal-反推动作">Step 2：用 Sparse
+IDM 为每个 subgoal 反推动作</h4>
+<p>对每个候选 subgoal：<span class="math inline">\(a^{(i)} = h^{-1}(s,
+s_g^{(i)})\)</span></p>
+<p>也就是问：</p>
+<blockquote>
+<p>如果我想从当前状态 <span class="math inline">\(s\)</span> 到达 <span class="math inline">\(s_g^{(i)}\)</span>，可能需要什么动作？</p>
+</blockquote>
+<p>这里的 (h) 是 sparse inverse dynamics
+model，只关注动作相关的低维状态特征。</p>
+<h4 id="step-3用-world-model-预测执行该动作后的结果">Step 3：用 world
+model 预测执行该动作后的结果</h4>
+<p>对每个候选动作 <span class="math inline">\(a^{(i)}\)</span>，world
+model 预测：<span class="math inline">\(s_p^{(i)} = f(s,
+a^{(i)})\)</span>. 这一步是在测试当前世界模型是否真的能把动作 (a^{(i)})
+映射到 subgoal generator 认为合理的未来状态附近。</p>
+<h4 id="step-4计算-mismatch-score">Step 4：计算 mismatch score</h4>
+<p>对每个候选：<span class="math inline">\(\text{score}^{(i)} =
+d(s_g^{(i)}, s_p^{(i)})\)</span>, 如果 <span class="math inline">\(s_g^{(i)}\)</span> 和 <span class="math inline">\(s_p^{(i)}\)</span>
+差距越大，说明这个候选越可能暴露当前 world model 的缺陷。</p>
+<h4 id="step-5选择最高-mismatch-的候选去真实环境采样">Step 5：选择最高
+mismatch 的候选去真实环境采样</h4>
+<p>选择：<span class="math inline">\(i^* = \arg\max_i d(s_g^{(i)},
+s_p^{(i)})\)</span>, 然后真正执行对应动作：<span class="math inline">\(s_n = \text{env.step}(a^{(i^*)})\)</span>,
+得到真实交互数据：<span class="math inline">\((s, a^{(i^*)},
+s_n)\)</span>.</p>
+<h4 id="step-6把新数据加入数据集并更新模型">Step
+6：把新数据加入数据集并更新模型</h4>
+<p>将新采集的 transition 加入 action-labeled dataset：<span class="math inline">\(D \leftarrow D \cup {(s, a^{(i^*)},
+s_n)}\)</span>. 然后更新：</p>
+<ul>
+<li>world model <span class="math inline">\(f\)</span>；</li>
+<li>sparse inverse dynamics model <span class="math inline">\(h\)</span>。</li>
+</ul>
+<p>这就形成一个 self-improving
+cycle：世界模型越能发现自己的短板，就越能收集对自己最有用的数据；新数据再反过来提升世界模型。论文的算法伪代码也正是这个流程：sample
+subgoals、inverse actions、predict outcomes、score disagreement、select
+max surprise、collect data、update models。</p>
+<h3 id="实验设置">实验设置</h3>
+<p>论文先在 <strong>MiniGrid</strong>
+上做控制实验，再在更复杂的机器人操作任务上验证。</p>
+<h3 id="minigrid">MiniGrid</h3>
+<p>MiniGrid 中包括：Key Delivery；Ball Delivery；Object Matching。</p>
+<p>作者收集了 50k interaction sequences，其中一半用于训练 action-free
+subgoal generator，另一部分作为 exploration pool。初始 action-labeled
+seed set 只有 200 条，unlabeled candidate set 有 20k
+条。论文还通过改变物体数量和引入 noisy floor tiles
+来测试复杂度和随机性下的鲁棒性。 ### RoboMimic 和 ManiSkill</p>
+<p>机器人操作任务包括：</p>
+<p><strong>RoboMimic：</strong> Lift；Can；Square。</p>
+<p><strong>ManiSkill：</strong> * PullCube；* PokeCube；* LiftPeg。</p>
+<p>论文使用 expert demonstrations 和不同训练阶段的 diffusion policy
+生成多样化轨迹。world model 采用 <strong>Dreamer-v3</strong> 风格的
+latent recurrent state-space model，Sparse IDM 使用 CLAM 的 backbone
+并进一步加入 sparse latent action selection。</p>
+<h3 id="实验结果">实验结果</h3>
+<h4 id="wav-的-verification-score-更接近-oracle">WAV 的 verification
+score 更接近 Oracle</h4>
+<p>论文用 Spearman rank correlation
+衡量不同方法对样本“信息价值/困难程度”的排序是否接近 Oracle。Oracle
+是用真实动作标签和真实 prediction loss 得到的上界排序。结果显示，WAV 的
+verification score 与 Oracle 的排序相关性最高，说明它比
+uncertainty、progress、random 等方法更能识别真正有价值的样本。</p>
+<h4 id="wav-提升世界模型学习效率">WAV 提升世界模型学习效率</h4>
+<p>在 MiniGrid 中，作者从 200 条 labeled transitions 开始，每轮只增加
+100 条 transition。结果表明，WAV 和 Oracle 显著优于其他
+baseline。论文解释说，很多复杂交互动作在数据中很稀疏，而 random
+很难采到这些关键事件；progress 容易选择冗余样本；uncertainty 在早期
+warm-up 慢。而 WAV 能显式筛出 interaction-rich
+transitions，因此低数据预算下效果更好。 在 RoboMimic 和 ManiSkill
+中，论文用 held-out test set 上的 next-observation MSE 衡量 world model
+质量。结果显示，WAV 在不同数据预算下都优于 baseline，尤其在 low-data
+regime 中提升明显。</p>
+<h4 id="改进后的-world-model-能提升下游策略学习">改进后的 world model
+能提升下游策略学习</h4>
+<p>论文最后验证：更好的 world model 是否真的能帮助 policy
+learning。他们采用 SAILOR 的评估方式，用 world model 在 latent
+imagination 中做 online search / policy refinement。reward model 则根据
+latent states 与 expert behavior 的相似度进行打分。实验结果显示，使用
+WAV 改进后的 world model，可以让下游 policy 获得更高 reward。整体上，WAV
+比最强 baseline 平均高 <strong>18% average
+reward</strong>，仅次于可以访问 privileged ground-truth actions 的
+Oracle。在 contact complexity 更高、状态歧义更大的任务上，例如
+Can、Square、PokeCube，WAV
+的优势更加明显。论文认为这是因为这些任务更依赖准确的 latent dynamics，而
+WAV 正好提升了 world model 对关键交互动态的建模能力。</p>
+<h2 id="图灵奖得主-lecun关于大模型的下一步来了"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Zau10ioTWzhj0KOImpasNg">图灵奖得主
+LeCun，关于大模型的下一步来了</a></h2>
+<h3 id="vla-失败的四个层面">VLA 失败的四个层面</h3>
+<p>VLA 的失败并非单一原因，而是四个相互关联的层面共同作用的结果。 ####
+1. 可靠性层面 VLA
+的不可靠并非抽象判断，而是被大规模实证研究所证实的现实。2025
+年发表于软件工程顶级会议 FSE 的研究《VLATest》提出了首个面向 VLA
+模型的模糊测试框架，对七个代表性 VLA
+模型在机器人操作任务上的表现进行了系统评估。该研究通过自动生成多样化的操作场景，考察
+VLA
+模型在面对不同相机视角、光照条件、物体遮挡和未见物体时的表现。结论直指要害：当前
+VLA
+模型缺乏实际部署所需的鲁棒性。研究进一步发现，混淆物体的数量、光照条件、相机姿态和未见物体等因素，均能显著影响模型性能。在
+VLATest 之后，另一项系统性鲁棒性研究《LIBERO-Plus》于 2025
+年发布，对多个最先进 VLA
+模型进行了更全面的脆弱性分析。研究者在七个维度上引入可控扰动：物体布局、相机视角、机器人初始状态、语言指令、光照条件、背景纹理和传感器噪声。结果令人警醒：VLA
+模型对扰动表现出极端敏感性，尤其在相机视角和机器人初始状态方面，适度扰动即可使成功率从
+95%骤降至
+30%以下。更值得注意的是，模型对语言变化的响应却极其微弱——后续实验表明，VLA
+模型在相当程度上忽略了语言指令，更多依赖视觉线索进行决策。这一现象从侧面揭示，VLA
+的泛化能力本质上停留在视觉模式匹配层面，而非真正建立起指令与动作之间的因果关联。</p>
+<p>为什么会出现"忽略语言"的现象？一个合理的解释在于训练数据的结构性偏差：语言指令在演示数据中往往与特定视觉场景高度绑定，模型因此学会了"看图行事"，而非理解指令的语义内容。这也暴露了当前
+VLA
+更深层的问题——它本质上是在做”模式匹配“，而非物理世界建模。它能识别训练分布内的视觉场景并复现对应动作，但一旦场景或指令稍有偏移，便难以推断应有的行为。而在真实物理世界中，这种脆弱性的代价与语言模型完全不同：LLM
+的输出错了可以重试、可以修正，代价可逆；机器人的动作直接作用于物理环境，错误往往不可撤回。</p>
+<h4 id="数据成本层面">2. 数据成本层面</h4>
+<p>LLM
+的预训练数据具有普遍的迁移性，在互联网文本上学到的语言能力，可以被微调到无数下游任务。但
+VLA
+的模仿学习数据没有这种迁移性。每个新任务、每个新环境、每个新操作对象，往往都需要重新收集演示数据。扩展到新任务时，成本不是次线性的，而是线性甚至超线性增长。</p>
+<h4 id="泛化层面">3. 泛化层面</h4>
+<p>VLA 的泛化能力瓶颈已被多项研究系统性地揭示。2026 年发表于 ICLR
+的论文《From Seeing to Doing》指出，当前 VLA
+模型虽然建立在通用视觉-语言模型之上，但由于具身数据集的稀缺性和异质性，“仍然无法实现鲁棒的零样本性能”。这一判断与
+LeCun 对模仿学习泛化能力的质疑完全吻合。FSD
+方法虽然提出了通过空间关系推理生成中间表征来改进 VLA
+的方案，但其最佳模型的零样本泛化——72%的成功率，距离工业部署的可靠性要求仍有巨大差距。如果“模仿学习
++ 大规模数据”足以产生真正的泛化智能，那么数百万小时的驾驶数据早该产出 L5
+级自动驾驶了。事实是它没有。问题不在数据量，差距在于学习范式本身。VLA
+学到的本质上是“条件反射式”的行为映射：给定当前视觉场景和语言指令，输出最可能的动作序列。这不是数据量能解决的问题，这是架构的泛化天花板。
+#### 4. 规划层面 VLA 沿袭了 LLM
+的核心推理范式：自回归的、逐词元的预测。在动作空间中，这意味着系统只能问“下一个动作应该是什么”，而无法问“如果我这样做会怎样”。LeCun
+在访谈中清晰地区分了这两种范式——大语言模型没有预测其行动后果的能力，也没有任何规划能力，因为推理是通过预测下一个词元来完成的，而不是通过寻找。VLA
+继承了这一缺陷。它无法进行显式的多步规划，无法在行动之前模拟不同选择的结果，无法进行反事实评估。但是这些能力恰恰是智能体在真实世界中可靠运作所必需的。</p>
+<h3 id="从-jepa-到世界模型让预测服务于规划">从 JEPA
+到世界模型：让预测服务于规划</h3>
+<p>JEPA
+的数学框架非常简洁：考虑一个数据样本的两个不同视角，通常为视频的前几帧与后几帧，或图像的可见
+patch 与掩码
+patch。下面为便于理解，我们考虑视频的当前帧和后一帧，分别记为 <span class="math inline">\(O_t\)</span> 和 <span class="math inline">\(O_{t+1}\)</span> ，则：<span class="math display">\[Z_t=Enc( O_t ), Z_{t+1}=Enc(O_{t+1})\]</span>这里
+<span class="math inline">\(Enc(\cdot )\)</span> 是编码器，通常是一个
+ViT 或 Transformer，将原始输入映射到潜在向量。注意 <span class="math inline">\(O_t\)</span> 和 <span class="math inline">\(O_{t+1}\)</span>
+共享同一个编码器，因此称为联合嵌入。 接下来，预测器 <span class="math inline">\(Pred(\cdot )\)</span> 接收 <span class="math inline">\(O_t\)</span> 以及额外的动作条件信息 <span class="math inline">\(a_t\)</span>（例如动作指令、空间位置、掩码
+token），尝试预测 <span class="math inline">\(O_{t+1}\)</span>
+的表征：<span class="math display">\[\widehat{Z}_{t+1} = Pred( Z_t, a_t
+) .\]</span></p>
+<p><img src="/2026/05/01/World_Action_Models/LeWorldModel.png"></p>
+<p>LeWorldModel 编码器编码器采用 Vision
+Transformer（ViT）架构，具体配置为 ViT-Tiny（约 500 万参数）：Patch
+size: 14×1412 层 Transformer3 个注意力头隐藏层维度：192 输入是一张 RGB
+图像，输出是一个低维的潜在表示向量。具体流程：图像被切分为 14×14 的
+patches 每个 patch 通过线性投影转换为 tokenTransformer 处理所有 token
+提取最后一层的 [CLS] token 作为全局表示通过一个 1 层 MLP + Batch
+Normalization 的投影头得到最终的潜在表示。 注意：投影步骤中使用了 Batch
+Normalization 而非 Layer Normalization，这是因为 LayerNorm
+会限制表示分布的方差，使得 SIGReg 正则化难以有效优化。4</p>
+<p>LeWorldModel 预测器预测器是一个 Transformer（约 1000 万参数）：6 层
+Transformer16 个注意力头 <span class="math inline">\(10\%\)</span>
+dropout 动作条件通过自适应层归一化（AdaLN）注入到预测器的每一层中。AdaLN
+的参数初始化为零，确保在训练初期动作条件的影响是渐进式的，而不是剧烈改变预测器的行为。预测器接收历史
+N 帧的潜在表示，通过时间因果掩码（temporal causal
+masking）自回归地预测下一帧的表示。LeWorldModel 双损失训练：预测损失 +
+SIGRegWorldModel
+的训练目标是让预测表征逼近真实表征，在浅层特征上学习因果结构，而不是在像素层面（如
+Diffusion Model）或 token 层面（场景的 LLM）去做预测。</p>
+<p>LeWorldModel 和 WorldModel 的训练目标是基本一致的。 <span class="math display">\[ \begin{aligned} L&amp;= \underbrace{\parallel
+Pred(Enc(O_{t}), a_{t} )-Enc(y) \parallel^{2}}{预测损失}+ \underbrace{
+\lambda·SIGReg(Z)}\ \ &amp;= \underbrace{\parallel \widehat{Z}{t+1}-Z}
+\parallel^{2}{预测损失}+ \underbrace{ \lambda·SIGReg(Z)}\ \end{aligned}
+\]</span>
+上面的目标函数除了预测损失项用来反向传播优化编码器和预测器，另外还使用了
+SIGReg（草图各向同性高斯正则化）
+来防止表征坍塌。：编码器将不同输入映射到高度相似、低多样性的表征，这些表征聚集在特征空间的一个狭窄低维区域，表征的有效维度（可用
+PCA
+检验）远低于其名义维度（向量维度），丧失了区分不同输入所需的信息量。</p>
+<p>当 JEPA 扩展到动作条件 <span class="math inline">\(a_t\)</span>
+时，就从表征学习工具变成了世界模型：给定当前状态表征 + 候选动作 →
+预测未来状态表征。有了这个，智能体就可以通过搜寻来规划：在想象的行动空间中迭代，找到能将系统带到目标状态的行动序列。这正是
+LeCun 强调的"objective-driven AI"架构。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://xueyu-ubc.github.io/2026/05/01/World_Action_Models/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2026/05/01/Vision_Language_Action_Models/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Vision-Language-Action Models
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2025/07/08/DeepLearningAI/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">DeepLearning.AI Courses</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2026
+        <i class="ri-heart-fill heart_icon"></i> Xue Yu
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Welcome to XueYu&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2021/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

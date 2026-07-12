@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">8 min</span>
+            <span class="post-count">7 min</span>
         </span>
     </span>
 </div>
@@ -103,29 +103,30 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>基本概念</h1>
+  <h1 id="基本概念">基本概念</h1>
 <h3 id="短期消费指标">短期消费指标</h3>
-<ol>
+<ol type="1">
 <li>点击率：点击次数/曝光次数。</li>
 <li>点赞率：点赞次数/点击次数。</li>
 <li>收藏率：收藏次数/点击次数。</li>
 <li>转发率：转发次数/点击次数。</li>
-<li>阅读完成率：滑动到底次数/点击次数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>×</mo></mrow><annotation encoding="application/x-tex">\times</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">×</span></span></span></span> f(笔记长度)，其中使用归一化函数f的原因是长度越长的笔记的阅读完成难度更高。</li>
+<li>阅读完成率：滑动到底次数/点击次数 <span class="math inline">\(\times\)</span>
+f(笔记长度)，其中使用归一化函数f的原因是长度越长的笔记的阅读完成难度更高。</li>
 </ol>
-<h3 id="北极星指标-根本标准-线上指标">北极星指标（根本标准，线上指标）</h3>
-<ol>
+<h3 id="北极星指标根本标准线上指标">北极星指标（根本标准，线上指标）</h3>
+<ol type="1">
 <li>用户规模：日活用户数（DAU)，月活用户数（MAU)。</li>
 <li>消费：人均使用推荐的时长、人均阅读笔记的数量。</li>
 <li>发布：发布渗透率，人均发布量。</li>
 </ol>
 <h3 id="实验流程">实验流程</h3>
-<ol>
+<ol type="1">
 <li>离线实验：收集历史数据，在历史数据上做训练、测试。算法没有部署到产品中，没有跟用户交互，未必可靠，不占用线上资源，</li>
 <li>小流量AB测试：把算法部署到实际产品中，将用户分为实验组和对照组，实验组用新策略，对照组使用旧策略，对比两者的业务指标。</li>
 <li>全流量上线：如果新策略显著优于旧策略，可以加大流量，全面部署。</li>
 </ol>
 <h3 id="推荐系统架构基本概念">推荐系统架构基本概念</h3>
-<ol>
+<ol type="1">
 <li>item：代表信息的容器，可以是一个视频、文章、商品、广告等等。</li>
 <li>消费：用户浏览item所承载的信息，然后发生一系列的消费行为，比如播放、点赞、收藏、关注、转发、购买等等。</li>
 <li>分发：决定将哪些item与用户匹配，展示给用户进行消费的过程。</li>
@@ -139,11 +140,12 @@
 <li>特征：物理上客观事物所蕴含信息的数学表达。</li>
 <li>样本：用于机器学习模型训练的数据。</li>
 </ol>
-<h1>推荐系统架构</h1>
+<h1 id="推荐系统架构">推荐系统架构</h1>
 <p>推荐系统的链路：从上亿物品中进行召回得到几千个物品，然后进行粗排得到几百个物品，再经过精排对几百个物品进行打分，最后重排得到几十个物品。</p>
 <h2 id="构建过程">构建过程</h2>
 <h3 id="候选构建">候选构建</h3>
-<p>当文章、视频等内容(item)在发布平台(item DB)发布时，经过一些审核与处理后需要将item存储为易于推荐系统查询等格式，通常包括正排索引+倒排索引两种方式。</p>
+<p>当文章、视频等内容(item)在发布平台(item
+DB)发布时，经过一些审核与处理后需要将item存储为易于推荐系统查询等格式，通常包括正排索引+倒排索引两种方式。</p>
 <ul>
 <li>正排索引：以itemID为key，然后将一些相关的属性进行序列化后，存储为key-value形式。</li>
 <li>倒排索引：以某个属性或者计算的tag为key，value是itemID，存储为key-value形式。</li>
@@ -152,64 +154,58 @@
 <h3 id="特征工程">特征工程</h3>
 <p>从复杂数据中提取的数学化信息。通过进行特征抽取，可以选择对模型有贡献的属性，并对其进行预处理等，得到最终的特征后持久化地存储到专用的特征存储服务中，并更新一部分正排信息，用于对外提供特征的在线查询。</p>
 <h3 id="召回系统">召回系统</h3>
-<p>如果用户特征和item特征在同一空间，基于用户的兴趣特征与item特征之间的相关性，比如余弦相似度等，选取最有可能排序在前面的item，返回top k 的结果。<br>
+<p>如果用户特征和item特征在同一空间，基于用户的兴趣特征与item特征之间的相关性，比如余弦相似度等，选取最有可能排序在前面的item，返回top
+k 的结果。
 真实的召回系统通常要多种召回通道，不同通道关注不同的层面，并行使用，然后将结果统一合并（比如使用蛇形合并）。</p>
 <p>召回通道：协同过滤、双塔模型、关注的作者等等。</p>
 <h3 id="排序系统">排序系统</h3>
-<p>每次召回通常会返回上千条内容（具体数字看具体场景），如果将每条内容都放到大规模模型中进行预估，这会导致推荐的延迟性。因此，会将排序阶段分为粗排和精排两部分。<br>
-首先，在粗排阶段，会使用一些小规模模型进行快速预估打分，将上千条内容在短时间内过滤为几百条。<br>
+<p>每次召回通常会返回上千条内容（具体数字看具体场景），如果将每条内容都放到大规模模型中进行预估，这会导致推荐的延迟性。因此，会将排序阶段分为粗排和精排两部分。
+首先，在粗排阶段，会使用一些小规模模型进行快速预估打分，将上千条内容在短时间内过滤为几百条。
 然后，在精排阶段，这几百条item会通过一个较大的模型进行预估。这些item特征会组成模型的输入，通过前向传播得到一个输出。比如输出一个分值，该分值表示用户观看该内容后会使得使用时长得到增长。</p>
 <p>粗排筛选+精排打分的搭配，可以使得排序结果在毫秒内返回。</p>
-<h3 id="重排-混排-系统">重排（混排）系统</h3>
+<h3 id="重排混排系统">重排（混排）系统</h3>
 <p>推荐系统需要考虑推荐内容的多样性，并且需要满足一定的运营能力。为了降低推荐内容的相似性，需要有一定的打散模型，能够在精排阶段选出的几百条内容中得到使得整体收益最大的一个排列组合。</p>
-<p>具体做法有：通过规则系统（比如选取top k个item）和精排打分作为剪枝依据，使用dfs遍历每一种可能的排序组合形式。将每一种排序组合作为输入，通过一个重排模型，得到对该排序list的打分。最终选择得分最高的一个list进行返回。</p>
+<p>具体做法有：通过规则系统（比如选取top
+k个item）和精排打分作为剪枝依据，使用dfs遍历每一种可能的排序组合形式。将每一种排序组合作为输入，通过一个重排模型，得到对该排序list的打分。最终选择得分最高的一个list进行返回。</p>
 <p>混排：根据一定的规则，插入广告等，然后遍历所有可能的排序方式（比如广告数量、插入顺序等），最后返回得分最高的一个排序方式。</p>
 <p>总之，先进行多样性抽样（MMR,DPP等），从几百篇中选取几十篇。然后用规则打散相似笔记。再插入广告、运营推广等内容，根据生态要求调整排序。</p>
 <h3 id="消重系统">消重系统</h3>
 <p>用户在一段时间内不能看到相同的内容，因此需要一个系统记录当前用户已浏览过的内容，并在召回后将其过滤掉。进而保证了送入排序阶段的内容都是用户没有浏览过的新内容。</p>
 <h2 id="召回">召回</h2>
-<h3 id="基于物品等协同过滤-itemcf">基于物品等协同过滤（ItemCF)</h3>
-<p>ItemCF: 在给用户推荐item时，综合考虑新item与用户已使用item之间的相似度以及用户对已使用item的喜好程度。</p>
-<p>已知用户user对物品 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>t</mi><mi>e</mi><msub><mi>m</mi><mi>j</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">item_j(j = 1,...,n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的喜好打分 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>i</mi><mi>k</mi><mi>e</mi><mo stretchy="false">(</mo><mi>u</mi><mi>s</mi><mi>e</mi><mi>r</mi><mo separator="true">,</mo><mi>i</mi><mi>t</mi><mi>e</mi><msub><mi>m</mi><mi>j</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">like(user, item_j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，并且可以计算得到新的item与 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>t</mi><mi>e</mi><msub><mi>m</mi><mi>j</mi></msub><mo stretchy="false">(</mo><mi>j</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">item_j(j = 1,...,n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 之间的相似度 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>i</mi><mi>m</mi><mo stretchy="false">(</mo><mi>i</mi><mi>t</mi><mi>e</mi><msub><mi>m</mi><mi>j</mi></msub><mo separator="true">,</mo><mi>i</mi><mi>t</mi><mi>e</mi><mi>m</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">sim(item_j, item)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span>，简单的预估计算公式为：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mi>j</mi></munder><mi>l</mi><mi>i</mi><mi>k</mi><mi>e</mi><mo stretchy="false">(</mo><mi>u</mi><mi>s</mi><mi>e</mi><mi>r</mi><mo separator="true">,</mo><mi>i</mi><mi>t</mi><mi>e</mi><msub><mi>m</mi><mi>j</mi></msub><mo stretchy="false">)</mo><mo>×</mo><mi>s</mi><mi>i</mi><mi>m</mi><mo stretchy="false">(</mo><mi>i</mi><mi>t</mi><mi>e</mi><msub><mi>m</mi><mi>j</mi></msub><mo separator="true">,</mo><mi>i</mi><mi>t</mi><mi>e</mi><mi>m</mi><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\sum_j like(user, item_j) \times sim(item_j, item).
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.463782em;vertical-align:-1.413777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.8723309999999997em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.413777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">e</span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span></p>
+<h3 id="基于物品等协同过滤itemcf">基于物品等协同过滤（ItemCF)</h3>
+<p>ItemCF:
+在给用户推荐item时，综合考虑新item与用户已使用item之间的相似度以及用户对已使用item的喜好程度。</p>
+<p>已知用户user对物品 <span class="math inline">\(item_j(j =
+1,...,n)\)</span>的喜好打分 <span class="math inline">\(like(user,
+item_j)\)</span>，并且可以计算得到新的item与 <span class="math inline">\(item_j(j = 1,...,n)\)</span> 之间的相似度 <span class="math inline">\(sim(item_j, item)\)</span>，简单的预估计算公式为：
+<span class="math display">\[
+\sum_j like(user, item_j) \times sim(item_j, item).
+\]</span></p>
 <p>关于物品的相似度，可以根据受众用户相似度（交集）等计算得到。</p>
 <p>事先离线计算（需要维护两个索引，计算量大）：</p>
-<ol>
-<li>
-<p>用户-物品索引：记录每个用户最近点击、交互过的物品id（格式为：用户-物品id+喜好分数列表）。对于给定的任意用户id,可以找到他最近感兴趣的物品列表。</p>
-</li>
-<li>
-<p>物品-物品索引：计算物品之间两两相似度，对于任意物品，可以快速返回与它最相似的k个物品。格式为：物品-物品id+相似度列表）</p>
-</li>
+<ol type="1">
+<li><p>用户-物品索引：记录每个用户最近点击、交互过的物品id（格式为：用户-物品id+喜好分数列表）。对于给定的任意用户id,可以找到他最近感兴趣的物品列表。</p></li>
+<li><p>物品-物品索引：计算物品之间两两相似度，对于任意物品，可以快速返回与它最相似的k个物品。格式为：物品-物品id+相似度列表）</p></li>
 </ol>
 <p>线上召回（利用两个索引，计算量相对较小）：</p>
-<ol>
-<li>
-<p>对于给定的用户id，通过用户-物品索引，找到用户近似感兴趣的物品列表。</p>
-</li>
-<li>
-<p>对于列表中的每个物品，通过物品-物品的索引，找到top-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>相似物品。</p>
-</li>
-<li>
-<p>假设列表中有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个物品，那么取回的相似物品最多有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">nk</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>个，通过上述公式预估用户对物品的兴趣分数。</p>
-</li>
-<li>
-<p>返回分数最高的top-<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>的物品，作为推荐结果。</p>
-</li>
+<ol type="1">
+<li><p>对于给定的用户id，通过用户-物品索引，找到用户近似感兴趣的物品列表。</p></li>
+<li><p>对于列表中的每个物品，通过物品-物品的索引，找到top-<span class="math inline">\(k\)</span>相似物品。</p></li>
+<li><p>假设列表中有<span class="math inline">\(n\)</span>个物品，那么取回的相似物品最多有 <span class="math inline">\(nk\)</span>个，通过上述公式预估用户对物品的兴趣分数。</p></li>
+<li><p>返回分数最高的top-<span class="math inline">\(k\)</span>的物品，作为推荐结果。</p></li>
 </ol>
 <h3 id="swing-模型">Swing 模型</h3>
-<h3 id="基于用户的协同过滤-usercf">基于用户的协同过滤（UserCF)</h3>
+<h3 id="基于用户的协同过滤usercf">基于用户的协同过滤（UserCF)</h3>
 <h3 id="离散特征处理">离散特征处理</h3>
-<h3 id="矩阵补充-最近邻查找">矩阵补充、最近邻查找</h3>
+<h3 id="矩阵补充最近邻查找">矩阵补充、最近邻查找</h3>
 <h3 id="双塔模型">双塔模型</h3>
-<h3 id="地理位置召回-位置召回-缓存召回">地理位置召回、位置召回、缓存召回</h3>
+<h3 id="地理位置召回位置召回缓存召回">地理位置召回、位置召回、缓存召回</h3>
 <h2 id="实时样本拼接">实时样本拼接</h2>
 <p>样本拼接是用来生成模型必须的样本数据集，供实时和离线训练/验证使用。对于推荐来说，需要将用户对item的发生事件进行上报（埋点），用于数据分析和样本拼接。</p>
 <p>埋点事件：客户端或者服务端在特定时机上报特定参数组成的结构化数据，通常包括事件以及事件的属性，即用户-item-事件。</p>
 <p>用户行为：客户端上报的埋点数据经过数据平台转化为用户行为日志，通常称之为useraction。埋点事件和用户行为是多对多的关系。</p>
 <!-- ![](./VLM/blip2.jpg) -->
-<h1>Reference</h1>
+<h1 id="reference">Reference</h1>
 <p><a target="_blank" rel="noopener" href="https://hardcore.feishu.cn/wiki/wikcn9i4sfdTkxVX0DYrMMbNBpd">硬核课堂</a></p>
  
       <!-- reward -->
