@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">52.1k</span>
+            <span class="post-count">54.4k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">193 min</span>
+            <span class="post-count">202 min</span>
         </span>
     </span>
 </div>
@@ -1626,6 +1626,137 @@ shift、跨层特征融合和与主模型紧耦合的组合。局限也比较清
 在训练阶段带来额外计算成本；推理加速模式虽然能 <span class="math inline">\(2\times\)</span> 并行生成，但更高阶 MCP
 直接用于多步跳跃可能积累漂移。因此 Next Forcing 更像是对 WAM
 训练目标的一次重要修正：把“预测下一帧/下一段”的局部监督，扩展成要求模型理解多尺度未来动态的长期监督。</p>
+<h2 id="native-video-action-pretraining-for-generalizable-robot-control"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2607.08639">Native Video-Action Pretraining
+for Generalizable Robot Control</a></h2>
+<p>这篇论文提出的是 <strong>LingBot-VA
+2.0</strong>，它不是简单把一个通用视频生成模型继续微调成机器人策略，而是试图从表示、训练目标、模型结构到部署路径都“原生地”为
+robot control 设计 video-action foundation model。作者认为，第一代
+video-action / WAM
+往往继承了通用视频生成器的两个核心组件：以像素重建为目标的 VAE
+latent，以及带双向注意力的视频扩散
+backbone。这样做在视觉生成上合理，但对机器人控制有三个问题：latent
+更偏外观而不是语义和动力学，动作模块是后接进去的，导致状态和动作空间对齐不足；视频
+token
+和迭代去噪使闭环控制太慢；通用视频预训练虽然数据大，但目标并不显式学习“动作如何改变世界”。LingBot-VA
+2.0
+的主张是：机器人世界模型不应该只是把视频生成器改造成策略，而应该直接在共享的
+semantic video-action latent space 上学习因果轨迹动力学。</p>
+<p><img src="/2026/05/01/World_Action_Models/lingbot_va2_overview.png"></p>
+<p>论文的第一步是 semantic visual-action tokenizer。普通 VAE
+只压缩和重建视频，容易把容量花在纹理、光照和背景细节上；LingBot-VA 2.0
+在重建目标之外加入语义对齐和 latent action 学习。视觉 tokenizer 用 ViT
+autoencoder 编码视频，其中第一帧按 <span class="math inline">\(16\times16\)</span> spatial patches 编码，后续帧按
+<span class="math inline">\(4\times16\times16\)</span> spatiotemporal
+tubelets 编码，并使用帧内 full attention、跨帧 causal
+attention。语义对齐部分用冻结的 Perception Encoder 作为 teacher，把
+tokenizer latent 通过投影后与 foundation-model feature 对齐。更重要的是
+latent action tokenizer：冻结视觉 tokenizer 后，训练一个 inverse
+dynamics model <span class="math inline">\(q_\phi\)</span> 和 forward
+dynamics model <span class="math inline">\(f_\psi\)</span>，从连续视觉
+latents 中抽取瓶颈变量 <span class="math inline">\(\ell_t=q_\phi(z_t,z_{t+1})\)</span>，再用 <span class="math inline">\(\ell_t\)</span> 预测从 <span class="math inline">\(z_t\)</span> 到 <span class="math inline">\(z_{t+1}\)</span> 的 transport map 和 residual，即
+<span class="math inline">\(\hat{z}_{t+1}=f_\psi(z_t,\ell_t)=K_t
+z_t+\delta_t\)</span>。由于 <span class="math inline">\(\ell_t\)</span>
+维度远小于视觉
+latent，它不能复制完整未来状态，只能编码控制相关的状态变化，因此为后续
+video-action model 提供了无动作标签视频也能学习的 action-like transition
+token。</p>
+<p><img src="/2026/05/01/World_Action_Models/lingbot_va2_tokenizer.png"></p>
+<p>用户关心的“连续低层动作如何明确组成 action chunk”，论文在 2.1.2
+里给出了非常直接的定义。视频 tokenizer
+会对时间做下采样，假设下采样因子为 <span class="math inline">\(f_t\)</span>，那么原始控制频率下的低层动作序列
+<span class="math inline">\(u_{0:f_tN-1}\)</span> 比视觉 latent
+序列更密。模型把相邻两个视觉 latents <span class="math inline">\(z_t\rightarrow z_{t+1}\)</span>
+之间发生的所有低层动作合并成一个动作块：</p>
+<p><span class="math display">\[
+a_t = u_{t f_t:(t+1)f_t-1},\qquad t=0,\ldots,N-1.
+\]</span></p>
+<p>也就是说，<span class="math inline">\(a_t\)</span> 不是单个 low-level
+control command，而是与一次 video latent transition
+对齐的一段连续控制命令。这样做的意义是把机器人动作时间尺度和视频世界模型时间尺度对齐：视觉流负责预测下一个
+latent state <span class="math inline">\(z_{t+1}\)</span>，动作流负责根据历史 <span class="math inline">\(z_{\le t},a_{&lt;t}\)</span> 和预测到的 <span class="math inline">\(z_{t+1}\)</span> 通过 inverse dynamics
+解码出对应的 action chunk <span class="math inline">\(a_t\)</span>。因此
+LingBot-VA 2.0 的因果 video-action 分解可以理解成：先预测“世界 latent
+下一步会怎么变”，再预测“要实现这个 latent
+transition，需要执行哪一段低层动作”。这比把动作当作独立 token
+拼到视频生成器里更清楚地把 action chunk 绑定到了物理状态转移上。</p>
+<p><img src="/2026/05/01/World_Action_Models/lingbot_va2_mcp.png"></p>
+<p>在训练目标上，LingBot-VA 2.0 继承并扩展了 Next Forcing 的 multi-chunk
+prediction（MCP）思想。标准 teacher forcing 只监督当前 next
+chunk，即学习 <span class="math inline">\(p_\theta(z_{t+1}\mid z_{\le
+t},a_{&lt;t})\)</span>；在高帧率视频里，相邻 chunks
+往往太相似，模型很容易靠复制外观降低
+loss，而不真正理解动作导致的轨迹变化。MCP
+则要求模型从同一个历史上下文预测未来 <span class="math inline">\(K\)</span> 个 latent chunks：</p>
+<p><span class="math display">\[
+p_\theta(z_{t+1:t+K}\mid z_{\le t},a_{&lt;t})\approx
+\prod_{k=1}^{K}p_{\theta,k}(z_{t+k}\mid h_t^{(k-1)}),\qquad
+h_t^{(0)}=f_\theta(z_{\le t},a_{&lt;t}).
+\]</span></p>
+<p>这里 <span class="math inline">\(h_t^{(k-1)}\)</span>
+不是干净未来观测，也不是已经预测出的未来 latent，而是 MCP
+模块链内部传递的 feature state。论文使用 <span class="math inline">\(K=3\)</span>，即 next<span class="math inline">\(^1\)</span>、next<span class="math inline">\(^2\)</span>、next<span class="math inline">\(^3\)</span> 三个未来 chunks；每个 horizon
+都用和主模型一致的 flow matching loss 训练，但输入是时间平移后的 noisy
+future latent target，并且使用更大的 timestep
+shift，让辅助模块不能只依赖自身 noisy input，而必须依赖主 DiT
+的表示。三个 MCP modules 形成 causal
+chain：第一个从主模型多个中间层融合特征，后续模块还条件于前一个 MCP
+模块输出，让近未来预测成为更远未来预测的中间表征。这样，未来 chunk
+的去噪梯度会回流到主干，迫使主干 latent
+表示组织成“轨迹级动力学”而不是“局部外观连续性”。MCP
+本身只作用在视觉流，但更有预测性的视觉 latent 会通过共享 video-action
+attention 和 inverse-dynamics pathway 改善动作 chunk 解码。</p>
+<p>架构上，LingBot-VA 2.0 采用双层系统：高层 VLM planner 以约 <strong>2
+Hz</strong> 运行，读取任务目标和稀疏近期观测，输出结构化 subtask
+context；低层 video-action policy 在每个 action-chunk 边界读取最新
+context，并用 causal DiT 同时建模未来视觉 latents 和 action
+chunks。为了提高容量和效率，视频流使用 sparse Mixture-of-Experts
+DiT，论文报告 MoE-13B-A1.9B 与 Dense-5B 在相同 wall-clock 训练时间下
+loss 接近，说明稀疏专家扩容没有明显优化惩罚。推理部署则使用 Foresight
+Reasoning：机器人执行当前动作 chunk 的同时，模型异步预测后续 visual
+latents 和动作；为了避免 stale imagination，下一次 rollout
+会用最新真实观测通过 learned forward dynamics 重新 grounding。这里的
+re-grounding 可以理解成“先抢跑、再校正”：执行 <span class="math inline">\(a_t\)</span> 时，模型先把 <span class="math inline">\(a_t\)</span> 追加到当前真实历史的 KV cache
+中，临时想象一个 <span class="math inline">\(\hat{z}_{t+1}\)</span>
+并提前生成下一段动作；等 <span class="math inline">\(a_t\)</span>
+真正执行完，相机返回真实观测 <span class="math inline">\(o_{t+1}\)</span> 后，系统把它编码成真实 latent
+<span class="math inline">\(z_{t+1}\)</span>，并在 KV cache 里用 <span class="math inline">\(z_{t+1}\)</span> 覆盖刚才想象的 <span class="math inline">\(\hat{z}_{t+1}\)</span>。这样下一轮预测从真实反馈校正后的历史继续，而不是沿着未验证的想象轨迹越滚越偏。再配合
+consistency distillation、FP8/TensorRT 编译、长序列 attention
+优化和运行时开销削减，论文把每 chunk 推理时间从 <strong>927 ms</strong>
+降到 <strong>142 ms</strong>，异步控制频率从 <strong>35 Hz</strong>
+提升到 <strong>225 Hz</strong>。</p>
+<p>实验上，LingBot-VA 2.0 在真实机器人和 RoboTwin 2.0 上验证。RoboTwin
+2.0 使用 50 个双臂任务，训练数据为 clean scenes 的
+<strong>2,500</strong> 条示范和 randomized scenes 的
+<strong>25,000</strong> 条示范；LingBot-VA 2.0 在 Clean / Randomized /
+Average 上达到 <strong>93.8 / 93.4 / 93.6</strong>，高于 LingBot-VA 的
+<strong>92.9 / 91.6 / 92.2</strong>，也明显高于 <span class="math inline">\(\pi_{0.5}\)</span> 的 <strong>82.7 / 76.8 /
+79.8</strong> 和 Motus 的 <strong>88.7 / 87.0 /
+87.9</strong>。真实部署包含 Fruit Sorting、Pen Collection、Drawer
+Tidying、Plate Handover 四个多阶段任务，每个任务只收集
+<strong>20</strong> 条遥操作示范并训练单一多任务策略，论文报告
+LingBot-VA 2.0 在 success rate 和 task progress 上均优于 <span class="math inline">\(\pi_{0.5}\)</span> 与原
+LingBot-VA。消融也支持核心设计：用 semantic visual-action tokenizer 替换
+WAN2.2 VAE 后，1.3B 模型在 RoboTwin 50 tasks 上从 Easy / Hard
+<strong>78.0 / 76.0</strong> 提升到 <strong>86.6 / 83.1</strong>；开启
+MCP 后，在 12 fps 和 50 fps 都收敛更快、最终成功率更高，50 fps
+randomized 设置下 5k steps 已比 baseline 高 <strong>29.7</strong>
+个百分点，并用 <strong>20k</strong> steps 达到 baseline
+<strong>45k</strong> steps 的精度，相当于 <strong>2.3×</strong>
+训练加速。</p>
+<p>从研究定位看，LingBot-VA 2.0 和 Next Forcing 的关系很紧：Next Forcing
+证明多未来 chunk 监督能缓解 appearance shortcut，而 LingBot-VA 2.0
+把这个思想放进完整的原生 video-action foundation model 中，并进一步补上
+semantic visual-action tokenizer、latent action tokenization、MoE causal
+DiT、层级 planner 和实时异步部署。它的关键贡献不是单个 MCP
+模块，而是把“视频 latent transition”和“动作
+chunk”在表示层、训练层和推理层都绑定起来：状态变化由 <span class="math inline">\(z_t\rightarrow z_{t+1}\)</span>
+表示，低层动作由对应区间 <span class="math inline">\(a_t\)</span>
+表示，多步未来由 MCP 监督为轨迹级动力学。局限也很清楚：planner 和 policy
+仍是分开训练、通过固定接口耦合；latent action 来自 passive
+video，自身还没有交互或强化学习信号；同时大规模预训练、MoE
+推理和系统级加速带来较高工程复杂度。因此这篇工作更像是 WAM
+体系化工程的一步：把世界模型从“能预测视频”推进到“用可扩展预训练学习动作相关的因果
+latent trajectory”。</p>
 <h2 id="wimle-uncertaintyaware-world-models-with-imle-for-sampleefficient-continuous-control"><a target="_blank" rel="noopener" href="https://openreview.net/pdf?id=mzLOnTb3WH">WIMLE: Uncertainty‑Aware
 World Models with IMLE for Sample‑Efficient Continuous Control</a></h2>
 <p>为什么基于模型的强化学习（MBRL）在历史上一直很难超越强大的无模型（Model-free）基线算法。其核心痛点在于“复合展开误差”，即
